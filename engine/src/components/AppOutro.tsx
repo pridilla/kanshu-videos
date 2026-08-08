@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, spring, interpolate, useCurrentFrame, useVideoConfig, Audio, staticFile, Img } from 'remotion';
+import { AbsoluteFill, spring, interpolate, Easing, useCurrentFrame, useVideoConfig, Audio, staticFile, Img } from 'remotion';
 import { COLORS, FONTS, SPRING_OVERSHOOT, SPRING_GENTLE, SPRING_BOUNCE, SPRING_SMOOTH } from '../shared/constants';
 import { FloatingParticles } from './Icons';
 
@@ -21,6 +21,19 @@ const GooglePlayIcon: React.FC<{ size?: number }> = ({ size = 24 }) => (
     <path fill="#FFC107" d="M3.609 22.186L13.792 12l3.364 3.364-12.3 7.722a2.39 2.39 0 0 1-1.247-.899z" />
   </svg>
 );
+
+// Dynamic 4-Seed Paper Grain Texture Component
+const PaperGrainTexture: React.FC<{ seed: number; opacity?: number }> = ({ seed, opacity = 0.045 }) => {
+  return (
+    <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', opacity, zIndex: 2 }}>
+      <filter id={`paper-noise-${seed}`}>
+        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" seed={seed} />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#paper-noise-${seed})`} />
+    </svg>
+  );
+};
 
 // Realistic Touch Ripple Gesture Indicator
 const TouchGesture: React.FC<{ progress: number }> = ({ progress }) => {
@@ -80,6 +93,17 @@ export const KanshuAppOutro: React.FC<{
 }> = ({ showAudio = true, audioSrc = 'kanshu_outro_elevenlabs.mp3' }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+
+  // ── 1. 4 DIFFERENT PAPER TEXTURES CYCLING EVERY 0.5s (30 FRAMES) ──
+  const paperSeeds = [14, 48, 82, 126];
+  const activeSeedIndex = Math.floor(frame / 30) % 4;
+  const activePaperSeed = paperSeeds[activeSeedIndex];
+
+  // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID ──
+  const gridIn = interpolate(frame, [0, 45], [0, 1], { easing: Easing.quad, extrapolateRight: 'clamp' });
+  const gridOut = interpolate(frame, [380, 425], [0, 1], { easing: Easing.quad, extrapolateLeft: 'clamp' });
+  const gridOpacity = gridIn * (1 - gridOut) * 0.08;
+  const gridOffsetY = interpolate(gridIn, [0, 1], [40, 0]) + interpolate(gridOut, [0, 1], [0, -40]);
 
   // ── SPRINGS & ANIMATIONS ──
   const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
@@ -211,6 +235,23 @@ export const KanshuAppOutro: React.FC<{
         fontFamily: FONTS.pinyin,
       }}
     >
+      {/* 1. DISCRETE 4-SEED PAPER TEXTURE OVERLAY (CYCLES EVERY 0.5 SECONDS) */}
+      <PaperGrainTexture seed={activePaperSeed} opacity={0.042} />
+
+      {/* 2. SUBTLE QUADRATIC MOVING BACKGROUND GRID */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: -40,
+          backgroundImage: `linear-gradient(rgba(255, 111, 89, 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 111, 89, 0.14) 1px, transparent 1px)`,
+          backgroundSize: '48px 48px',
+          opacity: gridOpacity,
+          transform: `translateY(${gridOffsetY}px)`,
+          pointerEvents: 'none',
+          zIndex: 3,
+        }}
+      />
+
       {/* Warm ambient background floating particles */}
       <FloatingParticles count={14} color="#FF6F59" />
 
