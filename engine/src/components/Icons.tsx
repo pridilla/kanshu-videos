@@ -1,5 +1,5 @@
 import React from 'react';
-import { interpolate, spring, useCurrentFrame } from 'remotion';
+import { interpolate, spring, useCurrentFrame, random } from 'remotion';
 import { COLORS, FPS, SPRING_OVERSHOOT, SPRING_GENTLE } from '../shared/constants';
 
 // ────────────────────────────────────────────────────────────
@@ -335,21 +335,28 @@ export const BounceArrow: React.FC<{ time: number }> = ({ time }) => {
   );
 };
 
-// Floating particles (improved)
+// Floating particles (100% deterministic)
 export const FloatingParticles: React.FC<{ count?: number; color?: string }> = ({ count = 12, color = '#E2E8F0' }) => {
   const frame = useCurrentFrame();
   const particles = React.useMemo(() => {
-    return Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 1080,
-      y: Math.random() * 1920,
-      size: 3 + Math.random() * 6,
-      speed: 0.2 + Math.random() * 0.5,
-      drift: (Math.random() - 0.5) * 1.5,
-      phase: Math.random() * Math.PI * 2,
-      opacityBase: 0.15 + Math.random() * 0.15,
-    }));
-  }, []);
+    return Array.from({ length: count }, (_, i) => {
+      const seedX = random(`particle-x-${i}`);
+      const seedY = random(`particle-y-${i}`);
+      const seedSpeed = random(`particle-speed-${i}`);
+      const seedDrift = random(`particle-drift-${i}`);
+      const seedPhase = random(`particle-phase-${i}`);
+      return {
+        id: i,
+        x: seedX * 1080,
+        y: seedY * 1920,
+        size: 3 + seedSpeed * 6,
+        speed: 0.2 + seedSpeed * 0.5,
+        drift: (seedDrift - 0.5) * 1.5,
+        phase: seedPhase * Math.PI * 2,
+        opacityBase: 0.15 + seedSpeed * 0.15,
+      };
+    });
+  }, [count]);
 
   return (
     <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>

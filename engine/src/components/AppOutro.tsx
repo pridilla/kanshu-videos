@@ -22,16 +22,18 @@ const GooglePlayIcon: React.FC<{ size?: number }> = ({ size = 24 }) => (
   </svg>
 );
 
-// Dynamic 4-Seed Paper Grain Texture Component with Strong Visible Noise
-const PaperGrainTexture: React.FC<{ seed: number; opacity?: number }> = ({ seed, opacity = 0.18 }) => {
+// Dynamic 4-Seed Paper Grain Texture Component (100% Highly Visible Tactile Paper Grain)
+const PaperGrainTexture: React.FC<{ seed: number; opacity?: number }> = ({ seed, opacity = 0.35 }) => {
   return (
-    <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', opacity, zIndex: 2 }}>
-      <filter id={`paper-noise-${seed}`}>
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" seed={seed} />
-        <feColorMatrix type="matrix" values="0.3 0.3 0.3 0 0  0.3 0.3 0.3 0 0  0.3 0.3 0.3 0 0  0 0 0 1 0" />
-      </filter>
-      <rect width="100%" height="100%" filter={`url(#paper-noise-${seed})`} />
-    </svg>
+    <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', mixBlendMode: 'multiply', opacity, zIndex: 2 }}>
+      <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
+        <filter id={`paper-noise-${seed}`}>
+          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" seed={seed} />
+          <feColorMatrix type="matrix" values="0.4 0 0 0 0.25   0 0.4 0 0 0.25   0 0 0.4 0 0.25  0 0 0 1 0" />
+        </filter>
+        <rect width="100%" height="100%" filter={`url(#paper-noise-${seed})`} />
+      </svg>
+    </div>
   );
 };
 
@@ -99,7 +101,7 @@ export const KanshuAppOutro: React.FC<{
   const activeSeedIndex = Math.floor(frame / 30) % 4;
   const activePaperSeed = paperSeeds[activeSeedIndex];
 
-  // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID (HIGHLY VISIBLE) ──
+  // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID ──
   const gridIn = interpolate(frame, [0, 45], [0, 1], { easing: Easing.quad, extrapolateRight: 'clamp' });
   const gridOut = interpolate(frame, [380, 425], [0, 1], { easing: Easing.quad, extrapolateLeft: 'clamp' });
   const gridOpacity = gridIn * (1 - gridOut) * 0.28;
@@ -235,8 +237,8 @@ export const KanshuAppOutro: React.FC<{
         fontFamily: FONTS.pinyin,
       }}
     >
-      {/* 1. DISCRETE 4-SEED PAPER TEXTURE OVERLAY (CYCLES EVERY 0.5 SECONDS WITH VISIBLE NOISE) */}
-      <PaperGrainTexture seed={activePaperSeed} opacity={0.18} />
+      {/* 1. DISCRETE 4-SEED PAPER TEXTURE OVERLAY (CYCLES EVERY 0.5 SECONDS WITH HIGH VISIBILITY MULTIPLY NOISE) */}
+      <PaperGrainTexture seed={activePaperSeed} opacity={0.35} />
 
       {/* 2. SUBTLE QUADRATIC MOVING BACKGROUND GRID (HIGHLY VISIBLE MESH SLIDE) */}
       <div
@@ -252,7 +254,7 @@ export const KanshuAppOutro: React.FC<{
         }}
       />
 
-      {/* Warm ambient background floating particles */}
+      {/* Warm ambient background floating particles (100% deterministic) */}
       <FloatingParticles count={14} color="#FF6F59" />
 
       {/* ──────────────────────────────────────────────────────────── */}
