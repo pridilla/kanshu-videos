@@ -22,21 +22,6 @@ const GooglePlayIcon: React.FC<{ size?: number }> = ({ size = 24 }) => (
   </svg>
 );
 
-// Dynamic 4-Seed Paper Grain Texture Component (100% Highly Visible Tactile Paper Grain)
-const PaperGrainTexture: React.FC<{ seed: number; opacity?: number }> = ({ seed, opacity = 0.35 }) => {
-  return (
-    <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', mixBlendMode: 'multiply', opacity, zIndex: 2 }}>
-      <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0 }}>
-        <filter id={`paper-noise-${seed}`}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" seed={seed} />
-          <feColorMatrix type="matrix" values="0.4 0 0 0 0.25   0 0.4 0 0 0.25   0 0 0.4 0 0.25  0 0 0 1 0" />
-        </filter>
-        <rect width="100%" height="100%" filter={`url(#paper-noise-${seed})`} />
-      </svg>
-    </div>
-  );
-};
-
 // Realistic Touch Ripple Gesture Indicator
 const TouchGesture: React.FC<{ progress: number }> = ({ progress }) => {
   const scale = interpolate(progress, [0, 0.4, 0.55, 0.75, 1], [1.3, 1.0, 0.85, 1.1, 1.0]);
@@ -96,10 +81,8 @@ export const KanshuAppOutro: React.FC<{
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // ── 1. 4 DIFFERENT PAPER TEXTURES CYCLING EVERY 0.5s (30 FRAMES) ──
-  const paperSeeds = [14, 48, 82, 126];
-  const activeSeedIndex = Math.floor(frame / 30) % 4;
-  const activePaperSeed = paperSeeds[activeSeedIndex];
+  // ── 1. 4 REAL PNG PAPER TEXTURES CYCLING EVERY 0.5s (30 FRAMES) ──
+  const activePaperIndex = Math.floor(frame / 30) % 4;
 
   // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID ──
   const gridIn = interpolate(frame, [0, 45], [0, 1], { easing: Easing.quad, extrapolateRight: 'clamp' });
@@ -237,8 +220,21 @@ export const KanshuAppOutro: React.FC<{
         fontFamily: FONTS.pinyin,
       }}
     >
-      {/* 1. DISCRETE 4-SEED PAPER TEXTURE OVERLAY (CYCLES EVERY 0.5 SECONDS WITH HIGH VISIBILITY MULTIPLY NOISE) */}
-      <PaperGrainTexture seed={activePaperSeed} opacity={0.35} />
+      {/* 1. DISCRETE 4 REAL PNG PAPER TEXTURES CYCLING EVERY 0.5 SECONDS (100% VISIBLE MULTIPLY TEXTURE) */}
+      <Img
+        src={staticFile(`paper_grain_${activePaperIndex}.png`)}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          mixBlendMode: 'multiply',
+          opacity: 0.38,
+          pointerEvents: 'none',
+          zIndex: 2,
+        }}
+      />
 
       {/* 2. SUBTLE QUADRATIC MOVING BACKGROUND GRID (HIGHLY VISIBLE MESH SLIDE) */}
       <div
