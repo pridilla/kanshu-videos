@@ -22,13 +22,13 @@ const GooglePlayIcon: React.FC<{ size?: number }> = ({ size = 24 }) => (
   </svg>
 );
 
-// Dynamic 4-Seed Paper Grain Texture Component
-const PaperGrainTexture: React.FC<{ seed: number; opacity?: number }> = ({ seed, opacity = 0.045 }) => {
+// Dynamic 4-Seed Paper Grain Texture Component with Strong Visible Noise
+const PaperGrainTexture: React.FC<{ seed: number; opacity?: number }> = ({ seed, opacity = 0.18 }) => {
   return (
     <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', opacity, zIndex: 2 }}>
       <filter id={`paper-noise-${seed}`}>
-        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" stitchTiles="stitch" seed={seed} />
-        <feColorMatrix type="saturate" values="0" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="4" stitchTiles="stitch" seed={seed} />
+        <feColorMatrix type="matrix" values="0.3 0.3 0.3 0 0  0.3 0.3 0.3 0 0  0.3 0.3 0.3 0 0  0 0 0 1 0" />
       </filter>
       <rect width="100%" height="100%" filter={`url(#paper-noise-${seed})`} />
     </svg>
@@ -99,11 +99,11 @@ export const KanshuAppOutro: React.FC<{
   const activeSeedIndex = Math.floor(frame / 30) % 4;
   const activePaperSeed = paperSeeds[activeSeedIndex];
 
-  // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID ──
+  // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID (HIGHLY VISIBLE) ──
   const gridIn = interpolate(frame, [0, 45], [0, 1], { easing: Easing.quad, extrapolateRight: 'clamp' });
   const gridOut = interpolate(frame, [380, 425], [0, 1], { easing: Easing.quad, extrapolateLeft: 'clamp' });
-  const gridOpacity = gridIn * (1 - gridOut) * 0.08;
-  const gridOffsetY = interpolate(gridIn, [0, 1], [40, 0]) + interpolate(gridOut, [0, 1], [0, -40]);
+  const gridOpacity = gridIn * (1 - gridOut) * 0.28;
+  const gridOffsetY = interpolate(gridIn, [0, 1], [120, 0]) + interpolate(gridOut, [0, 1], [0, -120]);
 
   // ── SPRINGS & ANIMATIONS ──
   const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
@@ -228,23 +228,23 @@ export const KanshuAppOutro: React.FC<{
     <AbsoluteFill
       style={{
         backgroundColor: '#FAF9F6', // Warm off-white paper canvas from brand.md
-        backgroundImage: 'radial-gradient(circle at 50% 16%, rgba(255, 111, 89, 0.09) 0%, rgba(250, 249, 246, 1) 75%)',
+        backgroundImage: 'radial-gradient(circle at 50% 16%, rgba(255, 111, 89, 0.12) 0%, rgba(250, 249, 246, 1) 75%)',
         width: 1080,
         height: 1920,
         overflow: 'hidden',
         fontFamily: FONTS.pinyin,
       }}
     >
-      {/* 1. DISCRETE 4-SEED PAPER TEXTURE OVERLAY (CYCLES EVERY 0.5 SECONDS) */}
-      <PaperGrainTexture seed={activePaperSeed} opacity={0.042} />
+      {/* 1. DISCRETE 4-SEED PAPER TEXTURE OVERLAY (CYCLES EVERY 0.5 SECONDS WITH VISIBLE NOISE) */}
+      <PaperGrainTexture seed={activePaperSeed} opacity={0.18} />
 
-      {/* 2. SUBTLE QUADRATIC MOVING BACKGROUND GRID */}
+      {/* 2. SUBTLE QUADRATIC MOVING BACKGROUND GRID (HIGHLY VISIBLE MESH SLIDE) */}
       <div
         style={{
           position: 'absolute',
-          inset: -40,
-          backgroundImage: `linear-gradient(rgba(255, 111, 89, 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 111, 89, 0.14) 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
+          inset: -120,
+          backgroundImage: `linear-gradient(rgba(255, 111, 89, 0.35) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255, 111, 89, 0.35) 1.5px, transparent 1.5px)`,
+          backgroundSize: '54px 54px',
           opacity: gridOpacity,
           transform: `translateY(${gridOffsetY}px)`,
           pointerEvents: 'none',
