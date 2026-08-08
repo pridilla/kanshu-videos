@@ -81,10 +81,7 @@ export const KanshuAppOutro: React.FC<{
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // ── 1. 4 REAL PNG PAPER TEXTURES CYCLING EVERY 0.5s (30 FRAMES) ──
-  const activePaperIndex = Math.floor(frame / 30) % 4;
-
-  // ── 2. QUADRATIC IN/OUT MOVING BACKGROUND GRID ──
+  // ── QUADRATIC IN/OUT MOVING BACKGROUND GRID ──
   const gridIn = interpolate(frame, [0, 45], [0, 1], { easing: Easing.quad, extrapolateRight: 'clamp' });
   const gridOut = interpolate(frame, [380, 425], [0, 1], { easing: Easing.quad, extrapolateLeft: 'clamp' });
   const gridOpacity = gridIn * (1 - gridOut) * 0.28;
@@ -220,28 +217,12 @@ export const KanshuAppOutro: React.FC<{
         fontFamily: FONTS.pinyin,
       }}
     >
-      {/* 1. DISCRETE 4 REAL PNG PAPER TEXTURES CYCLING EVERY 0.5 SECONDS (100% VISIBLE MULTIPLY TEXTURE) */}
-      <Img
-        src={staticFile(`paper_grain_${activePaperIndex}.png`)}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          mixBlendMode: 'multiply',
-          opacity: 0.38,
-          pointerEvents: 'none',
-          zIndex: 2,
-        }}
-      />
-
-      {/* 2. SUBTLE QUADRATIC MOVING BACKGROUND GRID (HIGHLY VISIBLE MESH SLIDE) */}
+      {/* SUBTLE QUADRATIC MOVING BACKGROUND GRID (CLEAN MESH SLIDE) */}
       <div
         style={{
           position: 'absolute',
           inset: -120,
-          backgroundImage: `linear-gradient(rgba(255, 111, 89, 0.35) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255, 111, 89, 0.35) 1.5px, transparent 1.5px)`,
+          backgroundImage: `linear-gradient(rgba(255, 111, 89, 0.28) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(255, 111, 89, 0.28) 1.5px, transparent 1.5px)`,
           backgroundSize: '54px 54px',
           opacity: gridOpacity,
           transform: `translateY(${gridOffsetY}px)`,
