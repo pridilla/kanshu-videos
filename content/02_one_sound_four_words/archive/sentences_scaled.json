@@ -1,0 +1,230 @@
+[
+  {
+    "key": "open",
+    "text": "Okay so.",
+    "start": 0.0,
+    "end": 0.81
+  },
+  {
+    "key": "hook",
+    "text": "Chinese does something that just melts English speakers' brains.",
+    "start": 2.92,
+    "end": 8.14
+  },
+  {
+    "key": "setup1",
+    "text": "Same sound.",
+    "start": 8.14,
+    "end": 8.76
+  },
+  {
+    "key": "setup2",
+    "text": "Four completely different words.",
+    "start": 8.94,
+    "end": 11.35
+  },
+  {
+    "key": "setup3",
+    "text": "The only thing that changes is your pitch.",
+    "start": 11.6,
+    "end": 14.93
+  },
+  {
+    "key": "setup4",
+    "text": "Your voice goes up, down, flat, sharp drop \u2014",
+    "start": 15.04,
+    "end": 20.29
+  },
+  {
+    "key": "setup5",
+    "text": "and suddenly you're saying something else entirely.",
+    "start": 20.32,
+    "end": 22.92
+  },
+  {
+    "key": "setup6",
+    "text": "The example everyone uses.",
+    "start": 22.92,
+    "end": 22.92
+  },
+  {
+    "key": "setup7",
+    "text": "The sound is ma.",
+    "start": 22.92,
+    "end": 28.19
+  },
+  {
+    "key": "t1",
+    "text": "First tone.",
+    "start": 28.19,
+    "end": 29.13
+  },
+  {
+    "key": "t1d1",
+    "text": "Keep it high and flat.",
+    "start": 29.29,
+    "end": 31.01
+  },
+  {
+    "key": "t1d2",
+    "text": "Like you're singing.",
+    "start": 31.08,
+    "end": 32.67
+  },
+  {
+    "key": "t1pinyin",
+    "text": ".m\u0101.",
+    "start": 33.0,
+    "end": 34.63
+  },
+  {
+    "key": "t1word",
+    "text": "Mother.",
+    "start": 34.74,
+    "end": 35.48
+  },
+  {
+    "key": "t2",
+    "text": "Second tone.",
+    "start": 35.48,
+    "end": 37.45
+  },
+  {
+    "key": "t2d1",
+    "text": "Start low, rise up.",
+    "start": 37.57,
+    "end": 39.42
+  },
+  {
+    "key": "t2d2",
+    "text": "Like you're surprised.",
+    "start": 39.51,
+    "end": 40.85
+  },
+  {
+    "key": "t2pinyin",
+    "text": ".m\u00e1.",
+    "start": 41.43,
+    "end": 42.73
+  },
+  {
+    "key": "t2word",
+    "text": "Hemp.",
+    "start": 43.95,
+    "end": 45.53
+  },
+  {
+    "key": "t3",
+    "text": "Third tone.",
+    "start": 45.53,
+    "end": 46.85
+  },
+  {
+    "key": "t3d1",
+    "text": "Dip down, come back up.",
+    "start": 47.05,
+    "end": 49.26
+  },
+  {
+    "key": "t3d2",
+    "text": "Like you're really thinking about it.",
+    "start": 49.33,
+    "end": 51.41
+  },
+  {
+    "key": "t3pinyin",
+    "text": ".m\u01ce.",
+    "start": 52.04,
+    "end": 54.05
+  },
+  {
+    "key": "t3word",
+    "text": "Horse.",
+    "start": 54.19,
+    "end": 55.08
+  },
+  {
+    "key": "t4",
+    "text": "Fourth tone.",
+    "start": 55.08,
+    "end": 55.97
+  },
+  {
+    "key": "t4d1",
+    "text": "Drop it hard.",
+    "start": 56.15,
+    "end": 57.5
+  },
+  {
+    "key": "t4d2",
+    "text": "Like you're telling someone to stop.",
+    "start": 57.59,
+    "end": 59.82
+  },
+  {
+    "key": "t4pinyin",
+    "text": ".m\u00e0.",
+    "start": 60.09,
+    "end": 61.16
+  },
+  {
+    "key": "t4word",
+    "text": "Scold.",
+    "start": 61.22,
+    "end": 62.86
+  },
+  {
+    "key": "sum1",
+    "text": "Same sound.",
+    "start": 62.86,
+    "end": 63.4
+  },
+  {
+    "key": "sum2",
+    "text": "Four words.",
+    "start": 63.49,
+    "end": 64.47
+  },
+  {
+    "key": "sum3",
+    "text": "Wrong pitch, wrong word.",
+    "start": 67.1,
+    "end": 68.94
+  },
+  {
+    "key": "sum4",
+    "text": "That's the whole thing.",
+    "start": 69.0,
+    "end": 70.41
+  },
+  {
+    "key": "wall1",
+    "text": "Every learner gets caught by this.",
+    "start": 70.41,
+    "end": 72.53
+  },
+  {
+    "key": "wall2",
+    "text": "You can know the character cold and still mess it up.",
+    "start": 72.68,
+    "end": 75.74
+  },
+  {
+    "key": "wall3",
+    "text": "Just because your voice went up instead of down.",
+    "start": 75.82,
+    "end": 78.78
+  },
+  {
+    "key": "cta1",
+    "text": "That's how Chinese tones work.",
+    "start": 78.78,
+    "end": 81.38
+  },
+  {
+    "key": "cta2",
+    "text": "Follow kanshu.app to learn more about the language.",
+    "start": 81.45,
+    "end": 85.04
+  }
+]

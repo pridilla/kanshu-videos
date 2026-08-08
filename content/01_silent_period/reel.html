@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=block&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,!?—':" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,300,0,0&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#F5F5F0;display:flex;justify-content:center;align-items:center;min-height:100dvh}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#F5F5F0;aspect-ratio:9/16}
+canvas{position:absolute;top:0;left:0;width:1080px;height:1920px;will-change:transform,opacity}
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="c" width="1080" height="1920"></canvas></div>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');
+const W=1080,H=1920;
+const FINGER='"Finger Paint",cursive';
+
+// Colors
+const T={
+  bg:'#F5F5F0',
+  text:'#0F172A',
+  body:'#334155',
+  pinyin:'#8E8E93',
+  primary:'#FF6F59',
+  border:'#E5E5EA',
+  card:'#F2F2F7',
+};
+
+// Utility eases
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function easeOutQuad(t){return t*(2-t)}
+function easeOutCubic(t){return 1-Math.pow(1-t,3)}
+function easeOutBack(t){const c=1.70158;return--t*t*((c+1)*t+c)+1}
+function easeOutExpo(t){return t===1?1:1-Math.pow(2,-10*t)}
+function lerp(a,b,t){return a+(b-a)*t}
+
+// === SENTENCE DEFINITIONS ===
+const SENTENCES=[
+{s:0.00,e:4.03,txt:"If you just started learning Chinese and someone tells you to speak from day one — they're wrong.",key:'hook'},
+{s:4.26,e:4.93,txt:"Here's why.",key:'trans1'},
+{s:5.37,e:9.36,txt:"In the 1970s, linguist Stephen Krashen studied how children actually learn languages.",key:'krashen'},
+{s:9.64,e:14.82,txt:"He found something surprising: children go through a silent period that can last 3 to 6 months, where they only listen.",key:'silent'},
+{s:15.05,e:16.23,txt:"They don't speak at all.",key:'nospeak'},
+{s:16.66,e:23.15,txt:"During this time, their brains are building something called comprehensible input — they're mapping sounds to meaning without the pressure of producing output.",key:'input'},
+{s:23.58,e:26.15,txt:"When you force a beginner to speak too early, two things happen.",key:'two'},
+{s:26.38,e:30.22,txt:"One, they develop a strong foreign accent because their mouth isn't used to the sounds yet.",key:'one'},
+{s:30.58,e:35.99,txt:"Two, they build what Krashen called the affective filter — anxiety that actually blocks language acquisition.",key:'two_prob'},
+{s:36.26,e:38.27,txt:"The brain literally learns worse when it's stressed.",key:'brainbad'},
+{s:38.59,e:40.63,txt:"The solution is simple: just listen.",key:'sol'},
+{s:40.86,e:41.43,txt:"A lot.",key:'lot'},
+{s:41.66,e:42.92,txt:"Watch Chinese shows.",key:'watch'},
+{s:43.10,e:44.10,txt:"Listen to podcasts.",key:'listenp'},
+{s:44.21,e:45.19,txt:"Read along with audio.",key:'read'},
+{s:45.42,e:48.09,txt:"Let your brain do what it's designed to do — pattern match.",key:'pattern'},
+{s:48.36,e:52.17,txt:"Krashen's research showed that speech emerges naturally once enough input is absorbed.",key:'emerge'},
+{s:52.40,e:53.21,txt:"You don't force it.",key:'noforce'},
+{s:53.41,e:53.99,txt:"It comes.",key:'comes'},
+{s:54.26,e:57.09,txt:"So if you feel guilty about not speaking Chinese yet — don't.",key:'guilt'},
+{s:57.52,e:58.57,txt:"You're supposed to be silent.",key:'betrue'},
+{s:58.94,e:60.57,txt:"The words will come when they're ready.",key:'ready'},
+];
+
+// === MATERIAL DESIGN ICONS via SVG Paths ===
+// All icons render via Canvas path2D for clean, professional look
+
+function drawMdiIcon(cx,cy,sz,pathD,color,op){
+  if(!sz)sz=48;if(!color)color=T.text;if(!op)op=1;
+  ctx.save();ctx.translate(cx,cy);ctx.globalAlpha=op;ctx.scale(sz/24,sz/24);
+  const p=new Path2D(pathD);
+  ctx.fillStyle=color;ctx.fill(p);
+  ctx.restore();
+}
+
+// Material icon SVG paths (standard 24x24 viewBox paths)
+const MDI={
+  // voice_over_off — person with X through mouth
+  close:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+  // check_circle
+  check:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+  // menu_book — open book
+  menu_book:'M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.15 4.5.55.35.1.5-.1.5-.35V6c-.6-.45-1.25-.75-2-1zM20 17.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v10.5z',
+  // psychology — brain
+  psychology:'M13 21h-2v-4.06c-2.44-.29-4.33-2.19-4.72-4.61C5.08 11.85 4 10.55 4 9c0-1.39.77-2.6 1.89-3.22C6.32 3.3 8.47 2 11 2c1.91 0 3.63.81 4.8 2.06C18.46 4.69 20 6.73 20 9.25c0 2.13-1.24 3.96-3.03 4.84-.27.62-.65 1.18-1.13 1.64l-.84.84V21zm-3.5-7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm2.12-2.13c.23-.38.38-.82.38-1.29 0-1.38-1.12-2.5-2.5-2.5S10 7.2 10 8.58c0 .47.15.91.38 1.29C9.53 10.47 9 11.42 9 12.5c0 .55.45 1 1 1h4c.55 0 1-.45 1-1 0-1.08-.53-2.03-1.38-2.63z',
+  // hearing — ear
+  hearing:'M17 20c-.29 0-.56-.06-.76-.15-.71-.37-1.21-.88-1.71-2.38-.51-1.56-1.47-2.29-2.39-3-.79-.61-1.61-1.24-2.32-2.53C9.29 10.98 9 9.93 9 9c0-2.8 2.2-5 5-5s5 2.2 5 5h2c0-3.93-3.07-7-7-7S7 5.07 7 9c0 1.26.38 2.65 1.07 3.9.91 1.65 1.98 2.48 2.85 3.15.81.62 1.39 1.07 1.71 2.05.6 1.82 1.37 2.84 2.73 3.55.51.23 1.07.35 1.64.35 2.21 0 4-1.79 4-4h-2c0 1.1-.9 2-2 2zM7.64 2.64L6.22 1.22C4.23 3.21 3 5.96 3 9s1.23 5.79 3.22 7.78l1.41-1.41C6.01 13.74 5 11.49 5 9s1.01-4.74 2.64-6.36zM11.5 9c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5-2.5 1.12-2.5 2.5z',
+  // tv
+  tv:'M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z',
+  // headphones
+  headphones:'M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z',
+  // book / menu_book (already above)
+  // block — barrier/block
+  block:'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z',
+  // arrow_downward
+  arrow_down:'M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z',
+  // flash_on — lightning bolt
+  flash_on:'M7 2v11h3v9l7-12h-4l4-8z',
+  // volume_up — sound waves
+  volume_up:'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z',
+};
+
+// Shortcut: draw Material icon by key
+function drawIcon(key,cx,cy,sz,color,op){
+  const p=MDI[key];if(!p)return;
+  drawMdiIcon(cx,cy,sz||48,p,color||T.text,op||1);
+}
+
+// === SCENE FUNCTIONS ===
+
+function drawHookScene(t,key,p){
+  ctx.font=`700 100px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('START',W/2,H*0.19);
+  ctx.font=`700 90px ${FINGER}`;ctx.fillStyle=T.primary;
+  ctx.fillText('SPEAKING',W/2,H*0.27);
+  
+  // X through "SPEAKING" after "to speak" is said (~2.32s, p~0.57)
+  const xStart=clamp((t-2.00)/0.5,0,1);
+  if(key==='hook'){
+    drawIcon('close',W/2,H*0.27,80,T.primary,1);
+  }
+  
+  // "WRONG" at the end
+  if(t>3.3){
+    const w=clamp((t-3.3)/0.7,0,1);
+    ctx.font=`800 80px ${FINGER}`;ctx.fillStyle=T.primary;
+    ctx.globalAlpha=easeOutBack(w);
+    ctx.fillText('WRONG.',W/2,H*0.39);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawKrashenScene(t,p){
+  // Book opens at center
+  const bookScale=0.5+0.5*p;
+  drawIcon('menu_book',W/2,H*0.19,80*(0.5+0.5*p),T.text,1);
+  
+  ctx.font=`600 42px ${FINGER}`;ctx.fillStyle=T.primary;
+  ctx.fillText('KRASHEN 1977',W/2,H*0.35);
+  
+  // Sound waves when "studied" (~7.7s)
+  const wvAlpha=t>7.4?clamp((t-7.4)/0.5,0,1):0;
+  if(wvAlpha>0){
+    ctx.globalAlpha=wvAlpha;
+    drawIcon('volume_up',W/2,H*0.19,50,T.primary,0.3);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawSilentScene(t,p){
+  // "SILENT PERIOD" headline appears when "silent" is spoken (~11.88s)
+  const headAlpha=t>11.8?clamp((t-11.8)/0.4,0,1):0;
+  ctx.font=`700 70px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.globalAlpha=easeOutBack(headAlpha);
+  ctx.fillText('SILENT PERIOD',W/2,H*0.13);
+  ctx.globalAlpha=1;
+  
+  // Timeline bar 3-6 months
+  const barY=H*0.22,barW=600,barH=8;
+  const fill=clamp((t-12.5)/3.5,0,1); // fills over ~3.5s
+  const bw=barW/6;
+  
+  ctx.fillStyle=T.border;
+  ctx.beginPath();ctx.roundRect(W/2-barW/2,barY,barW,barH,4);ctx.fill();
+  ctx.fillStyle=T.primary;
+  ctx.beginPath();ctx.roundRect(W/2-barW/2,barY,barW*fill,barH,4);ctx.fill();
+  
+  // Month markers
+  ctx.font=`400 24px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('0',W/2-barW/2-20,barY+30);
+  ctx.fillText('3',W/2,barY+30);
+  ctx.fillText('6',W/2+barW/2,barY+30);
+  
+  // Milestone dots
+  for(let mi=0;mi<3;mi++){
+    const dx=W/2-barW/2+bw*mi*3;
+    ctx.beginPath();ctx.arc(dx,barY+4,5,0,Math.PI*2);
+    ctx.fillStyle=T.primary;ctx.fill();
+  }
+  
+  // Ear icon + "LISTEN" at the end
+  if(t>14.0){
+    const listen=clamp((t-14.0)/0.8,0,1);
+    ctx.globalAlpha=listen;
+    drawIcon('hearing',W/2,H*0.35,55,T.text,1);
+    ctx.font=`500 28px ${FINGER}`;ctx.fillStyle=T.body;
+    ctx.fillText('just listen',W/2,H*0.42);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawNoSpeakScene(t,p){
+  drawIcon('hearing',W/2,H*0.16,60,T.body,1);
+  drawIcon('close',W/2,H*0.16,50,T.primary,1);
+  ctx.font=`700 60px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText("DON'T SPEAK",W/2,H*0.27);
+}
+
+function drawInputScene(t,p){
+  // LEFT SIDE: Sound waves entering (input stage)
+  const inputDone=t>19?1:clamp((t-16.66)/2.5,0,1);
+  
+  // Input label at top
+  ctx.font=`600 36px ${FINGER}`;ctx.fillStyle=T.primary;
+  const labelAlpha=clamp((t-17)/1,0,1);
+  ctx.globalAlpha=easeOutCubic(labelAlpha);
+  ctx.fillText('Comprehensible Input',W/2,H*0.12);
+  ctx.globalAlpha=1;
+  
+  // Ear icon on left receiving sound
+  drawIcon('volume_up',W/3-50,H*0.28,40,T.body,0.4);
+  
+  // Animated wave pulses traveling right from ear towards brain
+  for(let i=0;i<4;i++){
+    const phase=(t-(16.66+i*0.5));
+    if(phase>0){
+      const px=W*0.25+i*35+Math.sin(phase*4)*8;
+      const pa=clamp(phase*2,0,1)*0.5;
+      ctx.beginPath();ctx.arc(px,H*0.28,12-2*i,0,Math.PI*2);
+      ctx.strokeStyle=T.primary;ctx.lineWidth=1.5;ctx.globalAlpha=pa;
+      ctx.stroke();ctx.globalAlpha=1;
+    }
+  }
+  
+  // Brain icon at center
+  drawIcon('psychology',W/2,H*0.28,60,T.text,1);
+  
+  // RIGHT SIDE: Blocked output
+  const barrierX=W*0.75;
+  ctx.fillStyle=T.primary;ctx.globalAlpha=0.4;
+  ctx.fillRect(barrierX-3,H*0.12,6,H*0.30);
+  ctx.globalAlpha=1;
+  ctx.font=`400 18px ${FINGER}`;ctx.fillStyle=T.primary;
+  ctx.fillText('NO OUTPUT',barrierX+15,H*0.14);
+  ctx.globalAlpha=1;
+  
+  // Checkmark below — "sounds → meaning"
+  ctx.font=`500 28px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('sounds → meaning',W/2,H*0.42);
+  
+  // Labels: "no pressure" at bottom
+  if(t>20){
+    const np=clamp((t-20)/1.5,0,1);
+    ctx.globalAlpha=np;
+    ctx.font=`400 22px ${FINGER}`;ctx.fillStyle=T.body;
+    ctx.fillText('no pressure to produce output',W/2,H*0.48);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawTwoScene(t,p){
+  ctx.font=`800 80px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('TWO THINGS',W/2,H*0.2);
+  ctx.font=`700 65px ${FINGER}`;ctx.fillStyle=T.primary;
+  ctx.fillText('HAPPEN',W/2,H*0.28);
+  
+  // Subtle arrow down
+  const arrowP=easeOutCubic(clamp(p*2,0,1));
+  ctx.globalAlpha=arrowP;
+  ctx.font=`500 28px ${FINGER}`;ctx.fillStyle=T.body;
+  ctx.fillText('↓',W/2,H*0.37);
+  ctx.globalAlpha=1;
+}
+
+function drawOneScene(t,p){
+  // Big "1" marker — appears at t=26.38 exactly
+  ctx.font=`800 160px ${FINGER}`;ctx.fillStyle=T.primary;
+  const oneP=easeOutBack(Math.min(1,t-26.38)*4);
+  ctx.globalAlpha=clamp(oneP,0,1);
+  ctx.fillText('1',W/2,H*0.16);
+  ctx.globalAlpha=1;
+  
+  // Label
+  ctx.font=`600 40px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('Strong Foreign Accent',W/2,H*0.26);
+  
+  // Volume icon + close through it
+  drawIcon('volume_up',W/2,H*0.33,65,T.body,1);
+  drawIcon('close',W/2,H*0.33,45,T.primary,1);
+  
+  // Distorted waves when "accent" said
+  if(t>28.0){
+    drawIcon('volume_up',W/2,H*0.33,65,T.primary,0.3);
+  }
+  
+  // Subtitle label
+  ctx.font=`400 22px ${FINGER}`;ctx.fillStyle=T.body;
+  ctx.fillText("mouth isn't used to the sounds yet",W/2,H*0.42);
+}
+
+function drawAffectiveScene(t,p){
+  // Big "2" marker — appears at t=30.58 exactly
+  ctx.font=`800 160px ${FINGER}`;ctx.fillStyle=T.primary;
+  const twoP=easeOutBack(Math.min(1,t-30.58)*4);
+  ctx.globalAlpha=clamp(twoP,0,1);
+  ctx.fillText('2',W/2,H*0.16);
+  ctx.globalAlpha=1;
+  
+  // Brain with barrier
+  drawIcon('psychology',W/2,H*0.31,70,T.text,1);
+  
+  // Affective Filter wall
+  const wallH=100,wallW=220;
+  const wallRise=t>31.8?clamp((t-31.8)/1.2,0,1):0;
+  const wallY=H*0.26+wallH*(1-wallRise);
+  ctx.fillStyle=T.primary;ctx.globalAlpha=0.3;
+  ctx.fillRect(W/2-wallW/2,wallY,wallW,wallH);
+  ctx.strokeStyle=T.primary;ctx.lineWidth=3;
+  ctx.strokeRect(W/2-wallW/2,wallY,wallW,wallH);
+  ctx.globalAlpha=1;
+  
+  ctx.font=`600 28px ${FINGER}`;ctx.fillStyle=T.primary;
+  if(wallRise>0){
+    ctx.globalAlpha=easeOutCubic(wallRise);
+    ctx.fillText('AFFECTIVE FILTER',W/2,wallY-20);
+    ctx.globalAlpha=1;
+  }
+  
+  // Anxiety bolt when "anxiety" spoken
+  if(t>33.7){
+    const boltA=clamp((t-33.7)/0.5,0,1);
+    ctx.globalAlpha=boltA;
+    ctx.font=`500 24px ${FINGER}`;
+    ctx.fillStyle=T.primary;
+    drawIcon('flash_on',W/2-180,H*0.48,24,T.primary,boltA);
+    ctx.fillText('anxiety blocks learning',W/2-120,H*0.48);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawBrainBadScene(t,p){
+  drawIcon('psychology',W/2,H*0.18,55,T.text,1);
+  
+  // Brain shrinks
+  const shrink=t>36.5?clamp((t-36.5)/1,0,1):0;
+  ctx.save();ctx.globalAlpha=0.3+0.7*(1-shrink);
+  drawIcon('psychology',W/2,H*0.18,55,T.text,1);
+  ctx.restore();
+  
+  ctx.font=`600 42px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('STRESS → WORSE LEARNING',W/2,H*0.32);
+  ctx.font=`500 24px ${FINGER}`;ctx.fillStyle=T.body;
+  ctx.fillText('the brain learns worse when stressed',W/2,H*0.37);
+}
+
+function drawSolutionScene(t,key){
+  if(key==='sol'){
+    ctx.font=`700 80px ${FINGER}`;ctx.fillStyle=T.primary;
+    const fadeP=Math.min(1,(key==='sol'?clamp((t-38.59)/0.8,0,1):clamp((t-40.86)/0.8,0,1)));
+    ctx.globalAlpha=easeOutBack(fadeP);
+    ctx.fillText('JUST',W/2,H*0.19);
+    ctx.fillText('LISTEN',W/2,H*0.28);
+    ctx.globalAlpha=1;
+    drawIcon('hearing',W/2,H*0.35,60,T.text,1);
+  }else{
+    // "A LOT." — grow
+    const lotP=clamp((t-40.86)/0.5,0,1);
+    ctx.font=`700 70px ${FINGER}`;ctx.fillStyle=T.primary;
+    ctx.globalAlpha=easeOutExpo(lotP);
+    ctx.fillText('A LOT.',W/2,H*0.24);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawActionCards(t,key){
+  const cards=[
+    {key:'watch',mdi:'tv',label:'WATCH',sub:'Chinese shows'},
+    {key:'listenp',mdi:'headphones',label:'LISTEN',sub:'to podcasts'},
+    {key:'read',mdi:'menu_book',label:'READ',sub:'along with audio'},
+  ];
+  
+  let activeIdx=-1;
+  for(let i=0;i<cards.length;i++){
+    if(cards[i].key===key){activeIdx=i;break;}
+  }
+  
+  // Show all cards up to active index
+  for(let i=0;i<=activeIdx;i++){
+    const cx=W/2,iy=H*0.09+i*160;
+    ctx.save();ctx.globalAlpha=1;
+    
+    // Card background
+    ctx.fillStyle=T.card;
+    ctx.beginPath();ctx.roundRect(W/2-120,iy,240,150,16);ctx.fill();
+    ctx.strokeStyle=T.border;ctx.lineWidth=1;
+    ctx.beginPath();ctx.roundRect(W/2-120,iy,240,150,16);ctx.stroke();
+    
+    drawIcon(cards[i].mdi,cx,iy+40,48,T.primary,1);
+    ctx.font=`600 28px ${FINGER}`;ctx.fillStyle=T.text;
+    ctx.fillText(cards[i].label,cx,iy+90);
+    ctx.font=`400 20px ${FINGER}`;ctx.fillStyle=T.body;
+    ctx.fillText(cards[i].sub,cx,iy+115);
+    ctx.restore();
+  }
+}
+
+function drawPatternScene(t,p){
+  drawIcon('psychology',W/2,H*0.13,65,T.text,1);
+  
+  // Pattern connections flowing into brain
+  const patAlpha=t>46?clamp((t-46)/1.5,0,1):0;
+  if(patAlpha>0){
+    ctx.globalAlpha=patAlpha;
+    for(let i=0;i<4;i++){
+      const angle=i*Math.PI/2+Math.sin(t)*0.3;
+      const x1=W/2-60+80*i, y1=H*0.16-30+50*i;
+      ctx.beginPath();ctx.moveTo(x1,y1-20);ctx.lineTo(x1,y1+20);
+      ctx.strokeStyle=T.primary;ctx.lineWidth=2;ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+  }
+  
+  ctx.font=`700 50px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('PATTERN MATCH',W/2,H*0.32);
+  ctx.font=`400 22px ${FINGER}`;ctx.fillStyle=T.body;
+  ctx.fillText('let your brain do what it knows',W/2,H*0.37);
+}
+
+function drawEmergeScene(t,p){
+  // Progress bar filling fully
+  const barY=H*0.18,barW=600,barH=14;
+  const fillP=clamp(p*1.5,0,1);
+  
+  ctx.fillStyle=T.border;
+  ctx.beginPath();ctx.roundRect(W/2-barW/2,barY,barW,barH,7);ctx.fill();
+  ctx.fillStyle=T.primary;
+  ctx.beginPath();ctx.roundRect(W/2-barW/2,barY,barW*fillP,barH,7);ctx.fill();
+  
+  // Label
+  ctx.font=`500 24px ${FINGER}`;ctx.fillStyle=T.body;
+  ctx.fillText('Input Accumulated',W/2,barY+40);
+  
+  // Checkmark when full
+  if(fillP>0.95){
+    drawIcon('check',W/2+barW/2-30,barY-20,24,T.primary,1);
+  }
+  
+  // Speech bubble with 你好
+  if(t>49.5){
+    const spe=clamp((t-49.5)/2,0,1);
+    ctx.globalAlpha=spe;
+    ctx.font=`700 48px ${FINGER}`;ctx.fillStyle=T.text;
+    ctx.fillText('Speech emerges',W/2,H*0.31);
+    ctx.font=`600 40px ${FINGER}`;ctx.fillStyle=T.primary;
+    ctx.fillText('naturally',W/2,H*0.36);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawNoForceScene(t,key){
+  const fadeP=Math.min(1,(t-52.4)/0.6);
+  ctx.globalAlpha=easeOutCubic(fadeP);
+  ctx.font=`600 50px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText("YOU DON'T FORCE IT",W/2,H*0.2);
+  ctx.globalAlpha=1;
+  
+  if(key==='comes'&&t>53.41){
+    const cm=easeOutBack(Math.min(1,(t-53.41)/0.4));
+    ctx.font=`700 70px ${FINGER}`;ctx.fillStyle=T.primary;
+    ctx.globalAlpha=cm;
+    ctx.fillText('IT COMES.',W/2,H*0.31);
+    ctx.globalAlpha=1;
+  }
+}
+
+function drawGuiltScene(t,p){
+  ctx.font=`600 50px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText('FEELING GUILTY?',W/2,H*0.18);
+  drawIcon('close',W/2+340,H*0.18,30,T.primary,1);
+  
+  const dntP=easeOutBack(clamp((t-56.0)/0.6,0,1));
+  ctx.font=`800 80px ${FINGER}`;ctx.fillStyle=T.primary;
+  ctx.globalAlpha=dntP;
+  ctx.fillText("DON'T.",W/2,H*0.29);
+  ctx.globalAlpha=1;
+}
+
+function drawBeTrueScene(t,p){
+  ctx.font=`700 60px ${FINGER}`;ctx.fillStyle=T.text;
+  ctx.fillText("You're supposed",W/2,H*0.18);
+  ctx.fillText("to be silent.",W/2,H*0.26);
+}
+
+function drawReadyScene(t,p){
+  ctx.font=`700 50px ${FINGER}`;ctx.fillStyle=T.body;
+  ctx.fillText('The words will come',W/2,H*0.16);
+  ctx.fillText('when they\'re ready.',W/2,H*0.24);
+  
+  ctx.font=`600 42px ${FINGER}`;ctx.fillStyle=T.primary;
+  ctx.globalAlpha=0.7+0.3*Math.sin(t*3);
+  ctx.fillText('Just Listen.',W/2,H*0.35);
+  ctx.globalAlpha=1;
+}
+
+// === WORD-LEVEL TIMING DATA (injected via CDP) ===
+window.__WORD_TIMINGS=window.__WORD_TIMINGS||[];
+window.__SENTENCES=window.__SENTENCES||[];
+
+// === SUBTITLE SYSTEM — movie-style closed captions ===
+function drawSubtitles(t){
+  const words=window.__WORD_TIMINGS;
+  const sents=window.__SENTENCES;
+  if(!words||!words.length||!sents||!sents.length)return;
+  
+  // Find current sentence
+  let sentIdx=-1;
+  for(let i=0;i<sents.length;i++){
+    if(t>=sents[i].start&&t<=sents[i].end){sentIdx=i;break;}
+  }
+  if(sentIdx<0)return;
+  
+  const wIndices=sents[sentIdx].word_indices;
+  // Find active word in this sentence
+  let activeWord=-1;
+  for(let i=0;i<wIndices.length;i++){
+    const wi=wIndices[i];
+    if(t>=words[wi].start&&t<words[wi].end){activeWord=i;break;}
+  }
+  if(activeWord<0){
+    for(let i=wIndices.length-1;i>=0;i--){
+      if(t>=words[wIndices[i]].end){activeWord=i;break;}
+    }
+  }
+  if(activeWord<0)activeWord=0;
+  
+  // Glass card background
+  ctx.save();
+  ctx.fillStyle='rgba(245,245,240,0.92)';
+  ctx.beginPath();ctx.roundRect(40,1270,W-80,100,20);ctx.fill();
+  ctx.strokeStyle=T.border;ctx.lineWidth=1;
+  ctx.beginPath();ctx.roundRect(40,1270,W-80,100,20);ctx.stroke();
+  
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.font=`500 36px ${FINGER}`;
+  
+  // Build the sentence text and split into lines
+  const wordsInSents=wIndices.map(wi=>words[wi].word);
+  let lines=[],curLine='';
+  const maxW=W-140;
+  
+  for(let i=0;i<wordsInSents.length;i++){
+    const w=wordsInSents[i];
+    const test=curLine+(curLine?' ':'')+w;
+    if(ctx.measureText(test).width>maxW&&curLine!==''){
+      lines.push(curLine);curLine=w;
+    }else{curLine=test;}
+  }
+  if(curLine!=='')lines.push(curLine);
+  
+  const lineH=50,totalH=lines.length*lineH;
+  const startY=1270+(100-totalH)/2+lineH/2;
+  
+  // Render each line, finding active word position
+  let wordCursor=0;
+  for(let li=0;li<lines.length;li++){
+    const lineWords=lines[li].split(' ');
+    const y=startY+li*lineH;
+    
+    // Check if active word is in this line
+    const hasActive=activeWord>=wordCursor&&activeWord<wordCursor+lineWords.length;
+    const localActive=activeWord-wordCursor;
+    
+    if(hasActive){
+      let totalW=0;
+      for(const w of lineWords)totalW+=ctx.measureText(w+' ').width;
+      let xCursor=W/2-totalW/2;
+      
+      for(let wi=0;wi<lineWords.length;wi++){
+        const w=lineWords[wi];
+        const ww=ctx.measureText(w).width;
+        ctx.save();
+        if(wi===localActive){
+          ctx.fillStyle=T.primary;
+          ctx.font=`700 38px ${FINGER}`;
+        }else{
+          ctx.fillStyle=T.text;
+          ctx.font=`500 36px ${FINGER}`;
+        }
+        ctx.fillText(w,xCursor+ww/2,y);
+        ctx.restore();
+        xCursor+=ww+ctx.measureText(' ').width;
+      }
+    }else{
+      ctx.fillStyle=T.text;
+      ctx.fillText(lines[li],W/2,y);
+    }
+    wordCursor+=lineWords.length;
+  }
+  ctx.restore();
+  ctx.globalAlpha=1;
+}
+
+// === MASTER DRAW FUNCTION ===
+function __drawFrame(t){
+  ctx.fillStyle=T.bg;ctx.fillRect(0,0,W,H);
+  ctx.globalAlpha=1;ctx.shadowBlur=0;
+  ctx.textBaseline='middle';ctx.textAlign='center';
+  
+  let sentIdx=-1;
+  for(let i=0;i<SENTENCES.length;i++){
+    if(t>=SENTENCES[i].s&&t<=SENTENCES[i].e){sentIdx=i;break;}
+  }
+  
+  // Crossfade: if within 0.15s of start, fade in from previous scene
+  let fadeIn=1,fadeOut=1;
+  if(sentIdx>=0){
+    const dx=t-SENTENCES[sentIdx].s;
+    if(dx<0.15){fadeIn=easeOutCubic(clamp(dx/0.15,0,1));}
+    // Check if previous scene existed
+    if(sentIdx>0){
+      const prevEnd=SENTENCES[sentIdx-1].e;
+      const dt=t-prevEnd;
+      if(dt<0.15){fadeOut=1-easeOutCubic(clamp(dt/0.15,0,1));}
+    }
+  }
+  
+  // Draw previous scene faded out
+  if(sentIdx>0&&t-SENTENCES[sentIdx-1].e<0.15){
+    const prev=SENTENCES[sentIdx-1];
+    const ppct=clamp((t-prev.s)/(prev.e-prev.s),0,1);
+    const pkey=prev.key;
+    ctx.save();ctx.globalAlpha=fadeOut;
+    if(pkey==='hook'||pkey==='trans1')drawHookScene(t,pkey,ppct);
+    else if(pkey==='krashen')drawKrashenScene(t,ppct);
+    else if(pkey==='silent')drawSilentScene(t,ppct);
+    else if(pkey==='nospeak')drawNoSpeakScene(t,ppct);
+    else if(pkey==='input')drawInputScene(t,ppct);
+    else if(pkey==='two')drawTwoScene(t,ppct);
+    else if(pkey==='one')drawOneScene(t,ppct);
+    else if(pkey==='two_prob')drawAffectiveScene(t,ppct);
+    else if(pkey==='brainbad')drawBrainBadScene(t,ppct);
+    else if(pkey==='sol'||pkey==='lot')drawSolutionScene(t,pkey);
+    else if(pkey==='watch'||pkey==='listenp'||pkey==='read')drawActionCards(t,pkey);
+    else if(pkey==='pattern')drawPatternScene(t,ppct);
+    else if(pkey==='emerge')drawEmergeScene(t,ppct);
+    else if(pkey==='noforce'||pkey==='comes')drawNoForceScene(t,pkey);
+    else if(pkey==='guilt')drawGuiltScene(t,ppct);
+    else if(pkey==='betrue')drawBeTrueScene(t,ppct);
+    else if(pkey==='ready')drawReadyScene(t,ppct);
+    ctx.restore();
+  }
+  
+  const sent=sentIdx>=0?SENTENCES[sentIdx]:null;
+  const pct=sent?clamp((t-sent.s)/(sent.e-sent.s),0,1):0;
+  const key=sent?sent.key:'idle';
+  
+  // Draw current scene faded in
+  ctx.save();
+  if(fadeIn<1)ctx.globalAlpha=fadeIn;
+  
+  if(key==='hook'||key==='trans1')drawHookScene(t,key,pct);
+  else if(key==='krashen')drawKrashenScene(t,pct);
+  else if(key==='silent')drawSilentScene(t,pct);
+  else if(key==='nospeak')drawNoSpeakScene(t,pct);
+  else if(key==='input')drawInputScene(t,pct);
+  else if(key==='two')drawTwoScene(t,pct);
+  else if(key==='one')drawOneScene(t,pct);
+  else if(key==='two_prob')drawAffectiveScene(t,pct);
+  else if(key==='brainbad')drawBrainBadScene(t,pct);
+  else if(key==='sol'||key==='lot')drawSolutionScene(t,key);
+  else if(key==='watch'||key==='listenp'||key==='read')drawActionCards(t,key);
+  else if(key==='pattern')drawPatternScene(t,pct);
+  else if(key==='emerge')drawEmergeScene(t,pct);
+  else if(key==='noforce'||key==='comes')drawNoForceScene(t,key);
+  else if(key==='guilt')drawGuiltScene(t,pct);
+  else if(key==='betrue')drawBeTrueScene(t,pct);
+  else if(key==='ready')drawReadyScene(t,pct);
+  
+  ctx.restore();
+  
+  // Subtitles on top (always full opacity)
+  drawSubtitles(t);
+}
+</script>
+</body>
+</html>

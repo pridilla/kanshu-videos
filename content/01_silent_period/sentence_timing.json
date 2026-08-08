@@ -1,0 +1,361 @@
+[
+  {
+    "word_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "start": 0.0,
+    "end": 4.03,
+    "text": "If you just started learning Chinese and someone tells you to speak from day one \u2014 they're wrong."
+  },
+  {
+    "word_indices": [
+      18,
+      19
+    ],
+    "start": 4.262857142857143,
+    "end": 4.934285714285715,
+    "text": "Here's why."
+  },
+  {
+    "word_indices": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "start": 5.365714285714286,
+    "end": 9.362857142857143,
+    "text": "In the 1970s, linguist Stephen Krashen studied how children actually learn languages."
+  },
+  {
+    "word_indices": [
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52
+    ],
+    "start": 9.636428571428572,
+    "end": 14.819285714285716,
+    "text": "He found something surprising: children go through a silent period that can last 3 to 6 months, where they only listen."
+  },
+  {
+    "word_indices": [
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "start": 15.051428571428572,
+    "end": 16.228571428571428,
+    "text": "They don't speak at all."
+  },
+  {
+    "word_indices": [
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80
+    ],
+    "start": 16.660000000000004,
+    "end": 23.152857142857144,
+    "text": "During this time, their brains are building something called comprehensible input \u2014 they're mapping sounds to meaning without the pressure of producing output."
+  },
+  {
+    "word_indices": [
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92
+    ],
+    "start": 23.584285714285716,
+    "end": 26.14714285714286,
+    "text": "When you force a beginner to speak too early, two things happen."
+  },
+  {
+    "word_indices": [
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108
+    ],
+    "start": 26.379285714285714,
+    "end": 30.21857142857143,
+    "text": "One, they develop a strong foreign accent because their mouth isn't used to the sounds yet."
+  },
+  {
+    "word_indices": [
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124
+    ],
+    "start": 30.58357142857143,
+    "end": 35.99,
+    "text": "Two, they build what Krashen called the affective filter \u2014 anxiety that actually blocks language acquisition."
+  },
+  {
+    "word_indices": [
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132
+    ],
+    "start": 36.26357142857143,
+    "end": 38.27071428571429,
+    "text": "The brain literally learns worse when it's stressed."
+  },
+  {
+    "word_indices": [
+      133,
+      134,
+      135,
+      136,
+      137,
+      138
+    ],
+    "start": 38.58571428571429,
+    "end": 40.62571428571429,
+    "text": "The solution is simple: just listen."
+  },
+  {
+    "word_indices": [
+      139,
+      140
+    ],
+    "start": 40.85785714285715,
+    "end": 41.43000000000001,
+    "text": "A lot."
+  },
+  {
+    "word_indices": [
+      141,
+      142,
+      143
+    ],
+    "start": 41.66214285714286,
+    "end": 42.92285714285715,
+    "text": "Watch Chinese shows."
+  },
+  {
+    "word_indices": [
+      144,
+      145,
+      146
+    ],
+    "start": 43.097142857142856,
+    "end": 44.10071428571429,
+    "text": "Listen to podcasts."
+  },
+  {
+    "word_indices": [
+      147,
+      148,
+      149,
+      150
+    ],
+    "start": 44.20857142857143,
+    "end": 45.18714285714286,
+    "text": "Read along with audio."
+  },
+  {
+    "word_indices": [
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162
+    ],
+    "start": 45.41928571428572,
+    "end": 48.08928571428572,
+    "text": "Let your brain do what it's designed to do \u2014 pattern match."
+  },
+  {
+    "word_indices": [
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174
+    ],
+    "start": 48.36357142857143,
+    "end": 52.17,
+    "text": "Krashen's research showed that speech emerges naturally once enough input is absorbed."
+  },
+  {
+    "word_indices": [
+      175,
+      176,
+      177,
+      178
+    ],
+    "start": 52.40214285714286,
+    "end": 53.206428571428575,
+    "text": "You don't force it."
+  },
+  {
+    "word_indices": [
+      179,
+      180
+    ],
+    "start": 53.405,
+    "end": 53.98571428571429,
+    "text": "It comes."
+  },
+  {
+    "word_indices": [
+      181,
+      182,
+      183,
+      184,
+      185,
+      186,
+      187,
+      188,
+      189,
+      190,
+      191,
+      192
+    ],
+    "start": 54.25928571428571,
+    "end": 57.08714285714286,
+    "text": "So if you feel guilty about not speaking Chinese yet \u2014 don't."
+  },
+  {
+    "word_indices": [
+      193,
+      194,
+      195,
+      196,
+      197
+    ],
+    "start": 57.51857142857143,
+    "end": 58.57142857142858,
+    "text": "You're supposed to be silent."
+  },
+  {
+    "word_indices": [
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204
+    ],
+    "start": 58.93642857142857,
+    "end": 60.57000000000001,
+    "text": "The words will come when they're ready."
+  }
+]

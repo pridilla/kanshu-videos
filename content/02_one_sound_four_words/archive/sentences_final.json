@@ -1,0 +1,268 @@
+[
+  {
+    "key": "open",
+    "text": "Okay so.",
+    "start": 0.0,
+    "end": 0.721,
+    "type": "base"
+  },
+  {
+    "key": "hook",
+    "text": "Chinese does something that just melts English speakers'",
+    "start": 2.241,
+    "end": 5.437,
+    "type": "base"
+  },
+  {
+    "key": "setup1",
+    "text": "brains. Same",
+    "start": 5.517,
+    "end": 7.277,
+    "type": "base"
+  },
+  {
+    "key": "setup2",
+    "text": "sound. Four completely different",
+    "start": 7.357,
+    "end": 9.672,
+    "type": "base"
+  },
+  {
+    "key": "setup3",
+    "text": "words. The only thing that changes is",
+    "start": 9.739,
+    "end": 12.233,
+    "type": "base"
+  },
+  {
+    "key": "setup4",
+    "text": "your pitch. Your voice goes up, down, flat, sharp drop \u2014",
+    "start": 12.265,
+    "end": 18.152,
+    "type": "base"
+  },
+  {
+    "key": "setup5",
+    "text": "and suddenly you're saying something else entirely.",
+    "start": 18.172,
+    "end": 20.506,
+    "type": "base"
+  },
+  {
+    "key": "setup6",
+    "text": "The example everyone uses.",
+    "start": 20.506,
+    "end": 20.506,
+    "type": "base"
+  },
+  {
+    "key": "setup7",
+    "text": "The sound is ma.",
+    "start": 20.506,
+    "end": 25.212,
+    "type": "base"
+  },
+  {
+    "key": "t1",
+    "text": "First tone.",
+    "start": 25.212,
+    "end": 26.057,
+    "type": "base"
+  },
+  {
+    "key": "t1d1",
+    "text": "Keep it high and",
+    "start": 26.201,
+    "end": 27.258,
+    "type": "base"
+  },
+  {
+    "key": "t1d2",
+    "text": "flat. Like you're",
+    "start": 27.338,
+    "end": 28.219,
+    "type": "base"
+  },
+  {
+    "key": "t1pinyin",
+    "text": "singing.",
+    "start": 28.269,
+    "end": 29.219,
+    "type": "base"
+  },
+  {
+    "key": "t1word",
+    "text": "m\u0101.",
+    "start": 29.519,
+    "end": 30.979,
+    "type": "overlay"
+  },
+  {
+    "key": "t2",
+    "text": "Mother. Second",
+    "start": 31.076,
+    "end": 33.099,
+    "type": "base"
+  },
+  {
+    "key": "t2d1",
+    "text": "tone. Start low, rise",
+    "start": 33.163,
+    "end": 34.941,
+    "type": "base"
+  },
+  {
+    "key": "t2d2",
+    "text": "up. Like you're",
+    "start": 35.021,
+    "end": 35.822,
+    "type": "base"
+  },
+  {
+    "key": "t2pinyin",
+    "text": "surprised.",
+    "start": 35.886,
+    "end": 36.542,
+    "type": "base"
+  },
+  {
+    "key": "t2word",
+    "text": "m\u00e1.",
+    "start": 37.062,
+    "end": 38.222,
+    "type": "overlay"
+  },
+  {
+    "key": "t3",
+    "text": "Hemp.",
+    "start": 38.422,
+    "end": 40.724,
+    "type": "base"
+  },
+  {
+    "key": "t3d1",
+    "text": "Third tone. Dip down, come",
+    "start": 40.724,
+    "end": 43.424,
+    "type": "base"
+  },
+  {
+    "key": "t3d2",
+    "text": "back up. Like you're really",
+    "start": 43.472,
+    "end": 45.108,
+    "type": "base"
+  },
+  {
+    "key": "t3pinyin",
+    "text": "thinking",
+    "start": 45.144,
+    "end": 45.432,
+    "type": "base"
+  },
+  {
+    "key": "t3word",
+    "text": "about",
+    "start": 45.485,
+    "end": 45.75,
+    "type": "overlay"
+  },
+  {
+    "key": "t4",
+    "text": "it. m\u01ce.",
+    "start": 45.803,
+    "end": 48.349,
+    "type": "base"
+  },
+  {
+    "key": "t4d1",
+    "text": "Horse. Fourth",
+    "start": 48.476,
+    "end": 49.589,
+    "type": "base"
+  },
+  {
+    "key": "t4d2",
+    "text": "tone. Drop it hard. Like",
+    "start": 49.669000000000004,
+    "end": 51.83,
+    "type": "base"
+  },
+  {
+    "key": "t4pinyin",
+    "text": "you're",
+    "start": 51.85,
+    "end": 52.069,
+    "type": "base"
+  },
+  {
+    "key": "t4word",
+    "text": "telling",
+    "start": 52.089,
+    "end": 52.229,
+    "type": "overlay"
+  },
+  {
+    "key": "sum1",
+    "text": "someone to",
+    "start": 52.259,
+    "end": 52.628,
+    "type": "base"
+  },
+  {
+    "key": "sum2",
+    "text": "stop. m\u00e0.",
+    "start": 52.708,
+    "end": 54.708,
+    "type": "base"
+  },
+  {
+    "key": "sum3",
+    "text": "Scold. Same sound. Four",
+    "start": 54.761,
+    "end": 57.11,
+    "type": "base"
+  },
+  {
+    "key": "sum4",
+    "text": "words. Wrong pitch,",
+    "start": 57.19,
+    "end": 60.712,
+    "type": "base"
+  },
+  {
+    "key": "wall1",
+    "text": "wrong word. That's the whole",
+    "start": 60.765,
+    "end": 62.31,
+    "type": "base"
+  },
+  {
+    "key": "wall2",
+    "text": "thing. Every learner gets caught by this.",
+    "start": 62.377,
+    "end": 64.874,
+    "type": "base"
+  },
+  {
+    "key": "wall3",
+    "text": "You can know the character cold and",
+    "start": 65.014,
+    "end": 66.794,
+    "type": "base"
+  },
+  {
+    "key": "cta1",
+    "text": "still mess it up. Just",
+    "start": 66.84700000000001,
+    "end": 68.07300000000001,
+    "type": "base"
+  },
+  {
+    "key": "cta2",
+    "text": "because your voice went up instead of down.",
+    "start": 68.113,
+    "end": 70.473,
+    "type": "base"
+  }
+]

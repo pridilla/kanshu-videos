@@ -1,0 +1,1465 @@
+[
+  {
+    "id": "hook",
+    "start_time": 0.0,
+    "end_time": 5.366,
+    "words": [
+      {
+        "text": "If",
+        "start_time": 0.0,
+        "end_time": 0.116,
+        "start_char_idx": 0,
+        "end_char_idx": 1
+      },
+      {
+        "text": "you",
+        "start_time": 0.166,
+        "end_time": 0.241,
+        "start_char_idx": 3,
+        "end_char_idx": 5
+      },
+      {
+        "text": "just",
+        "start_time": 0.324,
+        "end_time": 0.473,
+        "start_char_idx": 7,
+        "end_char_idx": 10
+      },
+      {
+        "text": "started",
+        "start_time": 0.498,
+        "end_time": 0.746,
+        "start_char_idx": 12,
+        "end_char_idx": 18
+      },
+      {
+        "text": "learning",
+        "start_time": 0.796,
+        "end_time": 1.004,
+        "start_char_idx": 20,
+        "end_char_idx": 27
+      },
+      {
+        "text": "Chinese",
+        "start_time": 1.045,
+        "end_time": 1.509,
+        "start_char_idx": 29,
+        "end_char_idx": 35
+      },
+      {
+        "text": "and",
+        "start_time": 1.542,
+        "end_time": 1.626,
+        "start_char_idx": 37,
+        "end_char_idx": 39
+      },
+      {
+        "text": "someone",
+        "start_time": 1.675,
+        "end_time": 1.907,
+        "start_char_idx": 41,
+        "end_char_idx": 47
+      },
+      {
+        "text": "tells",
+        "start_time": 1.932,
+        "end_time": 2.123,
+        "start_char_idx": 49,
+        "end_char_idx": 53
+      },
+      {
+        "text": "you",
+        "start_time": 2.156,
+        "end_time": 2.214,
+        "start_char_idx": 55,
+        "end_char_idx": 57
+      },
+      {
+        "text": "to",
+        "start_time": 2.247,
+        "end_time": 2.281,
+        "start_char_idx": 59,
+        "end_char_idx": 60
+      },
+      {
+        "text": "speak",
+        "start_time": 2.322,
+        "end_time": 2.496,
+        "start_char_idx": 62,
+        "end_char_idx": 66
+      },
+      {
+        "text": "from",
+        "start_time": 2.529,
+        "end_time": 2.629,
+        "start_char_idx": 68,
+        "end_char_idx": 71
+      },
+      {
+        "text": "day",
+        "start_time": 2.679,
+        "end_time": 2.811,
+        "start_char_idx": 73,
+        "end_char_idx": 75
+      },
+      {
+        "text": "one",
+        "start_time": 2.894,
+        "end_time": 3.176,
+        "start_char_idx": 77,
+        "end_char_idx": 79
+      },
+      {
+        "text": "--",
+        "start_time": 3.301,
+        "end_time": 3.466,
+        "start_char_idx": 81,
+        "end_char_idx": 82
+      },
+      {
+        "text": "they're",
+        "start_time": 3.491,
+        "end_time": 3.674,
+        "start_char_idx": 84,
+        "end_char_idx": 90
+      },
+      {
+        "text": "wrong.",
+        "start_time": 3.707,
+        "end_time": 4.263,
+        "start_char_idx": 92,
+        "end_char_idx": 97
+      },
+      {
+        "text": "Here's",
+        "start_time": 4.321,
+        "end_time": 4.528,
+        "start_char_idx": 99,
+        "end_char_idx": 104
+      },
+      {
+        "text": "why.",
+        "start_time": 4.553,
+        "end_time": 5.366,
+        "start_char_idx": 106,
+        "end_char_idx": 109
+      }
+    ]
+  },
+  {
+    "id": "research",
+    "start_time": 5.415,
+    "end_time": 23.626,
+    "words": [
+      {
+        "text": "In",
+        "start_time": 5.415,
+        "end_time": 5.481,
+        "start_char_idx": 111,
+        "end_char_idx": 112
+      },
+      {
+        "text": "the",
+        "start_time": 5.498,
+        "end_time": 5.564,
+        "start_char_idx": 114,
+        "end_char_idx": 116
+      },
+      {
+        "text": "1970s,",
+        "start_time": 5.606,
+        "end_time": 6.402,
+        "start_char_idx": 118,
+        "end_char_idx": 123
+      },
+      {
+        "text": "linguist",
+        "start_time": 6.444,
+        "end_time": 6.701,
+        "start_char_idx": 125,
+        "end_char_idx": 132
+      },
+      {
+        "text": "Stephen",
+        "start_time": 6.742,
+        "end_time": 7.016,
+        "start_char_idx": 134,
+        "end_char_idx": 140
+      },
+      {
+        "text": "Krashen",
+        "start_time": 7.049,
+        "end_time": 7.414,
+        "start_char_idx": 142,
+        "end_char_idx": 148
+      },
+      {
+        "text": "studied",
+        "start_time": 7.455,
+        "end_time": 7.704,
+        "start_char_idx": 150,
+        "end_char_idx": 156
+      },
+      {
+        "text": "how",
+        "start_time": 7.729,
+        "end_time": 7.845,
+        "start_char_idx": 158,
+        "end_char_idx": 160
+      },
+      {
+        "text": "children",
+        "start_time": 7.878,
+        "end_time": 8.194,
+        "start_char_idx": 162,
+        "end_char_idx": 169
+      },
+      {
+        "text": "actually",
+        "start_time": 8.301,
+        "end_time": 8.608,
+        "start_char_idx": 171,
+        "end_char_idx": 178
+      },
+      {
+        "text": "learn",
+        "start_time": 8.633,
+        "end_time": 8.807,
+        "start_char_idx": 180,
+        "end_char_idx": 184
+      },
+      {
+        "text": "languages.",
+        "start_time": 8.84,
+        "end_time": 9.636,
+        "start_char_idx": 186,
+        "end_char_idx": 195
+      },
+      {
+        "text": "He",
+        "start_time": 9.686,
+        "end_time": 9.777,
+        "start_char_idx": 197,
+        "end_char_idx": 198
+      },
+      {
+        "text": "found",
+        "start_time": 9.802,
+        "end_time": 9.951,
+        "start_char_idx": 200,
+        "end_char_idx": 204
+      },
+      {
+        "text": "something",
+        "start_time": 9.976,
+        "end_time": 10.2,
+        "start_char_idx": 206,
+        "end_char_idx": 214
+      },
+      {
+        "text": "surprising:",
+        "start_time": 10.225,
+        "end_time": 11.154,
+        "start_char_idx": 216,
+        "end_char_idx": 226
+      },
+      {
+        "text": "children",
+        "start_time": 11.204,
+        "end_time": 11.519,
+        "start_char_idx": 228,
+        "end_char_idx": 235
+      },
+      {
+        "text": "go",
+        "start_time": 11.551,
+        "end_time": 11.643,
+        "start_char_idx": 237,
+        "end_char_idx": 238
+      },
+      {
+        "text": "through",
+        "start_time": 11.659,
+        "end_time": 11.809,
+        "start_char_idx": 240,
+        "end_char_idx": 246
+      },
+      {
+        "text": "a",
+        "start_time": 11.825,
+        "end_time": 11.875,
+        "start_char_idx": 248,
+        "end_char_idx": 248
+      },
+      {
+        "text": "silent",
+        "start_time": 11.916,
+        "end_time": 12.199,
+        "start_char_idx": 250,
+        "end_char_idx": 255
+      },
+      {
+        "text": "period",
+        "start_time": 12.231,
+        "end_time": 12.53,
+        "start_char_idx": 257,
+        "end_char_idx": 262
+      },
+      {
+        "text": "that",
+        "start_time": 12.546,
+        "end_time": 12.646,
+        "start_char_idx": 264,
+        "end_char_idx": 267
+      },
+      {
+        "text": "can",
+        "start_time": 12.671,
+        "end_time": 12.771,
+        "start_char_idx": 269,
+        "end_char_idx": 271
+      },
+      {
+        "text": "last",
+        "start_time": 12.804,
+        "end_time": 13.061,
+        "start_char_idx": 273,
+        "end_char_idx": 276
+      },
+      {
+        "text": "3",
+        "start_time": 13.235,
+        "end_time": 13.285,
+        "start_char_idx": 278,
+        "end_char_idx": 278
+      },
+      {
+        "text": "to",
+        "start_time": 13.301,
+        "end_time": 13.376,
+        "start_char_idx": 280,
+        "end_char_idx": 281
+      },
+      {
+        "text": "6",
+        "start_time": 13.525,
+        "end_time": 13.584,
+        "start_char_idx": 283,
+        "end_char_idx": 283
+      },
+      {
+        "text": "months,",
+        "start_time": 13.616,
+        "end_time": 13.89,
+        "start_char_idx": 285,
+        "end_char_idx": 291
+      },
+      {
+        "text": "where",
+        "start_time": 13.924,
+        "end_time": 14.048,
+        "start_char_idx": 293,
+        "end_char_idx": 297
+      },
+      {
+        "text": "they",
+        "start_time": 14.064,
+        "end_time": 14.197,
+        "start_char_idx": 299,
+        "end_char_idx": 302
+      },
+      {
+        "text": "only",
+        "start_time": 14.23,
+        "end_time": 14.438,
+        "start_char_idx": 304,
+        "end_char_idx": 307
+      },
+      {
+        "text": "listen.",
+        "start_time": 14.471,
+        "end_time": 15.051,
+        "start_char_idx": 309,
+        "end_char_idx": 315
+      },
+      {
+        "text": "They",
+        "start_time": 15.084,
+        "end_time": 15.201,
+        "start_char_idx": 317,
+        "end_char_idx": 320
+      },
+      {
+        "text": "don't",
+        "start_time": 15.225,
+        "end_time": 15.383,
+        "start_char_idx": 322,
+        "end_char_idx": 326
+      },
+      {
+        "text": "speak",
+        "start_time": 15.424,
+        "end_time": 15.756,
+        "start_char_idx": 328,
+        "end_char_idx": 332
+      },
+      {
+        "text": "at",
+        "start_time": 15.839,
+        "end_time": 15.906,
+        "start_char_idx": 334,
+        "end_char_idx": 335
+      },
+      {
+        "text": "all.",
+        "start_time": 15.989,
+        "end_time": 16.66,
+        "start_char_idx": 337,
+        "end_char_idx": 340
+      },
+      {
+        "text": "During",
+        "start_time": 16.718,
+        "end_time": 16.917,
+        "start_char_idx": 342,
+        "end_char_idx": 347
+      },
+      {
+        "text": "this",
+        "start_time": 16.934,
+        "end_time": 17.066,
+        "start_char_idx": 349,
+        "end_char_idx": 352
+      },
+      {
+        "text": "time,",
+        "start_time": 17.116,
+        "end_time": 17.431,
+        "start_char_idx": 354,
+        "end_char_idx": 358
+      },
+      {
+        "text": "their",
+        "start_time": 17.456,
+        "end_time": 17.614,
+        "start_char_idx": 360,
+        "end_char_idx": 364
+      },
+      {
+        "text": "brains",
+        "start_time": 17.647,
+        "end_time": 17.879,
+        "start_char_idx": 366,
+        "end_char_idx": 371
+      },
+      {
+        "text": "are",
+        "start_time": 17.904,
+        "end_time": 17.97,
+        "start_char_idx": 373,
+        "end_char_idx": 375
+      },
+      {
+        "text": "building",
+        "start_time": 17.987,
+        "end_time": 18.219,
+        "start_char_idx": 377,
+        "end_char_idx": 384
+      },
+      {
+        "text": "something",
+        "start_time": 18.244,
+        "end_time": 18.459,
+        "start_char_idx": 386,
+        "end_char_idx": 394
+      },
+      {
+        "text": "called",
+        "start_time": 18.484,
+        "end_time": 18.716,
+        "start_char_idx": 396,
+        "end_char_idx": 401
+      },
+      {
+        "text": "comprehensible",
+        "start_time": 18.775,
+        "end_time": 19.396,
+        "start_char_idx": 403,
+        "end_char_idx": 416
+      },
+      {
+        "text": "input",
+        "start_time": 19.438,
+        "end_time": 19.903,
+        "start_char_idx": 418,
+        "end_char_idx": 422
+      },
+      {
+        "text": "--",
+        "start_time": 19.952,
+        "end_time": 20.284,
+        "start_char_idx": 424,
+        "end_char_idx": 425
+      },
+      {
+        "text": "they're",
+        "start_time": 20.309,
+        "end_time": 20.483,
+        "start_char_idx": 427,
+        "end_char_idx": 433
+      },
+      {
+        "text": "mapping",
+        "start_time": 20.533,
+        "end_time": 20.765,
+        "start_char_idx": 435,
+        "end_char_idx": 441
+      },
+      {
+        "text": "sounds",
+        "start_time": 20.848,
+        "end_time": 21.055,
+        "start_char_idx": 443,
+        "end_char_idx": 448
+      },
+      {
+        "text": "to",
+        "start_time": 21.08,
+        "end_time": 21.171,
+        "start_char_idx": 450,
+        "end_char_idx": 451
+      },
+      {
+        "text": "meaning",
+        "start_time": 21.204,
+        "end_time": 21.536,
+        "start_char_idx": 453,
+        "end_char_idx": 459
+      },
+      {
+        "text": "without",
+        "start_time": 21.569,
+        "end_time": 21.818,
+        "start_char_idx": 461,
+        "end_char_idx": 467
+      },
+      {
+        "text": "the",
+        "start_time": 21.834,
+        "end_time": 21.909,
+        "start_char_idx": 469,
+        "end_char_idx": 471
+      },
+      {
+        "text": "pressure",
+        "start_time": 21.942,
+        "end_time": 22.199,
+        "start_char_idx": 473,
+        "end_char_idx": 480
+      },
+      {
+        "text": "of",
+        "start_time": 22.224,
+        "end_time": 22.299,
+        "start_char_idx": 482,
+        "end_char_idx": 483
+      },
+      {
+        "text": "producing",
+        "start_time": 22.324,
+        "end_time": 22.705,
+        "start_char_idx": 485,
+        "end_char_idx": 493
+      },
+      {
+        "text": "output.",
+        "start_time": 22.739,
+        "end_time": 23.626,
+        "start_char_idx": 495,
+        "end_char_idx": 501
+      }
+    ]
+  },
+  {
+    "id": "problem",
+    "start_time": 23.667,
+    "end_time": 38.652,
+    "words": [
+      {
+        "text": "When",
+        "start_time": 23.667,
+        "end_time": 23.759,
+        "start_char_idx": 503,
+        "end_char_idx": 506
+      },
+      {
+        "text": "you",
+        "start_time": 23.775,
+        "end_time": 23.924,
+        "start_char_idx": 508,
+        "end_char_idx": 510
+      },
+      {
+        "text": "force",
+        "start_time": 23.974,
+        "end_time": 24.131,
+        "start_char_idx": 512,
+        "end_char_idx": 516
+      },
+      {
+        "text": "a",
+        "start_time": 24.173,
+        "end_time": 24.198,
+        "start_char_idx": 518,
+        "end_char_idx": 518
+      },
+      {
+        "text": "beginner",
+        "start_time": 24.231,
+        "end_time": 24.455,
+        "start_char_idx": 520,
+        "end_char_idx": 527
+      },
+      {
+        "text": "to",
+        "start_time": 24.471,
+        "end_time": 24.546,
+        "start_char_idx": 529,
+        "end_char_idx": 530
+      },
+      {
+        "text": "speak",
+        "start_time": 24.579,
+        "end_time": 24.745,
+        "start_char_idx": 532,
+        "end_char_idx": 536
+      },
+      {
+        "text": "too",
+        "start_time": 24.811,
+        "end_time": 24.961,
+        "start_char_idx": 538,
+        "end_char_idx": 540
+      },
+      {
+        "text": "early,",
+        "start_time": 24.994,
+        "end_time": 25.434,
+        "start_char_idx": 542,
+        "end_char_idx": 547
+      },
+      {
+        "text": "two",
+        "start_time": 25.484,
+        "end_time": 25.591,
+        "start_char_idx": 549,
+        "end_char_idx": 551
+      },
+      {
+        "text": "things",
+        "start_time": 25.624,
+        "end_time": 25.807,
+        "start_char_idx": 553,
+        "end_char_idx": 558
+      },
+      {
+        "text": "happen.",
+        "start_time": 25.849,
+        "end_time": 26.504,
+        "start_char_idx": 560,
+        "end_char_idx": 566
+      },
+      {
+        "text": "One,",
+        "start_time": 26.561,
+        "end_time": 26.885,
+        "start_char_idx": 568,
+        "end_char_idx": 571
+      },
+      {
+        "text": "they",
+        "start_time": 26.91,
+        "end_time": 27.018,
+        "start_char_idx": 573,
+        "end_char_idx": 576
+      },
+      {
+        "text": "develop",
+        "start_time": 27.051,
+        "end_time": 27.266,
+        "start_char_idx": 578,
+        "end_char_idx": 584
+      },
+      {
+        "text": "a",
+        "start_time": 27.316,
+        "end_time": 27.349,
+        "start_char_idx": 586,
+        "end_char_idx": 586
+      },
+      {
+        "text": "strong",
+        "start_time": 27.399,
+        "end_time": 27.739,
+        "start_char_idx": 588,
+        "end_char_idx": 593
+      },
+      {
+        "text": "foreign",
+        "start_time": 27.797,
+        "end_time": 28.071,
+        "start_char_idx": 595,
+        "end_char_idx": 601
+      },
+      {
+        "text": "accent",
+        "start_time": 28.154,
+        "end_time": 28.535,
+        "start_char_idx": 603,
+        "end_char_idx": 608
+      },
+      {
+        "text": "because",
+        "start_time": 28.569,
+        "end_time": 28.718,
+        "start_char_idx": 610,
+        "end_char_idx": 616
+      },
+      {
+        "text": "their",
+        "start_time": 28.734,
+        "end_time": 28.875,
+        "start_char_idx": 618,
+        "end_char_idx": 622
+      },
+      {
+        "text": "mouth",
+        "start_time": 28.925,
+        "end_time": 29.141,
+        "start_char_idx": 624,
+        "end_char_idx": 628
+      },
+      {
+        "text": "isn't",
+        "start_time": 29.174,
+        "end_time": 29.364,
+        "start_char_idx": 630,
+        "end_char_idx": 634
+      },
+      {
+        "text": "used",
+        "start_time": 29.398,
+        "end_time": 29.481,
+        "start_char_idx": 636,
+        "end_char_idx": 639
+      },
+      {
+        "text": "to",
+        "start_time": 29.506,
+        "end_time": 29.564,
+        "start_char_idx": 641,
+        "end_char_idx": 642
+      },
+      {
+        "text": "the",
+        "start_time": 29.58,
+        "end_time": 29.663,
+        "start_char_idx": 644,
+        "end_char_idx": 646
+      },
+      {
+        "text": "sounds",
+        "start_time": 29.729,
+        "end_time": 29.936,
+        "start_char_idx": 648,
+        "end_char_idx": 653
+      },
+      {
+        "text": "yet.",
+        "start_time": 30.019,
+        "end_time": 30.65,
+        "start_char_idx": 655,
+        "end_char_idx": 658
+      },
+      {
+        "text": "Two,",
+        "start_time": 30.708,
+        "end_time": 31.355,
+        "start_char_idx": 660,
+        "end_char_idx": 663
+      },
+      {
+        "text": "they",
+        "start_time": 31.379,
+        "end_time": 31.512,
+        "start_char_idx": 665,
+        "end_char_idx": 668
+      },
+      {
+        "text": "build",
+        "start_time": 31.554,
+        "end_time": 31.711,
+        "start_char_idx": 670,
+        "end_char_idx": 674
+      },
+      {
+        "text": "what",
+        "start_time": 31.744,
+        "end_time": 31.885,
+        "start_char_idx": 676,
+        "end_char_idx": 679
+      },
+      {
+        "text": "Krashen",
+        "start_time": 31.943,
+        "end_time": 32.225,
+        "start_char_idx": 681,
+        "end_char_idx": 687
+      },
+      {
+        "text": "called",
+        "start_time": 32.308,
+        "end_time": 32.648,
+        "start_char_idx": 689,
+        "end_char_idx": 694
+      },
+      {
+        "text": "the",
+        "start_time": 32.681,
+        "end_time": 32.781,
+        "start_char_idx": 696,
+        "end_char_idx": 698
+      },
+      {
+        "text": "affective",
+        "start_time": 32.831,
+        "end_time": 33.212,
+        "start_char_idx": 700,
+        "end_char_idx": 708
+      },
+      {
+        "text": "filter",
+        "start_time": 33.27,
+        "end_time": 33.651,
+        "start_char_idx": 710,
+        "end_char_idx": 715
+      },
+      {
+        "text": "--",
+        "start_time": 33.734,
+        "end_time": 33.876,
+        "start_char_idx": 717,
+        "end_char_idx": 718
+      },
+      {
+        "text": "anxiety",
+        "start_time": 33.959,
+        "end_time": 34.439,
+        "start_char_idx": 720,
+        "end_char_idx": 726
+      },
+      {
+        "text": "that",
+        "start_time": 34.464,
+        "end_time": 34.655,
+        "start_char_idx": 728,
+        "end_char_idx": 731
+      },
+      {
+        "text": "actually",
+        "start_time": 34.688,
+        "end_time": 34.945,
+        "start_char_idx": 733,
+        "end_char_idx": 740
+      },
+      {
+        "text": "blocks",
+        "start_time": 34.986,
+        "end_time": 35.186,
+        "start_char_idx": 742,
+        "end_char_idx": 747
+      },
+      {
+        "text": "language",
+        "start_time": 35.219,
+        "end_time": 35.451,
+        "start_char_idx": 749,
+        "end_char_idx": 756
+      },
+      {
+        "text": "acquisition.",
+        "start_time": 35.484,
+        "end_time": 36.321,
+        "start_char_idx": 758,
+        "end_char_idx": 769
+      },
+      {
+        "text": "The",
+        "start_time": 36.346,
+        "end_time": 36.479,
+        "start_char_idx": 771,
+        "end_char_idx": 773
+      },
+      {
+        "text": "brain",
+        "start_time": 36.529,
+        "end_time": 36.844,
+        "start_char_idx": 775,
+        "end_char_idx": 779
+      },
+      {
+        "text": "literally",
+        "start_time": 36.886,
+        "end_time": 37.159,
+        "start_char_idx": 781,
+        "end_char_idx": 789
+      },
+      {
+        "text": "learns",
+        "start_time": 37.184,
+        "end_time": 37.425,
+        "start_char_idx": 791,
+        "end_char_idx": 796
+      },
+      {
+        "text": "worse",
+        "start_time": 37.483,
+        "end_time": 37.624,
+        "start_char_idx": 798,
+        "end_char_idx": 802
+      },
+      {
+        "text": "when",
+        "start_time": 37.657,
+        "end_time": 37.748,
+        "start_char_idx": 804,
+        "end_char_idx": 807
+      },
+      {
+        "text": "it's",
+        "start_time": 37.773,
+        "end_time": 37.889,
+        "start_char_idx": 809,
+        "end_char_idx": 812
+      },
+      {
+        "text": "stressed.",
+        "start_time": 37.939,
+        "end_time": 38.652,
+        "start_char_idx": 814,
+        "end_char_idx": 822
+      }
+    ]
+  },
+  {
+    "id": "solution",
+    "start_time": 38.669,
+    "end_time": 54.401,
+    "words": [
+      {
+        "text": "The",
+        "start_time": 38.669,
+        "end_time": 38.793,
+        "start_char_idx": 824,
+        "end_char_idx": 826
+      },
+      {
+        "text": "solution",
+        "start_time": 38.851,
+        "end_time": 39.125,
+        "start_char_idx": 828,
+        "end_char_idx": 835
+      },
+      {
+        "text": "is",
+        "start_time": 39.158,
+        "end_time": 39.233,
+        "start_char_idx": 837,
+        "end_char_idx": 838
+      },
+      {
+        "text": "simple:",
+        "start_time": 39.274,
+        "end_time": 39.904,
+        "start_char_idx": 840,
+        "end_char_idx": 846
+      },
+      {
+        "text": "just",
+        "start_time": 39.962,
+        "end_time": 40.294,
+        "start_char_idx": 848,
+        "end_char_idx": 851
+      },
+      {
+        "text": "listen.",
+        "start_time": 40.327,
+        "end_time": 40.999,
+        "start_char_idx": 853,
+        "end_char_idx": 859
+      },
+      {
+        "text": "A",
+        "start_time": 41.049,
+        "end_time": 41.173,
+        "start_char_idx": 861,
+        "end_char_idx": 861
+      },
+      {
+        "text": "lot.",
+        "start_time": 41.281,
+        "end_time": 41.804,
+        "start_char_idx": 863,
+        "end_char_idx": 866
+      },
+      {
+        "text": "Watch",
+        "start_time": 41.853,
+        "end_time": 42.169,
+        "start_char_idx": 868,
+        "end_char_idx": 872
+      },
+      {
+        "text": "Chinese",
+        "start_time": 42.251,
+        "end_time": 42.583,
+        "start_char_idx": 874,
+        "end_char_idx": 880
+      },
+      {
+        "text": "shows.",
+        "start_time": 42.633,
+        "end_time": 43.196,
+        "start_char_idx": 882,
+        "end_char_idx": 887
+      },
+      {
+        "text": "Listen",
+        "start_time": 43.23,
+        "end_time": 43.404,
+        "start_char_idx": 889,
+        "end_char_idx": 894
+      },
+      {
+        "text": "to",
+        "start_time": 43.454,
+        "end_time": 43.578,
+        "start_char_idx": 896,
+        "end_char_idx": 897
+      },
+      {
+        "text": "podcasts.",
+        "start_time": 43.636,
+        "end_time": 44.3,
+        "start_char_idx": 899,
+        "end_char_idx": 907
+      },
+      {
+        "text": "Read",
+        "start_time": 44.333,
+        "end_time": 44.466,
+        "start_char_idx": 909,
+        "end_char_idx": 912
+      },
+      {
+        "text": "along",
+        "start_time": 44.524,
+        "end_time": 44.64,
+        "start_char_idx": 914,
+        "end_char_idx": 918
+      },
+      {
+        "text": "with",
+        "start_time": 44.665,
+        "end_time": 44.789,
+        "start_char_idx": 920,
+        "end_char_idx": 923
+      },
+      {
+        "text": "audio.",
+        "start_time": 44.831,
+        "end_time": 45.536,
+        "start_char_idx": 925,
+        "end_char_idx": 930
+      },
+      {
+        "text": "Let",
+        "start_time": 45.569,
+        "end_time": 45.651,
+        "start_char_idx": 932,
+        "end_char_idx": 934
+      },
+      {
+        "text": "your",
+        "start_time": 45.676,
+        "end_time": 45.817,
+        "start_char_idx": 936,
+        "end_char_idx": 939
+      },
+      {
+        "text": "brain",
+        "start_time": 45.859,
+        "end_time": 46.116,
+        "start_char_idx": 941,
+        "end_char_idx": 945
+      },
+      {
+        "text": "do",
+        "start_time": 46.157,
+        "end_time": 46.216,
+        "start_char_idx": 947,
+        "end_char_idx": 948
+      },
+      {
+        "text": "what",
+        "start_time": 46.24,
+        "end_time": 46.331,
+        "start_char_idx": 950,
+        "end_char_idx": 953
+      },
+      {
+        "text": "it's",
+        "start_time": 46.365,
+        "end_time": 46.514,
+        "start_char_idx": 955,
+        "end_char_idx": 958
+      },
+      {
+        "text": "designed",
+        "start_time": 46.564,
+        "end_time": 46.821,
+        "start_char_idx": 960,
+        "end_char_idx": 967
+      },
+      {
+        "text": "to",
+        "start_time": 46.871,
+        "end_time": 46.995,
+        "start_char_idx": 969,
+        "end_char_idx": 970
+      },
+      {
+        "text": "do",
+        "start_time": 47.169,
+        "end_time": 47.36,
+        "start_char_idx": 972,
+        "end_char_idx": 973
+      },
+      {
+        "text": "--",
+        "start_time": 47.418,
+        "end_time": 47.534,
+        "start_char_idx": 975,
+        "end_char_idx": 976
+      },
+      {
+        "text": "pattern",
+        "start_time": 47.567,
+        "end_time": 47.857,
+        "start_char_idx": 978,
+        "end_char_idx": 984
+      },
+      {
+        "text": "match.",
+        "start_time": 47.907,
+        "end_time": 48.521,
+        "start_char_idx": 986,
+        "end_char_idx": 991
+      },
+      {
+        "text": "Krashen's",
+        "start_time": 48.571,
+        "end_time": 48.911,
+        "start_char_idx": 993,
+        "end_char_idx": 1001
+      },
+      {
+        "text": "research",
+        "start_time": 48.952,
+        "end_time": 49.209,
+        "start_char_idx": 1003,
+        "end_char_idx": 1010
+      },
+      {
+        "text": "showed",
+        "start_time": 49.242,
+        "end_time": 49.391,
+        "start_char_idx": 1012,
+        "end_char_idx": 1017
+      },
+      {
+        "text": "that",
+        "start_time": 49.416,
+        "end_time": 49.582,
+        "start_char_idx": 1019,
+        "end_char_idx": 1022
+      },
+      {
+        "text": "speech",
+        "start_time": 49.624,
+        "end_time": 49.848,
+        "start_char_idx": 1024,
+        "end_char_idx": 1029
+      },
+      {
+        "text": "emerges",
+        "start_time": 49.889,
+        "end_time": 50.304,
+        "start_char_idx": 1031,
+        "end_char_idx": 1037
+      },
+      {
+        "text": "naturally",
+        "start_time": 50.337,
+        "end_time": 50.901,
+        "start_char_idx": 1039,
+        "end_char_idx": 1047
+      },
+      {
+        "text": "once",
+        "start_time": 50.942,
+        "end_time": 51.125,
+        "start_char_idx": 1049,
+        "end_char_idx": 1052
+      },
+      {
+        "text": "enough",
+        "start_time": 51.15,
+        "end_time": 51.424,
+        "start_char_idx": 1054,
+        "end_char_idx": 1059
+      },
+      {
+        "text": "input",
+        "start_time": 51.506,
+        "end_time": 51.697,
+        "start_char_idx": 1061,
+        "end_char_idx": 1065
+      },
+      {
+        "text": "is",
+        "start_time": 51.722,
+        "end_time": 51.805,
+        "start_char_idx": 1067,
+        "end_char_idx": 1068
+      },
+      {
+        "text": "absorbed.",
+        "start_time": 51.888,
+        "end_time": 52.501,
+        "start_char_idx": 1070,
+        "end_char_idx": 1078
+      },
+      {
+        "text": "You",
+        "start_time": 52.543,
+        "end_time": 52.634,
+        "start_char_idx": 1080,
+        "end_char_idx": 1082
+      },
+      {
+        "text": "don't",
+        "start_time": 52.659,
+        "end_time": 52.866,
+        "start_char_idx": 1084,
+        "end_char_idx": 1088
+      },
+      {
+        "text": "force",
+        "start_time": 52.916,
+        "end_time": 53.206,
+        "start_char_idx": 1090,
+        "end_char_idx": 1094
+      },
+      {
+        "text": "it.",
+        "start_time": 53.405,
+        "end_time": 53.546,
+        "start_char_idx": 1096,
+        "end_char_idx": 1098
+      },
+      {
+        "text": "It",
+        "start_time": 53.579,
+        "end_time": 53.721,
+        "start_char_idx": 1100,
+        "end_char_idx": 1101
+      },
+      {
+        "text": "comes.",
+        "start_time": 53.779,
+        "end_time": 54.401,
+        "start_char_idx": 1103,
+        "end_char_idx": 1108
+      }
+    ]
+  },
+  {
+    "id": "cta",
+    "start_time": 54.426,
+    "end_time": 60.264,
+    "words": [
+      {
+        "text": "So",
+        "start_time": 54.426,
+        "end_time": 54.484,
+        "start_char_idx": 1110,
+        "end_char_idx": 1111
+      },
+      {
+        "text": "if",
+        "start_time": 54.5,
+        "end_time": 54.541,
+        "start_char_idx": 1113,
+        "end_char_idx": 1114
+      },
+      {
+        "text": "you",
+        "start_time": 54.599,
+        "end_time": 54.699,
+        "start_char_idx": 1116,
+        "end_char_idx": 1118
+      },
+      {
+        "text": "feel",
+        "start_time": 54.724,
+        "end_time": 54.856,
+        "start_char_idx": 1120,
+        "end_char_idx": 1123
+      },
+      {
+        "text": "guilty",
+        "start_time": 54.898,
+        "end_time": 55.139,
+        "start_char_idx": 1125,
+        "end_char_idx": 1130
+      },
+      {
+        "text": "about",
+        "start_time": 55.164,
+        "end_time": 55.387,
+        "start_char_idx": 1132,
+        "end_char_idx": 1136
+      },
+      {
+        "text": "not",
+        "start_time": 55.42,
+        "end_time": 55.528,
+        "start_char_idx": 1138,
+        "end_char_idx": 1140
+      },
+      {
+        "text": "speaking",
+        "start_time": 55.561,
+        "end_time": 55.826,
+        "start_char_idx": 1142,
+        "end_char_idx": 1149
+      },
+      {
+        "text": "Chinese",
+        "start_time": 55.885,
+        "end_time": 56.233,
+        "start_char_idx": 1151,
+        "end_char_idx": 1157
+      },
+      {
+        "text": "yet",
+        "start_time": 56.382,
+        "end_time": 56.673,
+        "start_char_idx": 1159,
+        "end_char_idx": 1161
+      },
+      {
+        "text": "--",
+        "start_time": 56.756,
+        "end_time": 56.83,
+        "start_char_idx": 1163,
+        "end_char_idx": 1164
+      },
+      {
+        "text": "don't.",
+        "start_time": 56.938,
+        "end_time": 57.634,
+        "start_char_idx": 1166,
+        "end_char_idx": 1171
+      },
+      {
+        "text": "You're",
+        "start_time": 57.659,
+        "end_time": 57.809,
+        "start_char_idx": 1173,
+        "end_char_idx": 1178
+      },
+      {
+        "text": "supposed",
+        "start_time": 57.842,
+        "end_time": 58.033,
+        "start_char_idx": 1180,
+        "end_char_idx": 1187
+      },
+      {
+        "text": "to",
+        "start_time": 58.074,
+        "end_time": 58.149,
+        "start_char_idx": 1189,
+        "end_char_idx": 1190
+      },
+      {
+        "text": "be",
+        "start_time": 58.273,
+        "end_time": 58.373,
+        "start_char_idx": 1192,
+        "end_char_idx": 1193
+      },
+      {
+        "text": "silent.",
+        "start_time": 58.397,
+        "end_time": 59.069,
+        "start_char_idx": 1195,
+        "end_char_idx": 1201
+      },
+      {
+        "text": "The",
+        "start_time": 59.102,
+        "end_time": 59.244,
+        "start_char_idx": 1203,
+        "end_char_idx": 1205
+      },
+      {
+        "text": "words",
+        "start_time": 59.268,
+        "end_time": 59.409,
+        "start_char_idx": 1207,
+        "end_char_idx": 1211
+      },
+      {
+        "text": "will",
+        "start_time": 59.451,
+        "end_time": 59.733,
+        "start_char_idx": 1213,
+        "end_char_idx": 1216
+      },
+      {
+        "text": "come",
+        "start_time": 59.816,
+        "end_time": 59.949,
+        "start_char_idx": 1218,
+        "end_char_idx": 1221
+      },
+      {
+        "text": "when",
+        "start_time": 59.973,
+        "end_time": 60.048,
+        "start_char_idx": 1223,
+        "end_char_idx": 1226
+      },
+      {
+        "text": "they're",
+        "start_time": 60.081,
+        "end_time": 60.264,
+        "start_char_idx": 1228,
+        "end_char_idx": 1234
+      }
+    ]
+  }
+]

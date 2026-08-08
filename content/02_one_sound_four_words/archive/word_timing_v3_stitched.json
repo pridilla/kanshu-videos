@@ -1,0 +1,772 @@
+[
+  {
+    "word": "Okay",
+    "start": 0.0,
+    "end": 0.24
+  },
+  {
+    "word": "so.",
+    "start": 0.347,
+    "end": 0.721
+  },
+  {
+    "word": "[pauses]",
+    "start": 2.241,
+    "end": 2.601
+  },
+  {
+    "word": "Chinese",
+    "start": 2.616,
+    "end": 2.721
+  },
+  {
+    "word": "does",
+    "start": 2.769,
+    "end": 2.961
+  },
+  {
+    "word": "something",
+    "start": 3.001,
+    "end": 3.361
+  },
+  {
+    "word": "that",
+    "start": 3.393,
+    "end": 3.521
+  },
+  {
+    "word": "just",
+    "start": 3.569,
+    "end": 3.761
+  },
+  {
+    "word": "melts",
+    "start": 3.881,
+    "end": 4.481
+  },
+  {
+    "word": "English",
+    "start": 4.541,
+    "end": 4.961
+  },
+  {
+    "word": "speakers'",
+    "start": 5.005,
+    "end": 5.437
+  },
+  {
+    "word": "brains.",
+    "start": 5.517,
+    "end": 7.277
+  },
+  {
+    "word": "Same",
+    "start": 7.277,
+    "end": 7.277
+  },
+  {
+    "word": "sound.",
+    "start": 7.357,
+    "end": 7.837
+  },
+  {
+    "word": "Four",
+    "start": 7.997,
+    "end": 8.637
+  },
+  {
+    "word": "completely",
+    "start": 8.702,
+    "end": 9.352
+  },
+  {
+    "word": "different",
+    "start": 9.384,
+    "end": 9.672
+  },
+  {
+    "word": "words.",
+    "start": 9.739,
+    "end": 10.154
+  },
+  {
+    "word": "The",
+    "start": 10.374,
+    "end": 11.034
+  },
+  {
+    "word": "only",
+    "start": 11.082,
+    "end": 11.274
+  },
+  {
+    "word": "thing",
+    "start": 11.314,
+    "end": 11.514
+  },
+  {
+    "word": "that",
+    "start": 11.53,
+    "end": 11.594
+  },
+  {
+    "word": "changes",
+    "start": 11.654,
+    "end": 12.074
+  },
+  {
+    "word": "is",
+    "start": 12.127,
+    "end": 12.233
+  },
+  {
+    "word": "your",
+    "start": 12.265,
+    "end": 12.393
+  },
+  {
+    "word": "pitch.",
+    "start": 12.473,
+    "end": 13.353
+  },
+  {
+    "word": "Your",
+    "start": 13.449,
+    "end": 13.833
+  },
+  {
+    "word": "voice",
+    "start": 13.873,
+    "end": 14.073
+  },
+  {
+    "word": "goes",
+    "start": 14.121,
+    "end": 14.313
+  },
+  {
+    "word": "up,",
+    "start": 14.42,
+    "end": 15.034
+  },
+  {
+    "word": "down,",
+    "start": 15.114,
+    "end": 15.834
+  },
+  {
+    "word": "flat,",
+    "start": 15.946,
+    "end": 16.794
+  },
+  {
+    "word": "sharp",
+    "start": 16.847,
+    "end": 17.112
+  },
+  {
+    "word": "drop",
+    "start": 17.192,
+    "end": 17.512
+  },
+  {
+    "word": "\u2014",
+    "start": 17.832,
+    "end": 18.152
+  },
+  {
+    "word": "and",
+    "start": 18.172,
+    "end": 18.232
+  },
+  {
+    "word": "suddenly",
+    "start": 18.276,
+    "end": 18.628
+  },
+  {
+    "word": "you're",
+    "start": 18.648,
+    "end": 18.789
+  },
+  {
+    "word": "saying",
+    "start": 18.823,
+    "end": 19.027
+  },
+  {
+    "word": "something",
+    "start": 19.059,
+    "end": 19.347
+  },
+  {
+    "word": "else",
+    "start": 19.379,
+    "end": 19.507
+  },
+  {
+    "word": "entirely.",
+    "start": 19.578,
+    "end": 20.506
+  },
+  {
+    "word": "The",
+    "start": 20.506,
+    "end": 20.506
+  },
+  {
+    "word": "example",
+    "start": 20.506,
+    "end": 20.506
+  },
+  {
+    "word": "everyone",
+    "start": 20.506,
+    "end": 20.506
+  },
+  {
+    "word": "uses.",
+    "start": 20.506,
+    "end": 20.506
+  },
+  {
+    "word": "The",
+    "start": 20.506,
+    "end": 21.346
+  },
+  {
+    "word": "sound",
+    "start": 21.746,
+    "end": 23.9
+  },
+  {
+    "word": "is",
+    "start": 23.9,
+    "end": 23.9
+  },
+  {
+    "word": "ma.",
+    "start": 23.9,
+    "end": 25.212
+  },
+  {
+    "word": "First",
+    "start": 25.212,
+    "end": 25.577
+  },
+  {
+    "word": "tone.",
+    "start": 25.657,
+    "end": 26.057
+  },
+  {
+    "word": "Keep",
+    "start": 26.201,
+    "end": 26.777
+  },
+  {
+    "word": "it",
+    "start": 26.804,
+    "end": 26.858
+  },
+  {
+    "word": "high",
+    "start": 26.922,
+    "end": 27.178
+  },
+  {
+    "word": "and",
+    "start": 27.198,
+    "end": 27.258
+  },
+  {
+    "word": "flat.",
+    "start": 27.338,
+    "end": 27.738
+  },
+  {
+    "word": "Like",
+    "start": 27.802,
+    "end": 28.058
+  },
+  {
+    "word": "you're",
+    "start": 28.078,
+    "end": 28.219
+  },
+  {
+    "word": "singing.",
+    "start": 28.269,
+    "end": 29.219
+  },
+  {
+    "word": ".ma1.",
+    "start": 29.519,
+    "end": 30.979
+  },
+  {
+    "word": "Mother.",
+    "start": 31.076,
+    "end": 31.738
+  },
+  {
+    "word": "Second",
+    "start": 31.738,
+    "end": 33.099
+  },
+  {
+    "word": "tone.",
+    "start": 33.163,
+    "end": 33.499
+  },
+  {
+    "word": "Start",
+    "start": 33.606,
+    "end": 34.141
+  },
+  {
+    "word": "low,",
+    "start": 34.221,
+    "end": 34.541
+  },
+  {
+    "word": "rise",
+    "start": 34.621,
+    "end": 34.941
+  },
+  {
+    "word": "up.",
+    "start": 35.021,
+    "end": 35.261
+  },
+  {
+    "word": "Like",
+    "start": 35.341,
+    "end": 35.661
+  },
+  {
+    "word": "you're",
+    "start": 35.681,
+    "end": 35.822
+  },
+  {
+    "word": "surprised.",
+    "start": 35.886,
+    "end": 36.542
+  },
+  {
+    "word": ".ma2.",
+    "start": 37.062,
+    "end": 38.222
+  },
+  {
+    "word": "[laughs]",
+    "start": 38.422,
+    "end": 39.224
+  },
+  {
+    "word": "Hemp.",
+    "start": 39.312,
+    "end": 40.724
+  },
+  {
+    "word": "Third",
+    "start": 40.724,
+    "end": 41.424
+  },
+  {
+    "word": "tone.",
+    "start": 41.504,
+    "end": 41.904
+  },
+  {
+    "word": "Dip",
+    "start": 42.084,
+    "end": 42.624
+  },
+  {
+    "word": "down,",
+    "start": 42.704,
+    "end": 43.264
+  },
+  {
+    "word": "come",
+    "start": 43.296,
+    "end": 43.424
+  },
+  {
+    "word": "back",
+    "start": 43.472,
+    "end": 43.664
+  },
+  {
+    "word": "up.",
+    "start": 43.744,
+    "end": 44.064
+  },
+  {
+    "word": "Like",
+    "start": 44.128,
+    "end": 44.384
+  },
+  {
+    "word": "you're",
+    "start": 44.424,
+    "end": 44.625
+  },
+  {
+    "word": "really",
+    "start": 44.694,
+    "end": 45.108
+  },
+  {
+    "word": "thinking",
+    "start": 45.144,
+    "end": 45.432
+  },
+  {
+    "word": "about",
+    "start": 45.485,
+    "end": 45.75
+  },
+  {
+    "word": "it.",
+    "start": 45.803,
+    "end": 45.989
+  },
+  {
+    "word": ".ma3.",
+    "start": 46.549,
+    "end": 48.349
+  },
+  {
+    "word": "Horse.",
+    "start": 48.476,
+    "end": 49.271
+  },
+  {
+    "word": "Fourth",
+    "start": 49.271,
+    "end": 49.589
+  },
+  {
+    "word": "tone.",
+    "start": 49.669000000000004,
+    "end": 50.069
+  },
+  {
+    "word": "Drop",
+    "start": 50.229,
+    "end": 50.869
+  },
+  {
+    "word": "it",
+    "start": 50.896,
+    "end": 50.95
+  },
+  {
+    "word": "hard.",
+    "start": 51.03,
+    "end": 51.43
+  },
+  {
+    "word": "Like",
+    "start": 51.51,
+    "end": 51.83
+  },
+  {
+    "word": "you're",
+    "start": 51.85,
+    "end": 52.069
+  },
+  {
+    "word": "telling",
+    "start": 52.089,
+    "end": 52.229
+  },
+  {
+    "word": "someone",
+    "start": 52.259,
+    "end": 52.469
+  },
+  {
+    "word": "to",
+    "start": 52.522,
+    "end": 52.628
+  },
+  {
+    "word": "stop.",
+    "start": 52.708,
+    "end": 53.508
+  },
+  {
+    "word": ".ma4.",
+    "start": 53.748000000000005,
+    "end": 54.708
+  },
+  {
+    "word": "Scold.",
+    "start": 54.761,
+    "end": 56.228
+  },
+  {
+    "word": "Same",
+    "start": 56.228,
+    "end": 56.228
+  },
+  {
+    "word": "sound.",
+    "start": 56.295,
+    "end": 56.71
+  },
+  {
+    "word": "Four",
+    "start": 56.79,
+    "end": 57.11
+  },
+  {
+    "word": "words.",
+    "start": 57.19,
+    "end": 57.67
+  },
+  {
+    "word": "[pauses]",
+    "start": 58.75,
+    "end": 60.010000000000005
+  },
+  {
+    "word": "Wrong",
+    "start": 60.02,
+    "end": 60.07
+  },
+  {
+    "word": "pitch,",
+    "start": 60.137,
+    "end": 60.712
+  },
+  {
+    "word": "wrong",
+    "start": 60.765,
+    "end": 61.03
+  },
+  {
+    "word": "word.",
+    "start": 61.11,
+    "end": 61.67
+  },
+  {
+    "word": "That's",
+    "start": 61.718,
+    "end": 61.99
+  },
+  {
+    "word": "the",
+    "start": 62.010000000000005,
+    "end": 62.07
+  },
+  {
+    "word": "whole",
+    "start": 62.11,
+    "end": 62.31
+  },
+  {
+    "word": "thing.",
+    "start": 62.377,
+    "end": 62.979
+  },
+  {
+    "word": "Every",
+    "start": 62.979,
+    "end": 63.514
+  },
+  {
+    "word": "learner",
+    "start": 63.554,
+    "end": 63.834
+  },
+  {
+    "word": "gets",
+    "start": 63.898,
+    "end": 64.154
+  },
+  {
+    "word": "caught",
+    "start": 64.177,
+    "end": 64.315
+  },
+  {
+    "word": "by",
+    "start": 64.368,
+    "end": 64.474
+  },
+  {
+    "word": "this.",
+    "start": 64.538,
+    "end": 64.874
+  },
+  {
+    "word": "You",
+    "start": 65.014,
+    "end": 65.434
+  },
+  {
+    "word": "can",
+    "start": 65.474,
+    "end": 65.594
+  },
+  {
+    "word": "know",
+    "start": 65.626,
+    "end": 65.754
+  },
+  {
+    "word": "the",
+    "start": 65.794,
+    "end": 65.914
+  },
+  {
+    "word": "character",
+    "start": 65.946,
+    "end": 66.23400000000001
+  },
+  {
+    "word": "cold",
+    "start": 66.314,
+    "end": 66.634
+  },
+  {
+    "word": "and",
+    "start": 66.674,
+    "end": 66.794
+  },
+  {
+    "word": "still",
+    "start": 66.84700000000001,
+    "end": 67.112
+  },
+  {
+    "word": "mess",
+    "start": 67.16,
+    "end": 67.352
+  },
+  {
+    "word": "it",
+    "start": 67.379,
+    "end": 67.43299999999999
+  },
+  {
+    "word": "up.",
+    "start": 67.513,
+    "end": 67.753
+  },
+  {
+    "word": "Just",
+    "start": 67.81700000000001,
+    "end": 68.07300000000001
+  },
+  {
+    "word": "because",
+    "start": 68.113,
+    "end": 68.393
+  },
+  {
+    "word": "your",
+    "start": 68.425,
+    "end": 68.553
+  },
+  {
+    "word": "voice",
+    "start": 68.606,
+    "end": 68.87100000000001
+  },
+  {
+    "word": "went",
+    "start": 68.903,
+    "end": 69.031
+  },
+  {
+    "word": "up",
+    "start": 69.138,
+    "end": 69.352
+  },
+  {
+    "word": "instead",
+    "start": 69.402,
+    "end": 69.75200000000001
+  },
+  {
+    "word": "of",
+    "start": 69.779,
+    "end": 69.833
+  },
+  {
+    "word": "down.",
+    "start": 69.913,
+    "end": 70.473
+  },
+  {
+    "word": "That's",
+    "start": 70.473,
+    "end": 71.193
+  },
+  {
+    "word": "how",
+    "start": 71.213,
+    "end": 71.273
+  },
+  {
+    "word": "Chinese",
+    "start": 71.32300000000001,
+    "end": 71.673
+  },
+  {
+    "word": "tones",
+    "start": 71.726,
+    "end": 71.991
+  },
+  {
+    "word": "work.",
+    "start": 72.055,
+    "end": 72.791
+  },
+  {
+    "word": "Follow",
+    "start": 72.86,
+    "end": 73.274
+  },
+  {
+    "word": "kanshu.app",
+    "start": 73.354,
+    "end": 74.314
+  },
+  {
+    "word": "to",
+    "start": 74.394,
+    "end": 74.554
+  },
+  {
+    "word": "learn",
+    "start": 74.594,
+    "end": 74.794
+  },
+  {
+    "word": "more",
+    "start": 74.858,
+    "end": 75.114
+  },
+  {
+    "word": "about",
+    "start": 75.154,
+    "end": 75.354
+  },
+  {
+    "word": "the",
+    "start": 75.374,
+    "end": 75.434
+  },
+  {
+    "word": "language.",
+    "start": 75.487,
+    "end": 76.071
+  }
+]

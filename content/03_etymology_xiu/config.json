@@ -1,0 +1,31 @@
+{
+  "videoId": "03_etymology_xiu",
+  "character": "休",
+  "pinyin": "xiū",
+  "tone": 1,
+  "meaning": "To Rest",
+  "oracleBoneSymbol": "🧍🌳",
+  "radicals": [
+    {
+      "radical": "亻",
+      "pinyin": "rén",
+      "meaning": "Person / Human",
+      "role": "semantic"
+    },
+    {
+      "radical": "木",
+      "pinyin": "mù",
+      "meaning": "Tree / Wood",
+      "role": "semantic"
+    }
+  ],
+  "story": "A human (亻) leaning against a tree (木) to take a rest.",
+  "exampleSentence": {
+    "cn": "工作累了，就休息一下吧。",
+    "pinyin": "Gōngzuò lèi le, jiù xiūxi yíxià ba.",
+    "en": "When you're tired from work, take a rest.",
+    "highlightWord": "休息"
+  },
+  "lessonDurationInFrames": 900,
+  "outroDurationInFrames": 400
+}
