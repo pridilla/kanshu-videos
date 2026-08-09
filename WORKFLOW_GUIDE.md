@@ -1,6 +1,6 @@
 # Chinese Character Etymology Video Workflow & Automation Master Guide
 
-This document captures the **complete end-to-end architecture, voice prompting secrets, cat sketch flipbook prompting pipeline, timing alignment algorithms, visual animation mechanics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
+This document captures the **complete end-to-end architecture, voice prompting secrets, cat sketch flipbook prompting pipeline, timing alignment algorithms, visual animation mechanics, design tokens, music specifications, transition physics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
 
 ---
 
@@ -44,126 +44,91 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 
 ---
 
-## 2. Flipbook Cat Sketch Generation & Character Consistency Pipeline
+## 2. Design System Tokens: Colors, Typography & Font Usage Rules
 
-The cat sketch flipbooks (`OrganicCenterTag.tsx`) are the primary visual delight element. To ensure cat drawings remain **100% consistent across frames** without flickering art style or changing body features:
+### A. Color Palette (`COLORS`)
+- **Background Canvas**: `#FAF9F6` (Warm off-white paper canvas from brand guidelines).
+- **Primary Brand Accent**: `#FF6F59` (Vibrant Coral Orange/Red). Used for active word highlights, CTA buttons, spotlight rings, and header borders.
+- **Dark Pill / Mask Overlay**: `#0F172A` (Deep Slate Navy). Used for dynamic target spotlight background (`rgba(15, 23, 42, 0.95)`) and dark card tags.
+- **Card Subtitle / Pinyin**: `#94A3B8` (Cool Grey).
+- **Ruby Inactive Pinyin**: `#8E8E93` (Muted Grey).
 
-### A. Master Image Prompting Structure
-Always use a single anchor master character definition in the prompt:
+### B. Typography & Font Assignment Rules
 
-```text
-[ANCHOR DESIGN]: Minimalist hand-drawn black ink line art sketch of a cute chubby round cat, simple black stroke on pure solid white background, cute cartoon doodle style, clear black outline, no color fill, no shading, no background textures.
+| Font Family | Variable / Constant | Purpose & Usage Rules |
+| :--- | :--- | :--- |
+| **Finger Paint** | `FONTS.display` | **All English Headings & Display Callouts**. Use ONLY for top brand badges (`CHINESE CHARACTER ETYMOLOGY`), screen title headers, card tag translation labels (ALL CAPS), and primary CTA buttons. |
+| **Noto Sans SC** | `"Noto Sans SC", sans-serif` | **All Chinese Hanzi Characters**. ALWAYS use for main intact morphing Hanzi (`fontSize: 340px`, weight `900`), card tag Hanzi (`fontSize: 40px`, weight `900`), and reader book text. |
+| **Roboto** | `FONTS.pinyin` | **Pinyin Pronunciation & Subtitles**. ALWAYS use for Pinyin annotations in card tags (`fontSize: 28px`, italic, weight `700`), subtitles, and real-time speech captions. |
 
-[FRAME ACTION]: Frame 1: The chubby cat is holding a wooden shield over a wall.
+---
+
+## 3. Background Music, Pattern & Motion Systems
+
+### A. Royalty-Free Chinese Lofi Background Music
+- **Audio File**: `public/chinese_lofi_bgm.mp3` (Jade Tea Loop).
+- **Volume Level**: **8% volume** (`volume={0.08}`) during the etymology lesson sequence.
+- **Fade-Out Transition**: Fades out smoothly in the last 60 frames (1 second) before the outro:
+```tsx
+const bgmFadeOut = interpolate(frame, [lessonDurationInFrames - 60, lessonDurationInFrames], [1, 0], {
+  extrapolateLeft: 'clamp',
+  extrapolateRight: 'clamp',
+});
+const bgmVolume = 0.08 * bgmFadeOut;
 ```
+
+### B. Oriental Cloud Lattice Background (`ChineseBackground.tsx`)
+- **Texture Asset**: `public/chinese_cloud_pattern.png` (Traditional Chinese oriental cloud lattice vector pattern).
+- **Visual Style**: Subtle 18% opacity overlay over the `#FAF9F6` warm canvas.
+- **Drift Motion**: Continuous horizontal parallax drift at 0.05px per frame (`transform: translateX(${frame * 0.05}px)`).
+- **Subtle Background Mesh Grid**: Quadratic moving grid slide (`backgroundSize: '54px 54px'`, opacity 0.28).
+
+---
+
+## 4. Screen Transition Physics & Morphing Patterns
+
+Screen transitions use fluid Remotion spring physics (`SPRING_SMOOTH`: `damping: 22, mass: 0.9, stiffness: 120`).
+
+### A. Morphing Character Coordinates ($X$ Position & Scale)
+Intact Hanzi characters **morph continuously** across screens:
+
+$$\text{morph1To2} = \text{spring}(\text{frame} - \text{screen1EndFrame})$$
+$$\text{morph2To3} = \text{spring}(\text{frame} - \text{screen2EndFrame})$$
+$$\text{morph3To4} = \text{spring}(\text{frame} - \text{screen3EndFrame})$$
+
+- **Character 1 (`帮`) Position ($X$)**:
+  - Screen 1: $-150\text{px}$ (Left side of compound word).
+  - Screen 2: $0\text{px}$ (Center focus, scaled up to $1.4\times$).
+  - Screen 3: $-800\text{px}$ (Slides completely off-screen left).
+  - Screen 4: $-150\text{px}$ (Morphs back to left side of synthesis aura ring).
+
+- **Character 2 (`助`) Position ($X$)**:
+  - Screen 1: $+150\text{px}$ (Right side of compound word).
+  - Screen 2: $+800\text{px}$ (Slides completely off-screen right).
+  - Screen 3: $0\text{px}$ (Center focus, scaled up to $1.4\times$).
+  - Screen 4: $+150\text{px}$ (Morphs back to right side of synthesis aura ring).
+
+### B. Card Tag Entrance & Exit Transitions (`OrganicCenterTag.tsx`)
+- **Entrance**: Moves from left off-screen ($-1400\text{px} \rightarrow 0\text{px}$) with gentle overshoot spring (`damping: 18, mass: 0.8, stiffness: 140`).
+- **Exit**: Moves off-screen right ($0\text{px} \rightarrow +1400\text{px}$) when `frame >= exitFrame`.
+
+---
+
+## 5. Flipbook Cat Sketch Generation & Consistency Pipeline
+
+### A. Card Tag Label Styling
+- **Pill Container**: `backgroundColor: '#0F172A'`, `padding: '14px 38px'`, `borderRadius: 26px`, `border: '2px solid rgba(255, 111, 89, 0.5)'`, `boxShadow: '0 16px 40px rgba(15, 23, 42, 0.45)'`.
+- **Line 1**: Emoji (`38px`) + Hanzi (`40px`, Noto Sans SC `#FFFFFF`, 900 weight) + Pinyin (`28px`, Roboto `#94A3B8`, 700 weight italic).
+- **Line 2**: Translation (`22px`, Finger Paint `#FF6F59`, 700 weight, ALL CAPS).
 
 ### B. 3-Frame Consistent Image-to-Image Generation Sequence
 
-1. **Frame 1 (Base Anchor Image)**:
-   - Generate Frame 1 using the Master Image Prompt.
-   - Example prompt for radical `巾` (Cloth):
-     `Minimalist hand-drawn black ink line art sketch of a cute chubby round cat wearing a protective cloth apron, simple black stroke on pure solid white background, cute cartoon doodle style, clear outline, no shading.`
+1. **Master Prompt Anchor**:
+   > `"Minimalist hand-drawn black ink line art sketch of a cute chubby round cat [ACTION], simple black stroke on pure solid white background, cute cartoon doodle style, clear black outline, no color fill, no shading."`
 
-2. **Frame 2 (Micro Movement - Image-to-Image Seed Anchoring)**:
-   - Pass **Frame 1** as the reference image input (`ImagePaths: ["cats/cat_jin_frame_1.png"]`).
-   - Use a low variation/denoising strength (**0.25 - 0.35**) to lock cat proportions, face shape, and stroke weight while prompting micro movement:
-     `Same chubby round cat from reference image, slightly tilting head left and winking right eye, minimalist black ink line art sketch, pure solid white background.`
-
-3. **Frame 3 (Peak Action - Image-to-Image Seed Anchoring)**:
-   - Pass **Frame 1** as reference image input with low variation strength (**0.25 - 0.35**):
-     `Same chubby round cat from reference image, lifting cloth apron up slightly with right paw, minimalist black ink line art sketch, pure solid white background.`
-
-### C. Transparency & Canvas Post-Processing
-1. **Background Removal**: Strip the pure white background to convert the image into a 32-bit transparent PNG with alpha channel (`rembg i frame_1.png frame_1_trans.png`).
-2. **Bounding Box Normalization**: Crop transparent padding so all 3 frames share identical center anchors, preventing the cat from jumping vertically or horizontally when cycling frames.
-
----
-
-## 3. ElevenLabs Voiceover Specifications & Prompt Engineering
-
-### Voice & Model Configuration
-- **Voice Model**: `eleven_v3` (MANDATORY: DO NOT use `eleven_multilingual_v2` as it drops Chinese tone contours).
-- **Voice ID**: `tnSpp4vdxKPjI9w0GnoV` (George - Warm, engaging, authoritative narrator).
-- **API Endpoint**: `POST https://api.elevenlabs.io/v1/text-to-speech/tnSpp4vdxKPjI9w0GnoV/with-timestamps`
-- **Output Format**: 192kbps MP3 + JSON alignment metadata (`characters`, `character_start_times_seconds`, `character_end_times_seconds`).
-
-### Script Syntax & Prompting Rules
-- **Rule 1: Character + Inline Pinyin Syntax**: Format Chinese words as `帮助 (bāngzhù)`, `帮 (bāng)`, `巾 (jīn)`. The `eleven_v3` model interprets `(pinyin)` as an inline pronunciation guide and speaks the Chinese character **once** with 100% accurate Mandarin tones before seamlessly continuing into English narration.
-- **Rule 2: Single-Pass Recording**: Always record the full narration script in a **single API request**. Do NOT concatenate separate audio clips, as this causes speech unnaturalness and timestamp misalignment.
-- **Rule 3: Audio Pace Acceleration**: Apply `ffmpeg -filter:a "atempo=1.15"` to accelerate the master narration by 15% without pitch distortion, reducing total video duration to a punchy ~54 seconds.
-
----
-
-## 4. Automated Timestamp & Alignment Sync System
-
-Word alignments and animation frame boundaries are computed automatically from ElevenLabs alignment JSON via `scripts/sync_single_pass_config.py`.
-
-### Scaling & Frame Calculation
-Given speech acceleration factor $S = 1.15$ and target FPS = 60:
-$$\text{Frame}(t) = \text{round}\left( \frac{t}{S} \times 60 \right)$$
-
-### Centralized `animationTimestamps` Schema in `config.json`:
-```json
-{
-  "audioSrc": "bangzhu_voice_single_pass_fast.mp3",
-  "lessonDurationInFrames": 3241,
-  "wordsAlignment": [
-    { "word": "Why", "start": 0.0, "end": 0.25 },
-    { "word": "does", "start": 0.25, "end": 0.48 }
-  ],
-  "animationTimestamps": {
-    "screen1": {
-      "startFrame": 0,
-      "endFrame": 508,
-      "clothMention": { "startFrame": 206, "endFrame": 238 },
-      "wallMention": { "startFrame": 285, "endFrame": 330 },
-      "altarMention": { "startFrame": 340, "endFrame": 376 },
-      "muscleMention": { "startFrame": 430, "endFrame": 472 }
-    },
-    "screen2": {
-      "startFrame": 508,
-      "endFrame": 1763,
-      "topBang": { "startFrame": 508, "endFrame": 952 },
-      "bottomJin": { "startFrame": 952, "endFrame": 1440 },
-      "wholeBang": { "startFrame": 1440, "endFrame": 1763 }
-    },
-    "screen3": {
-      "startFrame": 1763,
-      "endFrame": 2920,
-      "wholeZhuIntro": { "startFrame": 1763, "endFrame": 1962 },
-      "leftQie": { "startFrame": 1962, "endFrame": 2233 },
-      "rightLi": { "startFrame": 2233, "endFrame": 2625 },
-      "wholeZhuOutro": { "startFrame": 2625, "endFrame": 2920 }
-    },
-    "screen4": {
-      "startFrame": 2920,
-      "endFrame": 3241,
-      "bangHighlightEndFrame": 3160
-    }
-  }
-}
-```
-
----
-
-## 5. Visual Components & Animation Implementation
-
-### A. Real-Time Captions (`RealtimeCaptions.tsx`)
-- **Positioning**: Fixed container at `bottom: 200px` above card tags.
-- **Word Highlight Logic**: Active word highlights in vibrant `#FF6F59` with a subtle scale pop (`scale(1.08)`):
-```tsx
-const isActive = currentTime >= word.start && currentTime <= word.end;
-```
-
-### B. High-Contrast Dynamic Target Spotlight (`DynamicSmoothSpotlight`)
-- **Dark Mask Overlay**: Full screen `rgba(15, 23, 42, 0.95)` with dynamic SVG `<mask/>` circular cutout.
-- **Target Ring**: Bright SVG `<circle/>` stroke `#FF6F59` with `strokeWidth: 5px` and glowing filter.
-- **Snug Pointer Arrow**: Pointing emoji `👇` dynamically positioned snugly at `top: -(radius - 15)`.
-
-### C. Flipbook Cat Sketch Cards (`OrganicCenterTag.tsx`)
-- **Card Design**: Compact 2-line dark pill container (`backgroundColor: '#0F172A'`, `borderRadius: 26px`, `border: '2px solid rgba(255, 111, 89, 0.5)'`).
-- **Cat Sketch Images**: Transparent borderless PNG drawings stored in `public/cats/cat_*.png`.
-- **Absolute 6 FPS Ping-Pong Loop**: Calculated globally to ensure uniform animation rhythm across card entries:
+2. **Frame 1 (Base Anchor)**: Generate Frame 1 using the Master Prompt.
+3. **Frame 2 & 3 (Image-to-Image Seed Anchoring)**: Pass **Frame 1** as the reference input image with a low variation weight (**0.25 – 0.35**) to lock cat proportions, face shape, and stroke width while prompting micro-actions.
+4. **Absolute 6 FPS Ping-Pong Loop**:
 ```tsx
 const cycleIndex = Math.floor(frame / 10) % 4;
 const pingPongMap = [0, 1, 2, 1]; // 0 -> 1 -> 2 -> 1 loop
@@ -171,15 +136,18 @@ const flipIndex = pingPongMap[cycleIndex] % catImages.length;
 const currentCatSrc = catImages[flipIndex] || catImages[0];
 ```
 
-### D. App Promotional Outro (`AppOutro.tsx`)
-- 3D iPhone canvas displaying Chinese reading text with Pinyin ruby annotations.
-- Live touch gesture pointer with expanding ripple effect (`TouchGesture`).
-- Store Badges: Apple App Store badge displayed; Google Play Store badge commented out.
-- Primary CTA: `"Start Reading For Free — Link in Bio"`.
+---
+
+## 6. ElevenLabs Voiceover Specifications
+
+- **Voice Model**: `eleven_v3` (Voice ID `tnSpp4vdxKPjI9w0GnoV`).
+- **Syntax Rule**: Character + Inline Pinyin Syntax `帮助 (bāngzhù)`.
+- **Single-Pass Recording**: Generated in 1 request using `with-timestamps` API.
+- **Pace Acceleration**: `ffmpeg -filter:a "atempo=1.15"` (15% faster speech pace).
 
 ---
 
-## 6. Message-by-Message Feedback Analysis
+## 7. Message-by-Message Feedback Analysis
 
 | Step | User Request / Feedback | Root Cause | Engineering Solution |
 | :--- | :--- | :--- | :--- |
