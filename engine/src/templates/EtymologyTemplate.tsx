@@ -3,6 +3,7 @@ import { AbsoluteFill, Sequence, spring, interpolate, useCurrentFrame, useVideoC
 import { COLORS, FONTS, SPRING_OVERSHOOT, SPRING_GENTLE, SPRING_BOUNCE, SPRING_SMOOTH, FPS } from '../shared/constants';
 import { FloatingParticles } from '../components/Icons';
 import { KanshuAppOutro } from '../components/AppOutro';
+import { RealtimeCaptions, AlignedWord } from '../components/RealtimeCaptions';
 
 export interface RadicalInfo {
   radical: string;
@@ -27,6 +28,7 @@ export interface EtymologyConfig {
   };
   audioSrc?: string;
   outroAudioSrc?: string;
+  wordsAlignment?: AlignedWord[];
   lessonDurationInFrames?: number;
   outroDurationInFrames?: number;
 }
@@ -50,6 +52,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   },
   audioSrc,
   outroAudioSrc = 'kanshu_outro_voice.mp3',
+  wordsAlignment = [],
   lessonDurationInFrames = 1200, // 20s
   outroDurationInFrames = 400,    // 6.6s
 }) => {
@@ -60,14 +63,17 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   // Entrance spring for main character (0-400 frames)
   const charSpring = spring({ frame, fps, config: SPRING_BOUNCE });
   
-  // Oracle bone evolution morph (250-600 frames)
-  const morphProgress = spring({ frame: Math.max(0, frame - 200), fps, config: SPRING_SMOOTH });
+  // Oracle bone evolution morph (200+ frames)
+  const morphProgress = spring({ frame: Math.max(0, frame - 160), fps, config: SPRING_SMOOTH });
 
-  // Radical breakdown entrance (550-900 frames)
-  const radicalSpring = spring({ frame: Math.max(0, frame - 500), fps, config: SPRING_GENTLE });
+  // Radical breakdown entrance (dynamically appears around frame 240 / ~4.0s when audio explains radicals)
+  const radicalSpring = spring({ frame: Math.max(0, frame - 240), fps, config: SPRING_GENTLE });
 
-  // Example sentence entrance (850-1200 frames)
-  const sentenceSpring = spring({ frame: Math.max(0, frame - 800), fps, config: SPRING_OVERSHOOT });
+  // Story breakdown entrance (dynamically appears around frame 360 / ~6.0s)
+  const storySpring = spring({ frame: Math.max(0, frame - 360), fps, config: SPRING_SMOOTH });
+
+  // Example sentence entrance (dynamically appears around frame 520 / ~8.6s)
+  const sentenceSpring = spring({ frame: Math.max(0, frame - 520), fps, config: SPRING_OVERSHOOT });
 
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.bg, fontFamily: FONTS.pinyin, overflow: 'hidden' }}>
@@ -99,7 +105,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           {/* Character & Oracle Bone Evolution Display */}
           <div
             style={{
-              marginTop: 60,
+              marginTop: 50,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -111,7 +117,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               style={{
                 fontSize: 72,
                 opacity: interpolate(morphProgress, [0, 1], [1, 0.6]),
-                transform: `translateY(${interpolate(morphProgress, [0, 1], [0, -20])}px)`,
+                transform: `translateY(${interpolate(morphProgress, [0, 1], [0, -16])}px)`,
                 marginBottom: 10,
               }}
             >
@@ -121,7 +127,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             {/* Main Modern Hanzi Character */}
             <div
               style={{
-                fontSize: 180,
+                fontSize: 170,
                 fontWeight: 900,
                 fontFamily: '"Noto Serif SC", serif',
                 color: '#0F172A',
@@ -133,20 +139,20 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             </div>
 
             {/* Pinyin & Meaning Badge */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16 }}>
               <span style={{ fontSize: 44, fontWeight: 800, color: '#FF6F59' }}>{pinyin}</span>
               <span style={{ fontSize: 32, fontWeight: 600, color: '#64748B' }}>• {meaning}</span>
             </div>
           </div>
 
-          {/* Radical Component Breakdown Cards */}
-          {frame >= 450 && (
+          {/* Radical Component Breakdown Cards (Dynamic Entrance) */}
+          {frame >= 200 && (
             <div
               style={{
-                marginTop: 60,
+                marginTop: 40,
                 width: '100%',
                 display: 'flex',
-                gap: 24,
+                gap: 20,
                 justifyContent: 'center',
                 opacity: radicalSpring,
                 transform: `translateY(${interpolate(radicalSpring, [0, 1], [40, 0])}px)`,
@@ -159,64 +165,66 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                     flex: 1,
                     backgroundColor: '#FFFFFF',
                     borderRadius: 24,
-                    padding: 24,
+                    padding: 20,
                     boxShadow: '0 12px 32px rgba(15,23,42,0.08)',
-                    border: '1px solid #E2E8F0',
+                    border: '1.5px solid rgba(255, 111, 89, 0.25)',
                     textAlign: 'center',
                   }}
                 >
-                  <div style={{ fontSize: 64, fontWeight: 900, color: '#0F172A', fontFamily: '"Noto Serif SC", serif' }}>
+                  <div style={{ fontSize: 56, fontWeight: 900, color: '#0F172A', fontFamily: '"Noto Serif SC", serif' }}>
                     {rad.radical}
                   </div>
-                  <div style={{ fontSize: 24, color: '#FF6F59', fontWeight: 700, marginTop: 4 }}>{rad.pinyin}</div>
-                  <div style={{ fontSize: 20, color: '#475569', fontWeight: 600, marginTop: 8 }}>{rad.meaning}</div>
+                  <div style={{ fontSize: 22, color: '#FF6F59', fontWeight: 800, marginTop: 2 }}>{rad.pinyin}</div>
+                  <div style={{ fontSize: 18, color: '#475569', fontWeight: 600, marginTop: 6, lineHeight: 1.35 }}>{rad.meaning}</div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Etymology Mnemonic Story Card */}
-          {frame >= 600 && (
+          {/* Etymology Story Origin Card */}
+          {frame >= 320 && (
             <div
               style={{
-                marginTop: 40,
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                borderRadius: 28,
-                padding: '24px 32px',
+                marginTop: 28,
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: 24,
+                padding: '20px 28px',
                 width: '100%',
                 boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
                 border: '1.5px solid rgba(255, 111, 89, 0.2)',
                 textAlign: 'center',
+                opacity: storySpring,
+                transform: `scale(${interpolate(storySpring, [0, 1], [0.92, 1])})`,
               }}
             >
-              <div style={{ fontSize: 22, fontWeight: 800, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                💡 Etymology Origin
+              <div style={{ fontSize: 18, fontWeight: 800, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                💡 Ancient Origin Story
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, color: '#1E293B', marginTop: 10, lineHeight: 1.4 }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: '#1E293B', marginTop: 6, lineHeight: 1.4 }}>
                 "{story}"
               </div>
             </div>
           )}
 
           {/* Example Sentence Context Card */}
-          {frame >= 750 && (
+          {frame >= 500 && (
             <div
               style={{
-                marginTop: 36,
+                marginTop: 24,
                 backgroundColor: '#0F172A',
                 color: '#FFFFFF',
-                borderRadius: 28,
-                padding: '28px 36px',
+                borderRadius: 24,
+                padding: '24px 32px',
                 width: '100%',
                 boxShadow: '0 20px 40px rgba(15,23,42,0.25)',
                 opacity: sentenceSpring,
-                transform: `translateY(${interpolate(sentenceSpring, [0, 1], [50, 0])}px)`,
+                transform: `translateY(${interpolate(sentenceSpring, [0, 1], [40, 0])}px)`,
               }}
             >
-              <div style={{ fontSize: 18, color: '#94A3B8', fontWeight: 700, textTransform: 'uppercase', marginBottom: 12 }}>
+              <div style={{ fontSize: 16, color: '#94A3B8', fontWeight: 700, textTransform: 'uppercase', marginBottom: 8 }}>
                 Sentence Context
               </div>
-              <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1.5, fontFamily: '"Noto Serif SC", serif' }}>
+              <div style={{ fontSize: 32, fontWeight: 800, lineHeight: 1.45, fontFamily: '"Noto Serif SC", serif' }}>
                 {exampleSentence.cn.split(exampleSentence.highlightWord).map((part, i, arr) => (
                   <React.Fragment key={i}>
                     {part}
@@ -228,13 +236,18 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                   </React.Fragment>
                 ))}
               </div>
-              <div style={{ fontSize: 22, color: '#FF6F59', marginTop: 10, fontWeight: 600 }}>
+              <div style={{ fontSize: 20, color: '#FF6F59', marginTop: 8, fontWeight: 600 }}>
                 {exampleSentence.pinyin}
               </div>
-              <div style={{ fontSize: 22, color: '#CBD5E1', marginTop: 8 }}>
+              <div style={{ fontSize: 18, color: '#CBD5E1', marginTop: 6 }}>
                 "{exampleSentence.en}"
               </div>
             </div>
+          )}
+
+          {/* Dynamic Real-Time Captions with Active Word Highlight */}
+          {wordsAlignment && wordsAlignment.length > 0 && (
+            <RealtimeCaptions words={wordsAlignment} positionBottom={120} />
           )}
         </AbsoluteFill>
 

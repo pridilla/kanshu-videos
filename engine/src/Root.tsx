@@ -7,6 +7,7 @@ import { FPS, WIDTH, HEIGHT, TOTAL_FRAMES } from './shared/constants';
 
 // Load default Video #3 config for fallback rendering
 import defaultXiuConfig from '../../content/03_etymology_xiu/config.json';
+import bangzhuConfig from '../../content/04_etymology_bangzhu/config.json';
 
 // ────────────────────────────────────────────────────────────
 // FONT LOADER GUARD
@@ -59,6 +60,8 @@ export const Root: React.FC = () => {
     (activeEtymologyConfig.lessonDurationInFrames || 900) +
     (activeEtymologyConfig.outroDurationInFrames || 400);
 
+  const bangzhuTotalFrames = bangzhuConfig.lessonDurationInFrames + bangzhuConfig.outroDurationInFrames;
+
   return (
     <>
       {/* Standalone Reusable Kanshu Outro Preview */}
@@ -75,7 +78,21 @@ export const Root: React.FC = () => {
         height={HEIGHT}
       />
 
-      {/* Etymology Video Template Composition (e.g. Video #3: 休) */}
+      {/* Etymology Video Template Composition (Video #4: 帮助) */}
+      <Composition
+        id="EtymologyBangzhu"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(bangzhuConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={bangzhuTotalFrames} // 1325 frames (~22s @ 60fps)
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Etymology Video Template Composition (Video #3: 休) */}
       <Composition
         id="EtymologyVideo"
         component={() => (
