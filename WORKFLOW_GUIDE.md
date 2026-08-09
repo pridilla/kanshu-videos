@@ -1,77 +1,158 @@
-# Comprehensive Chinese Character Etymology Video Workflow & Automation Blueprint
+# Chinese Character Etymology Video Workflow & Automation Master Guide
 
-This document captures the **complete end-to-end workflow, user feedback analysis, feedback loops, and automation roadmap** for generating high-converting Chinese Character Etymology videos for **Kanshu**.
-
----
-
-## 1. Executive Summary & Overview
-
-Creating engaging, high-converting Chinese etymology video reels requires seamless integration between:
-1. **Multilingual Voice Narration (ElevenLabs `eleven_v3`)**
-2. **Word-Level Audio Alignment (`with-timestamps` API)**
-3. **Dynamic Remotion Visual Components** (Morphing Hanzi, Target Spotlights, Real-Time Captions, 6 FPS Flipbook Cat Sketches, Bouncy Orbiting Emojis)
-4. **App Promotional Outro** (3D iPhone canvas with gesture interaction)
+This document captures the **complete end-to-end architecture, voice prompting secrets, timing alignment algorithms, visual animation mechanics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
 
 ---
 
-## 2. Complete Chronological User Feedback Analysis & Lessons Learned
+## 1. Video Architecture & Composition Structure
 
-| Stage | User Observation / Feedback | Root Cause Analysis | Engineering Solution & Systemic Principle |
+Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. A full etymology lesson consists of **5 distinct scenes**:
+
+```
++-------------------------------------------------------------------------------+
+|  1. HOOK / INTRO (0s - ~8.5s)                                                 |
+|     - Title: "Why Does 帮助 Contain Cloth & Muscle?"                          |
+|     - Intact centered Hanzi: 帮助                                             |
+|     - 4 Orbiting Radical Emojis (bouncy spring pop-ins on mention)            |
+|     - Flipbook Cat Card 1: 🤝 帮助 (bāng zhù)                                 |
++-------------------------------------------------------------------------------+
+|  2. CHARACTER 1 BREAKDOWN: 帮 (bāng) (~8.5s - ~29.4s)                         |
+|     - Title: "Character 1: 帮 (bāng) — Protective Backing"                    |
+|     - Intact 帮 morphs to center; 助 slides off-screen right                  |
+|     - Dynamic Black Spotlight: 邦 (top) -> 巾 (bottom) -> 帮 (whole)          |
+|     - Flipbook Cat Cards: 🏰 邦 -> 🧵 巾 -> 🛡️ 帮                           |
++-------------------------------------------------------------------------------+
+|  3. CHARACTER 2 BREAKDOWN: 助 (zhù) (~29.4s - ~48.7s)                         |
+|     - Title: "Character 2: 助 (zhù) — Muscle Power"                           |
+|     - Intact 帮 slides off-screen left; 助 morphs to center                   |
+|     - Dynamic Black Spotlight: 且 (left) -> 力 (right) -> 助 (whole)          |
+|     - Flipbook Cat Cards: ⛩️ 且 -> 💪 力 -> 🏋️ 助                           |
++-------------------------------------------------------------------------------+
+|  4. SYNTHESIS / CONCLUSION (~48.7s - ~54.0s)                                  |
+|     - Title: "Synthesis: 帮助 = Protection + Muscle!"                        |
+|     - 帮 and 助 morph side-by-side inside glowing Synthesis Aura Ring         |
+|     - Sequential highlight: 帮 (orange) -> 助 (orange)                        |
+|     - Flipbook Cat Card: 🤝 帮助 (bāng zhù)                                 |
++-------------------------------------------------------------------------------+
+|  5. KANSHU APP PROMOTIONAL OUTRO (~54.0s - ~61.1s)                            |
+|     - 3D iPhone canvas with live book text & Pinyin ruby annotations          |
+|     - Animated touch ripple gesture pointer                                   |
+|     - Badges: Apple App Store (Google Play Store commented out)               |
+|     - Primary CTA: "Start Reading For Free — Link in Bio"                     |
++-------------------------------------------------------------------------------+
+```
+
+---
+
+## 2. ElevenLabs Voiceover Specifications & Prompt Engineering
+
+### Voice & Model Configuration
+- **Voice Model**: `eleven_v3` (MANDATORY: DO NOT use `eleven_multilingual_v2` as it drops Chinese tone contours).
+- **Voice ID**: `tnSpp4vdxKPjI9w0GnoV` (George - Warm, engaging, authoritative narrator).
+- **API Endpoint**: `POST https://api.elevenlabs.io/v1/text-to-speech/tnSpp4vdxKPjI9w0GnoV/with-timestamps`
+- **Output Format**: 192kbps MP3 + JSON alignment metadata (`characters`, `character_start_times_seconds`, `character_end_times_seconds`).
+
+### Script Syntax & Prompting Rules
+- **Rule 1: Character + Inline Pinyin Syntax**: Format Chinese words as `帮助 (bāngzhù)`, `帮 (bāng)`, `巾 (jīn)`. The `eleven_v3` model interprets `(pinyin)` as an inline pronunciation guide and speaks the Chinese character **once** with 100% accurate Mandarin tones before seamlessly continuing into English narration.
+- **Rule 2: Single-Pass Recording**: Always record the full narration script in a **single API request**. Do NOT concatenate separate audio clips, as this causes speech unnaturalness and timestamp misalignment.
+- **Rule 3: Audio Pace Acceleration**: Apply `ffmpeg -filter:a "atempo=1.15"` to accelerate the master narration by 15% without pitch distortion, reducing total video duration to a punchy ~54 seconds.
+
+---
+
+## 3. Automated Timestamp & Alignment Sync System
+
+Word alignments and animation frame boundaries are computed automatically from ElevenLabs alignment JSON via `scripts/sync_single_pass_config.py`.
+
+### Scaling & Frame Calculation
+Given speech acceleration factor $S = 1.15$ and target FPS = 60:
+$$\text{Frame}(t) = \text{round}\left( \frac{t}{S} \times 60 \right)$$
+
+### Centralized `animationTimestamps` Schema in `config.json`:
+```json
+{
+  "audioSrc": "bangzhu_voice_single_pass_fast.mp3",
+  "lessonDurationInFrames": 3241,
+  "wordsAlignment": [
+    { "word": "Why", "start": 0.0, "end": 0.25 },
+    { "word": "does", "start": 0.25, "end": 0.48 }
+  ],
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 508,
+      "clothMention": { "startFrame": 206, "endFrame": 238 },
+      "wallMention": { "startFrame": 285, "endFrame": 330 },
+      "altarMention": { "startFrame": 340, "endFrame": 376 },
+      "muscleMention": { "startFrame": 430, "endFrame": 472 }
+    },
+    "screen2": {
+      "startFrame": 508,
+      "endFrame": 1763,
+      "topBang": { "startFrame": 508, "endFrame": 952 },
+      "bottomJin": { "startFrame": 952, "endFrame": 1440 },
+      "wholeBang": { "startFrame": 1440, "endFrame": 1763 }
+    },
+    "screen3": {
+      "startFrame": 1763,
+      "endFrame": 2920,
+      "wholeZhuIntro": { "startFrame": 1763, "endFrame": 1962 },
+      "leftQie": { "startFrame": 1962, "endFrame": 2233 },
+      "rightLi": { "startFrame": 2233, "endFrame": 2625 },
+      "wholeZhuOutro": { "startFrame": 2625, "endFrame": 2920 }
+    },
+    "screen4": {
+      "startFrame": 2920,
+      "endFrame": 3241,
+      "bangHighlightEndFrame": 3160
+    }
+  }
+}
+```
+
+---
+
+## 4. Visual Components & Animation Implementation
+
+### A. Real-Time Captions (`RealtimeCaptions.tsx`)
+- **Positioning**: Fixed container at `bottom: 200px` above card tags.
+- **Word Highlight Logic**: Active word highlights in vibrant `#FF6F59` with a subtle scale pop (`scale(1.08)`):
+```tsx
+const isActive = currentTime >= word.start && currentTime <= word.end;
+```
+
+### B. High-Contrast Dynamic Target Spotlight (`DynamicSmoothSpotlight`)
+- **Dark Mask Overlay**: Full screen `rgba(15, 23, 42, 0.95)` with dynamic SVG `<mask/>` circular cutout.
+- **Target Ring**: Bright SVG `<circle/>` stroke `#FF6F59` with `strokeWidth: 5px` and glowing filter.
+- **Snug Pointer Arrow**: Pointing emoji `👇` dynamically positioned snugly at `top: -(radius - 15)`.
+
+### C. Flipbook Cat Sketch Cards (`OrganicCenterTag.tsx`)
+- **Card Design**: Compact 2-line dark pill container (`backgroundColor: '#0F172A'`, `borderRadius: 26px`, `border: '2px solid rgba(255, 111, 89, 0.5)'`).
+- **Cat Sketch Images**: Transparent borderless PNG drawings stored in `public/cats/cat_*.png`.
+- **Absolute 6 FPS Ping-Pong Loop**: Calculated globally to ensure uniform animation rhythm across card entries:
+```tsx
+const cycleIndex = Math.floor(frame / 10) % 4;
+const pingPongMap = [0, 1, 2, 1]; // 0 -> 1 -> 2 -> 1 loop
+const flipIndex = pingPongMap[cycleIndex] % catImages.length;
+const currentCatSrc = catImages[flipIndex] || catImages[0];
+```
+
+### D. App Promotional Outro (`AppOutro.tsx`)
+- 3D iPhone canvas displaying Chinese reading text with Pinyin ruby annotations.
+- Live touch gesture pointer with expanding ripple effect (`TouchGesture`).
+- Store Badges: Apple App Store badge displayed; Google Play Store badge commented out.
+- Primary CTA: `"Start Reading For Free — Link in Bio"` in Finger Paint display font.
+
+---
+
+## 5. Message-by-Message Feedback Analysis
+
+| Step | User Request / Feedback | Root Cause | Engineering Solution |
 | :--- | :--- | :--- | :--- |
-| **Phase 1: Audio Generation & IPA Tones** | *"the audio sometimes has both pronunciations (the old and the new one) one after each other"* | ElevenLabs normalizer gets confused when English text transitions into standalone Pinyin or IPA phonemes, causing dual pronunciation repetitions. | **Character + Inline Pinyin Syntax**: Format script text as `帮助 (bāngzhù)`, `帮 (bāng)`, `巾 (jīn)`. ElevenLabs `eleven_v3` reads `(pinyin)` as an inline tone guide and speaks the Chinese character **once** with 100% native Mandarin tones! |
-| **Phase 2: Master Audio & Sub-segment Trimming** | *"I think we should keep generating one-shot recordings with both languages... format with both pinyin and chinese characters works the best"* | Stitching trimmed audio clips produced unnatural pauses and timestamp offsets for captions. | **Single-Pass Master Audio Recording**: Always generate the entire 60s voiceover in a **single API call** using ElevenLabs `with-timestamps`. |
-| **Phase 3: Animation Timing Architecture** | *"You forgot to update the animation timeframes... make sure those animations are not hidden deep in the code but there is one source of truth"* | Magic hardcoded frame numbers (`474`, `786`, `1213`, etc.) were hardcoded inside component rendering logic. | **Centralized `animationTimestamps` in `config.json`**: Automated `sync_single_pass_config.py` parses word alignment JSON and calculates frame boundaries for all screens, spotlight targets, and cat card entries into `config.json`. |
-| **Phase 4: Speech Pace & Pacing** | *"I want to generate the speech track to be faster"* | Native ElevenLabs speed can feel slightly slow for fast-paced TikTok / Reels platforms. | **FFmpeg Pitch-Preserving Pace Acceleration**: Apply `ffmpeg -filter:a "atempo=1.15"` to accelerate speech by 15%, then pass `--speed 1.15` to `sync_single_pass_config.py` to auto-scale word alignment and `animationTimestamps` proportionally. |
-| **Phase 5: Outro Customization** | *"In the outro, I also want to comment out the play store option, as this is not available for now"* | Hardcoded dual store buttons in `AppOutro.tsx`. | **Modular Badges**: Commented out Google Play Store badge in `AppOutro.tsx` so only the Apple App Store badge and main CTA are rendered. |
-| **Phase 6: Flipbook Animation Coherence** | *"the flipbook animations are a bit ... incoherent now. I see some drawings take more frames than others and the order does not seem to be always same"* | 1) Frame index calculated relative to `enterFrame`: `(frame - enterFrame) / 10`, causing every card to start at a different animation phase.<br>2) Linear 1-2-3 loop caused a harsh visual snap when resetting to frame 1. | **Absolute Timeline Ping-Pong Loop**: Calculate index globally using `Math.floor(frame / 10) % 4` with a smooth ping-pong map (`[0, 1, 2, 1]`). Every sketch card now animates at a perfectly uniform 6 FPS. |
-| **Phase 7: Remotion Concurrency Performance** | *"concurrency 8 is actually super slow, dont use it anymore"* | Setting `--concurrency=8` on Apple Silicon caused CPU thread thrashing and memory paging contention. | **Standard Concurrency Default**: Use default Remotion concurrency for local CLI renders (`npx remotion render src/index.ts EtymologyBangzhu out/final_reel.mp4`). |
-
----
-
-## 3. The 4-Step Video Generation Pipeline
-
-```mermaid
-flowchart TD
-    Step1["1. Script & Audio Generation<br>(Single-Pass eleven_v3 with Character+Pinyin Syntax)"] --> Step2["2. Audio Pace Acceleration & Alignment Sync<br>(FFmpeg atempo=1.15 + sync_single_pass_config.py)"]
-    Step2 --> Step3["3. Remotion Template Rendering<br>(EtymologyTemplate.tsx reading animationTimestamps)"]
-    Step3 --> Step4["4. Verification & Output Master<br>(final_reel_bangzhu_master.mp4)"]
-```
-
-### Step 1: Script & Single-Pass Audio Generation
-Generate master audio using ElevenLabs `eleven_v3` with inline Character+Pinyin pronunciation hints:
-```python
-script_text = "Why does 帮助 (bāngzhù) contain cloth and muscle? Character 1: 帮 (bāng)..."
-```
-
-### Step 2: Audio Acceleration & Config Sync
-Accelerate audio by 1.15x and sync timeline timestamps in `config.json`:
-```bash
-ffmpeg -y -i audio.mp3 -filter:a "atempo=1.15" -b:a 192k audio_fast.mp3
-python3 scripts/sync_single_pass_config.py --speed 1.15 --audio audio_fast.mp3
-```
-
-### Step 3: Remotion Render
-Render the video reel with standard concurrency:
-```bash
-npx remotion render src/index.ts EtymologyBangzhu out/final_reel_bangzhu_master.mp4
-```
-
----
-
-## 4. Automation Roadmap & Future Optimization
-
-To accelerate future Chinese etymology video production by **>10x**, the following feedback loops can be fully automated:
-
-1. **Automated Character Etymology Pipeline Script (`generate_etymology_video.py`)**:
-   - Accepts a single input command: `python3 generate_etymology_video.py --character "帮助" --pinyin "bāngzhù" --meaning "To Help"`.
-   - Fetches character breakdown, radical meanings, and oracle bone images automatically via API.
-   - Generates ElevenLabs single-pass voiceover with character+pinyin syntax.
-   - Runs `ffmpeg atempo` acceleration.
-   - Computes `animationTimestamps` and updates `config.json`.
-   - Triggers Remotion CLI build.
-
-2. **Remotion Lambda Cloud Rendering**:
-   - Offload 4,152 frame renders to 100+ parallel AWS Lambda functions, completing the entire video render in **<10 seconds**.
-
-3. **Automated Asset Quality Check (Linter)**:
-   - Verify that all cat sketch image paths (`cats/cat_*.png`) exist before rendering to eliminate 404 image load errors.
+| **1** | Use Pinyin using v3 | Speech engine skipped Chinese characters when unguided. | Switched to `eleven_v3`. |
+| **2** | Cut audio according to timestamps | Dual pronunciations occurred when stitching snippets. | Switched to single-pass master recording. |
+| **3** | Character + Pinyin prompt engineering | Passing `帮助 (bāngzhù)` forced single native Mandarin pronunciation. | Adopted `帮助 (bāngzhù)` character+pinyin prompt format. |
+| **4** | Refactor animation timelines | Hardcoded frame numbers made audio updates difficult. | Created `sync_single_pass_config.py` to write `animationTimestamps` to `config.json`. |
+| **5** | Faster speech track | 1.0x narration felt slow for Reels/TikTok. | Applied `ffmpeg atempo=1.15` and `--speed 1.15` alignment scaling. |
+| **6** | Comment out Play Store in outro | Google Play Store app not available yet. | Commented out Google Play Store badge in `AppOutro.tsx`. |
+| **7** | Incoherent flipbook animations | Relative frame indexing caused phase offsets & visual snapping. | Implemented global absolute 6 FPS ping-pong loop `[0, 1, 2, 1]`. |
+| **8** | Concurrency 8 is super slow | CPU thread thrashing on macOS. | Reverted to standard default Remotion thread concurrency. |
