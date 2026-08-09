@@ -1,6 +1,5 @@
 import React from 'react';
-import { useCurrentFrame, useVideoConfig, spring, interpolate } from 'remotion';
-import { SPRING_OVERSHOOT } from '../shared/constants';
+import { useCurrentFrame, useVideoConfig } from 'remotion';
 
 export interface AlignedWord {
   word: string;
@@ -18,14 +17,10 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
   const { fps } = useVideoConfig();
   const currentTime = frame / fps;
 
-  // Find currently active word index
-  const activeWordIdx = words.findIndex(w => currentTime >= w.start && currentTime <= w.end);
-
-  // Group words into 4 distinct phrases for clean subtitle pagination
+  // Group words into distinct phrase sentences
   const phrases = React.useMemo(() => {
     if (!words || words.length === 0) return [];
     
-    // Break into logical sentences/phrases based on timing gaps or punctuation
     const grouped: AlignedWord[][] = [];
     let currentGroup: AlignedWord[] = [];
 
@@ -47,16 +42,31 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
     return grouped;
   }, [words]);
 
-  // Find which phrase group is currently active
+  // Find currently active phrase group
   const activeGroup = phrases.find(group => {
     if (group.length === 0) return false;
-    const groupStart = group[0].start - 0.2;
-    const groupEnd = group[group.length - 1].end + 0.3;
+    const groupStart = group[0].start;
+    const groupEnd = group[group.length - 1].end + 0.15;
     return currentTime >= groupStart && currentTime <= groupEnd;
-  }) || phrases[0];
+  });
 
+  // HIDE CAPTIONS COMPLETELY BETWEEN SENTENCES!
   if (!activeGroup || activeGroup.length === 0) {
     return null;
+  }
+
+  // Find currently active word index within activeGroup
+  // Ensures ALWAYS AT LEAST ONE WORD IS HIGHLIGHTED while activeGroup is visible!
+  let activeWordInGroupIdx = 0;
+  for (let i = 0; i < activeGroup.length; i++) {
+    const w = activeGroup[i];
+    const nextStart = i < activeGroup.length - 1 ? activeGroup[i + 1].start : w.end + 0.3;
+    if (currentTime >= w.start) {
+      if (currentTime < nextStart || i === activeGroup.length - 1) {
+        activeWordInGroupIdx = i;
+        break;
+      }
+    }
   }
 
   return (
@@ -72,8 +82,8 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '8px 12px',
-        backgroundColor: 'rgba(15, 23, 42, 0.88)',
+        gap: '6px 10px',
+        backgroundColor: 'rgba(15, 23, 42, 0.92)',
         backdropFilter: 'blur(16px)',
         padding: '16px 28px',
         borderRadius: 24,
@@ -84,24 +94,22 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
       }}
     >
       {activeGroup.map((item, idx) => {
-        const isActive = currentTime >= item.start && currentTime <= item.end;
-        const isPast = currentTime > item.end;
+        const isActive = idx === activeWordInGroupIdx;
 
         return (
           <span
             key={idx}
             style={{
               fontSize: 32,
-              fontWeight: isActive ? 900 : 700,
+              fontWeight: 800,
               fontFamily: 'Inter, sans-serif',
-              color: isActive ? '#FF6F59' : isPast ? '#FFFFFF' : 'rgba(255, 255, 255, 0.65)',
+              color: isActive ? '#FF6F59' : '#FFFFFF',
               backgroundColor: isActive ? 'rgba(255, 111, 89, 0.22)' : 'transparent',
-              padding: isActive ? '4px 12px' : '4px 2px',
-              borderRadius: 12,
-              transform: isActive ? 'scale(1.12)' : 'scale(1)',
-              transition: 'all 0.08s ease-out',
+              padding: '4px 8px', // FIXED CONSTANT PADDING FOR ALL WORDS -> ZERO RESIZING / LAYOUT JITTER!
+              borderRadius: 10,
               textShadow: isActive ? '0 4px 14px rgba(255, 111, 89, 0.6)' : 'none',
               display: 'inline-block',
+              transition: 'color 0.05s linear, background-color 0.05s linear',
             }}
           >
             {item.word}
