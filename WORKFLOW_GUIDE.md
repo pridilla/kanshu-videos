@@ -1,6 +1,6 @@
 # Chinese Character Etymology Video Workflow & Automation Master Guide
 
-This document captures the **complete end-to-end architecture, voice prompting secrets, cat sketch flipbook prompting pipeline, timing alignment algorithms, visual animation mechanics, design tokens, music specifications, transition physics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
+This document captures the **complete end-to-end architecture, voice prompting secrets, cat sketch flipbook prompting pipeline, spotlight calibration visual inspection loop, timing alignment algorithms, visual animation mechanics, design tokens, music specifications, transition physics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
 
 ---
 
@@ -44,7 +44,44 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 
 ---
 
-## 2. Design System Tokens: Colors, Typography & Font Usage Rules
+## 2. Dynamic Target Spotlight Coordinate Calibration Loop (Visual AI Inspection)
+
+Chinese characters have diverse structural decompositions (Top-Bottom splits like `帮`, Left-Right splits like `助`, or Surround enclosures like `国`). **Do NOT guess coordinate values!** Always execute the **Spotlight Coordinate Calibration Loop**:
+
+```mermaid
+flowchart TD
+    Est["1. Estimate Initial Radical Coordinates (x, y, radius)"] --> Render["2. Render Single Frame Snapshots at Breakdown Phase Midpoints"]
+    Render --> Inspect["3. AI Visual Inspection (Check Circle Bounds & Pointer Alignment)"]
+    Inspect -->|Off-center or Stroke Clipped| Adjust["4. Adjust x, y, or radius Parameters"]
+    Adjust --> Render
+    Inspect -->|Pixel Perfect| Lock["5. Lock Calibrated Coordinates into Composition"]
+```
+
+### Calibration Procedure & Target Coordinates:
+1. **Estimate Initial Coordinates**: Set local $(x, y)$ inside the 600px Hanzi container.
+   - **Top-Bottom Character (`帮`)**:
+     - Top Radical `邦`: `spot2Y = 210`, `radius = 120`
+     - Bottom Radical `巾`: `spot2Y = 430`, `radius = 120`
+     - Whole Character `帮`: `spot2Y = 300`, `radius = 230`
+   - **Left-Right Character (`助`)**:
+     - Left Radical `且`: `spot3X = 390`, `radius = 120`
+     - Right Radical `力`: `spot3X = 620`, `radius = 120`
+     - Whole Character `助`: `spot3X = 540`, `radius = 230`
+
+2. **Render Frame Snapshots**: Render PNG snapshots at the midpoint frame of each radical phase:
+   ```bash
+   npx remotion render src/index.ts EtymologyBangzhu out/calib_top_bang.png --frame=600
+   npx remotion render src/index.ts EtymologyBangzhu out/calib_bottom_jin.png --frame=1000
+   npx remotion render src/index.ts EtymologyBangzhu out/calib_left_qie.png --frame=2000
+   ```
+
+3. **Visual AI Inspection**: Inspect the generated PNGs to verify:
+   - The black dashed circle smoothly bounds the exact radical strokes without clipping.
+   - The pointer arrow `👇` is snug against the circle border (`top: -(radius - 15)`).
+
+---
+
+## 3. Design System Tokens: Colors, Typography & Font Usage Rules
 
 ### A. Color Palette (`COLORS`)
 - **Background Canvas**: `#FAF9F6` (Warm off-white paper canvas from brand guidelines).
@@ -63,7 +100,7 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 
 ---
 
-## 3. Background Music, Pattern & Motion Systems
+## 4. Background Music, Pattern & Motion Systems
 
 ### A. Royalty-Free Chinese Lofi Background Music
 - **Audio File**: `public/chinese_lofi_bgm.mp3` (Jade Tea Loop).
@@ -85,7 +122,7 @@ const bgmVolume = 0.08 * bgmFadeOut;
 
 ---
 
-## 4. Screen Transition Physics & Morphing Patterns
+## 5. Screen Transition Physics & Morphing Patterns
 
 Screen transitions use fluid Remotion spring physics (`SPRING_SMOOTH`: `damping: 22, mass: 0.9, stiffness: 120`).
 
@@ -114,7 +151,7 @@ $$\text{morph3To4} = \text{spring}(\text{frame} - \text{screen3EndFrame})$$
 
 ---
 
-## 5. Flipbook Cat Sketch Generation & Consistency Pipeline
+## 6. Flipbook Cat Sketch Generation & Consistency Pipeline
 
 ### A. Card Tag Label Styling
 - **Pill Container**: `backgroundColor: '#0F172A'`, `padding: '14px 38px'`, `borderRadius: 26px`, `border: '2px solid rgba(255, 111, 89, 0.5)'`, `boxShadow: '0 16px 40px rgba(15, 23, 42, 0.45)'`.
@@ -138,7 +175,7 @@ const currentCatSrc = catImages[flipIndex] || catImages[0];
 
 ---
 
-## 6. ElevenLabs Voiceover Specifications
+## 7. ElevenLabs Voiceover Specifications
 
 - **Voice Model**: `eleven_v3` (Voice ID `tnSpp4vdxKPjI9w0GnoV`).
 - **Syntax Rule**: Character + Inline Pinyin Syntax `帮助 (bāngzhù)`.
@@ -147,7 +184,7 @@ const currentCatSrc = catImages[flipIndex] || catImages[0];
 
 ---
 
-## 7. Full Reusable Source Code Architecture
+## 8. Full Reusable Source Code Architecture
 
 ### A. Background Component (`ChineseBackground.tsx`)
 ```tsx
@@ -300,7 +337,7 @@ if __name__ == '__main__':
 
 ---
 
-## 8. Message-by-Message Feedback Analysis
+## 9. Message-by-Message Feedback Analysis
 
 | Step | User Request / Feedback | Root Cause | Engineering Solution |
 | :--- | :--- | :--- | :--- |
@@ -312,3 +349,4 @@ if __name__ == '__main__':
 | **6** | Comment out Play Store in outro | Google Play Store app not available yet. | Commented out Google Play Store badge in `AppOutro.tsx`. |
 | **7** | Incoherent flipbook animations | Relative frame indexing caused phase offsets & visual snapping. | Implemented global absolute 6 FPS ping-pong loop `[0, 1, 2, 1]`. |
 | **8** | Concurrency 8 is super slow | CPU thread thrashing on macOS. | Reverted to standard default Remotion thread concurrency. |
+| **9** | Target Spotlight Radical Inspection Loop | Visual calibration required to prevent circle stroke clipping. | Documented Visual AI Inspection Loop & coordinate mapping for Top/Bottom & Left/Right radicals. |
