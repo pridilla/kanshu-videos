@@ -12,6 +12,13 @@ export interface RadicalInfo {
   role: 'semantic' | 'phonetic' | 'pictograph';
 }
 
+export interface ScreenTimestamps {
+  screen1EndFrame: number;
+  screen2EndFrame: number;
+  screen3EndFrame: number;
+  lessonTotalFrames: number;
+}
+
 export interface EtymologyConfig {
   character: string;
   pinyin: string;
@@ -29,223 +36,403 @@ export interface EtymologyConfig {
   audioSrc?: string;
   outroAudioSrc?: string;
   wordsAlignment?: AlignedWord[];
+  screenTimestamps?: ScreenTimestamps;
   lessonDurationInFrames?: number;
   outroDurationInFrames?: number;
 }
 
 export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
-  character = '休',
-  pinyin = 'xiū',
-  tone = 1,
-  meaning = 'To Rest',
-  oracleBoneSymbol = '🧍🌳',
-  radicals = [
-    { radical: '亻', pinyin: 'rén', meaning: 'person / human', role: 'semantic' },
-    { radical: '木', pinyin: 'mù', meaning: 'tree / wood', role: 'semantic' },
-  ],
-  story = 'A human (亻) leaning against a tree (木) to take a rest.',
-  exampleSentence = {
-    cn: '工作累了，就休息一下吧。',
-    pinyin: 'Gōngzuò lèi le, jiù xiūxi yíxià ba.',
-    en: "When you're tired from work, take a rest.",
-    highlightWord: '休息',
-  },
-  audioSrc,
-  outroAudioSrc = 'kanshu_outro_voice.mp3',
+  character = '帮助',
+  pinyin = 'bāng zhù',
+  meaning = 'To Help / Assistance',
+  audioSrc = 'bangzhu_voice.mp3',
+  outroAudioSrc = 'kanshu_outro_elevenlabs.mp3',
   wordsAlignment = [],
-  lessonDurationInFrames = 1200, // 20s
-  outroDurationInFrames = 400,    // 6.6s
+  screenTimestamps = {
+    screen1EndFrame: 414,
+    screen2EndFrame: 1507,
+    screen3EndFrame: 2458,
+    lessonTotalFrames: 2772,
+  },
+  lessonDurationInFrames = 2772,
+  outroDurationInFrames = 425,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // ── LESSON SCENE ANIMATIONS ──
-  // Entrance spring for main character (0-400 frames)
-  const charSpring = spring({ frame, fps, config: SPRING_BOUNCE });
-  
-  // Oracle bone evolution morph (200+ frames)
-  const morphProgress = spring({ frame: Math.max(0, frame - 160), fps, config: SPRING_SMOOTH });
+  // Extract dynamic audio transition frames
+  const { screen1EndFrame, screen2EndFrame, screen3EndFrame, lessonTotalFrames } = screenTimestamps;
 
-  // Radical breakdown entrance (dynamically appears around frame 240 / ~4.0s when audio explains radicals)
-  const radicalSpring = spring({ frame: Math.max(0, frame - 240), fps, config: SPRING_GENTLE });
+  // ── FLUID MORPHING POSITION ANIMATIONS BETWEEN SCREENS ──
+  // Transition 1 -> 2 (around screen1EndFrame)
+  const morph1To2 = spring({
+    frame: Math.max(0, frame - screen1EndFrame),
+    fps,
+    config: SPRING_SMOOTH,
+  });
 
-  // Story breakdown entrance (dynamically appears around frame 360 / ~6.0s)
-  const storySpring = spring({ frame: Math.max(0, frame - 360), fps, config: SPRING_SMOOTH });
+  // Transition 2 -> 3 (around screen2EndFrame)
+  const morph2To3 = spring({
+    frame: Math.max(0, frame - screen2EndFrame),
+    fps,
+    config: SPRING_SMOOTH,
+  });
 
-  // Example sentence entrance (dynamically appears around frame 520 / ~8.6s)
-  const sentenceSpring = spring({ frame: Math.max(0, frame - 520), fps, config: SPRING_OVERSHOOT });
+  // Transition 3 -> 4 (around screen3EndFrame)
+  const morph3To4 = spring({
+    frame: Math.max(0, frame - screen3EndFrame),
+    fps,
+    config: SPRING_SMOOTH,
+  });
+
+  // Calculate dynamic X position for character '帮' (Bang)
+  // Screen 1: x = -130px | Screen 2: x = 0px (Center) | Screen 3: x = -700px (Off-screen) | Screen 4: x = -130px
+  const bangX =
+    interpolate(morph1To2, [0, 1], [-130, 0]) +
+    interpolate(morph2To3, [0, 1], [0, -700]) +
+    interpolate(morph3To4, [0, 1], [0, 570]);
+
+  // Calculate dynamic X position for character '助' (Zhu)
+  // Screen 1: x = +130px | Screen 2: x = +700px (Off-screen) | Screen 3: x = 0px (Center) | Screen 4: x = +130px
+  const zhuX =
+    interpolate(morph1To2, [0, 1], [130, 700]) +
+    interpolate(morph2To3, [0, 1], [0, -700]) +
+    interpolate(morph3To4, [0, 1], [0, 130]);
+
+  // Scale of '帮' (Scales up during Screen 2 focus)
+  const bangScale = 1 + interpolate(morph1To2, [0, 1], [0, 0.35]) - interpolate(morph2To3, [0, 1], [0, 0.35]);
+
+  // Scale of '助' (Scales up during Screen 3 focus)
+  const zhuScale = 1 + interpolate(morph2To3, [0, 1], [0, 0.35]) - interpolate(morph3To4, [0, 1], [0, 0.35]);
+
+  // Current active screen index for overlay titles
+  const isScreen1 = frame < screen1EndFrame;
+  const isScreen2 = frame >= screen1EndFrame && frame < screen2EndFrame;
+  const isScreen3 = frame >= screen2EndFrame && frame < screen3EndFrame;
+  const isScreen4 = frame >= screen3EndFrame;
+
+  // Header entrance spring
+  const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
 
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.bg, fontFamily: FONTS.pinyin, overflow: 'hidden' }}>
       {/* ──────────────────────────────────────────────────────────── */}
-      {/* MAIN ETYOLOGY LESSON SEQUENCE */}
+      {/* MAIN ETYMOLOGY LESSON SEQUENCE */}
       {/* ──────────────────────────────────────────────────────────── */}
       <Sequence from={0} durationInFrames={lessonDurationInFrames}>
         <AbsoluteFill style={{ padding: 60, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <FloatingParticles count={10} color="#FF6F59" />
+          {/* Warm background floating particles */}
+          <FloatingParticles count={12} color="#FF6F59" />
 
-          {/* Header Tag */}
+          {/* Top Brand Header in Finger Paint (Latin Display Font) */}
           <div
             style={{
-              marginTop: 100,
+              marginTop: 90,
               backgroundColor: 'rgba(255, 111, 89, 0.12)',
               color: '#FF6F59',
-              padding: '10px 28px',
+              padding: '12px 32px',
               borderRadius: 999,
-              fontSize: 24,
-              fontWeight: 800,
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
+              fontSize: 26,
+              fontWeight: 700,
+              fontFamily: FONTS.display, // Finger Paint font for Latin display tags!
+              letterSpacing: '0.04em',
               border: '1.5px solid rgba(255, 111, 89, 0.25)',
+              transform: `scale(${headerSpring})`,
+              boxShadow: '0 8px 24px rgba(255, 111, 89, 0.15)',
             }}
           >
-            Chinese Character Etymology
+            CHINESE CHARACTER ETYMOLOGY
           </div>
 
-          {/* Character & Oracle Bone Evolution Display */}
+          {/* DYNAMIC DEDICATED SCREEN HEADINGS IN FINGER PAINT */}
+          <div style={{ marginTop: 36, height: 70, textAlign: 'center' }}>
+            {isScreen1 && (
+              <h2
+                style={{
+                  fontFamily: FONTS.display, // Finger Paint font
+                  fontSize: 42,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
+                Why Does <span style={{ color: '#FF6F59' }}>帮助</span> Contain Cloth & Muscle?
+              </h2>
+            )}
+            {isScreen2 && (
+              <h2
+                style={{
+                  fontFamily: FONTS.display, // Finger Paint font
+                  fontSize: 44,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
+                Character 1: <span style={{ color: '#FF6F59' }}>帮 (bāng)</span> — Protective Backing
+              </h2>
+            )}
+            {isScreen3 && (
+              <h2
+                style={{
+                  fontFamily: FONTS.display, // Finger Paint font
+                  fontSize: 44,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
+                Character 2: <span style={{ color: '#FF6F59' }}>助 (zhù)</span> — Muscle Power
+              </h2>
+            )}
+            {isScreen4 && (
+              <h2
+                style={{
+                  fontFamily: FONTS.display, // Finger Paint font
+                  fontSize: 46,
+                  color: '#0F172A',
+                  margin: 0,
+                }}
+              >
+                Synthesis: <span style={{ color: '#FF6F59' }}>帮助</span> = Protection + Muscle!
+              </h2>
+            )}
+          </div>
+
+          {/* ──────────────────────────────────────────────────────────── */}
+          {/* FLUID MORPHING HANZI CHARACTERS AREA (CENTRAL FOCUS) */}
+          {/* ──────────────────────────────────────────────────────────── */}
           <div
             style={{
-              marginTop: 50,
+              position: 'relative',
+              width: '100%',
+              height: 520,
+              marginTop: 40,
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
-              transform: `scale(${charSpring})`,
+              justifyContent: 'center',
             }}
           >
-            {/* Oracle Bone Origin */}
+            {/* Character '帮' (Bang) — Morphing Position & Scale */}
             <div
               style={{
-                fontSize: 72,
-                opacity: interpolate(morphProgress, [0, 1], [1, 0.6]),
-                transform: `translateY(${interpolate(morphProgress, [0, 1], [0, -16])}px)`,
-                marginBottom: 10,
-              }}
-            >
-              {oracleBoneSymbol}
-            </div>
-
-            {/* Main Modern Hanzi Character */}
-            <div
-              style={{
-                fontSize: 170,
+                position: 'absolute',
+                transform: `translateX(${bangX}px) scale(${bangScale})`,
+                fontSize: 220,
                 fontWeight: 900,
-                fontFamily: '"Noto Serif SC", serif',
+                fontFamily: '"ZCOOL KuaiLe", "Noto Serif SC", serif', // Official Chinese brand font
                 color: '#0F172A',
-                lineHeight: 1,
-                textShadow: '0 10px 30px rgba(15,23,42,0.1)',
+                textShadow: isScreen2 ? '0 16px 40px rgba(255, 111, 89, 0.35)' : '0 10px 30px rgba(15,23,42,0.1)',
+                transition: 'text-shadow 0.3s ease',
               }}
             >
-              {character}
+              帮
             </div>
 
-            {/* Pinyin & Meaning Badge */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 16 }}>
-              <span style={{ fontSize: 44, fontWeight: 800, color: '#FF6F59' }}>{pinyin}</span>
-              <span style={{ fontSize: 32, fontWeight: 600, color: '#64748B' }}>• {meaning}</span>
-            </div>
-          </div>
-
-          {/* Radical Component Breakdown Cards (Dynamic Entrance) */}
-          {frame >= 200 && (
+            {/* Character '助' (Zhu) — Morphing Position & Scale */}
             <div
               style={{
-                marginTop: 40,
-                width: '100%',
-                display: 'flex',
-                gap: 20,
-                justifyContent: 'center',
-                opacity: radicalSpring,
-                transform: `translateY(${interpolate(radicalSpring, [0, 1], [40, 0])}px)`,
+                position: 'absolute',
+                transform: `translateX(${zhuX}px) scale(${zhuScale})`,
+                fontSize: 220,
+                fontWeight: 900,
+                fontFamily: '"ZCOOL KuaiLe", "Noto Serif SC", serif', // Official Chinese brand font
+                color: '#0F172A',
+                textShadow: isScreen3 ? '0 16px 40px rgba(255, 111, 89, 0.35)' : '0 10px 30px rgba(15,23,42,0.1)',
+                transition: 'text-shadow 0.3s ease',
               }}
             >
-              {radicals.map((rad, idx) => (
+              助
+            </div>
+
+            {/* SCREEN 1 EMOJI ORBITS (Overview 🏰 🧵 ⛩️ 💪) */}
+            {isScreen1 && (
+              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+                <div style={{ position: 'absolute', top: 20, left: 160, fontSize: 64 }}>🏰</div>
+                <div style={{ position: 'absolute', bottom: 40, left: 180, fontSize: 64 }}>🧵</div>
+                <div style={{ position: 'absolute', top: 20, right: 160, fontSize: 64 }}>⛩️</div>
+                <div style={{ position: 'absolute', bottom: 40, right: 180, fontSize: 64 }}>💪</div>
+              </div>
+            )}
+
+            {/* SCREEN 2 EMOJI ORBITS & RADICAL BADGES (Focus on 帮) */}
+            {isScreen2 && (
+              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0' }}>
+                {/* Top Radical: 邦 (Territory/Community) */}
                 <div
-                  key={idx}
                   style={{
-                    flex: 1,
                     backgroundColor: '#FFFFFF',
-                    borderRadius: 24,
-                    padding: 20,
-                    boxShadow: '0 12px 32px rgba(15,23,42,0.08)',
-                    border: '1.5px solid rgba(255, 111, 89, 0.25)',
-                    textAlign: 'center',
+                    borderRadius: 20,
+                    padding: '12px 28px',
+                    boxShadow: '0 12px 32px rgba(15,23,42,0.12)',
+                    border: '2px solid #FF6F59',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
                   }}
                 >
-                  <div style={{ fontSize: 56, fontWeight: 900, color: '#0F172A', fontFamily: '"Noto Serif SC", serif' }}>
-                    {rad.radical}
+                  <span style={{ fontSize: 44 }}>🏰</span>
+                  <div>
+                    <span style={{ fontFamily: FONTS.display, fontSize: 26, color: '#FF6F59', fontWeight: 700 }}>
+                      邦 (bāng)
+                    </span>
+                    <span style={{ fontSize: 20, color: '#475569', fontWeight: 600, marginLeft: 12 }}>
+                      Territory & Community
+                    </span>
                   </div>
-                  <div style={{ fontSize: 22, color: '#FF6F59', fontWeight: 800, marginTop: 2 }}>{rad.pinyin}</div>
-                  <div style={{ fontSize: 18, color: '#475569', fontWeight: 600, marginTop: 6, lineHeight: 1.35 }}>{rad.meaning}</div>
                 </div>
-              ))}
-            </div>
-          )}
 
-          {/* Etymology Story Origin Card */}
-          {frame >= 320 && (
-            <div
-              style={{
-                marginTop: 28,
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                borderRadius: 24,
-                padding: '20px 28px',
-                width: '100%',
-                boxShadow: '0 10px 30px rgba(15,23,42,0.06)',
-                border: '1.5px solid rgba(255, 111, 89, 0.2)',
-                textAlign: 'center',
-                opacity: storySpring,
-                transform: `scale(${interpolate(storySpring, [0, 1], [0.92, 1])})`,
-              }}
-            >
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                💡 Ancient Origin Story
+                {/* Bottom Radical: 巾 (Cloth/Towel Strip) */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 20,
+                    padding: '12px 28px',
+                    boxShadow: '0 12px 32px rgba(15,23,42,0.12)',
+                    border: '2px solid #FF6F59',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
+                  }}
+                >
+                  <span style={{ fontSize: 44 }}>🧵</span>
+                  <div>
+                    <span style={{ fontFamily: FONTS.display, fontSize: 26, color: '#FF6F59', fontWeight: 700 }}>
+                      巾 (jīn)
+                    </span>
+                    <span style={{ fontSize: 20, color: '#475569', fontWeight: 600, marginLeft: 12 }}>
+                      Reinforcing Cloth Strip
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div style={{ fontSize: 24, fontWeight: 700, color: '#1E293B', marginTop: 6, lineHeight: 1.4 }}>
-                "{story}"
-              </div>
-            </div>
-          )}
+            )}
 
-          {/* Example Sentence Context Card */}
-          {frame >= 500 && (
-            <div
-              style={{
-                marginTop: 24,
-                backgroundColor: '#0F172A',
-                color: '#FFFFFF',
-                borderRadius: 24,
-                padding: '24px 32px',
-                width: '100%',
-                boxShadow: '0 20px 40px rgba(15,23,42,0.25)',
-                opacity: sentenceSpring,
-                transform: `translateY(${interpolate(sentenceSpring, [0, 1], [40, 0])}px)`,
-              }}
-            >
-              <div style={{ fontSize: 16, color: '#94A3B8', fontWeight: 700, textTransform: 'uppercase', marginBottom: 8 }}>
-                Sentence Context
-              </div>
-              <div style={{ fontSize: 32, fontWeight: 800, lineHeight: 1.45, fontFamily: '"Noto Serif SC", serif' }}>
-                {exampleSentence.cn.split(exampleSentence.highlightWord).map((part, i, arr) => (
-                  <React.Fragment key={i}>
-                    {part}
-                    {i < arr.length - 1 && (
-                      <span style={{ color: '#FF6F59', backgroundColor: 'rgba(255, 111, 89, 0.2)', padding: '2px 8px', borderRadius: 8 }}>
-                        {exampleSentence.highlightWord}
-                      </span>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-              <div style={{ fontSize: 20, color: '#FF6F59', marginTop: 8, fontWeight: 600 }}>
-                {exampleSentence.pinyin}
-              </div>
-              <div style={{ fontSize: 18, color: '#CBD5E1', marginTop: 6 }}>
-                "{exampleSentence.en}"
-              </div>
-            </div>
-          )}
+            {/* SCREEN 3 EMOJI ORBITS & RADICAL BADGES (Focus on 助) */}
+            {isScreen3 && (
+              <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0' }}>
+                {/* Top Radical: 且 (Altar Pedestal) */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 20,
+                    padding: '12px 28px',
+                    boxShadow: '0 12px 32px rgba(15,23,42,0.12)',
+                    border: '2px solid #FF6F59',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
+                  }}
+                >
+                  <span style={{ fontSize: 44 }}>⛩️</span>
+                  <div>
+                    <span style={{ fontFamily: FONTS.display, fontSize: 26, color: '#FF6F59', fontWeight: 700 }}>
+                      且 (zhǔ)
+                    </span>
+                    <span style={{ fontSize: 20, color: '#475569', fontWeight: 600, marginLeft: 12 }}>
+                      Heavy Altar Pedestal
+                    </span>
+                  </div>
+                </div>
 
-          {/* Dynamic Real-Time Captions with Active Word Highlight */}
+                {/* Bottom Radical: 力 (Muscle Strength) */}
+                <div
+                  style={{
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 20,
+                    padding: '12px 28px',
+                    boxShadow: '0 12px 32px rgba(15,23,42,0.12)',
+                    border: '2px solid #FF6F59',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 14,
+                  }}
+                >
+                  <span style={{ fontSize: 44 }}>💪</span>
+                  <div>
+                    <span style={{ fontFamily: FONTS.display, fontSize: 26, color: '#FF6F59', fontWeight: 700 }}>
+                      力 (lì)
+                    </span>
+                    <span style={{ fontSize: 20, color: '#475569', fontWeight: 600, marginLeft: 12 }}>
+                      Muscle Power & Labor
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SCREEN 4 SYNTHESIS AURA RING */}
+            {isScreen4 && (
+              <div
+                style={{
+                  position: 'absolute',
+                  width: 480,
+                  height: 320,
+                  borderRadius: 40,
+                  border: '3px solid #FF6F59',
+                  backgroundColor: 'rgba(255, 111, 89, 0.08)',
+                  boxShadow: '0 0 60px rgba(255, 111, 89, 0.4)',
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
+          </div>
+
+          {/* ──────────────────────────────────────────────────────────── */}
+          {/* DYNAMIC SCREEN EXPLANATION CARD IN FINGER PAINT */}
+          {/* ──────────────────────────────────────────────────────────── */}
+          <div
+            style={{
+              marginTop: 40,
+              width: '90%',
+              backgroundColor: '#FFFFFF',
+              borderRadius: 28,
+              padding: '24px 36px',
+              boxShadow: '0 16px 40px rgba(15, 23, 42, 0.1)',
+              border: '1.5px solid rgba(255, 111, 89, 0.3)',
+              textAlign: 'center',
+            }}
+          >
+            {isScreen1 && (
+              <div>
+                <div style={{ fontFamily: FONTS.display, fontSize: 22, color: '#FF6F59', textTransform: 'uppercase', marginBottom: 6 }}>
+                  💡 ETYMOLOGY SECRET
+                </div>
+                <div style={{ fontSize: 28, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
+                  Every radical tells the story of how support is given!
+                </div>
+              </div>
+            )}
+            {isScreen2 && (
+              <div>
+                <div style={{ fontFamily: FONTS.display, fontSize: 22, color: '#FF6F59', textTransform: 'uppercase', marginBottom: 6 }}>
+                  🛡️ ANCIENT COBBLER METAPHOR
+                </div>
+                <div style={{ fontSize: 26, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
+                  "Cloth strips (巾) reinforced shoe borders (邦) from tearing. 帮 = Protective Backing!"
+                </div>
+              </div>
+            )}
+            {isScreen3 && (
+              <div>
+                <div style={{ fontFamily: FONTS.display, fontSize: 22, color: '#FF6F59', textTransform: 'uppercase', marginBottom: 6 }}>
+                  🏋️ TEAMWORK LABOUR METAPHOR
+                </div>
+                <div style={{ fontSize: 26, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
+                  "Lifting a heavy stone altar (且) required muscle power (力). 助 = Lending Strength!"
+                </div>
+              </div>
+            )}
+            {isScreen4 && (
+              <div>
+                <div style={{ fontFamily: FONTS.display, fontSize: 24, color: '#FF6F59', textTransform: 'uppercase', marginBottom: 6 }}>
+                  ✨ FULL ASSISTANCE & SUPPORT
+                </div>
+                <div style={{ fontSize: 28, fontWeight: 800, color: '#0F172A', lineHeight: 1.4 }}>
+                  "帮 (Backing) + 助 (Muscle) = Complete Support & Assistance!"
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* DYNAMIC REAL-TIME CAPTIONS WITH ACTIVE WORD HIGHLIGHT & ZERO JITTER */}
           {wordsAlignment && wordsAlignment.length > 0 && (
             <RealtimeCaptions words={wordsAlignment} positionBottom={120} />
           )}
