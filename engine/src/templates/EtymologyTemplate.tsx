@@ -65,7 +65,7 @@ const DynamicSmoothSpotlight: React.FC<{
         transition: 'top 0.35s cubic-bezier(0.25, 1, 0.5, 1), left 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
       }}
     >
-      {/* HIGH-CONTRAST DEEP BLACK DASHED CIRCLE — Smoothly resizes via SVG viewBox & stroke */}
+      {/* HIGH-CONTRAST DEEP BLACK DASHED CIRCLE */}
       <svg
         width={radius * 2 + 40}
         height={radius * 2 + 40}
@@ -111,67 +111,72 @@ const DynamicSmoothSpotlight: React.FC<{
 };
 
 // ────────────────────────────────────────────────────────────
-// QUADRATIC SIDE SLIDING RADICAL INFO TAG
+// ORGANIC CENTER UNDER-CHARACTER TAG (ENTERS LEFT -> EXITS RIGHT WITH DRIFT)
+// NO BORDER, FINGER PAINT ALL CAPS TRANSLATION, ROBOTO PINYIN
 // ────────────────────────────────────────────────────────────
 
-const QuadraticSideTag: React.FC<{
+const OrganicCenterTag: React.FC<{
   emoji: string;
   radical: string;
   pinyin: string;
   translation: string;
-  isVisible: boolean;
   frame: number;
-  triggerFrame: number;
-}> = ({ emoji, radical, pinyin, translation, isVisible, frame, triggerFrame }) => {
+  enterFrame: number;
+  exitFrame: number;
+}> = ({ emoji, radical, pinyin, translation, frame, enterFrame, exitFrame }) => {
   const { fps } = useVideoConfig();
 
-  const anim = spring({
-    frame: Math.max(0, frame - triggerFrame),
+  // Entrance Spring (Move in from Left: -650px -> 0px)
+  const enterSpring = spring({
+    frame: Math.max(0, frame - enterFrame),
+    fps,
+    config: { damping: 16, mass: 0.7, stiffness: 130 },
+  });
+
+  // Exit Spring (Move out to Right: 0px -> +650px)
+  const exitSpring = spring({
+    frame: Math.max(0, frame - exitFrame),
     fps,
     config: { damping: 18, mass: 0.8, stiffness: 120 },
   });
 
-  // Quadratic slide in/out easing
-  const translateX = isVisible
-    ? interpolate(anim, [0, 1], [-450, 40], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) })
-    : -450;
+  const enterX = interpolate(enterSpring, [0, 1], [-650, 0], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) });
+  const exitX = frame >= exitFrame ? interpolate(exitSpring, [0, 1], [0, 650], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) }) : 0;
 
-  if (!isVisible && anim >= 1) return null;
+  const currentX = enterX + exitX;
+
+  // Organic random drift path for visual charm
+  const driftY = Math.sin((frame - enterFrame) * 0.14) * 6;
+  const driftX = Math.cos((frame - enterFrame) * 0.11) * 5;
+
+  if (frame < enterFrame || (frame >= exitFrame && exitSpring >= 1)) return null;
 
   return (
     <div
       style={{
         position: 'absolute',
-        top: 230,
-        left: 0,
-        transform: `translateX(${translateX}px)`,
-        backgroundColor: '#0F172A',
-        color: '#FFFFFF',
-        padding: '16px 28px',
-        borderRadius: '0 24px 24px 0',
-        border: '3px solid #FF6F59',
-        borderLeft: 'none',
-        boxShadow: '0 16px 40px rgba(15, 23, 42, 0.4)',
+        top: 480 + driftY,
+        left: '50%',
+        transform: `translateX(calc(-50% + ${currentX + driftX}px))`,
         display: 'flex',
         alignItems: 'center',
-        gap: 16,
+        gap: 18,
         zIndex: 90,
+        pointerEvents: 'none',
+        whiteSpace: 'nowrap',
       }}
     >
-      <span style={{ fontSize: 44 }}>{emoji}</span>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-          <span style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: 36, fontWeight: 900, color: '#FF6F59' }}>
-            {radical}
-          </span>
-          <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: 26, fontWeight: 700, color: '#94A3B8', fontStyle: 'italic' }}>
-            {pinyin}
-          </span>
-        </div>
-        <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: 24, fontWeight: 600, color: '#E2E8F0', marginTop: 2 }}>
-          {translation}
-        </span>
-      </div>
+      <span style={{ fontSize: 56 }}>{emoji}</span>
+      <span style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: 52, fontWeight: 900, color: '#0F172A' }}>
+        {radical}
+      </span>
+      <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: 36, fontWeight: 700, color: '#475569', fontStyle: 'italic' }}>
+        ({pinyin})
+      </span>
+      <span style={{ color: '#CBD5E1', fontSize: 32, fontWeight: 300 }}>—</span>
+      <span style={{ fontFamily: FONTS.display, fontSize: 38, fontWeight: 700, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+        {translation}
+      </span>
     </div>
   );
 };
@@ -244,17 +249,17 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
 
   // ── DYNAMIC RADICAL SPOTLIGHT & TIMING PHASES (Audio Timestamps) ──
   // Screen 2 Breakdown:
-  // - Top '邦': 7.9s (474f) to 13.1s (786f)
-  // - Bottom '巾': 13.1s (786f) to 18.6s (1120f)
-  // - Whole Character '帮': 18.6s (1120f) to 25.1s (1507f) -> CIRCLE EXPANDS TO 210px!
+  // - Top '邦': 474f to 786f
+  // - Bottom '巾': 786f to 1120f
+  // - Whole Character '帮': 1120f to 1507f -> CIRCLE EXPANDS TO 210px!
   const isScreen2TopBang = isScreen2 && frame >= 474 && frame < 786;
   const isScreen2BottomJin = isScreen2 && frame >= 786 && frame < 1120;
   const isScreen2WholeBang = isScreen2 && frame >= 1120;
 
   // Screen 3 Breakdown:
-  // - Left '且': 25.9s (1554f) to 30.8s (1848f)
-  // - Right '力': 30.8s (1848f) to 35.8s (2150f)
-  // - Whole Character '助': 35.8s (2150f) to 40.9s (2458f) -> CIRCLE EXPANDS TO 210px!
+  // - Left '且': 1554f to 1848f
+  // - Right '力': 1848f to 2150f
+  // - Whole Character '助': 2150f to 2458f -> CIRCLE EXPANDS TO 210px!
   const isScreen3LeftQie = isScreen3 && frame >= 1554 && frame < 1848;
   const isScreen3RightLi = isScreen3 && frame >= 1848 && frame < 2150;
   const isScreen3WholeZhu = isScreen3 && frame >= 2150;
@@ -264,8 +269,6 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen4ZhuHighlight = isScreen4 && frame >= 2600;
 
   // ── SPOTLIGHT TARGET POSITION & RADIUS ANIMATIONS ──
-  // Screen 2 Target Y & Radius:
-  // 邦 (top): y=200, r=110 | 巾 (bottom): y=360, r=110 | Whole 帮: y=280, r=210 (EXPANDED!)
   let spot2Y = 200;
   let spot2R = 110;
   if (isScreen2BottomJin) {
@@ -273,11 +276,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     spot2R = 110;
   } else if (isScreen2WholeBang) {
     spot2Y = 280;
-    spot2R = 210; // Expands to cover full character!
+    spot2R = 210;
   }
 
-  // Screen 3 Target X & Radius:
-  // 且 (left): x=430, r=110 | 力 (right): x=590, r=110 | Whole 助: x=500, r=210 (EXPANDED!)
   let spot3X = 430;
   let spot3R = 110;
   if (isScreen3RightLi) {
@@ -285,7 +286,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     spot3R = 110;
   } else if (isScreen3WholeZhu) {
     spot3X = 500;
-    spot3R = 210; // Expands to cover full character!
+    spot3R = 210;
   }
 
   // ── SCREEN 1 EMOJI ORBIT WITH BOUNCY SPRING ANIMATED SCALING ──
@@ -365,14 +366,16 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             )}
           </div>
 
-          {/* ── QUADRATIC SIDE SLIDING RADICAL INFO TAGS ── */}
-          <QuadraticSideTag emoji="🏰" radical="邦" pinyin="bāng" translation="Territory & Community" isVisible={isScreen2TopBang} frame={frame} triggerFrame={474} />
-          <QuadraticSideTag emoji="🧵" radical="巾" pinyin="jīn" translation="Reinforcing Cloth Strip" isVisible={isScreen2BottomJin} frame={frame} triggerFrame={786} />
-          <QuadraticSideTag emoji="🛡️" radical="帮" pinyin="bāng" translation="Protective Shoe Backing" isVisible={isScreen2WholeBang} frame={frame} triggerFrame={1120} />
+          {/* ──────────────────────────────────────────────────────────── */}
+          {/* ORGANIC CENTER UNDER-CHARACTER TAGS (NO BORDER, ENTERS LEFT -> EXITS RIGHT) */}
+          {/* ──────────────────────────────────────────────────────────── */}
+          <OrganicCenterTag emoji="🏰" radical="邦" pinyin="bāng" translation="Territory & Community" frame={frame} enterFrame={474} exitFrame={786} />
+          <OrganicCenterTag emoji="🧵" radical="巾" pinyin="jīn" translation="Reinforcing Cloth Strip" frame={frame} enterFrame={786} exitFrame={1120} />
+          <OrganicCenterTag emoji="🛡️" radical="帮" pinyin="bāng" translation="Protective Shoe Backing" frame={frame} enterFrame={1120} exitFrame={1507} />
 
-          <QuadraticSideTag emoji="⛩️" radical="且" pinyin="zhǔ" translation="Heavy Altar Pedestal" isVisible={isScreen3LeftQie} frame={frame} triggerFrame={1554} />
-          <QuadraticSideTag emoji="💪" radical="力" pinyin="lì" translation="Muscle Strength & Power" isVisible={isScreen3RightLi} frame={frame} triggerFrame={1848} />
-          <QuadraticSideTag emoji="🏋️" radical="助" pinyin="zhù" translation="Lending Teamwork Muscle" isVisible={isScreen3WholeZhu} frame={frame} triggerFrame={2150} />
+          <OrganicCenterTag emoji="⛩️" radical="且" pinyin="zhǔ" translation="Heavy Altar Pedestal" frame={frame} enterFrame={1554} exitFrame={1848} />
+          <OrganicCenterTag emoji="💪" radical="力" pinyin="lì" translation="Muscle Power & Labor" frame={frame} enterFrame={1848} exitFrame={2150} />
+          <OrganicCenterTag emoji="🏋️" radical="助" pinyin="zhù" translation="Lending Teamwork Strength" frame={frame} enterFrame={2150} exitFrame={2458} />
 
           {/* ──────────────────────────────────────────────────────────── */}
           {/* FLUID MORPHING INTACT HANZI CHARACTERS AREA (CENTRAL FOCUS) */}
@@ -446,7 +449,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 );
               })}
 
-            {/* ── HIGH-CONTRAST BLACK DYNAMIC TARGET SPOTLIGHT (Expands to r=210px for full character!) ── */}
+            {/* ── HIGH-CONTRAST BLACK DYNAMIC TARGET SPOTLIGHT ── */}
             {isScreen2 && <DynamicSmoothSpotlight x={500} y={spot2Y} radius={spot2R} frame={frame} />}
             {isScreen3 && <DynamicSmoothSpotlight x={spot3X} y={280} radius={spot3R} frame={frame} />}
 
