@@ -1,6 +1,6 @@
 # Chinese Character Etymology Video Workflow & Automation Master Guide
 
-This document captures the **complete end-to-end architecture, voice prompting secrets, timing alignment algorithms, visual animation mechanics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
+This document captures the **complete end-to-end architecture, voice prompting secrets, cat sketch flipbook prompting pipeline, timing alignment algorithms, visual animation mechanics, and message-by-message feedback analysis** for producing Chinese Character Etymology videos for **Kanshu**.
 
 ---
 
@@ -44,7 +44,42 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 
 ---
 
-## 2. ElevenLabs Voiceover Specifications & Prompt Engineering
+## 2. Flipbook Cat Sketch Generation & Character Consistency Pipeline
+
+The cat sketch flipbooks (`OrganicCenterTag.tsx`) are the primary visual delight element. To ensure cat drawings remain **100% consistent across frames** without flickering art style or changing body features:
+
+### A. Master Image Prompting Structure
+Always use a single anchor master character definition in the prompt:
+
+```text
+[ANCHOR DESIGN]: Minimalist hand-drawn black ink line art sketch of a cute chubby round cat, simple black stroke on pure solid white background, cute cartoon doodle style, clear black outline, no color fill, no shading, no background textures.
+
+[FRAME ACTION]: Frame 1: The chubby cat is holding a wooden shield over a wall.
+```
+
+### B. 3-Frame Consistent Image-to-Image Generation Sequence
+
+1. **Frame 1 (Base Anchor Image)**:
+   - Generate Frame 1 using the Master Image Prompt.
+   - Example prompt for radical `巾` (Cloth):
+     `Minimalist hand-drawn black ink line art sketch of a cute chubby round cat wearing a protective cloth apron, simple black stroke on pure solid white background, cute cartoon doodle style, clear outline, no shading.`
+
+2. **Frame 2 (Micro Movement - Image-to-Image Seed Anchoring)**:
+   - Pass **Frame 1** as the reference image input (`ImagePaths: ["cats/cat_jin_frame_1.png"]`).
+   - Use a low variation/denoising strength (**0.25 - 0.35**) to lock cat proportions, face shape, and stroke weight while prompting micro movement:
+     `Same chubby round cat from reference image, slightly tilting head left and winking right eye, minimalist black ink line art sketch, pure solid white background.`
+
+3. **Frame 3 (Peak Action - Image-to-Image Seed Anchoring)**:
+   - Pass **Frame 1** as reference image input with low variation strength (**0.25 - 0.35**):
+     `Same chubby round cat from reference image, lifting cloth apron up slightly with right paw, minimalist black ink line art sketch, pure solid white background.`
+
+### C. Transparency & Canvas Post-Processing
+1. **Background Removal**: Strip the pure white background to convert the image into a 32-bit transparent PNG with alpha channel (`rembg i frame_1.png frame_1_trans.png`).
+2. **Bounding Box Normalization**: Crop transparent padding so all 3 frames share identical center anchors, preventing the cat from jumping vertically or horizontally when cycling frames.
+
+---
+
+## 3. ElevenLabs Voiceover Specifications & Prompt Engineering
 
 ### Voice & Model Configuration
 - **Voice Model**: `eleven_v3` (MANDATORY: DO NOT use `eleven_multilingual_v2` as it drops Chinese tone contours).
@@ -59,7 +94,7 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 
 ---
 
-## 3. Automated Timestamp & Alignment Sync System
+## 4. Automated Timestamp & Alignment Sync System
 
 Word alignments and animation frame boundaries are computed automatically from ElevenLabs alignment JSON via `scripts/sync_single_pass_config.py`.
 
@@ -111,7 +146,7 @@ $$\text{Frame}(t) = \text{round}\left( \frac{t}{S} \times 60 \right)$$
 
 ---
 
-## 4. Visual Components & Animation Implementation
+## 5. Visual Components & Animation Implementation
 
 ### A. Real-Time Captions (`RealtimeCaptions.tsx`)
 - **Positioning**: Fixed container at `bottom: 200px` above card tags.
@@ -140,11 +175,11 @@ const currentCatSrc = catImages[flipIndex] || catImages[0];
 - 3D iPhone canvas displaying Chinese reading text with Pinyin ruby annotations.
 - Live touch gesture pointer with expanding ripple effect (`TouchGesture`).
 - Store Badges: Apple App Store badge displayed; Google Play Store badge commented out.
-- Primary CTA: `"Start Reading For Free — Link in Bio"` in Finger Paint display font.
+- Primary CTA: `"Start Reading For Free — Link in Bio"`.
 
 ---
 
-## 5. Message-by-Message Feedback Analysis
+## 6. Message-by-Message Feedback Analysis
 
 | Step | User Request / Feedback | Root Cause | Engineering Solution |
 | :--- | :--- | :--- | :--- |
