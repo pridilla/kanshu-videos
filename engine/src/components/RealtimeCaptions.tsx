@@ -12,7 +12,7 @@ export interface RealtimeCaptionsProps {
   positionBottom?: number;
 }
 
-export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, positionBottom = 160 }) => {
+export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, positionBottom = 130 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const currentTime = frame / fps;
@@ -31,7 +31,7 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
       const hasPunctuation = /[.?!]$/.test(w.word);
       const isNextGapLarge = i < words.length - 1 && (words[i + 1].start - w.end > 0.35);
 
-      if (hasPunctuation || isNextGapLarge || currentGroup.length >= 8) {
+      if (hasPunctuation || isNextGapLarge || currentGroup.length >= 7) {
         grouped.push(currentGroup);
         currentGroup = [];
       }
@@ -76,19 +76,19 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
         bottom: positionBottom,
         left: '50%',
         transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: 960,
+        width: '92%',
+        maxWidth: 980,
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '6px 10px',
-        backgroundColor: 'rgba(15, 23, 42, 0.92)',
-        backdropFilter: 'blur(16px)',
-        padding: '16px 28px',
-        borderRadius: 24,
-        border: '1.5px solid rgba(255, 111, 89, 0.35)',
-        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.35)',
+        gap: '8px 14px',
+        backgroundColor: 'rgba(15, 23, 42, 0.94)',
+        backdropFilter: 'blur(20px)',
+        padding: '24px 36px', // Scaled up container padding!
+        borderRadius: 32,
+        border: '2px solid rgba(255, 111, 89, 0.4)',
+        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
         zIndex: 100,
         pointerEvents: 'none',
       }}
@@ -100,14 +100,14 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
           <span
             key={idx}
             style={{
-              fontSize: 32,
+              fontSize: 46, // Scaled up caption font size (was 32px)!
               fontWeight: 800,
               fontFamily: 'Inter, sans-serif',
               color: isActive ? '#FF6F59' : '#FFFFFF',
-              backgroundColor: isActive ? 'rgba(255, 111, 89, 0.22)' : 'transparent',
-              padding: '4px 8px', // FIXED CONSTANT PADDING FOR ALL WORDS -> ZERO RESIZING / LAYOUT JITTER!
-              borderRadius: 10,
-              textShadow: isActive ? '0 4px 14px rgba(255, 111, 89, 0.6)' : 'none',
+              backgroundColor: isActive ? 'rgba(255, 111, 89, 0.25)' : 'transparent',
+              padding: '6px 12px', // CONSTANT PADDING FOR ZERO RESIZING JITTER!
+              borderRadius: 12,
+              textShadow: isActive ? '0 4px 16px rgba(255, 111, 89, 0.75)' : 'none',
               display: 'inline-block',
               transition: 'color 0.05s linear, background-color 0.05s linear',
             }}
