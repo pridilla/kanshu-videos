@@ -25,630 +25,756 @@
     "en": "With his friend's help, he completed the work smoothly.",
     "highlightWord": "帮助"
   },
-  "audioSrc": "bangzhu_voice.mp3",
+  "audioSrc": "bangzhu_voice_single_pass_fast.mp3",
   "outroAudioSrc": "kanshu_outro_elevenlabs.mp3",
-  "lessonDurationInFrames": 2772,
+  "lessonDurationInFrames": 3241,
   "outroDurationInFrames": 425,
   "wordsAlignment": [
     {
       "word": "Why",
       "start": 0.0,
-      "end": 0.221
+      "end": 0.139
     },
     {
       "word": "does",
-      "start": 0.267,
-      "end": 0.418
+      "start": 0.167,
+      "end": 0.278
     },
     {
       "word": "the",
-      "start": 0.453,
-      "end": 0.522
+      "start": 0.313,
+      "end": 0.417
     },
     {
       "word": "Chinese",
-      "start": 0.569,
-      "end": 0.929
+      "start": 0.47,
+      "end": 0.835
     },
     {
       "word": "word",
-      "start": 0.964,
-      "end": 1.149
+      "start": 0.877,
+      "end": 1.043
     },
     {
       "word": "for",
-      "start": 1.196,
-      "end": 1.312
+      "start": 1.078,
+      "end": 1.183
     },
     {
       "word": "help,",
-      "start": 1.382,
-      "end": 1.765
+      "start": 1.28,
+      "end": 1.739
     },
     {
-      "word": "bāngzhù,",
-      "start": 1.916,
-      "end": 2.635
+      "word": "帮助",
+      "start": 2.295,
+      "end": 2.297
+    },
+    {
+      "word": "(bāngzhù),",
+      "start": 2.303,
+      "end": 2.574
     },
     {
       "word": "contain",
-      "start": 2.879,
-      "end": 3.286
+      "start": 2.67,
+      "end": 3.339
     },
     {
       "word": "cloth,",
-      "start": 3.367,
-      "end": 3.924
+      "start": 3.432,
+      "end": 3.965
     },
     {
       "word": "a",
-      "start": 4.005,
-      "end": 4.087
+      "start": 4.174,
+      "end": 4.383
     },
     {
       "word": "city",
-      "start": 4.168,
-      "end": 4.4
+      "start": 4.438,
+      "end": 4.661
     },
     {
       "word": "wall,",
-      "start": 4.458,
-      "end": 4.807
+      "start": 4.758,
+      "end": 5.496
     },
     {
       "word": "an",
-      "start": 4.83,
-      "end": 4.923
+      "start": 5.519,
+      "end": 5.565
     },
     {
       "word": "altar,",
-      "start": 4.992,
-      "end": 5.433
+      "start": 5.67,
+      "end": 6.261
     },
     {
       "word": "and",
-      "start": 5.457,
-      "end": 5.55
+      "start": 6.348,
+      "end": 6.609
     },
     {
       "word": "flexing",
-      "start": 5.608,
-      "end": 5.968
+      "start": 6.692,
+      "end": 7.096
     },
     {
       "word": "muscles?",
-      "start": 6.014,
-      "end": 6.571
+      "start": 7.174,
+      "end": 7.861
     },
     {
       "word": "Let's",
-      "start": 6.896,
-      "end": 7.117
+      "start": 8.47,
+      "end": 8.904
     },
     {
       "word": "break",
-      "start": 7.163,
-      "end": 7.326
+      "start": 8.939,
+      "end": 9.113
     },
     {
       "word": "down",
-      "start": 7.372,
-      "end": 7.546
+      "start": 9.169,
+      "end": 9.391
     },
     {
       "word": "帮",
-      "start": 7.616,
-      "end": 7.976
+      "start": 9.67,
+      "end": 9.687
+    },
+    {
+      "word": "(bāng)",
+      "start": 9.696,
+      "end": 10.017
     },
     {
       "word": "first.",
-      "start": 7.976,
-      "end": 8.499
+      "start": 10.098,
+      "end": 10.643
     },
     {
       "word": "The",
-      "start": 8.824,
-      "end": 8.94
+      "start": 10.765,
+      "end": 11.13
     },
     {
       "word": "top",
-      "start": 8.998,
-      "end": 9.207
+      "start": 11.2,
+      "end": 11.409
     },
     {
       "word": "part",
-      "start": 9.253,
-      "end": 9.416
+      "start": 11.464,
+      "end": 11.687
     },
     {
       "word": "is",
-      "start": 9.462,
-      "end": 9.543
+      "start": 11.757,
+      "end": 11.896
     },
     {
-      "word": "邦,",
-      "start": 9.625,
-      "end": 10.17
+      "word": "邦",
+      "start": 12.174,
+      "end": 12.197
+    },
+    {
+      "word": "(bāng),",
+      "start": 12.209,
+      "end": 12.591
     },
     {
       "word": "representing",
-      "start": 10.321,
-      "end": 10.844
+      "start": 12.656,
+      "end": 13.426
     },
     {
       "word": "a",
-      "start": 10.89,
-      "end": 10.913
+      "start": 13.461,
+      "end": 13.496
     },
     {
       "word": "territory.",
-      "start": 10.96,
-      "end": 11.761
+      "start": 13.565,
+      "end": 14.33
     },
     {
       "word": "The",
-      "start": 12.04,
-      "end": 12.144
+      "start": 14.452,
+      "end": 14.817
     },
     {
       "word": "bottom",
-      "start": 12.202,
-      "end": 12.481
+      "start": 14.857,
+      "end": 15.096
     },
     {
       "word": "part",
-      "start": 12.539,
-      "end": 12.817
+      "start": 15.165,
+      "end": 15.443
     },
     {
       "word": "is",
-      "start": 12.875,
-      "end": 12.992
+      "start": 15.513,
+      "end": 15.652
     },
     {
-      "word": "巾,",
-      "start": 13.108,
-      "end": 13.63
+      "word": "巾",
+      "start": 15.861,
+      "end": 15.884
+    },
+    {
+      "word": "(jīn),",
+      "start": 15.896,
+      "end": 16.278
     },
     {
       "word": "a",
-      "start": 13.839,
-      "end": 13.909
+      "start": 16.487,
+      "end": 16.696
     },
     {
       "word": "strip",
-      "start": 13.99,
-      "end": 14.245
+      "start": 16.754,
+      "end": 17.043
     },
     {
       "word": "of",
-      "start": 14.292,
-      "end": 14.35
+      "start": 17.113,
+      "end": 17.252
     },
     {
       "word": "woven",
-      "start": 14.443,
-      "end": 14.826
+      "start": 17.31,
+      "end": 17.6
     },
     {
       "word": "cloth.",
-      "start": 14.884,
-      "end": 15.43
+      "start": 17.693,
+      "end": 18.643
     },
     {
       "word": "Ancient",
-      "start": 15.755,
-      "end": 16.091
+      "start": 18.704,
+      "end": 19.13
     },
     {
       "word": "cobblers",
-      "start": 16.149,
-      "end": 16.625
+      "start": 19.183,
+      "end": 19.687
     },
     {
       "word": "used",
-      "start": 16.707,
-      "end": 16.881
+      "start": 19.743,
+      "end": 19.965
     },
     {
       "word": "cloth",
-      "start": 16.927,
-      "end": 17.229
+      "start": 20.023,
+      "end": 20.313
     },
     {
       "word": "strips",
-      "start": 17.299,
-      "end": 17.612
+      "start": 20.383,
+      "end": 20.8
     },
     {
       "word": "to",
-      "start": 17.67,
-      "end": 17.74
+      "start": 20.846,
+      "end": 20.939
     },
     {
       "word": "reinforce",
-      "start": 17.821,
-      "end": 18.297
+      "start": 21.009,
+      "end": 21.635
     },
     {
       "word": "shoe",
-      "start": 18.332,
-      "end": 18.506
+      "start": 21.69,
+      "end": 21.913
     },
     {
       "word": "borders",
-      "start": 18.541,
-      "end": 18.878
+      "start": 21.965,
+      "end": 22.33
     },
     {
       "word": "so",
-      "start": 18.924,
-      "end": 19.029
+      "start": 22.377,
+      "end": 22.47
     },
     {
       "word": "they",
-      "start": 19.075,
-      "end": 19.18
+      "start": 22.497,
+      "end": 22.609
     },
     {
       "word": "wouldn't",
-      "start": 19.203,
-      "end": 19.447
+      "start": 22.638,
+      "end": 22.887
     },
     {
       "word": "tear.",
-      "start": 19.47,
-      "end": 19.899
+      "start": 22.957,
+      "end": 23.93
     },
     {
       "word": "帮",
-      "start": 20.224,
-      "end": 20.573
+      "start": 24.0,
+      "end": 24.023
+    },
+    {
+      "word": "(bāng)",
+      "start": 24.035,
+      "end": 24.348
     },
     {
       "word": "literally",
-      "start": 20.573,
-      "end": 20.956
+      "start": 24.39,
+      "end": 24.765
     },
     {
       "word": "means",
-      "start": 21.014,
-      "end": 21.258
+      "start": 24.823,
+      "end": 25.113
     },
     {
       "word": "providing",
-      "start": 21.316,
-      "end": 21.757
+      "start": 25.162,
+      "end": 25.6
     },
     {
       "word": "protective",
-      "start": 21.815,
-      "end": 22.326
+      "start": 25.657,
+      "end": 26.226
     },
     {
       "word": "reinforcement",
-      "start": 22.372,
-      "end": 23.046
+      "start": 26.286,
+      "end": 27.061
     },
     {
       "word": "so",
-      "start": 23.104,
-      "end": 23.255
+      "start": 27.177,
+      "end": 27.409
     },
     {
       "word": "someone",
-      "start": 23.313,
-      "end": 23.649
+      "start": 27.461,
+      "end": 27.826
     },
     {
       "word": "doesn't",
-      "start": 23.684,
-      "end": 23.951
+      "start": 27.884,
+      "end": 28.243
     },
     {
       "word": "fall",
-      "start": 23.986,
-      "end": 24.172
+      "start": 28.299,
+      "end": 28.522
     },
     {
       "word": "apart.",
-      "start": 24.218,
-      "end": 24.741
+      "start": 28.591,
+      "end": 29.009
     },
     {
       "word": "Now",
-      "start": 25.124,
-      "end": 25.333
+      "start": 29.391,
+      "end": 30.122
     },
     {
       "word": "look",
-      "start": 25.426,
-      "end": 25.588
+      "start": 30.163,
+      "end": 30.33
     },
     {
       "word": "at",
-      "start": 25.623,
-      "end": 25.681
+      "start": 30.377,
+      "end": 30.47
     },
     {
-      "word": "助.",
-      "start": 25.739,
-      "end": 26.204
+      "word": "助",
+      "start": 31.026,
+      "end": 31.304
+    },
+    {
+      "word": "(zhù).",
+      "start": 31.443,
+      "end": 31.635
     },
     {
       "word": "The",
-      "start": 26.482,
-      "end": 26.598
+      "start": 31.639,
+      "end": 31.652
     },
     {
       "word": "left",
-      "start": 26.668,
-      "end": 26.865
+      "start": 31.708,
+      "end": 31.93
     },
     {
       "word": "part",
-      "start": 26.9,
-      "end": 27.063
+      "start": 32.0,
+      "end": 32.278
     },
     {
       "word": "is",
-      "start": 27.109,
-      "end": 27.19
+      "start": 32.348,
+      "end": 32.487
     },
     {
-      "word": "且,",
-      "start": 27.272,
-      "end": 27.841
+      "word": "且",
+      "start": 32.696,
+      "end": 32.974
+    },
+    {
+      "word": "(zhǔ),",
+      "start": 33.113,
+      "end": 33.781
     },
     {
       "word": "an",
-      "start": 28.05,
-      "end": 28.2
+      "start": 33.809,
+      "end": 33.864
     },
     {
       "word": "ancient",
-      "start": 28.281,
-      "end": 28.63
+      "start": 33.875,
+      "end": 33.948
     },
     {
       "word": "heavy",
-      "start": 28.688,
-      "end": 28.908
+      "start": 34.017,
+      "end": 34.365
     },
     {
       "word": "stone",
-      "start": 28.955,
-      "end": 29.222
+      "start": 34.435,
+      "end": 34.783
     },
     {
       "word": "altar.",
-      "start": 29.257,
-      "end": 29.86
+      "start": 34.863,
+      "end": 35.339
     },
     {
       "word": "The",
-      "start": 30.069,
-      "end": 30.185
+      "start": 35.53,
+      "end": 36.104
     },
     {
       "word": "right",
-      "start": 30.255,
-      "end": 30.429
+      "start": 36.15,
+      "end": 36.383
     },
     {
       "word": "part",
-      "start": 30.476,
-      "end": 30.65
+      "start": 36.424,
+      "end": 36.591
     },
     {
       "word": "is",
-      "start": 30.708,
-      "end": 30.801
+      "start": 36.684,
+      "end": 36.87
     },
     {
-      "word": "力,",
-      "start": 30.917,
-      "end": 31.509
+      "word": "力",
+      "start": 37.217,
+      "end": 37.287
+    },
+    {
+      "word": "(lì),",
+      "start": 37.322,
+      "end": 37.983
     },
     {
       "word": "a",
-      "start": 31.555,
-      "end": 31.613
+      "start": 38.017,
+      "end": 38.052
     },
     {
       "word": "flexed",
-      "start": 31.695,
-      "end": 32.02
+      "start": 38.122,
+      "end": 38.47
     },
     {
       "word": "muscle.",
-      "start": 32.078,
-      "end": 32.565
+      "start": 38.539,
+      "end": 39.026
     },
     {
       "word": "Lifting",
-      "start": 32.809,
-      "end": 33.134
+      "start": 39.443,
+      "end": 40.139
     },
     {
       "word": "a",
-      "start": 33.192,
-      "end": 33.216
+      "start": 40.174,
+      "end": 40.209
     },
     {
       "word": "heavy",
-      "start": 33.297,
-      "end": 33.529
+      "start": 40.267,
+      "end": 40.557
     },
     {
       "word": "altar",
-      "start": 33.599,
-      "end": 33.912
+      "start": 40.626,
+      "end": 40.974
     },
     {
       "word": "required",
-      "start": 33.982,
-      "end": 34.388
+      "start": 41.036,
+      "end": 41.53
     },
     {
       "word": "teamwork",
-      "start": 34.435,
-      "end": 34.864
+      "start": 41.584,
+      "end": 42.017
     },
     {
       "word": "and",
-      "start": 34.922,
-      "end": 35.003
+      "start": 42.052,
+      "end": 42.157
     },
     {
       "word": "strength.",
-      "start": 35.073,
-      "end": 35.712
+      "start": 42.21,
+      "end": 43.409
     },
     {
       "word": "助",
-      "start": 36.524,
-      "end": 36.838
+      "start": 43.757,
+      "end": 43.93
+    },
+    {
+      "word": "(zhù)",
+      "start": 44.017,
+      "end": 44.365
     },
     {
       "word": "literally",
-      "start": 36.838,
-      "end": 37.233
+      "start": 44.374,
+      "end": 44.452
     },
     {
       "word": "means",
-      "start": 37.291,
-      "end": 37.511
+      "start": 44.51,
+      "end": 44.8
     },
     {
       "word": "applying",
-      "start": 37.546,
-      "end": 37.952
+      "start": 44.854,
+      "end": 45.287
     },
     {
       "word": "muscle",
-      "start": 37.999,
-      "end": 38.278
+      "start": 45.337,
+      "end": 45.635
     },
     {
       "word": "power",
-      "start": 38.301,
-      "end": 38.579
+      "start": 45.704,
+      "end": 46.052
     },
     {
       "word": "to",
-      "start": 38.637,
-      "end": 38.707
+      "start": 46.122,
+      "end": 46.261
     },
     {
       "word": "help",
-      "start": 38.777,
-      "end": 38.951
+      "start": 46.317,
+      "end": 46.539
     },
     {
       "word": "someone",
-      "start": 39.009,
-      "end": 39.322
+      "start": 46.583,
+      "end": 46.887
     },
     {
       "word": "lift",
-      "start": 39.369,
-      "end": 39.578
+      "start": 46.957,
+      "end": 47.235
     },
     {
       "word": "a",
-      "start": 39.636,
-      "end": 39.671
+      "start": 47.27,
+      "end": 47.304
     },
     {
       "word": "heavy",
-      "start": 39.787,
-      "end": 40.007
+      "start": 47.35,
+      "end": 47.583
     },
     {
       "word": "burden.",
-      "start": 40.065,
-      "end": 40.588
+      "start": 47.652,
+      "end": 48.139
     },
     {
       "word": "Put",
-      "start": 40.971,
-      "end": 41.145
+      "start": 48.661,
+      "end": 48.974
     },
     {
       "word": "them",
-      "start": 41.168,
-      "end": 41.284
+      "start": 49.002,
+      "end": 49.113
     },
     {
       "word": "together:",
-      "start": 41.331,
-      "end": 41.969
+      "start": 49.159,
+      "end": 50.157
     },
     {
       "word": "帮",
-      "start": 42.213,
-      "end": 42.55
+      "start": 50.226,
+      "end": 50.25
+    },
+    {
+      "word": "(bāng)",
+      "start": 50.261,
+      "end": 50.574
     },
     {
       "word": "is",
-      "start": 42.55,
-      "end": 42.62
+      "start": 50.62,
+      "end": 50.713
     },
     {
       "word": "the",
-      "start": 42.666,
-      "end": 42.736
+      "start": 50.73,
+      "end": 50.783
     },
     {
       "word": "protective",
-      "start": 42.771,
-      "end": 43.27
+      "start": 50.827,
+      "end": 51.27
     },
     {
       "word": "backing,",
-      "start": 43.305,
-      "end": 43.792
+      "start": 51.33,
+      "end": 52.035
     },
     {
       "word": "and",
-      "start": 43.815,
-      "end": 43.978
+      "start": 52.087,
+      "end": 52.243
     },
     {
       "word": "助",
-      "start": 44.059,
-      "end": 44.384
+      "start": 52.661,
+      "end": 52.765
+    },
+    {
+      "word": "(zhù)",
+      "start": 52.817,
+      "end": 52.872
     },
     {
       "word": "is",
-      "start": 44.384,
-      "end": 44.466
+      "start": 52.917,
+      "end": 53.01
     },
     {
       "word": "the",
-      "start": 44.524,
-      "end": 44.593
+      "start": 53.028,
+      "end": 53.08
     },
     {
       "word": "muscle",
-      "start": 44.663,
-      "end": 44.976
+      "start": 53.13,
+      "end": 53.428
     },
     {
       "word": "power!",
-      "start": 45.011,
-      "end": 45.696
+      "start": 53.486,
+      "end": 53.984
     }
   ],
   "screenTimestamps": {
-    "screen1EndSec": 6.896,
-    "screen1EndFrame": 414,
-    "screen2EndSec": 25.124,
-    "screen2EndFrame": 1507,
-    "screen3EndSec": 40.971,
-    "screen3EndFrame": 2458,
-    "lessonTotalSec": 46.196,
-    "lessonTotalFrames": 2772
+    "screen1EndSec": 8.47,
+    "screen1EndFrame": 508,
+    "screen2EndSec": 29.391,
+    "screen2EndFrame": 1763,
+    "screen3EndSec": 48.661,
+    "screen3EndFrame": 2920,
+    "lessonTotalSec": 54.021,
+    "lessonTotalFrames": 3241
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 508,
+      "clothMention": {
+        "startSec": 3.432,
+        "endSec": 3.965,
+        "startFrame": 206,
+        "endFrame": 238
+      },
+      "wallMention": {
+        "startSec": 4.758,
+        "endSec": 5.496,
+        "startFrame": 285,
+        "endFrame": 330
+      },
+      "altarMention": {
+        "startSec": 5.67,
+        "endSec": 6.261,
+        "startFrame": 340,
+        "endFrame": 376
+      },
+      "muscleMention": {
+        "startSec": 7.174,
+        "endSec": 7.861,
+        "startFrame": 430,
+        "endFrame": 472
+      }
+    },
+    "screen2": {
+      "startFrame": 508,
+      "endFrame": 1763,
+      "topBang": {
+        "startFrame": 508,
+        "endFrame": 952
+      },
+      "bottomJin": {
+        "startFrame": 952,
+        "endFrame": 1440
+      },
+      "wholeBang": {
+        "startFrame": 1440,
+        "endFrame": 1763
+      }
+    },
+    "screen3": {
+      "startFrame": 1763,
+      "endFrame": 2920,
+      "wholeZhuIntro": {
+        "startFrame": 1763,
+        "endFrame": 1962
+      },
+      "leftQie": {
+        "startFrame": 1962,
+        "endFrame": 2233
+      },
+      "rightLi": {
+        "startFrame": 2233,
+        "endFrame": 2625
+      },
+      "wholeZhuOutro": {
+        "startFrame": 2625,
+        "endFrame": 2920
+      }
+    },
+    "screen4": {
+      "startFrame": 2920,
+      "endFrame": 3241,
+      "bangHighlightEndFrame": 3160
+    }
   }
 }

@@ -569,8 +569,8 @@ export const KanshuAppOutro: React.FC<{
             </div>
           </div>
 
-          {/* Google Play Store */}
-          <div
+          {/* Google Play Store (Commented out for now as it is not available yet) */}
+          {/* <div
             style={{
               backgroundColor: '#000000',
               color: '#FFFFFF',
@@ -587,7 +587,7 @@ export const KanshuAppOutro: React.FC<{
               <div style={{ fontSize: 10, textTransform: 'uppercase', opacity: 0.8 }}>GET IT ON</div>
               <div style={{ fontSize: 20, fontWeight: 700 }}>Google Play</div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Primary Warm CTA Button (Finger Paint Font per brand.md) */}
