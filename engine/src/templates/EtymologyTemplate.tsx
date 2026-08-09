@@ -42,16 +42,17 @@ export interface EtymologyConfig {
 }
 
 // ────────────────────────────────────────────────────────────
-// CLEAN STEADY TARGET CIRCLE & POINTER ARROW (ZERO JITTER)
+// HIGH-CONTRAST DEEP BLACK SMOOTHLY-ANIMATED TARGET SPOTLIGHT
 // ────────────────────────────────────────────────────────────
 
-const SteadyRadicalSpotlight: React.FC<{
+const DynamicSmoothSpotlight: React.FC<{
   x: number;
   y: number;
   radius?: number;
   frame: number;
 }> = ({ x, y, radius = 125, frame }) => {
-  const rotation = (frame * 2.0) % 360;
+  // Slowed-down rotation speed for a smooth, readable target indicator
+  const rotation = (frame * 0.8) % 360;
 
   return (
     <div
@@ -62,23 +63,24 @@ const SteadyRadicalSpotlight: React.FC<{
         transform: 'translate(-50%, -50%)',
         pointerEvents: 'none',
         zIndex: 60,
+        transition: 'top 0.25s ease-out, left 0.25s ease-out', // Smooth motion when position updates!
       }}
     >
-      {/* PERFECT SYMMETRICAL CIRCLE (r=125px) — Smooth rotation, ZERO jitter */}
+      {/* HIGH-CONTRAST DEEP BLACK DASHED CIRCLE — 100% Visible over Chinese characters! */}
       <svg width={radius * 2 + 40} height={radius * 2 + 40} viewBox={`0 0 ${radius * 2 + 40} ${radius * 2 + 40}`} style={{ transform: `rotate(${rotation}deg)` }}>
         <circle
           cx={radius + 20}
           cy={radius + 20}
           r={radius}
           fill="none"
-          stroke="#FF6F59"
-          strokeWidth="6"
-          strokeDasharray="18 14"
-          filter="drop-shadow(0 4px 20px rgba(255, 111, 89, 0.65))"
+          stroke="#0F172A" // Deep black stroke color per user directive!
+          strokeWidth="7"
+          strokeDasharray="20 14"
+          filter="drop-shadow(0 0 12px rgba(255, 255, 255, 0.95)) drop-shadow(0 6px 20px rgba(15, 23, 42, 0.5))"
         />
       </svg>
 
-      {/* Steady Pointer Arrow 👇 — ZERO jitter */}
+      {/* Pointer Arrow 👇 in Coral Accent */}
       <div
         style={{
           position: 'absolute',
@@ -88,7 +90,7 @@ const SteadyRadicalSpotlight: React.FC<{
           color: '#FF6F59',
           fontSize: 72,
           fontWeight: 900,
-          filter: 'drop-shadow(0 6px 16px rgba(255, 111, 89, 0.75))',
+          filter: 'drop-shadow(0 6px 16px rgba(255, 111, 89, 0.8))',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -167,8 +169,11 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
 
   // ── DYNAMIC RADICAL SPOTLIGHT TIMINGS (Audio Timestamps) ──
+  // Screen 2 (帮): Audio speaks "The top part is 邦" around 7.9s (474f), "The bottom part is 巾" around 13.1s (786f)
   const isScreen2TopBang = isScreen2 && frame < 786;
   const isScreen2BottomJin = isScreen2 && frame >= 786;
+
+  // Screen 3 (助): Audio speaks "The left part is 且" around 25.9s (1554f), "The right part is 力" around 30.8s (1848f)
   const isScreen3LeftQie = isScreen3 && frame < 1848;
   const isScreen3RightLi = isScreen3 && frame >= 1848;
 
@@ -176,15 +181,33 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen4BangHighlight = isScreen4 && frame < 2600;
   const isScreen4ZhuHighlight = isScreen4 && frame >= 2600;
 
-  // ── SCREEN 1 CONTINUOUS DYNAMIC EMOJI ORBIT WITH BREATHING RADIUS ──
-  const orbitBaseRadius = 260 + Math.sin(frame * 0.08) * 30; // Pulsating breathing radius
-  const orbitSpeed = frame * 0.025; // Smooth continuous 360-degree rotation
+  // ── ANIMATED SMOOTH SLIDE TRANSITION FOR SPOTLIGHT TARGET POSITION ──
+  // Screen 2: Y transition from 200px (邦) to 360px (巾) triggered at frame 786
+  const spot2Spring = spring({
+    frame: Math.max(0, frame - 786),
+    fps,
+    config: SPRING_SMOOTH,
+  });
+  const spot2Y = interpolate(spot2Spring, [0, 1], [200, 360]);
 
-  // Detect when specific concepts are mentioned in Screen 1 for scale highlights
-  const isMentionedCloth = isScreen1 && (currentTime >= 1.6 && currentTime <= 2.2);  // "cloth"
-  const isMentionedWall = isScreen1 && (currentTime >= 2.2 && currentTime <= 2.7);   // "city wall"
-  const isMentionedAltar = isScreen1 && (currentTime >= 2.7 && currentTime <= 3.2);  // "altar"
-  const isMentionedMuscle = isScreen1 && (currentTime >= 3.2 && currentTime <= 3.8); // "muscle"
+  // Screen 3: X transition from 430px (且) to 590px (力) triggered at frame 1848
+  const spot3Spring = spring({
+    frame: Math.max(0, frame - 1848),
+    fps,
+    config: SPRING_SMOOTH,
+  });
+  const spot3X = interpolate(spot3Spring, [0, 1], [430, 590]);
+
+  // ── SCREEN 1 WIDER RELAXED EMOJI ORBIT WITH EXACT AUDIO TIMESTAMPS ──
+  const orbitBaseRadius = 360 + Math.sin(frame * 0.04) * 20; // WIDER radius (360px) so emojis NEVER cover the word!
+  const orbitSpeed = frame * 0.01; // SLOWER relaxed rotation speed (was 0.025)!
+
+  // EXACT AUDIO TIMESTAMPS FOR EMOJI EXPANSION (from alignment.json / words_alignment.json):
+  // "cloth" 🧵: 3.48s - 3.85s | "city wall" 🏰: 3.88s - 4.42s | "altar" ⛩️: 4.45s - 4.92s | "flexing muscles" 💪: 4.95s - 5.88s
+  const isMentionedCloth = isScreen1 && (currentTime >= 3.45 && currentTime <= 3.85);
+  const isMentionedWall = isScreen1 && (currentTime >= 3.88 && currentTime <= 4.42);
+  const isMentionedAltar = isScreen1 && (currentTime >= 4.45 && currentTime <= 4.92);
+  const isMentionedMuscle = isScreen1 && (currentTime >= 4.95 && currentTime <= 5.90);
 
   const emojisData = [
     { emoji: '🏰', label: '邦 (Territory)', angleOffset: 0, isMentioned: isMentionedWall },
@@ -213,7 +236,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               borderRadius: 999,
               fontSize: 34,
               fontWeight: 700,
-              fontFamily: FONTS.display, // Finger Paint font for Latin display tags!
+              fontFamily: FONTS.display,
               letterSpacing: '0.04em',
               border: '2px solid rgba(255, 111, 89, 0.3)',
               transform: `scale(${headerSpring})`,
@@ -261,14 +284,14 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               justifyContent: 'center',
             }}
           >
-            {/* INTACT PROPORTIONED CHARACTER '帮' (BANG) — NOT DECOMPOSED STANDALONE TEXT! */}
+            {/* INTACT PROPORTIONED CHARACTER '帮' (BANG) */}
             <div
               style={{
                 position: 'absolute',
                 transform: `translateX(${bangX}px) scale(${bangScale})`,
-                fontSize: 270, // Intact, properly proportioned Hanzi!
+                fontSize: 270,
                 fontWeight: 900,
-                fontFamily: '"Noto Sans SC", sans-serif', // Official Noto Sans SC font per user request!
+                fontFamily: '"Noto Sans SC", sans-serif',
                 color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : '#0F172A',
                 textShadow: isScreen2 || isScreen4BangHighlight ? '0 16px 50px rgba(255, 111, 89, 0.45)' : '0 10px 30px rgba(15,23,42,0.1)',
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
@@ -277,14 +300,14 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               帮
             </div>
 
-            {/* INTACT PROPORTIONED CHARACTER '助' (ZHU) — NOT DECOMPOSED STANDALONE TEXT! */}
+            {/* INTACT PROPORTIONED CHARACTER '助' (ZHU) */}
             <div
               style={{
                 position: 'absolute',
                 transform: `translateX(${zhuX}px) scale(${zhuScale})`,
-                fontSize: 270, // Intact, properly proportioned Hanzi!
+                fontSize: 270,
                 fontWeight: 900,
-                fontFamily: '"Noto Sans SC", sans-serif', // Official Noto Sans SC font per user request!
+                fontFamily: '"Noto Sans SC", sans-serif',
                 color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : '#0F172A',
                 textShadow: isScreen3 || isScreen4ZhuHighlight ? '0 16px 50px rgba(255, 111, 89, 0.45)' : '0 10px 30px rgba(15,23,42,0.1)',
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
@@ -293,13 +316,13 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               助
             </div>
 
-            {/* ── SCREEN 1 DYNAMIC CONTINUOUS EMOJI ORBIT WITH BREATHING RADIUS ── */}
+            {/* ── SCREEN 1 WIDER EMOJI ORBIT WITH EXACT AUDIO TIMESTAMPS ── */}
             {isScreen1 &&
               emojisData.map((item, i) => {
                 const currentAngle = orbitSpeed + item.angleOffset;
                 const emojiX = Math.cos(currentAngle) * orbitBaseRadius;
-                const emojiY = Math.sin(currentAngle) * (orbitBaseRadius * 0.6); // Slightly elliptical 3D orbit perspective
-                const scale = item.isMentioned ? 1.45 : 1.0;
+                const emojiY = Math.sin(currentAngle) * (orbitBaseRadius * 0.55); // 3D orbit perspective
+                const scale = item.isMentioned ? 1.5 : 1.0;
 
                 return (
                   <div
@@ -307,9 +330,11 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                     style={{
                       position: 'absolute',
                       transform: `translate(${emojiX}px, ${emojiY}px) scale(${scale})`,
-                      fontSize: 80,
-                      filter: item.isMentioned ? 'drop-shadow(0 10px 24px rgba(255, 111, 89, 0.8))' : 'drop-shadow(0 6px 14px rgba(0,0,0,0.15))',
-                      transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease',
+                      fontSize: 84,
+                      filter: item.isMentioned
+                        ? 'drop-shadow(0 12px 28px rgba(255, 111, 89, 0.95)) drop-shadow(0 0 20px rgba(255, 111, 89, 0.7))'
+                        : 'drop-shadow(0 6px 14px rgba(0,0,0,0.18))',
+                      transition: 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease',
                       zIndex: 30,
                     }}
                   >
@@ -318,18 +343,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 );
               })}
 
-            {/* ── ENLARGED TARGET CIRCLES (r=125px) & STEADY POINTER ARROWS Directly OVER HANZI STROKES ── */}
-            {/* Screen 2: Top '邦' part of intact '帮' */}
-            {isScreen2TopBang && <SteadyRadicalSpotlight x={540} y={230} radius={125} frame={frame} />}
-
-            {/* Screen 2: Bottom '巾' part of intact '帮' */}
-            {isScreen2BottomJin && <SteadyRadicalSpotlight x={540} y={380} radius={120} frame={frame} />}
-
-            {/* Screen 3: Left '且' part of intact '助' */}
-            {isScreen3LeftQie && <SteadyRadicalSpotlight x={460} y={300} radius={120} frame={frame} />}
-
-            {/* Screen 3: Right '力' part of intact '助' */}
-            {isScreen3RightLi && <SteadyRadicalSpotlight x={620} y={300} radius={120} frame={frame} />}
+            {/* ── ANIMATED HIGH-CONTRAST DEEP BLACK TARGET SPOTLIGHT (Smooth Slide Animation) ── */}
+            {isScreen2 && <DynamicSmoothSpotlight x={500} y={spot2Y} radius={125} frame={frame} />}
+            {isScreen3 && <DynamicSmoothSpotlight x={spot3X} y={280} radius={125} frame={frame} />}
 
             {/* SCREEN 4 SYNTHESIS AURA RING */}
             {isScreen4 && (
