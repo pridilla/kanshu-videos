@@ -58,7 +58,7 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 | Font Family | Variable / Constant | Purpose & Usage Rules |
 | :--- | :--- | :--- |
 | **Finger Paint** | `FONTS.display` | **All English Headings & Display Callouts**. Use ONLY for top brand badges (`CHINESE CHARACTER ETYMOLOGY`), screen title headers, card tag translation labels (ALL CAPS), and primary CTA buttons. |
-| **Noto Sans SC** | `"Noto Sans SC", sans-serif` | **All Chinese Hanzi Characters**. ALWAYS use for main intact morphing Hanzi (`fontSize: 340px`, weight `900`), card tag Hanzi (`fontSize: 40px`, weight `900`), and reader book text. |
+| **Noto Sans SC** | `"Noto Sans SC"` | **All Chinese Hanzi Characters**. ALWAYS use for main intact morphing Hanzi (`fontSize: 340px`, weight `900`), card tag Hanzi (`fontSize: 40px`, weight `900`), and reader book text. |
 | **Roboto** | `FONTS.pinyin` | **Pinyin Pronunciation & Subtitles**. ALWAYS use for Pinyin annotations in card tags (`fontSize: 28px`, italic, weight `700`), subtitles, and real-time speech captions. |
 
 ---
@@ -147,7 +147,160 @@ const currentCatSrc = catImages[flipIndex] || catImages[0];
 
 ---
 
-## 7. Message-by-Message Feedback Analysis
+## 7. Full Reusable Source Code Architecture
+
+### A. Background Component (`ChineseBackground.tsx`)
+```tsx
+import React from 'react';
+import { AbsoluteFill, interpolate, staticFile } from 'remotion';
+
+export interface ChineseBackgroundProps {
+  frame: number;
+  lessonTotalFrames?: number;
+  morph1To2?: number;
+  morph2To3?: number;
+  morph3To4?: number;
+}
+
+export const ChineseBackground: React.FC<ChineseBackgroundProps> = ({
+  frame,
+  lessonTotalFrames = 2772,
+  morph1To2 = 0,
+  morph2To3 = 0,
+  morph3To4 = 0,
+}) => {
+  const enterProgress = Math.min(1, Math.max(0, frame / 35));
+  const enterOpacity = Math.pow(enterProgress, 2);
+
+  const exitStartFrame = lessonTotalFrames - 45;
+  const exitProgress = Math.min(1, Math.max(0, (frame - exitStartFrame) / 45));
+  const exitOpacity = Math.pow(1 - exitProgress, 2);
+
+  const totalOpacity = enterOpacity * exitOpacity;
+  const enterY = (1 - enterProgress) * (1 - enterProgress) * 50;
+
+  const continuousPanY = frame * 0.4;
+  const transitionPanX =
+    interpolate(morph1To2, [0, 1], [0, 60]) +
+    interpolate(morph2To3, [0, 1], [0, -100]) +
+    interpolate(morph3To4, [0, 1], [0, 50]);
+
+  const patternScale =
+    1.0 +
+    interpolate(morph1To2, [0, 1], [0, 0.05]) +
+    interpolate(morph2To3, [0, 1], [0, -0.06]) +
+    interpolate(morph3To4, [0, 1], [0, 0.05]);
+
+  if (totalOpacity <= 0.001) return null;
+
+  return (
+    <AbsoluteFill
+      style={{
+        opacity: totalOpacity * 0.12,
+        transform: `translateY(${enterY}px) scale(${patternScale})`,
+        pointerEvents: 'none',
+        zIndex: 1,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: -200,
+          left: -200,
+          width: 'calc(100% + 400px)',
+          height: 'calc(100% + 400px)',
+          backgroundImage: `url(${staticFile('chinese_cloud_pattern.png')})`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '950px auto',
+          backgroundPosition: `${transitionPanX}px ${-continuousPanY}px`,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+```
+
+### B. Python Sync Script (`sync_single_pass_config.py`)
+```python
+#!/usr/bin/env python3
+import os
+import sys
+import json
+import argparse
+import subprocess
+
+def get_audio_duration(file_path):
+    cmd = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1', file_path]
+    res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    try:
+        return float(res.stdout.strip())
+    except ValueError:
+        return 0.0
+
+def sec_to_frame(sec, fps=60):
+    return int(round(sec * fps))
+
+def main():
+    parser = argparse.ArgumentParser(description="Sync single-pass alignment with config.json and optional speed factor")
+    parser.add_argument('--speed', type=float, default=1.15)
+    parser.add_argument('--audio', default='public/bangzhu_voice_single_pass_fast.mp3')
+    parser.add_argument('--config', default='content/04_etymology_bangzhu/config.json')
+    parser.add_argument('--alignment', default='public/bangzhu_voice_single_pass_alignment.json')
+    args = parser.parse_args()
+
+    speed_factor = args.speed
+    with open(args.alignment, 'r') as f:
+        align = json.load(f)
+
+    chars = align.get('characters', [])
+    starts = align.get('character_start_times_seconds', [])
+    ends = align.get('character_end_times_seconds', [])
+
+    raw_words_alignment = []
+    current_word_chars = []
+    word_start = None
+    word_end = None
+
+    for c, s, e in zip(chars, starts, ends):
+        if c in [' ', '\n', '\t']:
+            if current_word_chars:
+                w_str = ''.join(current_word_chars).strip()
+                if w_str:
+                    raw_words_alignment.append({"word": w_str, "start": word_start, "end": word_end})
+                current_word_chars = []
+                word_start = None
+                word_end = None
+        else:
+            if word_start is None:
+                word_start = s
+            word_end = e
+            current_word_chars.append(c)
+
+    words_alignment = [{"word": wa['word'], "start": round(wa['start']/speed_factor, 3), "end": round(wa['end']/speed_factor, 3)} for wa in raw_words_alignment]
+
+    audio_duration = get_audio_duration(args.audio)
+    total_frames = sec_to_frame(audio_duration)
+
+    with open(args.config, 'r') as f:
+        cfg = json.load(f)
+
+    cfg['audioSrc'] = os.path.basename(args.audio)
+    cfg['wordsAlignment'] = words_alignment
+    cfg['lessonDurationInFrames'] = total_frames
+
+    with open(args.config, 'w') as f:
+        json.dump(cfg, f, indent=2, ensure_ascii=False)
+
+    print(f"✅ Successfully updated {args.config} with {speed_factor}x speed alignment!")
+
+if __name__ == '__main__':
+    main()
+```
+
+---
+
+## 8. Message-by-Message Feedback Analysis
 
 | Step | User Request / Feedback | Root Cause | Engineering Solution |
 | :--- | :--- | :--- | :--- |
