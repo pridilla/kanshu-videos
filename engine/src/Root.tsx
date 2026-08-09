@@ -18,7 +18,7 @@ const FontLoader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   React.useEffect(() => {
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Finger+Paint&family=Inter:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;700;900&display=swap';
+    link.href = 'https://fonts.googleapis.com/css2?family=Finger+Paint&family=Inter:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;700;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap';
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
