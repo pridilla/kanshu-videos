@@ -42,19 +42,19 @@ export interface EtymologyConfig {
 }
 
 // ────────────────────────────────────────────────────────────
-// DYNAMIC ANIMATED SPOTLIGHT CIRCLE & JITTERING POINTING ARROW
+// PERFECT SYMMETRICAL SPINNING TARGET CIRCLE & JITTERING ARROW
 // ────────────────────────────────────────────────────────────
 
 const DynamicRadicalSpotlight: React.FC<{
   x: number;
   y: number;
-  label: string;
+  radius?: number;
   frame: number;
-}> = ({ x, y, label, frame }) => {
+}> = ({ x, y, radius = 75, frame }) => {
   // Hand-drawn organic jitter for continuous high retention motion
-  const jitterX = Math.sin(frame * 0.35) * 6;
-  const jitterY = Math.cos(frame * 0.25) * 6;
-  const rotation = (frame * 2.5) % 360;
+  const jitterX = Math.sin(frame * 0.35) * 5;
+  const jitterY = Math.cos(frame * 0.25) * 5;
+  const rotation = (frame * 3.0) % 360;
 
   return (
     <div
@@ -67,30 +67,29 @@ const DynamicRadicalSpotlight: React.FC<{
         zIndex: 60,
       }}
     >
-      {/* Dynamic Spinning Dashed Target Ellipse */}
-      <svg width="280" height="180" viewBox="0 0 280 180" style={{ transform: `rotate(${rotation}deg)` }}>
-        <ellipse
-          cx="140"
-          cy="90"
-          rx="125"
-          ry="75"
+      {/* PERFECT SYMMETRICAL CIRCLE — Spins smoothly with ZERO wobbling distortion! */}
+      <svg width={radius * 2 + 40} height={radius * 2 + 40} viewBox={`0 0 ${radius * 2 + 40} ${radius * 2 + 40}`} style={{ transform: `rotate(${rotation}deg)` }}>
+        <circle
+          cx={radius + 20}
+          cy={radius + 20}
+          r={radius}
           fill="none"
           stroke="#FF6F59"
           strokeWidth="6"
-          strokeDasharray="18 12"
-          filter="drop-shadow(0 4px 16px rgba(255, 111, 89, 0.5))"
+          strokeDasharray="16 12"
+          filter="drop-shadow(0 4px 16px rgba(255, 111, 89, 0.6))"
         />
       </svg>
 
-      {/* Dynamic Jittering Pointer Arrow pointing to Radical */}
+      {/* Dynamic Jittering Pointer Arrow pointing directly to Radical */}
       <div
         style={{
           position: 'absolute',
-          top: -75,
+          top: -65,
           left: '50%',
-          transform: `translateX(-50%) translateY(${Math.sin(frame * 0.4) * 10}px)`,
+          transform: `translateX(-50%) translateY(${Math.sin(frame * 0.4) * 8}px)`,
           color: '#FF6F59',
-          fontSize: 64,
+          fontSize: 60,
           fontWeight: 900,
           filter: 'drop-shadow(0 6px 16px rgba(255, 111, 89, 0.7))',
           display: 'flex',
@@ -170,7 +169,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   // Header entrance spring
   const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
 
-  // ── DYNAMIC RADICAL SPOTLIGHT SWITCHING (Audio Timestamps) ──
+  // ── DYNAMIC RADICAL SPOTLIGHT & WEIGHT HIGHLIGHT TIMINGS (Audio Timestamps) ──
   // Screen 2 (帮): Audio speaks "The top part is 邦" around 7.9s (474f), "The bottom part is 巾" around 13.1s (786f)
   const isScreen2TopBang = isScreen2 && frame < 786;
   const isScreen2BottomJin = isScreen2 && frame >= 786;
@@ -178,6 +177,10 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   // Screen 3 (助): Audio speaks "The left part is 且" around 25.9s (1554f), "The right part is 力" around 30.8s (1848f)
   const isScreen3LeftQie = isScreen3 && frame < 1848;
   const isScreen3RightLi = isScreen3 && frame >= 1848;
+
+  // Screen 4 (Synthesis): Audio speaks "帮 is the protective backing..." (2458f-2600f), "...and 助 is the muscle power!" (2600f+)
+  const isScreen4BangHighlight = isScreen4 && frame < 2600;
+  const isScreen4ZhuHighlight = isScreen4 && frame >= 2600;
 
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.bg, fontFamily: FONTS.pinyin, overflow: 'hidden' }}>
@@ -189,7 +192,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           {/* Warm background floating particles */}
           <FloatingParticles count={14} color="#FF6F59" />
 
-          {/* Top Brand Header in Finger Paint (Latin Display Font) — SCALED UP TO 34px */}
+          {/* Top Brand Header in Finger Paint (Latin Display Font) */}
           <div
             style={{
               marginTop: 70,
@@ -197,9 +200,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               color: '#FF6F59',
               padding: '16px 44px',
               borderRadius: 999,
-              fontSize: 34, // Scaled up (was 26px)!
+              fontSize: 34,
               fontWeight: 700,
-              fontFamily: FONTS.display, // Finger Paint font for Latin display tags!
+              fontFamily: FONTS.display,
               letterSpacing: '0.04em',
               border: '2px solid rgba(255, 111, 89, 0.3)',
               transform: `scale(${headerSpring})`,
@@ -209,57 +212,25 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             CHINESE CHARACTER ETYMOLOGY
           </div>
 
-          {/* DYNAMIC DEDICATED SCREEN HEADINGS IN FINGER PAINT — SCALED UP TO 58px-64px */}
+          {/* DYNAMIC DEDICATED SCREEN HEADINGS IN FINGER PAINT */}
           <div style={{ marginTop: 32, height: 110, textAlign: 'center' }}>
             {isScreen1 && (
-              <h2
-                style={{
-                  fontFamily: FONTS.display, // Finger Paint font
-                  fontSize: 56, // Scaled up (was 42px)!
-                  color: '#0F172A',
-                  margin: 0,
-                  lineHeight: 1.25,
-                }}
-              >
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 56, color: '#0F172A', margin: 0, lineHeight: 1.25 }}>
                 Why Does <span style={{ color: '#FF6F59' }}>帮助</span> Contain Cloth & Muscle?
               </h2>
             )}
             {isScreen2 && (
-              <h2
-                style={{
-                  fontFamily: FONTS.display, // Finger Paint font
-                  fontSize: 58, // Scaled up (was 44px)!
-                  color: '#0F172A',
-                  margin: 0,
-                  lineHeight: 1.25,
-                }}
-              >
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 58, color: '#0F172A', margin: 0, lineHeight: 1.25 }}>
                 Character 1: <span style={{ color: '#FF6F59' }}>帮 (bāng)</span> — Protective Backing
               </h2>
             )}
             {isScreen3 && (
-              <h2
-                style={{
-                  fontFamily: FONTS.display, // Finger Paint font
-                  fontSize: 58, // Scaled up (was 44px)!
-                  color: '#0F172A',
-                  margin: 0,
-                  lineHeight: 1.25,
-                }}
-              >
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 58, color: '#0F172A', margin: 0, lineHeight: 1.25 }}>
                 Character 2: <span style={{ color: '#FF6F59' }}>助 (zhù)</span> — Muscle Power
               </h2>
             )}
             {isScreen4 && (
-              <h2
-                style={{
-                  fontFamily: FONTS.display, // Finger Paint font
-                  fontSize: 60, // Scaled up (was 46px)!
-                  color: '#0F172A',
-                  margin: 0,
-                  lineHeight: 1.25,
-                }}
-              >
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 60, color: '#0F172A', margin: 0, lineHeight: 1.25 }}>
                 Synthesis: <span style={{ color: '#FF6F59' }}>帮助</span> = Protection + Muscle!
               </h2>
             )}
@@ -279,36 +250,117 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               justifyContent: 'center',
             }}
           >
-            {/* Character '帮' (Bang) — Using Noto Sans SC font per user directive! */}
+            {/* ── CHARACTER '帮' (BANG) — WITH DYNAMIC RADICAL WEIGHT HIGHLIGHTING ── */}
             <div
               style={{
                 position: 'absolute',
                 transform: `translateX(${bangX}px) scale(${bangScale})`,
-                fontSize: 230,
-                fontWeight: 900,
-                fontFamily: '"Noto Sans SC", sans-serif', // Official Noto Sans SC font per user request!
-                color: '#0F172A',
-                textShadow: isScreen2 ? '0 16px 40px rgba(255, 111, 89, 0.35)' : '0 10px 30px rgba(15,23,42,0.1)',
-                transition: 'text-shadow 0.3s ease',
+                fontFamily: '"Noto Sans SC", sans-serif',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                lineHeight: 0.9,
               }}
             >
-              帮
+              {isScreen2 ? (
+                // Decomposed '帮' into Top '邦' and Bottom '巾' for dynamic weight/color highlight!
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', fontSize: 230 }}>
+                  <span
+                    style={{
+                      color: isScreen2TopBang ? '#FF6F59' : '#64748B',
+                      fontWeight: isScreen2TopBang ? 900 : 400,
+                      opacity: isScreen2TopBang ? 1.0 : 0.4,
+                      transform: isScreen2TopBang ? 'scale(1.12)' : 'scale(1)',
+                      transition: 'all 0.25s ease',
+                      textShadow: isScreen2TopBang ? '0 8px 24px rgba(255, 111, 89, 0.5)' : 'none',
+                    }}
+                  >
+                    邦
+                  </span>
+                  <span
+                    style={{
+                      color: isScreen2BottomJin ? '#FF6F59' : '#64748B',
+                      fontWeight: isScreen2BottomJin ? 900 : 400,
+                      opacity: isScreen2BottomJin ? 1.0 : 0.4,
+                      transform: isScreen2BottomJin ? 'scale(1.12)' : 'scale(1)',
+                      marginTop: -30,
+                      transition: 'all 0.25s ease',
+                      textShadow: isScreen2BottomJin ? '0 8px 24px rgba(255, 111, 89, 0.5)' : 'none',
+                    }}
+                  >
+                    巾
+                  </span>
+                </div>
+              ) : (
+                <span
+                  style={{
+                    fontSize: 230,
+                    fontWeight: 900,
+                    color: isScreen4BangHighlight ? '#FF6F59' : '#0F172A',
+                    transform: isScreen4BangHighlight ? 'scale(1.15)' : 'scale(1)',
+                    transition: 'all 0.25s ease',
+                    textShadow: isScreen4BangHighlight ? '0 12px 30px rgba(255, 111, 89, 0.6)' : '0 10px 30px rgba(15,23,42,0.1)',
+                  }}
+                >
+                  帮
+                </span>
+              )}
             </div>
 
-            {/* Character '助' (Zhu) — Using Noto Sans SC font per user directive! */}
+            {/* ── CHARACTER '助' (ZHU) — WITH DYNAMIC RADICAL WEIGHT HIGHLIGHTING ── */}
             <div
               style={{
                 position: 'absolute',
                 transform: `translateX(${zhuX}px) scale(${zhuScale})`,
-                fontSize: 230,
-                fontWeight: 900,
-                fontFamily: '"Noto Sans SC", sans-serif', // Official Noto Sans SC font per user request!
-                color: '#0F172A',
-                textShadow: isScreen3 ? '0 16px 40px rgba(255, 111, 89, 0.35)' : '0 10px 30px rgba(15,23,42,0.1)',
-                transition: 'text-shadow 0.3s ease',
+                fontFamily: '"Noto Sans SC", sans-serif',
+                display: 'flex',
+                alignItems: 'center',
+                lineHeight: 0.9,
               }}
             >
-              助
+              {isScreen3 ? (
+                // Decomposed '助' into Left '且' and Right '力' for dynamic weight/color highlight!
+                <div style={{ display: 'flex', alignItems: 'center', fontSize: 230 }}>
+                  <span
+                    style={{
+                      color: isScreen3LeftQie ? '#FF6F59' : '#64748B',
+                      fontWeight: isScreen3LeftQie ? 900 : 400,
+                      opacity: isScreen3LeftQie ? 1.0 : 0.4,
+                      transform: isScreen3LeftQie ? 'scale(1.12)' : 'scale(1)',
+                      transition: 'all 0.25s ease',
+                      textShadow: isScreen3LeftQie ? '0 8px 24px rgba(255, 111, 89, 0.5)' : 'none',
+                    }}
+                  >
+                    且
+                  </span>
+                  <span
+                    style={{
+                      color: isScreen3RightLi ? '#FF6F59' : '#64748B',
+                      fontWeight: isScreen3RightLi ? 900 : 400,
+                      opacity: isScreen3RightLi ? 1.0 : 0.4,
+                      transform: isScreen3RightLi ? 'scale(1.12)' : 'scale(1)',
+                      marginLeft: -10,
+                      transition: 'all 0.25s ease',
+                      textShadow: isScreen3RightLi ? '0 8px 24px rgba(255, 111, 89, 0.5)' : 'none',
+                    }}
+                  >
+                    力
+                  </span>
+                </div>
+              ) : (
+                <span
+                  style={{
+                    fontSize: 230,
+                    fontWeight: 900,
+                    color: isScreen4ZhuHighlight ? '#FF6F59' : '#0F172A',
+                    transform: isScreen4ZhuHighlight ? 'scale(1.15)' : 'scale(1)',
+                    transition: 'all 0.25s ease',
+                    textShadow: isScreen4ZhuHighlight ? '0 12px 30px rgba(255, 111, 89, 0.6)' : '0 10px 30px rgba(15,23,42,0.1)',
+                  }}
+                >
+                  助
+                </span>
+              )}
             </div>
 
             {/* SCREEN 1 EMOJI ORBITS (Overview 🏰 🧵 ⛩️ 💪) */}
@@ -321,7 +373,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               </div>
             )}
 
-            {/* SCREEN 2 EMOJI ORBITS & RADICAL BADGES (Focus on 帮) — SCALED UP TEXT */}
+            {/* SCREEN 2 EMOJI ORBITS & RADICAL BADGES (Focus on 帮) */}
             {isScreen2 && (
               <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '0' }}>
                 {/* Top Radical: 邦 (Territory/Community) */}
@@ -378,7 +430,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               </div>
             )}
 
-            {/* SCREEN 3 EMOJI ORBITS & RADICAL BADGES (Focus on 助) — SCALED UP TEXT */}
+            {/* SCREEN 3 EMOJI ORBITS & RADICAL BADGES (Focus on 助) */}
             {isScreen3 && (
               <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', padding: '0' }}>
                 {/* Top Radical: 且 (Altar Pedestal) */}
@@ -435,11 +487,11 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               </div>
             )}
 
-            {/* DYNAMIC ANIMATED ROTATING DASHED SPOTLIGHT CIRCLE & POINTING ARROW */}
-            {isScreen2TopBang && <DynamicRadicalSpotlight x={500} y={40} label="邦" frame={frame} />}
-            {isScreen2BottomJin && <DynamicRadicalSpotlight x={500} y={480} label="巾" frame={frame} />}
-            {isScreen3LeftQie && <DynamicRadicalSpotlight x={500} y={40} label="且" frame={frame} />}
-            {isScreen3RightLi && <DynamicRadicalSpotlight x={500} y={480} label="力" frame={frame} />}
+            {/* ── PERFECT SYMMETRICAL CIRCLE & ARROW SPOTLIGHT Directly ON HANZI RADICAL STROKES ── */}
+            {isScreen2TopBang && <DynamicRadicalSpotlight x={500} y={200} radius={65} frame={frame} />}
+            {isScreen2BottomJin && <DynamicRadicalSpotlight x={500} y={310} radius={65} frame={frame} />}
+            {isScreen3LeftQie && <DynamicRadicalSpotlight x={430} y={260} radius={65} frame={frame} />}
+            {isScreen3RightLi && <DynamicRadicalSpotlight x={570} y={260} radius={65} frame={frame} />}
 
             {/* SCREEN 4 SYNTHESIS AURA RING */}
             {isScreen4 && (
@@ -459,7 +511,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           </div>
 
           {/* ──────────────────────────────────────────────────────────── */}
-          {/* DYNAMIC SCREEN EXPLANATION CARD IN FINGER PAINT — SCALED UP */}
+          {/* DYNAMIC SCREEN EXPLANATION CARD IN FINGER PAINT */}
           {/* ──────────────────────────────────────────────────────────── */}
           <div
             style={{
@@ -467,7 +519,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               width: '95%',
               backgroundColor: '#FFFFFF',
               borderRadius: 32,
-              padding: '28px 44px', // Scaled up padding!
+              padding: '28px 44px',
               boxShadow: '0 20px 50px rgba(15, 23, 42, 0.12)',
               border: '2px solid rgba(255, 111, 89, 0.35)',
               textAlign: 'center',
