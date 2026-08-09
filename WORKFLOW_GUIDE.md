@@ -1,6 +1,6 @@
 # Chinese Character Etymology Video Workflow & Automation Master Guide
 
-This document is the **authoritative, all-inclusive master guide and blueprint** for producing high-converting, visually stunning Chinese Character Etymology videos for **Kanshu**. It incorporates every single architectural pattern, audio secret, prompt engineering specification, visual animation formula, design token, social media distribution strategy, and reusable source code module developed across the project.
+This document is the **authoritative, all-inclusive master guide and blueprint** for producing high-converting, visually stunning Chinese Character Etymology videos for **Kanshu**. It incorporates every single architectural pattern, audio secret, prompt engineering specification, visual animation formula, design token, social media distribution strategy, human-in-the-loop review checkpoint, and reusable source code module developed across the project.
 
 ---
 
@@ -44,7 +44,32 @@ Videos are rendered as 9:16 vertical reels (1080 x 1920) at 60 FPS in Remotion. 
 
 ---
 
-## 2. ElevenLabs Voiceover Specifications & Prompt Engineering
+## 2. Human-in-the-Loop Review Checkpoints & Approval Protocol
+
+To ensure 100% alignment and quality, the AI assistant MUST pause and present intermediate assets to the user for approval at **5 mandatory Review Gates**:
+
+```mermaid
+flowchart TD
+    G1["Review Gate 1: Script & Story Approval<br>(Review etymology breakdown & Character+Pinyin script)"] -->|User Approved| A1["Generate Single-Pass Voiceover"]
+    A1 --> G2["Review Gate 2: Audio & Pronunciation Approval<br>(Listen to generated voiceover & test pace)"]
+    G2 -->|User Approved| A2["Generate Cat Sketch PNGs & Sync Config"]
+    A2 --> G3["Review Gate 3: Cat Sketch Asset Approval<br>(Inspect 3-frame flipbook doodles & transparency)"]
+    G3 -->|User Approved| A3["Run Target Spotlight Calibration"]
+    A3 --> G4["Review Gate 4: Spotlight Layout Inspection<br>(Inspect frame snapshots for circle target bounds)"]
+    G4 -->|User Approved| A4["Render Full Remotion MP4 & Social Posts"]
+    A4 --> G5["Review Gate 5: Final Video & Social Copy Approval<br>(Watch final reel & review SOCIAL_POSTS.md)"]
+```
+
+### Mandatory Review Gate Specifications:
+1. **Gate 1 — Script & Story Review**: Present the proposed etymology breakdown story and script text using inline Character+Pinyin syntax (e.g. `帮助 (bāngzhù)`). Wait for user confirmation before calling ElevenLabs API.
+2. **Gate 2 — Audio & Pronunciation Review**: Provide a direct audio playback link to the generated voiceover file (`public/bangzhu_voice_single_pass.mp3`). Allow the user to verify Mandarin tones and pacing before applying `atempo=1.15` acceleration.
+3. **Gate 3 — Cat Sketch Asset Review**: Present the generated 3-frame transparent PNG cat drawings. Verify line art style consistency and ping-pong animation sequence before embedding into composition.
+4. **Gate 4 — Spotlight Layout Inspection**: Render single frame PNG snapshots at radical breakdown midpoints and present them to the user to confirm the target circle accurately bounds the radical without clipping.
+5. **Gate 5 — Final Video Reel & Social Copy Approval**: Present the final rendered MP4 video reel link alongside `SOCIAL_POSTS.md` before committing and pushing to repository.
+
+---
+
+## 3. ElevenLabs Voiceover Specifications & Prompt Engineering
 
 ### A. Voice & Model Configuration
 - **Voice Model**: `eleven_v3` (MANDATORY: DO NOT use `eleven_multilingual_v2` as it drops Chinese tone contours).
@@ -64,7 +89,7 @@ Why does 帮助 (bāngzhù) contain cloth and muscle? Let's break down 帮 (bān
 
 ---
 
-## 3. Automated Timestamp & Alignment Sync System
+## 4. Automated Timestamp & Alignment Sync System
 
 Word alignments and animation frame boundaries are computed automatically from ElevenLabs alignment JSON via `scripts/sync_single_pass_config.py`.
 
@@ -116,7 +141,7 @@ $$\text{Frame}(t) = \text{round}\left( \frac{t}{S} \times 60 \right)$$
 
 ---
 
-## 4. Dynamic Target Spotlight Coordinate Calibration Loop (Visual AI Inspection)
+## 5. Dynamic Target Spotlight Coordinate Calibration Loop (Visual AI Inspection)
 
 Chinese characters have diverse structural decompositions (Top-Bottom splits like `帮`, Left-Right splits like `助`, or Surround enclosures like `国`). **Do NOT guess coordinate values!** Always execute the **Spotlight Coordinate Calibration Loop**:
 
@@ -129,31 +154,9 @@ flowchart TD
     Inspect -->|Pixel Perfect| Lock["5. Lock Calibrated Coordinates into Composition"]
 ```
 
-### Calibration Procedure & Target Coordinates:
-1. **Estimate Initial Coordinates**: Set local $(x, y)$ inside the 600px Hanzi container.
-   - **Top-Bottom Character (`帮`)**:
-     - Top Radical `邦`: `spot2Y = 210`, `radius = 120`
-     - Bottom Radical `巾`: `spot2Y = 430`, `radius = 120`
-     - Whole Character `帮`: `spot2Y = 300`, `radius = 230`
-   - **Left-Right Character (`助`)**:
-     - Left Radical `且`: `spot3X = 390`, `radius = 120`
-     - Right Radical `力`: `spot3X = 620`, `radius = 120`
-     - Whole Character `助`: `spot3X = 540`, `radius = 230`
-
-2. **Render Frame Snapshots**: Render PNG snapshots at the midpoint frame of each radical phase:
-   ```bash
-   npx remotion render src/index.ts EtymologyBangzhu out/calib_top_bang.png --frame=600
-   npx remotion render src/index.ts EtymologyBangzhu out/calib_bottom_jin.png --frame=1000
-   npx remotion render src/index.ts EtymologyBangzhu out/calib_left_qie.png --frame=2000
-   ```
-
-3. **Visual AI Inspection**: Inspect the generated PNGs to verify:
-   - The black dashed circle smoothly bounds the exact radical strokes without clipping.
-   - The pointer arrow `👇` is snug against the circle border (`top: -(radius - 15)`).
-
 ---
 
-## 5. Design System Tokens: Colors, Typography & Font Usage Rules
+## 6. Design System Tokens: Colors, Typography & Font Usage Rules
 
 ### A. Color Palette (`COLORS`)
 - **Background Canvas**: `#FAF9F6` (Warm off-white paper canvas from brand guidelines).
@@ -172,7 +175,7 @@ flowchart TD
 
 ---
 
-## 6. Background Music, Pattern & Motion Systems
+## 7. Background Music, Pattern & Motion Systems
 
 ### A. Royalty-Free Chinese Lofi Background Music
 - **Audio File**: `public/chinese_lofi_bgm.mp3` (Jade Tea Loop).
@@ -194,7 +197,7 @@ const bgmVolume = 0.08 * bgmFadeOut;
 
 ---
 
-## 7. Screen Transition Physics & Morphing Patterns
+## 8. Screen Transition Physics & Morphing Patterns
 
 Screen transitions use fluid Remotion spring physics (`SPRING_SMOOTH`: `damping: 22, mass: 0.9, stiffness: 120`).
 
@@ -223,7 +226,7 @@ $$\text{morph3To4} = \text{spring}(\text{frame} - \text{screen3EndFrame})$$
 
 ---
 
-## 8. Flipbook Cat Sketch Generation & Consistency Pipeline
+## 9. Flipbook Cat Sketch Generation & Consistency Pipeline
 
 ### A. Card Tag Label Styling
 - **Pill Container**: `backgroundColor: '#0F172A'`, `padding: '14px 38px'`, `borderRadius: 26px`, `border: '2px solid rgba(255, 111, 89, 0.5)'`, `boxShadow: '0 16px 40px rgba(15, 23, 42, 0.45)'`.
@@ -247,7 +250,7 @@ const currentCatSrc = catImages[flipIndex] || catImages[0];
 
 ---
 
-## 9. Social Media Distribution & Platform Best Practices
+## 10. Social Media Distribution & Platform Best Practices
 
 Every generated video MUST be accompanied by a dedicated `SOCIAL_POSTS.md` file formatted specifically for 5 primary platforms:
 
@@ -278,7 +281,7 @@ Every generated video MUST be accompanied by a dedicated `SOCIAL_POSTS.md` file 
 
 ---
 
-## 10. Full Reusable Source Code Reference Architecture
+## 11. Full Reusable Source Code Reference Architecture
 
 ### A. Background Component (`ChineseBackground.tsx`)
 ```tsx
@@ -445,16 +448,33 @@ if __name__ == '__main__':
 | **8** | Concurrency 8 is super slow | CPU thread thrashing on macOS. | Reverted to standard default Remotion thread concurrency. |
 | **9** | Target Spotlight Radical Inspection Loop | Visual calibration required to prevent circle stroke clipping. | Documented Visual AI Inspection Loop & coordinate mapping for Top/Bottom & Left/Right radicals. |
 | **10** | Social Media Copy Metadata | Needed platform-specific captions & hashtag strategies. | Documented TikTok, IG Reels, YT Shorts, RedNote, and X formats & generated `SOCIAL_POSTS.md`. |
+| **11** | Human-in-the-Loop Review Gates | User wants to review script, audio, assets, and layout at each stage. | Established 5 mandatory User Review Checkpoints in section 2. |
 
 ---
 
-## 12. Step-by-Step Production Checklist for New Videos
+## 12. Step-by-Step Production Checklist with Mandatory Review Gates
 
-1. **Script Preparation**: Format text using `Character (pinyin)` syntax.
-2. **Audio Generation**: Generate single-pass audio + alignment JSON.
-3. **Pace Acceleration**: Accelerate audio via `ffmpeg atempo=1.15`.
-4. **Cat Sketches**: Generate 3 consistent PNG frames per radical using Image-to-Image seed anchoring.
-5. **Sync Config**: Run `python3 scripts/sync_single_pass_config.py --speed 1.15 --audio audio_fast.mp3`.
-6. **Spotlight Calibration**: Run visual AI inspection loop to verify circle bounds.
-7. **Render Video**: Execute `npx remotion render src/index.ts EtymologyComposition out/final_reel.mp4`.
-8. **Generate Social Posts**: Create `SOCIAL_POSTS.md` with copy for TikTok, IG, YT Shorts, RedNote, and X.
+1. **Step 1: Script Preparation**
+   - Write etymology narration text using Character+Pinyin syntax (e.g. `帮助 (bāngzhù)`).
+   - 🛑 **[USER REVIEW GATE 1]**: Present script & etymology narrative to user for approval before calling ElevenLabs.
+
+2. **Step 2: Single-Pass Audio Generation**
+   - Generate ElevenLabs single-pass voiceover + JSON alignment metadata.
+   - 🛑 **[USER REVIEW GATE 2]**: Provide audio playback link to user for pronunciation & tone approval.
+
+3. **Step 3: Audio Pace Acceleration & Alignment Sync**
+   - Run `ffmpeg -i audio.mp3 -filter:a "atempo=1.15" -b:a 192k audio_fast.mp3`.
+   - Run `python3 scripts/sync_single_pass_config.py --speed 1.15 --audio audio_fast.mp3`.
+
+4. **Step 4: Flipbook Cat Sketch Generation**
+   - Generate 3 consistent PNG frames per radical using Image-to-Image seed anchoring (0.3 variation weight) and strip background transparency.
+   - 🛑 **[USER REVIEW GATE 3]**: Present 3-frame cat doodle sketch drawings to user for style approval.
+
+5. **Step 5: Spotlight Coordinate Calibration**
+   - Run Visual AI Inspection loop by rendering midpoint frame PNG snapshots (`calib_top_bang.png`).
+   - 🛑 **[USER REVIEW GATE 4]**: Present spotlight frame snapshots to user to confirm radical circle target bounds.
+
+6. **Step 6: Video Render & Social Media Metadata Generation**
+   - Execute `npx remotion render src/index.ts EtymologyComposition out/final_reel.mp4`.
+   - Create `SOCIAL_POSTS.md` with platform copy for TikTok, IG Reels, YT Shorts, RedNote, and X.
+   - 🛑 **[USER REVIEW GATE 5]**: Present final MP4 video link and `SOCIAL_POSTS.md` copy to user for final sign-off before committing.
