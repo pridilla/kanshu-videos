@@ -8,6 +8,7 @@ import { FPS, WIDTH, HEIGHT, TOTAL_FRAMES } from './shared/constants';
 // Load default Video #3 config for fallback rendering
 import defaultXiuConfig from '../../content/03_etymology_xiu/config.json';
 import bangzhuConfig from '../../content/04_etymology_bangzhu/config.json';
+import pengyouConfig from '../../content/05_etymology_pengyou/config.json';
 
 // ────────────────────────────────────────────────────────────
 // FONT LOADER GUARD
@@ -60,10 +61,25 @@ export const Root: React.FC = () => {
     (activeEtymologyConfig.lessonDurationInFrames || 900) +
     (activeEtymologyConfig.outroDurationInFrames || 400);
 
-  const bangzhuTotalFrames = bangzhuConfig.lessonDurationInFrames + bangzhuConfig.outroDurationInFrames;
+      const pengyouTotalFrames = pengyouConfig.lessonDurationInFrames + pengyouConfig.outroDurationInFrames;
+      const bangzhuTotalFrames = bangzhuConfig.lessonDurationInFrames + bangzhuConfig.outroDurationInFrames;
 
   return (
     <>
+      {/* Etymology Video Template Composition (Video #5: 朋友) */}
+      <Composition
+        id="EtymologyPengyou"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(pengyouConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={pengyouTotalFrames} // ~54s @ 60fps
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
       {/* Standalone Reusable Kanshu Outro Preview */}
       <Composition
         id="KanshuAppOutroPreview"

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Sync Single-Pass Alignment & Centralized Animation Timeline to Config (v6 - Speed Multiplier Support)
+Sync Single-Pass Alignment & Centralized Animation Timeline to Config (v7 - Multi-Character Support)
 -----------------------------------------------------------------------------------------------------
 Parses character-level timestamps into `wordsAlignment`, applies optional speed multiplier (e.g. 1.15x),
 and sequentially maps all animation frame boundaries into `animationTimestamps` in `config.json`.
@@ -92,63 +92,112 @@ def main():
             "end": scaled_e
         })
 
-    # Sequential search for scaled timestamps
-    screen1_end_sec = 9.74 / speed_factor
-    screen2_end_sec = 33.80 / speed_factor
-    screen3_end_sec = 55.96 / speed_factor
+    is_pengyou = ("pengyou" in config_path) or ("pengyou" in audio_path)
 
-    cloth_s, cloth_e = 3.947 / speed_factor, 4.56 / speed_factor
-    wall_s, wall_e = 5.472 / speed_factor, 6.32 / speed_factor
-    altar_s, altar_e = 6.52 / speed_factor, 7.20 / speed_factor
-    muscle_s, muscle_e = 8.25 / speed_factor, 9.04 / speed_factor
+    if is_pengyou:
+        screen1_end_sec = 6.591
+        screen2_end_sec = 25.253
+        screen3_end_sec = 38.940
 
-    jin_start_sec = 18.24 / speed_factor
-    bang_summary_sec = 27.60 / speed_factor
+        cloth_s, cloth_e = 3.989, 4.452
+        wall_s, wall_e = 5.020, 5.426
+        altar_s, altar_e = 5.464, 5.774
+        muscle_s, muscle_e = 5.878, 6.330
 
-    qie_start_sec = 37.60 / speed_factor
-    li_start_sec = 42.80 / speed_factor
-    zhu_summary_sec = 50.32 / speed_factor
-    synthesis_zhu_sec = 60.56 / speed_factor
+        jin_start_sec = 18.668
+        bang_summary_sec = 20.503
 
-    for wa in words_alignment:
-        w = wa['word']
-        st = wa['start']
-        ed = wa['end']
+        qie_start_sec = 31.386
+        li_start_sec = 32.644
+        zhu_summary_sec = 35.642
+        synthesis_zhu_sec = 40.514
 
-        if "Let's" in w:
-            screen1_end_sec = st
-        elif "Now" in w and st > (20 / speed_factor):
-            screen2_end_sec = st
-        elif "Put" in w and st > (45 / speed_factor):
-            screen3_end_sec = st
+        for wa in words_alignment:
+            w = wa['word']
+            st = wa['start']
+            ed = wa['end']
 
-        # Intro mentions
-        elif "cloth," in w and st < (10 / speed_factor):
-            cloth_s, cloth_e = st, ed
-        elif "wall," in w and st < (10 / speed_factor):
-            wall_s, wall_e = st, ed
-        elif "altar," in w and st < (10 / speed_factor):
-            altar_s, altar_e = st, ed
-        elif "muscles?" in w and st < (10 / speed_factor):
-            muscle_s, muscle_e = st, ed
+            if "Let's" in w and st < 10.0:
+                screen1_end_sec = st
+            elif "And" in w and 10.0 < st < 25.0:
+                screen2_end_sec = st
+            elif "Put" in w and st > 20.0:
+                screen3_end_sec = st
 
-        # Screen 2 breakdown
-        elif "巾" in w and (12 / speed_factor) < st < (25 / speed_factor):
-            jin_start_sec = st
-        elif "帮" in w and (25 / speed_factor) < st < (33 / speed_factor):
-            bang_summary_sec = st
+            elif "moons" in w and st < 6.0:
+                cloth_s = wall_s = st
+                cloth_e = wall_e = ed
+            elif "hands" in w and st < 6.0:
+                altar_s = muscle_s = st
+                altar_e = muscle_e = ed
 
-        # Screen 3 breakdown
-        elif "且" in w and (35 / speed_factor) < st < (45 / speed_factor):
-            qie_start_sec = st
-        elif "力" in w and (40 / speed_factor) < st < (48 / speed_factor):
-            li_start_sec = st
-        elif "助" in w and (48 / speed_factor) < st < (55 / speed_factor):
-            zhu_summary_sec = st
+            elif "moons" in w and 10.0 < st < 20.0:
+                jin_start_sec = st
+            elif "symbolizes" in w and 15.0 < st < 22.0:
+                bang_summary_sec = st
 
-        # Screen 4 synthesis
-        elif "助" in w and st > (55 / speed_factor):
-            synthesis_zhu_sec = st
+            elif ("right" in w) and 20.0 < st < 28.0:
+                qie_start_sec = st
+            elif ("extending" in w) and 22.0 < st < 30.0:
+                li_start_sec = st
+            elif "represents" in w and 25.0 < st < 35.0:
+                zhu_summary_sec = st
+
+            elif "péngyǒu" in w and st > 30.0:
+                synthesis_zhu_sec = st
+    else:
+        screen1_end_sec = 9.74 / speed_factor
+        screen2_end_sec = 33.80 / speed_factor
+        screen3_end_sec = 55.96 / speed_factor
+
+        cloth_s, cloth_e = 3.947 / speed_factor, 4.56 / speed_factor
+        wall_s, wall_e = 5.472 / speed_factor, 6.32 / speed_factor
+        altar_s, altar_e = 6.52 / speed_factor, 7.20 / speed_factor
+        muscle_s, muscle_e = 8.25 / speed_factor, 9.04 / speed_factor
+
+        jin_start_sec = 18.24 / speed_factor
+        bang_summary_sec = 27.60 / speed_factor
+
+        qie_start_sec = 37.60 / speed_factor
+        li_start_sec = 42.80 / speed_factor
+        zhu_summary_sec = 50.32 / speed_factor
+        synthesis_zhu_sec = 60.56 / speed_factor
+
+        for wa in words_alignment:
+            w = wa['word']
+            st = wa['start']
+            ed = wa['end']
+
+            if "Let's" in w:
+                screen1_end_sec = st
+            elif "Now" in w and st > (20 / speed_factor):
+                screen2_end_sec = st
+            elif "Put" in w and st > (45 / speed_factor):
+                screen3_end_sec = st
+
+            elif "cloth," in w and st < (10 / speed_factor):
+                cloth_s, cloth_e = st, ed
+            elif "wall," in w and st < (10 / speed_factor):
+                wall_s, wall_e = st, ed
+            elif "altar," in w and st < (10 / speed_factor):
+                altar_s, altar_e = st, ed
+            elif "muscles?" in w and st < (10 / speed_factor):
+                muscle_s, muscle_e = st, ed
+
+            elif "巾" in w and (12 / speed_factor) < st < (25 / speed_factor):
+                jin_start_sec = st
+            elif "帮" in w and (25 / speed_factor) < st < (33 / speed_factor):
+                bang_summary_sec = st
+
+            elif "且" in w and (35 / speed_factor) < st < (45 / speed_factor):
+                qie_start_sec = st
+            elif "力" in w and (40 / speed_factor) < st < (48 / speed_factor):
+                li_start_sec = st
+            elif "助" in w and (48 / speed_factor) < st < (55 / speed_factor):
+                zhu_summary_sec = st
+
+            elif "助" in w and st > (55 / speed_factor):
+                synthesis_zhu_sec = st
 
     audio_duration = get_audio_duration(audio_path)
     total_frames = sec_to_frame(audio_duration)
@@ -236,7 +285,7 @@ def main():
         "lessonTotalFrames": total_frames
     }
 
-    print(f"\nCalculated Centralized Animation Timestamps (v6 - Speed Multiplier {speed_factor}x):")
+    print(f"\nCalculated Centralized Animation Timestamps (v7 - Speed Multiplier {speed_factor}x):")
     print(json.dumps(animation_timestamps, indent=2))
 
     with open(config_path, 'r') as f:

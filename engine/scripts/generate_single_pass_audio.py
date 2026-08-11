@@ -11,6 +11,10 @@ import json
 import base64
 import argparse
 import urllib.request
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
 
 def load_api_key():
     env_path = os.path.expanduser('~/.env')
@@ -31,6 +35,8 @@ def main():
     parser.add_argument('--model_id', default='eleven_v3')
     parser.add_argument('--output', default='/Users/peterridilla/Documents/fun/kanshu/videos/engine/public/bangzhu_voice_single_pass.mp3')
     parser.add_argument('--alignment_json', default='/Users/peterridilla/Documents/fun/kanshu/videos/engine/public/bangzhu_voice_single_pass_alignment.json')
+    parser.add_argument('--text', default=None)
+    parser.add_argument('--text_file', default=None)
     args = parser.parse_args()
 
     api_key = load_api_key()
@@ -38,14 +44,20 @@ def main():
         print("Error: ELEVENLABS_API_KEY not found!")
         sys.exit(1)
 
-    transcript = (
-        "Why does the Chinese word for help, 帮助 (bāngzhù), contain cloth, a city wall, an altar, and flexing muscles?\n\n"
-        "Let's break down 帮 (bāng) first. The top part is 邦 (bāng), representing a territory. The bottom part is 巾 (jīn), a strip of woven cloth. "
-        "Ancient cobblers used cloth strips to reinforce shoe borders so they wouldn't tear. 帮 (bāng) literally means providing protective reinforcement so someone doesn't fall apart.\n\n"
-        "Now look at 助 (zhù). The left part is 且 (zhǔ), an ancient heavy stone altar. The right part is 力 (lì), a flexed muscle. "
-        "Lifting a heavy altar required teamwork and strength. 助 (zhù) literally means applying muscle power to help someone lift a heavy burden.\n\n"
-        "Put them together: 帮 (bāng) is the protective backing, and 助 (zhù) is the muscle power!"
-    )
+    if args.text:
+        transcript = args.text
+    elif args.text_file and os.path.exists(args.text_file):
+        with open(args.text_file, 'r', encoding='utf-8') as f:
+            transcript = f.read().strip()
+    else:
+        transcript = (
+            "Why does the Chinese word for help, 帮助 (bāngzhù), contain cloth, a city wall, an altar, and flexing muscles?\n\n"
+            "Let's break down 帮 (bāng) first. The top part is 邦 (bāng), representing a territory. The bottom part is 巾 (jīn), a strip of woven cloth. "
+            "Ancient cobblers used cloth strips to reinforce shoe borders so they wouldn't tear. 帮 (bāng) literally means providing protective reinforcement so someone doesn't fall apart.\n\n"
+            "Now look at 助 (zhù). The left part is 且 (zhǔ), an ancient heavy stone altar. The right part is 力 (lì), a flexed muscle. "
+            "Lifting a heavy altar required teamwork and strength. 助 (zhù) literally means applying muscle power to help someone lift a heavy burden.\n\n"
+            "Put them together: 帮 (bāng) is the protective backing, and 助 (zhù) is the muscle power!"
+        )
 
     print(f"Generating single-pass audio using model '{args.model_id}' and voice '{args.voice_id}'...")
     url = f"https://api.elevenlabs.io/v1/text-to-speech/{args.voice_id}/with-timestamps"

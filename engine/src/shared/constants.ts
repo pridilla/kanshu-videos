@@ -22,11 +22,11 @@ export const FONTS = {
 // ────────────────────────────────────────────────────────────
 // SPRING CONFIG
 // ────────────────────────────────────────────────────────────
-export const SPRING_OVERSHOOT = { damping: 10, stiffness: 100, mass: 0.5 };
+export const SPRING_OVERSHOOT = { damping: 14, stiffness: 150, mass: 0.5 };
 export const SPRING_GENTLE = { damping: 14, stiffness: 70, mass: 1 };
 export const SPRING_STIFF = { damping: 20, stiffness: 200, mass: 0.3 };
-export const SPRING_BOUNCE = { damping: 6, stiffness: 120, mass: 0.4 };
-export const SPRING_SMOOTH = { damping: 18, stiffness: 90, mass: 0.8 };
+export const SPRING_BOUNCE = { damping: 8, stiffness: 160, mass: 0.4 };
+export const SPRING_SMOOTH = { damping: 14, stiffness: 180, mass: 0.6 };
 
 // ────────────────────────────────────────────────────────────
 // VIDEO CONSTANTS

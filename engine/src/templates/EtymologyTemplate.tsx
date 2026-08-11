@@ -73,11 +73,6 @@ export interface EtymologyConfig {
   outroDurationInFrames?: number;
 }
 
-// ────────────────────────────────────────────────────────────
-// HIGH-CONTRAST DEEP BLACK DYNAMICALLY-SCALING TARGET SPOTLIGHT
-// ULTRA-SMOOTH SPRING-LIKE CUBIC-BEZIER PHYSICS & SNUG FINGER PLACEMENT
-// ────────────────────────────────────────────────────────────
-
 const DynamicSmoothSpotlight: React.FC<{
   x: number;
   y: number;
@@ -98,7 +93,6 @@ const DynamicSmoothSpotlight: React.FC<{
         transition: 'top 0.55s cubic-bezier(0.16, 1, 0.3, 1), left 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
-      {/* HIGH-CONTRAST DEEP BLACK DASHED CIRCLE */}
       <svg
         width={radius * 2 + 40}
         height={radius * 2 + 40}
@@ -123,7 +117,6 @@ const DynamicSmoothSpotlight: React.FC<{
         />
       </svg>
 
-      {/* Pointer Arrow 👇 (SNUGLY POSITIONED CLOSE TO CIRCLE BORDER: top: -(radius - 15)) */}
       <div
         style={{
           position: 'absolute',
@@ -146,11 +139,6 @@ const DynamicSmoothSpotlight: React.FC<{
   );
 };
 
-// ────────────────────────────────────────────────────────────
-// COMPACT 2-LINE DARK CARD TAG WITH BORDERLESS TRANSPARENT CAT SKETCH ANIMATION
-// ATOMIC UNIFIED DRIFT & FLIPBOOK ANIMATION LOOP (3-4 FPS)
-// ────────────────────────────────────────────────────────────
-
 const OrganicCenterTag: React.FC<{
   emoji: string;
   radical: string;
@@ -163,14 +151,12 @@ const OrganicCenterTag: React.FC<{
 }> = ({ emoji, radical, pinyin, translation, catImages, frame, enterFrame, exitFrame }) => {
   const { fps } = useVideoConfig();
 
-  // Entrance Spring (Move in from Left: -1400px -> 0px)
   const enterSpring = spring({
     frame: Math.max(0, frame - enterFrame),
     fps,
     config: { damping: 18, mass: 0.8, stiffness: 140 },
   });
 
-  // Exit Spring (Move out to Right: 0px -> +1400px completely off-screen!)
   const exitSpring = spring({
     frame: Math.max(0, frame - exitFrame),
     fps,
@@ -181,14 +167,9 @@ const OrganicCenterTag: React.FC<{
   const exitX = frame >= exitFrame ? interpolate(exitSpring, [0, 1], [0, 1400], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) }) : 0;
 
   const currentX = enterX + exitX;
-
-  // Unified atomic drift on outer container wrapper only
   const driftY = Math.sin((frame - enterFrame) * 0.08) * 1.5;
 
-  // Authentic 6 FPS Ping-Pong Flipbook frame cycling (0 -> 1 -> 2 -> 1)
-  // Each frame lasts exactly 10 video frames (1/6th second) regardless of enterFrame offset
   const cycleIndex = Math.floor(frame / 10) % 4;
-  // Map 0, 1, 2, 3 to frame indices: 0 -> 0, 1 -> 1, 2 -> 2, 3 -> 1
   const pingPongMap = [0, 1, 2, 1];
   const flipIndex = pingPongMap[cycleIndex] % catImages.length;
   const currentCatSrc = catImages[flipIndex] || catImages[0];
@@ -199,7 +180,7 @@ const OrganicCenterTag: React.FC<{
     <div
       style={{
         position: 'absolute',
-        top: 940, // Positioned at top: 940px
+        top: 940,
         left: '50%',
         transform: `translateX(calc(-50% + ${currentX}px)) translateY(${driftY}px)`,
         display: 'flex',
@@ -211,7 +192,6 @@ const OrganicCenterTag: React.FC<{
         whiteSpace: 'nowrap',
       }}
     >
-      {/* COMPACT SLIMMER DARK CARD: Radical + Pinyin + Translation */}
       <div
         style={{
           backgroundColor: '#0F172A',
@@ -227,7 +207,6 @@ const OrganicCenterTag: React.FC<{
           gap: 4,
         }}
       >
-        {/* LINE 1: Emoji + Hanzi Radical + Roboto Pinyin */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 38 }}>{emoji}</span>
           <span style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: 40, fontWeight: 900, color: '#FFFFFF' }}>
@@ -238,13 +217,11 @@ const OrganicCenterTag: React.FC<{
           </span>
         </div>
 
-        {/* LINE 2: Finger Paint Font ALL CAPS Translation */}
         <div style={{ fontFamily: FONTS.display, fontSize: 28, fontWeight: 700, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
           {translation}
         </div>
       </div>
 
-      {/* PROMINENT BIGGER BORDERLESS TRANSPARENT CAT SKETCH ANIMATION BELOW */}
       {currentCatSrc && (
         <div
           style={{
@@ -290,12 +267,14 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const currentTime = frame / fps;
 
-  // Extract dynamic audio transition frames
+  const isPengyou = character === '朋友';
+
+  const char1 = character.charAt(0) || '帮';
+  const char2 = character.charAt(1) || '助';
+
   const { screen1EndFrame, screen2EndFrame, screen3EndFrame, lessonTotalFrames } = screenTimestamps;
 
-  // ── FLUID MORPHING POSITION ANIMATIONS BETWEEN SCREENS ──
   const morph1To2 = spring({
     frame: Math.max(0, frame - screen1EndFrame),
     fps,
@@ -314,7 +293,6 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     config: SPRING_SMOOTH,
   });
 
-  // Dynamic X positions for intact Chinese characters '帮' and '助'
   const bangX =
     interpolate(morph1To2, [0, 1], [-150, 0]) +
     interpolate(morph2To3, [0, 1], [0, -800]) +
@@ -325,20 +303,16 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     interpolate(morph2To3, [0, 1], [0, -800]) +
     interpolate(morph3To4, [0, 1], [0, 150]);
 
-  // Scales during focused screen sequences
   const bangScale = 1 + interpolate(morph1To2, [0, 1], [0, 0.4]) - interpolate(morph2To3, [0, 1], [0, 0.4]);
   const zhuScale = 1 + interpolate(morph2To3, [0, 1], [0, 0.4]) - interpolate(morph3To4, [0, 1], [0, 0.4]);
 
-  // Screen state flags
   const isScreen1 = frame < screen1EndFrame;
   const isScreen2 = frame >= screen1EndFrame && frame < screen2EndFrame;
   const isScreen3 = frame >= screen2EndFrame && frame < screen3EndFrame;
   const isScreen4 = frame >= screen3EndFrame;
 
-  // Header entrance spring
   const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
 
-  // ── CENTRALIZED ANIMATION TIMELINE SINGLE SOURCE OF TRUTH ──
   const anim = animationTimestamps || {
     screen1: {
       startFrame: 0,
@@ -370,7 +344,6 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     },
   };
 
-  // ── DYNAMIC RADICAL SPOTLIGHT & TIMING PHASES ──
   const isScreen2TopBang = isScreen2 && frame >= anim.screen2.topBang.startFrame && frame < anim.screen2.topBang.endFrame;
   const isScreen2BottomJin = isScreen2 && frame >= anim.screen2.bottomJin.startFrame && frame < anim.screen2.bottomJin.endFrame;
   const isScreen2WholeBang = isScreen2 && frame >= anim.screen2.wholeBang.startFrame;
@@ -383,62 +356,98 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen4BangHighlight = isScreen4 && frame < anim.screen4.bangHighlightEndFrame;
   const isScreen4ZhuHighlight = isScreen4 && frame >= anim.screen4.bangHighlightEndFrame;
 
-  // ── SPOTLIGHT TARGET LOCAL COORDINATES INSIDE THE 600px HANZI CONTAINER ──
-  let spot2Y = 210; // Top part 邦
+  let spot2X = 540;
+  let spot2Y = isPengyou ? 300 : 210;
   let spot2R = 120;
-  if (isScreen2BottomJin) {
-    spot2Y = 430; // Bottom part 巾
-    spot2R = 120;
-  } else if (isScreen2WholeBang) {
-    spot2Y = 300; // Whole character 帮
-    spot2R = 230;
+
+  if (isPengyou) {
+    if (isScreen2TopBang) {
+      spot2X = 410;
+      spot2Y = 300;
+      spot2R = 140;
+    } else if (isScreen2BottomJin) {
+      spot2X = 660;
+      spot2Y = 300;
+      spot2R = 140;
+    } else if (isScreen2WholeBang) {
+      spot2X = 540;
+      spot2Y = 300;
+      spot2R = 230;
+    }
+  } else {
+    if (isScreen2BottomJin) {
+      spot2Y = 430;
+      spot2R = 120;
+    } else if (isScreen2WholeBang) {
+      spot2Y = 300;
+      spot2R = 230;
+    }
   }
 
-  let spot3X = 540; // Default whole character 助
+  let spot3X = 540;
+  let spot3Y = 300;
   let spot3R = 230;
-  if (isScreen3LeftQie) {
-    spot3X = 390; // Left part 且
-    spot3R = 120;
-  } else if (isScreen3RightLi) {
-    spot3X = 620; // Right part 力
-    spot3R = 120;
+
+  if (isPengyou) {
+    if (isScreen3LeftQie) {
+      spot3X = 540;
+      spot3Y = 220;
+      spot3R = 140;
+    } else if (isScreen3RightLi) {
+      spot3X = 540;
+      spot3Y = 420;
+      spot3R = 140;
+    } else if (isScreen3WholeZhu) {
+      spot3X = 540;
+      spot3Y = 300;
+      spot3R = 230;
+    }
+  } else {
+    if (isScreen3LeftQie) {
+      spot3X = 390;
+      spot3R = 120;
+    } else if (isScreen3RightLi) {
+      spot3X = 620;
+      spot3R = 120;
+    }
   }
 
-  // ── SCREEN 1 EMOJI ORBIT WITH BOUNCY SPRING ANIMATED SCALING ──
-  const orbitBaseRadius = 400 + Math.sin(frame * 0.04) * 20;
-  const orbitSpeed = frame * 0.01;
+  const orbitBaseRadius = 380;
+  const orbitSpeed = 0; // Removing slow orbit for snappier pop-ins
 
-  const isMentionedCloth = isScreen1 && frame >= anim.screen1.clothMention.startFrame && frame <= anim.screen1.clothMention.endFrame;
-  const isMentionedWall = isScreen1 && frame >= anim.screen1.wallMention.startFrame && frame <= anim.screen1.wallMention.endFrame;
-  const isMentionedAltar = isScreen1 && frame >= anim.screen1.altarMention.startFrame && frame <= anim.screen1.altarMention.endFrame;
-  const isMentionedMuscle = isScreen1 && frame >= anim.screen1.muscleMention.startFrame && frame <= anim.screen1.muscleMention.endFrame;
+  const isMentionedCloth = isScreen1 && frame >= anim.screen1.clothMention.startFrame;
+  const isMentionedWall = isScreen1 && frame >= anim.screen1.wallMention.startFrame;
+  const isMentionedAltar = isScreen1 && frame >= anim.screen1.altarMention.startFrame;
+  const isMentionedMuscle = isScreen1 && frame >= anim.screen1.muscleMention.startFrame;
 
   const clothSpring = spring({ frame: Math.max(0, frame - anim.screen1.clothMention.startFrame), fps, config: SPRING_BOUNCE });
   const wallSpring = spring({ frame: Math.max(0, frame - anim.screen1.wallMention.startFrame), fps, config: SPRING_BOUNCE });
   const altarSpring = spring({ frame: Math.max(0, frame - anim.screen1.altarMention.startFrame), fps, config: SPRING_BOUNCE });
   const muscleSpring = spring({ frame: Math.max(0, frame - anim.screen1.muscleMention.startFrame), fps, config: SPRING_BOUNCE });
 
-  const emojisData = [
-    { emoji: '🏰', label: '邦 (Territory)', angleOffset: 0, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [1.0, 1.55]) : 1.0, active: isMentionedWall },
-    { emoji: '🧵', label: '巾 (Cloth)', angleOffset: Math.PI / 2, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [1.0, 1.55]) : 1.0, active: isMentionedCloth },
-    { emoji: '⛩️', label: '且 (Altar)', angleOffset: Math.PI, scale: isMentionedAltar ? interpolate(altarSpring, [0, 1], [1.0, 1.55]) : 1.0, active: isMentionedAltar },
-    { emoji: '💪', label: '力 (Muscle)', angleOffset: (3 * Math.PI) / 2, scale: isMentionedMuscle ? interpolate(muscleSpring, [0, 1], [1.0, 1.55]) : 1.0, active: isMentionedMuscle },
-  ];
+  const emojisData = isPengyou
+    ? [
+        { emoji: '🐚', label: '贝 (Shells)', angleOffset: -Math.PI / 6, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedCloth },
+        { emoji: '♊', label: '月 (Moons)', angleOffset: -Math.PI / 3, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedWall },
+        { emoji: '🖐️', label: '𠂇 (Reaching Hand)', angleOffset: 7 * Math.PI / 6, scale: isMentionedAltar ? interpolate(altarSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedAltar },
+        { emoji: '🤝', label: '又 (Helping Hand)', angleOffset: 4 * Math.PI / 3, scale: isMentionedMuscle ? interpolate(muscleSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedMuscle },
+      ]
+    : [
+        { emoji: '🏰', label: '邦 (Territory)', angleOffset: -Math.PI / 6, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedWall },
+        { emoji: '🧵', label: '巾 (Cloth)', angleOffset: -Math.PI / 3, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedCloth },
+        { emoji: '⛩️', label: '且 (Altar)', angleOffset: 7 * Math.PI / 6, scale: isMentionedAltar ? interpolate(altarSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedAltar },
+        { emoji: '💪', label: '力 (Muscle)', angleOffset: 4 * Math.PI / 3, scale: isMentionedMuscle ? interpolate(muscleSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedMuscle },
+      ];
 
-  // Dynamic BGM Volume Easing (0.12 during lesson, fades out near end of lesson)
   const bgmFadeOut = interpolate(frame, [lessonDurationInFrames - 60, lessonDurationInFrames], [1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const bgmVolume = 0.12 * bgmFadeOut;
+  const bgmVolume = 0.08 * bgmFadeOut;
 
   return (
     <AbsoluteFill style={{ backgroundColor: COLORS.bg, fontFamily: 'Roboto, sans-serif', overflow: 'hidden' }}>
-      {/* ──────────────────────────────────────────────────────────── */}
-      {/* MAIN ETYMOLOGY LESSON SEQUENCE */}
-      {/* ──────────────────────────────────────────────────────────── */}
       <Sequence from={0} durationInFrames={lessonDurationInFrames}>
-        {/* CHINESE-STYLE SEAMLESS ORIENTAL CLOUD PATTERN BACKGROUND */}
         <ChineseBackground
           frame={frame}
           lessonTotalFrames={lessonDurationInFrames}
@@ -448,56 +457,41 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         />
 
         <AbsoluteFill style={{ padding: '30px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
-          {/* Ambient background floating particles */}
           <FloatingParticles count={14} color="#FF6F59" />
 
-          {/* Top Brand Header in Finger Paint */}
-          <div
-            style={{
-              marginTop: 50,
-              backgroundColor: 'rgba(255, 111, 89, 0.14)',
-              color: '#FF6F59',
-              padding: '16px 44px',
-              borderRadius: 999,
-              fontSize: 34,
-              fontWeight: 700,
-              fontFamily: FONTS.display,
-              letterSpacing: '0.04em',
-              border: '2px solid rgba(255, 111, 89, 0.3)',
-              transform: `scale(${headerSpring})`,
-              boxShadow: '0 10px 30px rgba(255, 111, 89, 0.2)',
-            }}
-          >
-            CHINESE CHARACTER ETYMOLOGY
-          </div>
-
-          {/* DYNAMIC DEDICATED SCREEN HEADINGS IN FINGER PAINT */}
-          <div style={{ marginTop: 20, height: 100, textAlign: 'center' }}>
+          <div style={{ marginTop: 20, height: 180, textAlign: 'center', width: '100%', display: 'flex', justifyContent: 'center' }}>
             {isScreen1 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Why Does <span style={{ color: '#FF6F59' }}>帮助</span> Contain Cloth & Muscle?
-              </h2>
+              <div style={{
+                backgroundColor: '#0F172A',
+                padding: '24px 50px',
+                borderRadius: 24,
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
+                transform: `translateY(${interpolate(spring({ frame, fps, config: SPRING_OVERSHOOT }), [0, 1], [50, 0])}px)`,
+                opacity: interpolate(frame, [0, 10], [0, 1])
+              }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 56, color: '#FFFFFF', margin: 0, lineHeight: 1.2 }}>
+                  Why Does <span style={{ color: '#FF6F59' }}>{character}</span><br />
+                  {isPengyou ? 'Feature 2 Moons & 2 Hands?' : 'Contain Cloth & Muscle?'}
+                </h2>
+              </div>
             )}
             {isScreen2 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 52, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Character 1: <span style={{ color: '#FF6F59' }}>帮 (bāng)</span> — Protective Backing
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isPengyou ? 'péng' : 'bāng'})</span> — {isPengyou ? 'Twin Companions' : 'Protective Backing'}
               </h2>
             )}
             {isScreen3 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 52, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Character 2: <span style={{ color: '#FF6F59' }}>助 (zhù)</span> — Muscle Power
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isPengyou ? 'yǒu' : 'zhù'})</span> — {isPengyou ? 'Helping Hands' : 'Muscle Power'}
               </h2>
             )}
             {isScreen4 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 54, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Synthesis: <span style={{ color: '#FF6F59' }}>帮助</span> = Protection + Muscle!
+              <h2 style={{ fontFamily: FONTS.display, fontSize: 52, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
               </h2>
             )}
           </div>
 
-          {/* ──────────────────────────────────────────────────────────── */}
-          {/* FLUID MORPHING INTACT HANZI CHARACTERS AREA */}
-          {/* ──────────────────────────────────────────────────────────── */}
           <div
             style={{
               position: 'relative',
@@ -509,7 +503,6 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               justifyContent: 'center',
             }}
           >
-            {/* INTACT PROPORTIONED CHARACTER '帮' (BANG) */}
             <div
               style={{
                 position: 'absolute',
@@ -522,10 +515,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
               }}
             >
-              帮
+              {char1}
             </div>
 
-            {/* INTACT PROPORTIONED CHARACTER '助' (ZHU) */}
             <div
               style={{
                 position: 'absolute',
@@ -538,10 +530,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
               }}
             >
-              助
+              {char2}
             </div>
 
-            {/* ── SCREEN 1 EMOJI ORBIT WITH ANIMATED BOUNCY SCALE POP-INS ── */}
             {isScreen1 &&
               emojisData.map((item, i) => {
                 const currentAngle = orbitSpeed + item.angleOffset;
@@ -567,11 +558,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 );
               })}
 
-            {/* ── HIGH-CONTRAST BLACK DYNAMIC TARGET SPOTLIGHT ── */}
-            {isScreen2 && <DynamicSmoothSpotlight x={540} y={spot2Y} radius={spot2R} frame={frame} />}
-            {isScreen3 && <DynamicSmoothSpotlight x={spot3X} y={300} radius={spot3R} frame={frame} />}
+            {isScreen2 && <DynamicSmoothSpotlight x={spot2X} y={spot2Y} radius={spot2R} frame={frame} />}
+            {isScreen3 && <DynamicSmoothSpotlight x={spot3X} y={spot3Y} radius={spot3R} frame={frame} />}
 
-            {/* SCREEN 4 SYNTHESIS AURA RING */}
             {isScreen4 && (
               <div
                 style={{
@@ -588,153 +577,273 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             )}
           </div>
 
-          {/* ──────────────────────────────────────────────────────────── */}
-          {/* 2-LINE DARK CARD TAGS WITH AUTHENTIC 3-FRAME FLIPBOOK CAT ANIMATIONS ACROSS ALL SCENES */}
-          {/* ──────────────────────────────────────────────────────────── */}
+          {/* SCENE 1 CARD */}
+          {isPengyou ? (
+            <OrganicCenterTag
+              emoji="🤝"
+              radical="朋友"
+              pinyin="péng you"
+              translation="Twin Companions & Mutual Support"
+              catImages={[
+                'cats/cat_pengyou_word_frame_1.png',
+                'cats/cat_pengyou_word_frame_2.png',
+                'cats/cat_pengyou_word_frame_3.png',
+              ]}
+              frame={frame}
+              enterFrame={50}
+              exitFrame={anim.screen1.endFrame}
+            />
+          ) : (
+            <OrganicCenterTag
+              emoji="🤝"
+              radical="帮助"
+              pinyin="bāng zhù"
+              translation="Mutual Assistance & Protection"
+              catImages={[
+                'cats/cat_bangzhu_word_frame_1.png',
+                'cats/cat_bangzhu_word_frame_2.png',
+                'cats/cat_bangzhu_word_frame_3.png',
+              ]}
+              frame={frame}
+              enterFrame={50}
+              exitFrame={anim.screen1.endFrame}
+            />
+          )}
 
-          {/* SCENE 1 (INTRO): COMPOUND WORD 帮助 (3-FRAME FLIPBOOK LOOP) */}
-          <OrganicCenterTag
-            emoji="🤝"
-            radical="帮助"
-            pinyin="bāng zhù"
-            translation="Mutual Assistance & Protection"
-            catImages={[
-              'cats/cat_bangzhu_word_frame_1.png',
-              'cats/cat_bangzhu_word_frame_2.png',
-              'cats/cat_bangzhu_word_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={50}
-            exitFrame={anim.screen1.endFrame}
-          />
+          {/* SCENE 2 CARDS */}
+          {isPengyou ? (
+            <>
+              <OrganicCenterTag
+                emoji="🐚"
+                radical="贝/朋"
+                pinyin="péng"
+                translation="Strings of Shells & Jade"
+                catImages={[
+                  'cats/cat_peng_left_frame_1.png',
+                  'cats/cat_peng_left_frame_2.png',
+                  'cats/cat_peng_left_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="♊"
+                radical="月+月"
+                pinyin="yuè"
+                translation="Twin Moons Side-by-Side"
+                catImages={[
+                  'cats/cat_peng_right_frame_1.png',
+                  'cats/cat_peng_right_frame_2.png',
+                  'cats/cat_peng_right_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.bottomJin.startFrame}
+                exitFrame={anim.screen2.bottomJin.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="👬"
+                radical="朋"
+                pinyin="péng"
+                translation="Equal Companions Side-by-Side"
+                catImages={[
+                  'cats/cat_peng_whole_frame_1.png',
+                  'cats/cat_peng_whole_frame_2.png',
+                  'cats/cat_peng_whole_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.wholeBang.startFrame}
+                exitFrame={anim.screen2.wholeBang.endFrame}
+              />
+            </>
+          ) : (
+            <>
+              <OrganicCenterTag
+                emoji="🏰"
+                radical="邦"
+                pinyin="bāng"
+                translation="Territory & Community"
+                catImages={[
+                  'cats/cat_bang_top_frame_1.png',
+                  'cats/cat_bang_top_frame_2.png',
+                  'cats/cat_bang_top_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🧵"
+                radical="巾"
+                pinyin="jīn"
+                translation="Reinforcing Cloth Strip"
+                catImages={[
+                  'cats/cat_bang_bottom_1.png',
+                  'cats/cat_bang_bottom_frame_2.png',
+                  'cats/cat_bang_bottom_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.bottomJin.startFrame}
+                exitFrame={anim.screen2.bottomJin.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🛡️"
+                radical="帮"
+                pinyin="bāng"
+                translation="Protective Shoe Backing"
+                catImages={[
+                  'cats/cat_bang_whole_frame_1.png',
+                  'cats/cat_bang_whole_frame_2.png',
+                  'cats/cat_bang_whole_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.wholeBang.startFrame}
+                exitFrame={anim.screen2.wholeBang.endFrame}
+              />
+            </>
+          )}
 
-          {/* SCENE 2 (BANG FOCUS): RADICALS & WHOLE BANG (3-FRAME FLIPBOOK LOOPS) */}
-          <OrganicCenterTag
-            emoji="🏰"
-            radical="邦"
-            pinyin="bāng"
-            translation="Territory & Community"
-            catImages={[
-              'cats/cat_bang_top_frame_1.png',
-              'cats/cat_bang_top_frame_2.png',
-              'cats/cat_bang_top_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen2.topBang.startFrame}
-            exitFrame={anim.screen2.topBang.endFrame}
-          />
+          {/* SCENE 3 CARDS */}
+          {isPengyou ? (
+            <>
+              <OrganicCenterTag
+                emoji="🖐️"
+                radical="𠂇"
+                pinyin="yòu"
+                translation="Hand Reaching Out to Help"
+                catImages={[
+                  'cats/cat_you_top_frame_1.png',
+                  'cats/cat_you_top_frame_2.png',
+                  'cats/cat_you_top_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.leftQie.startFrame}
+                exitFrame={anim.screen3.leftQie.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🤝"
+                radical="又"
+                pinyin="yòu"
+                translation="Hand Extending Mutual Aid"
+                catImages={[
+                  'cats/cat_you_bottom_frame_1.png',
+                  'cats/cat_you_bottom_frame_2.png',
+                  'cats/cat_you_bottom_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.rightLi.startFrame}
+                exitFrame={anim.screen3.rightLi.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🤛"
+                radical="友"
+                pinyin="yǒu"
+                translation="True Friends Supporting Each Other"
+                catImages={[
+                  'cats/cat_you_whole_frame_1.png',
+                  'cats/cat_you_whole_frame_2.png',
+                  'cats/cat_you_whole_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.wholeZhuOutro.startFrame}
+                exitFrame={anim.screen3.wholeZhuOutro.endFrame}
+              />
+            </>
+          ) : (
+            <>
+              <OrganicCenterTag
+                emoji="⛩️"
+                radical="且"
+                pinyin="zhǔ"
+                translation="Heavy Altar Pedestal"
+                catImages={[
+                  'cats/cat_zhu_left_frame_1.png',
+                  'cats/cat_zhu_left_frame_2.png',
+                  'cats/cat_zhu_left_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.leftQie.startFrame}
+                exitFrame={anim.screen3.leftQie.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="💪"
+                radical="力"
+                pinyin="lì"
+                translation="Muscle Power & Labor"
+                catImages={[
+                  'cats/cat_zhu_right_frame_1.png',
+                  'cats/cat_zhu_right_frame_2.png',
+                  'cats/cat_zhu_right_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.rightLi.startFrame}
+                exitFrame={anim.screen3.rightLi.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🏋️"
+                radical="助"
+                pinyin="zhù"
+                translation="Lending Teamwork Strength"
+                catImages={[
+                  'cats/cat_zhu_whole_1.png',
+                  'cats/cat_bangzhu_word_frame_2.png',
+                  'cats/cat_bangzhu_word_frame_3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.wholeZhuOutro.startFrame}
+                exitFrame={anim.screen3.wholeZhuOutro.endFrame}
+              />
+            </>
+          )}
 
-          <OrganicCenterTag
-            emoji="🧵"
-            radical="巾"
-            pinyin="jīn"
-            translation="Reinforcing Cloth Strip"
-            catImages={[
-              'cats/cat_bang_bottom_1.png',
-              'cats/cat_bang_bottom_frame_2.png',
-              'cats/cat_bang_bottom_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen2.bottomJin.startFrame}
-            exitFrame={anim.screen2.bottomJin.endFrame}
-          />
+          {/* SCENE 4 CARD */}
+          {isPengyou ? (
+            <OrganicCenterTag
+              emoji="🤝"
+              radical="朋友"
+              pinyin="péng you"
+              translation="Companions Extending Helping Hands"
+              catImages={[
+                'cats/cat_pengyou_word_frame_1.png',
+                'cats/cat_pengyou_word_frame_2.png',
+                'cats/cat_pengyou_word_frame_3.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : (
+            <OrganicCenterTag
+              emoji="🤝"
+              radical="帮助"
+              pinyin="bāng zhù"
+              translation="Mutual Assistance & Protection"
+              catImages={[
+                'cats/cat_bangzhu_word_frame_1.png',
+                'cats/cat_bangzhu_word_frame_2.png',
+                'cats/cat_bangzhu_word_frame_3.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          )}
 
-          <OrganicCenterTag
-            emoji="🛡️"
-            radical="帮"
-            pinyin="bāng"
-            translation="Protective Shoe Backing"
-            catImages={[
-              'cats/cat_bang_whole_frame_1.png',
-              'cats/cat_bang_whole_frame_2.png',
-              'cats/cat_bang_whole_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen2.wholeBang.startFrame}
-            exitFrame={anim.screen2.wholeBang.endFrame}
-          />
-
-          {/* SCENE 3 (ZHU FOCUS): RADICALS & WHOLE ZHU (3-FRAME FLIPBOOK LOOPS) */}
-          <OrganicCenterTag
-            emoji="⛩️"
-            radical="且"
-            pinyin="zhǔ"
-            translation="Heavy Altar Pedestal"
-            catImages={[
-              'cats/cat_zhu_left_frame_1.png',
-              'cats/cat_zhu_left_frame_2.png',
-              'cats/cat_zhu_left_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen3.leftQie.startFrame}
-            exitFrame={anim.screen3.leftQie.endFrame}
-          />
-
-          <OrganicCenterTag
-            emoji="💪"
-            radical="力"
-            pinyin="lì"
-            translation="Muscle Power & Labor"
-            catImages={[
-              'cats/cat_zhu_right_frame_1.png',
-              'cats/cat_zhu_right_frame_2.png',
-              'cats/cat_zhu_right_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen3.rightLi.startFrame}
-            exitFrame={anim.screen3.rightLi.endFrame}
-          />
-
-          <OrganicCenterTag
-            emoji="🏋️"
-            radical="助"
-            pinyin="zhù"
-            translation="Lending Teamwork Strength"
-            catImages={[
-              'cats/cat_zhu_whole_1.png',
-              'cats/cat_bangzhu_word_frame_2.png',
-              'cats/cat_bangzhu_word_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen3.wholeZhuOutro.startFrame}
-            exitFrame={anim.screen3.wholeZhuOutro.endFrame}
-          />
-
-          {/* SCENE 4 (SYNTHESIS / CONCLUSION): COMPOUND WORD 帮助 (3-FRAME FLIPBOOK LOOP) */}
-          <OrganicCenterTag
-            emoji="🤝"
-            radical="帮助"
-            pinyin="bāng zhù"
-            translation="Mutual Assistance & Protection"
-            catImages={[
-              'cats/cat_bangzhu_word_frame_1.png',
-              'cats/cat_bangzhu_word_frame_2.png',
-              'cats/cat_bangzhu_word_frame_3.png',
-            ]}
-            frame={frame}
-            enterFrame={anim.screen4.startFrame}
-            exitFrame={anim.screen4.endFrame}
-          />
-
-          {/* DYNAMIC REAL-TIME CAPTIONS */}
           {wordsAlignment && wordsAlignment.length > 0 && (
             <RealtimeCaptions words={wordsAlignment} positionBottom={200} />
           )}
         </AbsoluteFill>
 
-        {/* VOICE OVER AUDIO */}
         {audioSrc && <Audio src={staticFile(audioSrc)} />}
       </Sequence>
 
-      {/* ROYALTY-FREE CHINESE LOFI BACKGROUND MUSIC (Jade Tea Loop - 8% Volume across lesson & outro) */}
-      {bgmAudioSrc && <Audio src={staticFile(bgmAudioSrc)} volume={0.08} loop />}
+      {bgmAudioSrc && <Audio src={staticFile(bgmAudioSrc)} volume={bgmVolume} loop />}
 
-      {/* ──────────────────────────────────────────────────────────── */}
-      {/* REUSABLE KANSHU APP PROMOTIONAL OUTRO AT THE END */}
-      {/* ──────────────────────────────────────────────────────────── */}
-      <Sequence from={lessonDurationInFrames} durationInFrames={outroDurationInFrames}>
-        <KanshuAppOutro showAudio={true} audioSrc={outroAudioSrc} />
-      </Sequence>
+      {outroDurationInFrames > 0 && (
+        <Sequence from={lessonDurationInFrames} durationInFrames={outroDurationInFrames}>
+          <KanshuAppOutro showAudio={true} audioSrc={outroAudioSrc} />
+        </Sequence>
+      )}
     </AbsoluteFill>
   );
 };

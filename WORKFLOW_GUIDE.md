@@ -154,6 +154,28 @@ flowchart TD
     Inspect -->|Pixel Perfect| Lock["5. Lock Calibrated Coordinates into Composition"]
 ```
 
+### Calibration Procedure & Target Coordinates:
+1. **Estimate Initial Coordinates**: Set local $(x, y)$ inside the 600px Hanzi container.
+   - **Top-Bottom Character (`帮`)**:
+     - Top Radical `邦`: `spot2Y = 210`, `radius = 120`
+     - Bottom Radical `巾`: `spot2Y = 430`, `radius = 120`
+     - Whole Character `帮`: `spot2Y = 300`, `radius = 230`
+   - **Left-Right Character (`助`)**:
+     - Left Radical `且`: `spot3X = 390`, `radius = 120`
+     - Right Radical `力`: `spot3X = 620`, `radius = 120`
+     - Whole Character `助`: `spot3X = 540`, `radius = 230`
+
+2. **Render Frame Snapshots**: Render PNG snapshots at the midpoint frame of each radical phase:
+   ```bash
+   npx remotion render src/index.ts EtymologyBangzhu out/calib_top_bang.png --frame=600
+   npx remotion render src/index.ts EtymologyBangzhu out/calib_bottom_jin.png --frame=1000
+   npx remotion render src/index.ts EtymologyBangzhu out/calib_left_qie.png --frame=2000
+   ```
+
+3. **Visual AI Inspection**: Inspect the generated PNGs to verify:
+   - The black dashed circle smoothly bounds the exact radical strokes without clipping.
+   - The pointer arrow `👇` is snug against the circle border (`top: -(radius - 15)`).
+
 ---
 
 ## 6. Design System Tokens: Colors, Typography & Font Usage Rules
@@ -270,9 +292,10 @@ Every generated video MUST be accompanied by a dedicated `SOCIAL_POSTS.md` file 
 - **Description**: Include brief summary, direct Kanshu web link, and `#Shorts #LearnChinese #Mandarin`.
 
 ### D. RedNote (小红书 - Xiaohongshu) Best Practices
-- **Title Strategy**: Curiosity-driven Chinese title with emojis (`💡原来“帮助”的“帮”竟然是鞋后跟？！汉字拆解超有趣！`).
-- **Bilingual Tone**: Friendly educational tone in native Chinese with bulleted radical meanings.
-- **Hashtags**: `#学中文 #汉字演变 #中文学习 #Kanshu #汉语学习 #对外汉语`.
+- **Language Mandate**: **ALWAYS write RedNote descriptions in ENGLISH** specifically targeting international Mandarin learners on RedNote!
+- **Title Strategy**: Engaging English title with Hanzi/Pinyin & emojis (`💡 Mind-blowing etymology: Why 帮助 (bāngzhù) means HELP in Chinese! 🇨🇳`).
+- **Caption Structure**: Clear English bulleted breakdown + Kanshu app CTA.
+- **Bilingual Hashtag Strategy**: Mix of English learning tags & high-volume Chinese tags (`#LearnChinese #MandarinLearning #ChineseEtymology #KanshuApp #学中文 #汉语学习 #HSK #ChineseStudy`).
 
 ### E. X (Twitter) Best Practices
 - **Length Constraint**: Strictly under 280 characters.
@@ -434,7 +457,7 @@ if __name__ == '__main__':
 
 ---
 
-## 11. Message-by-Message Feedback Analysis
+## 12. Message-by-Message Feedback Analysis
 
 | Step | User Request / Feedback | Root Cause | Engineering Solution |
 | :--- | :--- | :--- | :--- |
@@ -449,10 +472,11 @@ if __name__ == '__main__':
 | **9** | Target Spotlight Radical Inspection Loop | Visual calibration required to prevent circle stroke clipping. | Documented Visual AI Inspection Loop & coordinate mapping for Top/Bottom & Left/Right radicals. |
 | **10** | Social Media Copy Metadata | Needed platform-specific captions & hashtag strategies. | Documented TikTok, IG Reels, YT Shorts, RedNote, and X formats & generated `SOCIAL_POSTS.md`. |
 | **11** | Human-in-the-Loop Review Gates | User wants to review script, audio, assets, and layout at each stage. | Established 5 mandatory User Review Checkpoints in section 2. |
+| **12** | RedNote English Copy Rule | Target Chinese learners on RedNote with English captions & bilingual tags. | Updated RedNote specification in section 10 & updated `SOCIAL_POSTS.md`. |
 
 ---
 
-## 12. Step-by-Step Production Checklist with Mandatory Review Gates
+## 13. Step-by-Step Production Checklist with Mandatory Review Gates
 
 1. **Step 1: Script Preparation**
    - Write etymology narration text using Character+Pinyin syntax (e.g. `帮助 (bāngzhù)`).
@@ -476,5 +500,5 @@ if __name__ == '__main__':
 
 6. **Step 6: Video Render & Social Media Metadata Generation**
    - Execute `npx remotion render src/index.ts EtymologyComposition out/final_reel.mp4`.
-   - Create `SOCIAL_POSTS.md` with platform copy for TikTok, IG Reels, YT Shorts, RedNote, and X.
+   - Create `SOCIAL_POSTS.md` with English platform copy (including RedNote for Chinese learners!) for TikTok, IG Reels, YT Shorts, RedNote, and X.
    - 🛑 **[USER REVIEW GATE 5]**: Present final MP4 video link and `SOCIAL_POSTS.md` copy to user for final sign-off before committing.

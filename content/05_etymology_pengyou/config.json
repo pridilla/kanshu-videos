@@ -1,0 +1,551 @@
+{
+  "character": "朋友",
+  "pinyin": "péng you",
+  "tone": 1,
+  "meaning": "Friend / Friendship",
+  "oracleBoneSymbol": "👬🤝",
+  "radicals": [
+    {
+      "radical": "朋 (péng)",
+      "pinyin": "péng",
+      "meaning": "月 + 月 — two strings of jade/shells; twin companions side-by-side",
+      "role": "semantic"
+    },
+    {
+      "radical": "友 (yǒu)",
+      "pinyin": "yǒu",
+      "meaning": "𠂇 + 又 — two right hands extending in mutual support",
+      "role": "semantic"
+    }
+  ],
+  "story": "朋 originally depicted two strings of valuable cowrie shells tied side-by-side; 友 depicted two right hands reaching out together in mutual aid.",
+  "exampleSentence": {
+    "cn": "我和他是最好的朋友。",
+    "pinyin": "Wǒ hé tā shì zuì hǎo de péngyou.",
+    "en": "He and I are best friends.",
+    "highlightWord": "朋友"
+  },
+  "audioSrc": "pengyou_voice_single_pass_fast.mp3",
+  "outroAudioSrc": "kanshu_outro_elevenlabs.mp3",
+  "lessonDurationInFrames": 2244,
+  "outroDurationInFrames": 0,
+  "scriptText": "Why does 朋友 (péngyǒu), the Chinese word for friend, feature two moons and two hands reaching out? Let's break down 朋 (péng) first. In ancient oracle bone script, 朋 (péng) depicted two strings of valuable cowrie shells tied side-by-side, which later evolved into two side-by-side moons 月 (yuè). It symbolizes two equal companions bound together by shared values! Now let's look at 友 (yǒu). Look closely at 友 (yǒu): it was originally drawn as two right hands, 𠂇 (yòu) and 又 (yòu), extending in the same direction! It represents two friends reaching out to support each other. Put them together, and 朋友 (péngyǒu) literally means companions standing side-by-side, extending helping hands in true friendship!",
+  "wordsAlignment": [
+    {
+      "word": "Why",
+      "start": 0.0,
+      "end": 0.139
+    },
+    {
+      "word": "does",
+      "start": 0.181,
+      "end": 0.348
+    },
+    {
+      "word": "朋友",
+      "start": 0.487,
+      "end": 1.043
+    },
+    {
+      "word": "(péngyǒu)",
+      "start": 1.113,
+      "end": 1.409
+    },
+    {
+      "word": "feature",
+      "start": 1.416,
+      "end": 1.464
+    },
+    {
+      "word": "two",
+      "start": 1.551,
+      "end": 1.812
+    },
+    {
+      "word": "moons",
+      "start": 1.893,
+      "end": 2.299
+    },
+    {
+      "word": "and",
+      "start": 2.351,
+      "end": 2.508
+    },
+    {
+      "word": "two",
+      "start": 2.577,
+      "end": 2.786
+    },
+    {
+      "word": "hands?",
+      "start": 2.879,
+      "end": 3.482
+    },
+    {
+      "word": "Let's",
+      "start": 3.621,
+      "end": 4.108
+    },
+    {
+      "word": "break",
+      "start": 4.143,
+      "end": 4.317
+    },
+    {
+      "word": "it",
+      "start": 4.34,
+      "end": 4.386
+    },
+    {
+      "word": "down!",
+      "start": 4.456,
+      "end": 4.803
+    },
+    {
+      "word": "朋",
+      "start": 5.708,
+      "end": 5.743
+    },
+    {
+      "word": "(péng)",
+      "start": 5.76,
+      "end": 6.334
+    },
+    {
+      "word": "originally",
+      "start": 6.378,
+      "end": 6.821
+    },
+    {
+      "word": "depicted",
+      "start": 6.875,
+      "end": 7.308
+    },
+    {
+      "word": "two",
+      "start": 7.412,
+      "end": 7.725
+    },
+    {
+      "word": "strings",
+      "start": 7.786,
+      "end": 8.212
+    },
+    {
+      "word": "of",
+      "start": 8.282,
+      "end": 8.421
+    },
+    {
+      "word": "valuable",
+      "start": 8.475,
+      "end": 8.908
+    },
+    {
+      "word": "cowrie",
+      "start": 8.995,
+      "end": 9.395
+    },
+    {
+      "word": "shells",
+      "start": 9.444,
+      "end": 9.743
+    },
+    {
+      "word": "tied",
+      "start": 9.812,
+      "end": 10.09
+    },
+    {
+      "word": "together,",
+      "start": 10.137,
+      "end": 10.925
+    },
+    {
+      "word": "which",
+      "start": 10.96,
+      "end": 11.134
+    },
+    {
+      "word": "later",
+      "start": 11.18,
+      "end": 11.412
+    },
+    {
+      "word": "evolved",
+      "start": 11.473,
+      "end": 11.899
+    },
+    {
+      "word": "into",
+      "start": 11.941,
+      "end": 12.108
+    },
+    {
+      "word": "two",
+      "start": 12.195,
+      "end": 12.456
+    },
+    {
+      "word": "side-by-side",
+      "start": 12.539,
+      "end": 13.36
+    },
+    {
+      "word": "moons",
+      "start": 13.453,
+      "end": 13.917
+    },
+    {
+      "word": "月",
+      "start": 14.056,
+      "end": 14.195
+    },
+    {
+      "word": "(yuè).",
+      "start": 14.212,
+      "end": 15.169
+    },
+    {
+      "word": "It",
+      "start": 15.192,
+      "end": 15.238
+    },
+    {
+      "word": "symbolizes",
+      "start": 15.288,
+      "end": 16.003
+    },
+    {
+      "word": "two",
+      "start": 16.09,
+      "end": 16.351
+    },
+    {
+      "word": "equal",
+      "start": 16.421,
+      "end": 16.769
+    },
+    {
+      "word": "companions",
+      "start": 16.825,
+      "end": 17.395
+    },
+    {
+      "word": "bound",
+      "start": 17.488,
+      "end": 17.951
+    },
+    {
+      "word": "by",
+      "start": 17.997,
+      "end": 18.09
+    },
+    {
+      "word": "shared",
+      "start": 18.16,
+      "end": 18.577
+    },
+    {
+      "word": "values.",
+      "start": 18.657,
+      "end": 19.273
+    },
+    {
+      "word": "And",
+      "start": 19.499,
+      "end": 20.177
+    },
+    {
+      "word": "友",
+      "start": 20.316,
+      "end": 20.317
+    },
+    {
+      "word": "(yǒu)?",
+      "start": 20.351,
+      "end": 20.803
+    },
+    {
+      "word": "It",
+      "start": 20.966,
+      "end": 21.29
+    },
+    {
+      "word": "was",
+      "start": 21.325,
+      "end": 21.43
+    },
+    {
+      "word": "originally",
+      "start": 21.474,
+      "end": 21.917
+    },
+    {
+      "word": "drawn",
+      "start": 21.997,
+      "end": 22.403
+    },
+    {
+      "word": "as",
+      "start": 22.45,
+      "end": 22.543
+    },
+    {
+      "word": "two",
+      "start": 22.647,
+      "end": 22.96
+    },
+    {
+      "word": "right",
+      "start": 23.018,
+      "end": 23.308
+    },
+    {
+      "word": "hands",
+      "start": 23.377,
+      "end": 23.725
+    },
+    {
+      "word": "extending",
+      "start": 23.781,
+      "end": 24.282
+    },
+    {
+      "word": "in",
+      "start": 24.328,
+      "end": 24.421
+    },
+    {
+      "word": "the",
+      "start": 24.438,
+      "end": 24.49
+    },
+    {
+      "word": "same",
+      "start": 24.56,
+      "end": 24.838
+    },
+    {
+      "word": "direction!",
+      "start": 24.894,
+      "end": 25.534
+    },
+    {
+      "word": "It",
+      "start": 25.719,
+      "end": 26.09
+    },
+    {
+      "word": "represents",
+      "start": 26.147,
+      "end": 26.717
+    },
+    {
+      "word": "two",
+      "start": 26.769,
+      "end": 26.925
+    },
+    {
+      "word": "friends",
+      "start": 26.977,
+      "end": 27.343
+    },
+    {
+      "word": "reaching",
+      "start": 27.389,
+      "end": 27.76
+    },
+    {
+      "word": "out",
+      "start": 27.812,
+      "end": 27.969
+    },
+    {
+      "word": "to",
+      "start": 28.015,
+      "end": 28.108
+    },
+    {
+      "word": "support",
+      "start": 28.16,
+      "end": 28.525
+    },
+    {
+      "word": "each",
+      "start": 28.553,
+      "end": 28.664
+    },
+    {
+      "word": "other.",
+      "start": 28.71,
+      "end": 29.012
+    },
+    {
+      "word": "Put",
+      "start": 29.186,
+      "end": 29.708
+    },
+    {
+      "word": "them",
+      "start": 29.722,
+      "end": 29.777
+    },
+    {
+      "word": "together,",
+      "start": 29.831,
+      "end": 30.543
+    },
+    {
+      "word": "and",
+      "start": 30.577,
+      "end": 30.682
+    },
+    {
+      "word": "朋友",
+      "start": 30.821,
+      "end": 31.377
+    },
+    {
+      "word": "(péngyǒu)",
+      "start": 31.412,
+      "end": 31.711
+    },
+    {
+      "word": "literally",
+      "start": 31.72,
+      "end": 31.798
+    },
+    {
+      "word": "means",
+      "start": 31.868,
+      "end": 32.216
+    },
+    {
+      "word": "companions",
+      "start": 32.285,
+      "end": 32.981
+    },
+    {
+      "word": "standing",
+      "start": 33.035,
+      "end": 33.468
+    },
+    {
+      "word": "side-by-side,",
+      "start": 33.537,
+      "end": 34.72
+    },
+    {
+      "word": "extending",
+      "start": 34.769,
+      "end": 35.207
+    },
+    {
+      "word": "helping",
+      "start": 35.25,
+      "end": 35.555
+    },
+    {
+      "word": "hands",
+      "start": 35.624,
+      "end": 35.972
+    },
+    {
+      "word": "in",
+      "start": 36.042,
+      "end": 36.181
+    },
+    {
+      "word": "true",
+      "start": 36.264,
+      "end": 36.598
+    },
+    {
+      "word": "friendship!",
+      "start": 36.655,
+      "end": 37.363
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 3.621,
+    "screen1EndFrame": 217,
+    "screen2EndSec": 19.499,
+    "screen2EndFrame": 1170,
+    "screen3EndSec": 29.186,
+    "screen3EndFrame": 1751,
+    "lessonTotalSec": 37.407,
+    "lessonTotalFrames": 2244
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 217,
+      "clothMention": {
+        "startSec": 1.893,
+        "endSec": 2.299,
+        "startFrame": 114,
+        "endFrame": 138
+      },
+      "wallMention": {
+        "startSec": 1.893,
+        "endSec": 2.299,
+        "startFrame": 114,
+        "endFrame": 138
+      },
+      "altarMention": {
+        "startSec": 2.879,
+        "endSec": 3.482,
+        "startFrame": 173,
+        "endFrame": 209
+      },
+      "muscleMention": {
+        "startSec": 2.879,
+        "endSec": 3.482,
+        "startFrame": 173,
+        "endFrame": 209
+      }
+    },
+    "screen2": {
+      "startFrame": 217,
+      "endFrame": 1170,
+      "topBang": {
+        "startFrame": 217,
+        "endFrame": 807
+      },
+      "bottomJin": {
+        "startFrame": 807,
+        "endFrame": 917
+      },
+      "wholeBang": {
+        "startFrame": 917,
+        "endFrame": 1170
+      }
+    },
+    "screen3": {
+      "startFrame": 1170,
+      "endFrame": 1751,
+      "wholeZhuIntro": {
+        "startFrame": 1170,
+        "endFrame": 1381
+      },
+      "leftQie": {
+        "startFrame": 1381,
+        "endFrame": 1427
+      },
+      "rightLi": {
+        "startFrame": 1427,
+        "endFrame": 1569
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1569,
+        "endFrame": 1751
+      }
+    },
+    "screen4": {
+      "startFrame": 1751,
+      "endFrame": 2244,
+      "bangHighlightEndFrame": 1885
+    }
+  }
+}
