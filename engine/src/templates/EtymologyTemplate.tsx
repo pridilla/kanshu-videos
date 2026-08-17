@@ -22,10 +22,13 @@ export interface AnimationTimestamps {
   screen1: {
     startFrame: number;
     endFrame: number;
-    clothMention: AnimationPhase;
-    wallMention: AnimationPhase;
-    altarMention: AnimationPhase;
-    muscleMention: AnimationPhase;
+    clothMention?: AnimationPhase;
+    wallMention?: AnimationPhase;
+    altarMention?: AnimationPhase;
+    muscleMention?: AnimationPhase;
+    personMention?: AnimationPhase;
+    boundariesMention?: AnimationPhase;
+    silkMention?: AnimationPhase;
   };
   screen2: {
     startFrame: number;
@@ -47,6 +50,17 @@ export interface AnimationTimestamps {
     endFrame: number;
     bangHighlightEndFrame: number;
   };
+}
+
+export interface ScreenTimestamps {
+  screen1EndSec?: number;
+  screen1EndFrame: number;
+  screen2EndSec?: number;
+  screen2EndFrame: number;
+  screen3EndSec?: number;
+  screen3EndFrame: number;
+  lessonTotalSec?: number;
+  lessonTotalFrames: number;
 }
 
 export interface EtymologyConfig {
@@ -90,7 +104,7 @@ const DynamicSmoothSpotlight: React.FC<{
         transform: 'translate(-50%, -50%)',
         pointerEvents: 'none',
         zIndex: 60,
-        transition: 'top 0.55s cubic-bezier(0.16, 1, 0.3, 1), left 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'top 0.45s cubic-bezier(0.16, 1, 0.3, 1), left 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       <svg
@@ -99,7 +113,7 @@ const DynamicSmoothSpotlight: React.FC<{
         viewBox={`0 0 ${radius * 2 + 40} ${radius * 2 + 40}`}
         style={{
           transform: `rotate(${rotation}deg)`,
-          transition: 'width 0.55s cubic-bezier(0.16, 1, 0.3, 1), height 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'width 0.45s cubic-bezier(0.16, 1, 0.3, 1), height 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <circle
@@ -112,7 +126,7 @@ const DynamicSmoothSpotlight: React.FC<{
           strokeDasharray="22 14"
           filter="drop-shadow(0 0 12px rgba(255, 255, 255, 0.95)) drop-shadow(0 6px 20px rgba(15, 23, 42, 0.5))"
           style={{
-            transition: 'r 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+            transition: 'r 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         />
       </svg>
@@ -130,12 +144,52 @@ const DynamicSmoothSpotlight: React.FC<{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          transition: 'top 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'top 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         <span>👇</span>
       </div>
     </div>
+  );
+};
+
+const ShockwaveRing: React.FC<{
+  triggerFrame: number;
+  frame: number;
+  x?: number;
+  y?: number;
+  color?: string;
+}> = ({ triggerFrame, frame, x = 540, y = 460, color = '#FF6F59' }) => {
+  const { fps } = useVideoConfig();
+  const relFrame = frame - triggerFrame;
+  if (relFrame < 0 || relFrame > 35) return null;
+
+  const progress = spring({
+    frame: relFrame,
+    fps,
+    config: { damping: 14, stiffness: 120 },
+  });
+
+  const radius = interpolate(progress, [0, 1], [40, 500]);
+  const opacity = interpolate(progress, [0, 0.3, 1], [0.8, 0.6, 0]);
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        top: y,
+        left: x,
+        width: radius * 2,
+        height: radius * 2,
+        borderRadius: '50%',
+        border: `4px solid ${color}`,
+        transform: 'translate(-50%, -50%)',
+        opacity,
+        pointerEvents: 'none',
+        zIndex: 55,
+        boxShadow: `0 0 30px ${color}`,
+      }}
+    />
   );
 };
 
@@ -154,25 +208,30 @@ const OrganicCenterTag: React.FC<{
   const enterSpring = spring({
     frame: Math.max(0, frame - enterFrame),
     fps,
-    config: { damping: 18, mass: 0.8, stiffness: 140 },
+    config: { damping: 16, mass: 0.7, stiffness: 160 },
   });
 
   const exitSpring = spring({
     frame: Math.max(0, frame - exitFrame),
     fps,
-    config: { damping: 18, mass: 0.8, stiffness: 140 },
+    config: { damping: 16, mass: 0.7, stiffness: 160 },
   });
 
-  const enterX = interpolate(enterSpring, [0, 1], [-1400, 0], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) });
+  const enterX = enterFrame === 0 
+    ? 0 
+    : interpolate(enterSpring, [0, 1], [-1400, 0], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) });
   const exitX = frame >= exitFrame ? interpolate(exitSpring, [0, 1], [0, 1400], { easing: Easing.bezier(0.25, 0.1, 0.25, 1) }) : 0;
 
   const currentX = enterX + exitX;
   const driftY = Math.sin((frame - enterFrame) * 0.08) * 1.5;
+  const tiltAngle = (currentX / 1400) * 8; // Dynamic tilt during fly-in/fly-out
 
-  const cycleIndex = Math.floor(frame / 10) % 4;
-  const pingPongMap = [0, 1, 2, 1];
-  const flipIndex = pingPongMap[cycleIndex] % catImages.length;
-  const currentCatSrc = catImages[flipIndex] || catImages[0];
+  const flipSpeed = 22; // ~2.7 fps calm hand-drawn doodle cadence (0.36s per pose)
+  const relativeFrame = Math.max(0, frame - enterFrame);
+  const cycleIndex = Math.floor(relativeFrame / flipSpeed) % (catImages.length === 2 ? 2 : 4);
+  const currentCatSrc = catImages.length === 2 
+    ? catImages[cycleIndex] 
+    : catImages[([0, 1, 2, 1][Math.floor(relativeFrame / flipSpeed) % 4]) % catImages.length];
 
   if (frame < enterFrame || (frame >= exitFrame && exitSpring >= 0.99)) return null;
 
@@ -180,9 +239,9 @@ const OrganicCenterTag: React.FC<{
     <div
       style={{
         position: 'absolute',
-        top: 940,
+        top: 680,
         left: '50%',
-        transform: `translateX(calc(-50% + ${currentX}px)) translateY(${driftY}px)`,
+        transform: `translateX(calc(-50% + ${currentX}px)) translateY(${driftY}px) rotate(${tiltAngle}deg)`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -228,17 +287,17 @@ const OrganicCenterTag: React.FC<{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginTop: 6,
+            marginTop: 4,
           }}
         >
           <img
             src={staticFile(currentCatSrc)}
             alt="Borderless Transparent Cat Sketch"
             style={{
-              height: 380,
+              height: 680,
               width: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 10px 20px rgba(15, 23, 42, 0.18))',
+              filter: 'drop-shadow(0 14px 28px rgba(15, 23, 42, 0.18))',
             }}
           />
         </div>
@@ -248,99 +307,153 @@ const OrganicCenterTag: React.FC<{
 };
 
 export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
-  character = '帮助',
-  pinyin = 'bāng zhù',
-  meaning = 'To Help / Assistance',
-  audioSrc = 'bangzhu_voice_injected.mp3',
+  character = '喜欢',
+  pinyin = 'xǐ huan',
+  meaning = 'To Like / Love',
+  audioSrc = 'xihuan_voice_single_pass_fast.mp3',
   bgmAudioSrc = 'chinese_lofi_bgm.mp3',
   outroAudioSrc = 'kanshu_outro_elevenlabs.mp3',
   wordsAlignment = [],
   screenTimestamps = {
-    screen1EndFrame: 414,
-    screen2EndFrame: 1507,
-    screen3EndFrame: 2458,
-    lessonTotalFrames: 2772,
+    screen1EndFrame: 364,
+    screen2EndFrame: 950,
+    screen3EndFrame: 1401,
+    lessonTotalFrames: 1834,
   },
   animationTimestamps,
-  lessonDurationInFrames = 2772,
-  outroDurationInFrames = 425,
+  lessonDurationInFrames = 1834,
+  outroDurationInFrames = 0,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const isXihuan = character === '喜欢';
+  const isKaishi = character === '开始';
+  const isJieshao = character === '介绍';
+  const isWangji = character === '忘记';
+  const isAiqing = character === '爱情';
   const isPengyou = character === '朋友';
 
-  const char1 = character.charAt(0) || '帮';
-  const char2 = character.charAt(1) || '助';
+  const char1 = character.charAt(0) || '喜';
+  const char2 = character.charAt(1) || '欢';
 
   const { screen1EndFrame, screen2EndFrame, screen3EndFrame, lessonTotalFrames } = screenTimestamps;
-
-  const morph1To2 = spring({
-    frame: Math.max(0, frame - screen1EndFrame),
-    fps,
-    config: SPRING_SMOOTH,
-  });
-
-  const morph2To3 = spring({
-    frame: Math.max(0, frame - screen2EndFrame),
-    fps,
-    config: SPRING_SMOOTH,
-  });
-
-  const morph3To4 = spring({
-    frame: Math.max(0, frame - screen3EndFrame),
-    fps,
-    config: SPRING_SMOOTH,
-  });
-
-  const bangX =
-    interpolate(morph1To2, [0, 1], [-150, 0]) +
-    interpolate(morph2To3, [0, 1], [0, -800]) +
-    interpolate(morph3To4, [0, 1], [0, 650]);
-
-  const zhuX =
-    interpolate(morph1To2, [0, 1], [150, 800]) +
-    interpolate(morph2To3, [0, 1], [0, -800]) +
-    interpolate(morph3To4, [0, 1], [0, 150]);
-
-  const bangScale = 1 + interpolate(morph1To2, [0, 1], [0, 0.4]) - interpolate(morph2To3, [0, 1], [0, 0.4]);
-  const zhuScale = 1 + interpolate(morph2To3, [0, 1], [0, 0.4]) - interpolate(morph3To4, [0, 1], [0, 0.4]);
 
   const isScreen1 = frame < screen1EndFrame;
   const isScreen2 = frame >= screen1EndFrame && frame < screen2EndFrame;
   const isScreen3 = frame >= screen2EndFrame && frame < screen3EndFrame;
   const isScreen4 = frame >= screen3EndFrame;
 
-  const headerSpring = spring({ frame, fps, config: SPRING_OVERSHOOT });
+  // --- KINETIC HERO HOOK PHASES (0 to 75 frames: ~1.25s) ---
+  const isHeroWordPhase = isXihuan && frame < 75;
+  const isWordChinese = isHeroWordPhase && frame < 28;
+  const isWordIs = isHeroWordPhase && frame >= 28 && frame < 43;
+  const isWordWild = isHeroWordPhase && frame >= 43;
+
+  // Springs for each hero word
+  const springChinese = spring({ frame, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
+  const springIs = spring({ frame: Math.max(0, frame - 28), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
+  const springWild = spring({ frame: Math.max(0, frame - 43), fps, config: { damping: 9, mass: 0.5, stiffness: 300 } });
+
+  // Camera Crash-Zoom Transition Spring (frames 75-105: ~1.25s to 1.75s)
+  const heroRevealSpring = spring({
+    frame: Math.max(0, frame - 75),
+    fps,
+    config: { damping: 14, mass: 0.7, stiffness: 180 },
+  });
+
+  // --- DYNAMIC SCENE TRANSITION SPRINGS ---
+  const morph1To2 = spring({
+    frame: Math.max(0, frame - screen1EndFrame),
+    fps,
+    config: { damping: 15, mass: 0.8, stiffness: 160 },
+  });
+
+  const morph2To3 = spring({
+    frame: Math.max(0, frame - screen2EndFrame),
+    fps,
+    config: { damping: 15, mass: 0.8, stiffness: 160 },
+  });
+
+  const morph3To4 = spring({
+    frame: Math.max(0, frame - screen3EndFrame),
+    fps,
+    config: { damping: 15, mass: 0.8, stiffness: 160 },
+  });
+
+  // Camera Zoom dynamic pulses during transitions
+  const transition1To2Zoom = isScreen2 && frame < screen1EndFrame + 30
+    ? Math.sin((frame - screen1EndFrame) / 30 * Math.PI) * 0.12
+    : 0;
+
+  const transition2To3Zoom = isScreen3 && frame < screen2EndFrame + 30
+    ? Math.sin((frame - screen2EndFrame) / 30 * Math.PI) * 0.14
+    : 0;
+
+  const transition3To4Zoom = isScreen4 && frame < screen3EndFrame + 30
+    ? Math.sin((frame - screen3EndFrame) / 30 * Math.PI) * -0.06
+    : 0;
+
+  // Continuous subtle digital push-in across the whole video (0.04x / 4%)
+  const continuousPush = 1 + (frame / lessonDurationInFrames) * 0.04;
+
+  // Combined camera zoom scale
+  const cameraZoomScale = isHeroWordPhase
+    ? (isWordWild ? interpolate(springWild, [0, 1], [1.35, 1.0]) : 1.0)
+    : (interpolate(heroRevealSpring, [0, 1], [1.35, 1.0]) + transition1To2Zoom + transition2To3Zoom + transition3To4Zoom) * continuousPush;
+
+  // Screen shake on Frame 0 and Wild word impact
+  const shake1 = frame < 15 ? Math.sin(frame * 1.8) * (1 - frame / 15) * 8 : 0;
+  const shakeWild = frame >= 43 && frame < 58 ? Math.sin((frame - 43) * 2.0) * (1 - (frame - 43) / 15) * 10 : 0;
+  const totalShakeY = shake1 + shakeWild;
+
+  // Visual pulse / fracture tension during "I like you" (frames 95-155)
+  const hookFracturePulse = isScreen1 && frame >= 95 && frame <= 155
+    ? Math.sin((frame - 95) * 0.12) * 35
+    : 0;
+
+  const charSpacing = isKaishi || isXihuan ? 120 : 150;
+  const bangX =
+    interpolate(morph1To2, [0, 1], [-charSpacing - hookFracturePulse, 0]) +
+    interpolate(morph2To3, [0, 1], [0, -800]) +
+    interpolate(morph3To4, [0, 1], [0, 800 - charSpacing]);
+
+  const zhuX =
+    interpolate(morph1To2, [0, 1], [charSpacing + hookFracturePulse, 800]) +
+    interpolate(morph2To3, [0, 1], [0, -800]) +
+    interpolate(morph3To4, [0, 1], [0, charSpacing]);
+
+  const bangScale = (1 + interpolate(morph1To2, [0, 1], [0, 0.3]) - interpolate(morph2To3, [0, 1], [0, 0.3]));
+  const zhuScale = (1 + interpolate(morph2To3, [0, 1], [0, 0.3]) - interpolate(morph3To4, [0, 1], [0, 0.3]));
 
   const anim = animationTimestamps || {
     screen1: {
       startFrame: 0,
       endFrame: screen1EndFrame,
-      clothMention: { startFrame: 237, endFrame: 274 },
-      wallMention: { startFrame: 328, endFrame: 379 },
-      altarMention: { startFrame: 391, endFrame: 432 },
-      muscleMention: { startFrame: 495, endFrame: 542 },
+      clothMention: { startFrame: 227, endFrame: 256 },
+      wallMention: { startFrame: 273, endFrame: 298 },
+      altarMention: { startFrame: 273, endFrame: 298 },
+      muscleMention: { startFrame: 273, endFrame: 298 },
     },
     screen2: {
       startFrame: screen1EndFrame,
       endFrame: screen2EndFrame,
-      topBang: { startFrame: screen1EndFrame, endFrame: 1094 },
-      bottomJin: { startFrame: 1094, endFrame: 1656 },
-      wholeBang: { startFrame: 1656, endFrame: screen2EndFrame },
+      topBang: { startFrame: screen1EndFrame, endFrame: 642 },
+      bottomJin: { startFrame: 642, endFrame: 786 },
+      wholeBang: { startFrame: 786, endFrame: screen2EndFrame },
     },
     screen3: {
       startFrame: screen2EndFrame,
       endFrame: screen3EndFrame,
-      wholeZhuIntro: { startFrame: screen2EndFrame, endFrame: 2256 },
-      leftQie: { startFrame: 2256, endFrame: 2568 },
-      rightLi: { startFrame: 2568, endFrame: 3019 },
-      wholeZhuOutro: { startFrame: 3019, endFrame: screen3EndFrame },
+      wholeZhuIntro: { startFrame: screen2EndFrame, endFrame: 1045 },
+      leftQie: { startFrame: 1045, endFrame: 1126 },
+      rightLi: { startFrame: 1126, endFrame: 1394 },
+      wholeZhuOutro: { startFrame: 1304, endFrame: screen3EndFrame },
     },
     screen4: {
       startFrame: screen3EndFrame,
       endFrame: lessonDurationInFrames,
-      bangHighlightEndFrame: 3634,
+      bangHighlightEndFrame: 1601,
     },
   };
 
@@ -357,10 +470,40 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen4ZhuHighlight = isScreen4 && frame >= anim.screen4.bangHighlightEndFrame;
 
   let spot2X = 540;
-  let spot2Y = isPengyou ? 300 : 210;
-  let spot2R = 120;
+  let spot2Y = isKaishi || isXihuan ? 240 : isJieshao ? 250 : isWangji ? 210 : isAiqing ? 220 : isPengyou ? 300 : 210;
+  let spot2R = isKaishi || isXihuan ? 180 : 120;
 
-  if (isPengyou) {
+  if (isXihuan) {
+    if (isScreen2TopBang) {
+      spot2Y = 190;
+      spot2R = 120;
+    } else if (isScreen2BottomJin) {
+      spot2Y = 320;
+      spot2R = 110;
+    } else if (isScreen2WholeBang) {
+      spot2Y = 240;
+      spot2R = 180;
+    }
+  } else if (isKaishi) {
+    if (isScreen2TopBang) {
+      spot2Y = 200;
+      spot2R = 130;
+    } else if (isScreen2WholeBang) {
+      spot2Y = 240;
+      spot2R = 180;
+    }
+  } else if (isAiqing) {
+    if (isScreen2TopBang) {
+      spot2Y = 200;
+      spot2R = 120;
+    } else if (isScreen2BottomJin) {
+      spot2Y = 400;
+      spot2R = 120;
+    } else if (isScreen2WholeBang) {
+      spot2Y = 300;
+      spot2R = 230;
+    }
+  } else if (isPengyou) {
     if (isScreen2TopBang) {
       spot2X = 410;
       spot2Y = 300;
@@ -385,10 +528,46 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   }
 
   let spot3X = 540;
-  let spot3Y = 300;
-  let spot3R = 230;
+  let spot3Y = isKaishi || isXihuan ? 240 : 300;
+  let spot3R = isKaishi || isXihuan ? 180 : 230;
 
-  if (isPengyou) {
+  if (isXihuan) {
+    if (isScreen3LeftQie) {
+      spot3X = 430;
+      spot3Y = 240;
+      spot3R = 110;
+    } else if (isScreen3RightLi) {
+      spot3X = 620;
+      spot3Y = 240;
+      spot3R = 110;
+    } else if (isScreen3WholeZhu) {
+      spot3X = 540;
+      spot3Y = 240;
+      spot3R = 180;
+    }
+  } else if (isKaishi) {
+    if (isScreen3LeftQie) {
+      spot3X = 430;
+      spot3Y = 240;
+      spot3R = 110;
+    } else if (isScreen3RightLi) {
+      spot3X = 620;
+      spot3Y = 240;
+      spot3R = 110;
+    } else if (isScreen3WholeZhu) {
+      spot3X = 540;
+      spot3Y = 240;
+      spot3R = 180;
+    }
+  } else if (isAiqing) {
+    if (isScreen3LeftQie) {
+      spot3X = 390;
+      spot3R = 120;
+    } else if (isScreen3RightLi) {
+      spot3X = 620;
+      spot3R = 120;
+    }
+  } else if (isPengyou) {
     if (isScreen3LeftQie) {
       spot3X = 540;
       spot3Y = 220;
@@ -412,20 +591,39 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     }
   }
 
-  const orbitBaseRadius = 380;
-  const orbitSpeed = 0; // Removing slow orbit for snappier pop-ins
+  const orbitBaseRadius = 320;
+  const orbitSpeed = 0;
 
-  const isMentionedCloth = isScreen1 && frame >= anim.screen1.clothMention.startFrame;
-  const isMentionedWall = isScreen1 && frame >= anim.screen1.wallMention.startFrame;
-  const isMentionedAltar = isScreen1 && frame >= anim.screen1.altarMention.startFrame;
-  const isMentionedMuscle = isScreen1 && frame >= anim.screen1.muscleMention.startFrame;
+  const isMentionedCloth = isScreen1 && frame >= (anim.screen1.clothMention?.startFrame ?? 0);
+  const isMentionedWall = isScreen1 && frame >= (anim.screen1.wallMention?.startFrame ?? 0);
+  const isMentionedAltar = isScreen1 && frame >= (anim.screen1.altarMention?.startFrame ?? 0);
+  const isMentionedMuscle = isScreen1 && frame >= (anim.screen1.muscleMention?.startFrame ?? 0);
 
-  const clothSpring = spring({ frame: Math.max(0, frame - anim.screen1.clothMention.startFrame), fps, config: SPRING_BOUNCE });
-  const wallSpring = spring({ frame: Math.max(0, frame - anim.screen1.wallMention.startFrame), fps, config: SPRING_BOUNCE });
-  const altarSpring = spring({ frame: Math.max(0, frame - anim.screen1.altarMention.startFrame), fps, config: SPRING_BOUNCE });
-  const muscleSpring = spring({ frame: Math.max(0, frame - anim.screen1.muscleMention.startFrame), fps, config: SPRING_BOUNCE });
+  const clothSpring = spring({ frame: Math.max(0, frame - (anim.screen1.clothMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
+  const wallSpring = spring({ frame: Math.max(0, frame - (anim.screen1.wallMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
+  const altarSpring = spring({ frame: Math.max(0, frame - (anim.screen1.altarMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
+  const muscleSpring = spring({ frame: Math.max(0, frame - (anim.screen1.muscleMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
 
-  const emojisData = isPengyou
+  const emojisData = isXihuan
+    ? [
+        { emoji: '🥁', label: '壴 (War Drum)', angleOffset: -Math.PI / 6, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedCloth },
+        { emoji: '🗣️', label: '口 (Singing Mouth)', angleOffset: -Math.PI / 3, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedWall },
+        { emoji: '🕊️', label: '雚 (Singing Bird)', angleOffset: 7 * Math.PI / 6, scale: isMentionedAltar ? interpolate(altarSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedAltar },
+        { emoji: '🎉', label: '欠 (Cheering)', angleOffset: 4 * Math.PI / 3, scale: isMentionedMuscle ? interpolate(muscleSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedMuscle },
+      ]
+    : isKaishi
+    ? [
+        { emoji: '🚪', label: '门 (Gate)', angleOffset: -Math.PI / 6, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedCloth },
+        { emoji: '👩', label: '女 (Mother)', angleOffset: -Math.PI / 3, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedWall },
+        { emoji: '🌱', label: '始 (New Life)', angleOffset: 7 * Math.PI / 6, scale: isMentionedAltar ? interpolate(altarSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedAltar },
+      ]
+    : isJieshao
+    ? [
+        { emoji: '⛩️', label: '八 (Boundaries)', angleOffset: -Math.PI / 6, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedWall },
+        { emoji: '🧍', label: '人 (Person)', angleOffset: -Math.PI / 3, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedCloth },
+        { emoji: '🧵', label: '纟 (Silk)', angleOffset: 7 * Math.PI / 6, scale: isMentionedAltar ? interpolate(altarSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedAltar },
+      ]
+    : isPengyou
     ? [
         { emoji: '🐚', label: '贝 (Shells)', angleOffset: -Math.PI / 6, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedCloth },
         { emoji: '♊', label: '月 (Moons)', angleOffset: -Math.PI / 3, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.65]) : 0, active: isMentionedWall },
@@ -443,10 +641,16 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const bgmVolume = 0.08 * bgmFadeOut;
+  const bgmVolume = 0.15 * bgmFadeOut;
 
   return (
-    <AbsoluteFill style={{ backgroundColor: COLORS.bg, fontFamily: 'Roboto, sans-serif', overflow: 'hidden' }}>
+    <AbsoluteFill style={{ 
+      backgroundColor: COLORS.bg, 
+      fontFamily: 'Roboto, sans-serif', 
+      overflow: 'hidden',
+      transform: `translateY(${totalShakeY}px) scale(${cameraZoomScale})`,
+      transformOrigin: '50% 40%'
+    }}>
       <Sequence from={0} durationInFrames={lessonDurationInFrames}>
         <ChineseBackground
           frame={frame}
@@ -456,48 +660,140 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           morph3To4={morph3To4}
         />
 
-        <AbsoluteFill style={{ padding: '30px 40px', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
+        {/* SHOCKWAVE PULSES ON SCENE TRANSITIONS */}
+        <ShockwaveRing triggerFrame={screen1EndFrame} frame={frame} x={540} y={400} color="#FF6F59" />
+        <ShockwaveRing triggerFrame={screen2EndFrame} frame={frame} x={540} y={400} color="#FF6F59" />
+        <ShockwaveRing triggerFrame={screen3EndFrame} frame={frame} x={540} y={400} color="#FF6F59" />
+
+        {/* ============================================================ */}
+        {/* HERO KINETIC WORDS TAKEOVER (0 to 75 frames / 0.0s to 1.25s) */}
+        {/* ============================================================ */}
+        {isHeroWordPhase && (
+          <AbsoluteFill style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 150 }}>
+            {isWordChinese && (
+              <div style={{
+                transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.0])})`,
+                fontFamily: FONTS.display,
+                fontSize: 140,
+                fontWeight: 900,
+                color: '#0F172A',
+                letterSpacing: '0.04em',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                filter: 'drop-shadow(0 20px 40px rgba(15,23,42,0.3))'
+              }}>
+                CHINESE
+              </div>
+            )}
+            {isWordIs && (
+              <div style={{
+                transform: `scale(${interpolate(springIs, [0, 1], [0.4, 1.0])})`,
+                fontFamily: FONTS.display,
+                fontSize: 140,
+                fontWeight: 900,
+                color: '#0F172A',
+                letterSpacing: '0.04em',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                filter: 'drop-shadow(0 20px 40px rgba(15,23,42,0.3))'
+              }}>
+                IS
+              </div>
+            )}
+            {isWordWild && (
+              <div style={{
+                transform: `scale(${interpolate(springWild, [0, 1], [0.4, 1.25])})`,
+                fontFamily: FONTS.display,
+                fontSize: 150,
+                fontWeight: 900,
+                color: '#FF6F59',
+                letterSpacing: '0.04em',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 16,
+                filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.7)) drop-shadow(0 0 30px rgba(255,111,89,0.9))'
+              }}>
+                <span>WILD</span>
+                <span style={{ fontSize: 160 }}>🔥</span>
+              </div>
+            )}
+          </AbsoluteFill>
+        )}
+
+        <AbsoluteFill style={{ 
+          padding: '30px 40px', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          zIndex: 10,
+          opacity: isHeroWordPhase ? 0 : interpolate(heroRevealSpring, [0, 1], [0, 1])
+        }}>
           <FloatingParticles count={14} color="#FF6F59" />
 
+          {/* TOP HEADER CONTAINER */}
           <div style={{ marginTop: 20, height: 180, textAlign: 'center', width: '100%', display: 'flex', justifyContent: 'center' }}>
             {isScreen1 && (
               <div style={{
                 backgroundColor: '#0F172A',
-                padding: '24px 50px',
+                padding: '20px 44px',
                 borderRadius: 24,
-                boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
-                transform: `translateY(${interpolate(spring({ frame, fps, config: SPRING_OVERSHOOT }), [0, 1], [50, 0])}px)`,
-                opacity: interpolate(frame, [0, 10], [0, 1])
+                boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                border: '3px solid #FF6F59',
+                transform: `translateY(${interpolate(spring({ frame: Math.max(0, frame - 75), fps, config: SPRING_OVERSHOOT }), [0, 1], [-50, 0])}px)`,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 6
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 56, color: '#FFFFFF', margin: 0, lineHeight: 1.2 }}>
-                  Why Does <span style={{ color: '#FF6F59' }}>{character}</span><br />
-                  {isPengyou ? 'Feature 2 Moons & 2 Hands?' : 'Contain Cloth & Muscle?'}
-                </h2>
+                <h1 style={{ fontFamily: FONTS.display, fontSize: 58, color: '#FF6F59', margin: 0, fontWeight: 900, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
+                  CHINESE IS WILD 🔥
+                </h1>
+                <div style={{ fontFamily: FONTS.display, fontSize: 32, color: '#FFFFFF', fontWeight: 700 }}>
+                  Why <span style={{ color: '#FF6F59' }}>喜欢</span> = War Drum + Cheering!
+                </div>
               </div>
             )}
             {isScreen2 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isPengyou ? 'péng' : 'bāng'})</span> — {isPengyou ? 'Twin Companions' : 'Protective Backing'}
-              </h2>
+              <div style={{
+                transform: `scale(${interpolate(morph1To2, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
+                transition: 'transform 0.2s ease',
+              }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
+                </h2>
+              </div>
             )}
             {isScreen3 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isPengyou ? 'yǒu' : 'zhù'})</span> — {isPengyou ? 'Helping Hands' : 'Muscle Power'}
-              </h2>
+              <div style={{
+                transform: `scale(${interpolate(morph2To3, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
+                transition: 'transform 0.2s ease',
+              }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
+                </h2>
+              </div>
             )}
             {isScreen4 && (
-              <h2 style={{ fontFamily: FONTS.display, fontSize: 52, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
-              </h2>
+              <div style={{
+                transform: `scale(${interpolate(morph3To4, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
+                transition: 'transform 0.2s ease',
+              }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 52, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
+                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
+                </h2>
+              </div>
             )}
           </div>
 
+          {/* MAIN CHARACTER STAGE */}
           <div
             style={{
               position: 'relative',
               width: '100%',
-              height: 600,
-              marginTop: 60,
+              height: 420,
+              marginTop: 25,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -507,7 +803,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               style={{
                 position: 'absolute',
                 transform: `translateX(${bangX}px) scale(${bangScale})`,
-                fontSize: 340,
+                fontSize: 250,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
                 color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : '#0F172A',
@@ -522,7 +818,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               style={{
                 position: 'absolute',
                 transform: `translateX(${zhuX}px) scale(${zhuScale})`,
-                fontSize: 340,
+                fontSize: 250,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
                 color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : '#0F172A',
@@ -545,7 +841,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                     style={{
                       position: 'absolute',
                       transform: `translate(${emojiX}px, ${emojiY}px) scale(${item.scale})`,
-                      fontSize: 88,
+                      fontSize: 76,
                       filter: item.active
                         ? 'drop-shadow(0 12px 28px rgba(255, 111, 89, 0.95)) drop-shadow(0 0 24px rgba(255, 111, 89, 0.8))'
                         : 'drop-shadow(0 6px 14px rgba(0,0,0,0.18))',
@@ -565,9 +861,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               <div
                 style={{
                   position: 'absolute',
-                  width: 660,
-                  height: 440,
-                  borderRadius: 48,
+                  width: 520,
+                  height: 350,
+                  borderRadius: 40,
                   border: '4px solid #FF6F59',
                   backgroundColor: 'rgba(255, 111, 89, 0.1)',
                   boxShadow: '0 0 80px rgba(255, 111, 89, 0.45)',
@@ -578,7 +874,36 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           </div>
 
           {/* SCENE 1 CARD */}
-          {isPengyou ? (
+          {isXihuan ? (
+            <OrganicCenterTag
+              emoji="💖"
+              radical="喜欢"
+              pinyin="xǐ huan"
+              translation="To Like / Love"
+              catImages={[
+                'cats/xihuan/cat_xihuan_f1.png',
+                'cats/xihuan/cat_xihuan_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={75}
+              exitFrame={anim.screen1.endFrame}
+            />
+          ) : isKaishi ? (
+            <OrganicCenterTag
+              emoji="🏁"
+              radical="开始"
+              pinyin="kāi shǐ"
+              translation="To Begin / Start"
+              catImages={[
+                'cats/kaishi/cat_kaishi_f1.png',
+                'cats/kaishi/cat_kaishi_f2.png',
+                'cats/kaishi/cat_kaishi_f3.png',
+              ]}
+              frame={frame}
+              enterFrame={0}
+              exitFrame={anim.screen1.endFrame}
+            />
+          ) : isPengyou ? (
             <OrganicCenterTag
               emoji="🤝"
               radical="朋友"
@@ -590,7 +915,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 'cats/cat_pengyou_word_frame_3.png',
               ]}
               frame={frame}
-              enterFrame={50}
+              enterFrame={0}
               exitFrame={anim.screen1.endFrame}
             />
           ) : (
@@ -605,13 +930,86 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 'cats/cat_bangzhu_word_frame_3.png',
               ]}
               frame={frame}
-              enterFrame={50}
+              enterFrame={0}
               exitFrame={anim.screen1.endFrame}
             />
           )}
 
           {/* SCENE 2 CARDS */}
-          {isPengyou ? (
+          {isXihuan ? (
+            <>
+              <OrganicCenterTag
+                emoji="🥁"
+                radical="壴"
+                pinyin="zhù"
+                translation="Celebratory War Drum"
+                catImages={[
+                  'cats/xihuan/cat_drum_f1.png',
+                  'cats/xihuan/cat_drum_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🗣️"
+                radical="口"
+                pinyin="kǒu"
+                translation="Singing Mouth"
+                catImages={[
+                  'cats/xihuan/cat_sing_f1.png',
+                  'cats/xihuan/cat_sing_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.endFrame}
+                exitFrame={anim.screen2.bottomJin.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🏆"
+                radical="喜"
+                pinyin="xǐ"
+                translation="Victory Celebration"
+                catImages={[
+                  'cats/xihuan/cat_victory_f1.png',
+                  'cats/xihuan/cat_victory_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.bottomJin.endFrame}
+                exitFrame={anim.screen2.endFrame}
+              />
+            </>
+          ) : isKaishi ? (
+            <>
+              <OrganicCenterTag
+                emoji="🚪"
+                radical="门/开"
+                pinyin="kāi"
+                translation="Unlatching the Gate"
+                catImages={[
+                  'cats/kaishi/cat_gate_f1.png',
+                  'cats/kaishi/cat_gate_f2.png',
+                  'cats/kaishi/cat_gate_f3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🚀"
+                radical="开"
+                pinyin="kāi"
+                translation="Opening a Clear Path"
+                catImages={[
+                  'cats/kaishi/cat_open_f1.png',
+                  'cats/kaishi/cat_open_f2.png',
+                  'cats/kaishi/cat_open_f3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.endFrame}
+                exitFrame={anim.screen2.endFrame}
+              />
+            </>
+          ) : isPengyou ? (
             <>
               <OrganicCenterTag
                 emoji="🐚"
@@ -704,7 +1102,94 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 3 CARDS */}
-          {isPengyou ? (
+          {isXihuan ? (
+            <>
+              <OrganicCenterTag
+                emoji="🕊️"
+                radical="又/雚"
+                pinyin="huān"
+                translation="Singing Bird"
+                catImages={[
+                  'cats/xihuan/cat_bird_f1.png',
+                  'cats/xihuan/cat_bird_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.startFrame}
+                exitFrame={anim.screen3.leftQie.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🎉"
+                radical="欠"
+                pinyin="qiàn"
+                translation="Cheering & Gasping"
+                catImages={[
+                  'cats/xihuan/cat_gasp_f1.png',
+                  'cats/xihuan/cat_gasp_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.leftQie.endFrame}
+                exitFrame={anim.screen3.rightLi.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🥳"
+                radical="欢"
+                pinyin="huān"
+                translation="Joyful Ecstasy"
+                catImages={[
+                  'cats/xihuan/cat_cheer_f1.png',
+                  'cats/xihuan/cat_cheer_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.rightLi.endFrame}
+                exitFrame={anim.screen3.endFrame}
+              />
+            </>
+          ) : isKaishi ? (
+            <>
+              <OrganicCenterTag
+                emoji="👩"
+                radical="女"
+                pinyin="nǚ"
+                translation="Woman / Mother"
+                catImages={[
+                  'cats/kaishi/cat_woman_f1.png',
+                  'cats/kaishi/cat_woman_f2.png',
+                  'cats/kaishi/cat_woman_f3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.startFrame}
+                exitFrame={anim.screen3.leftQie.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🗣️"
+                radical="台"
+                pinyin="tái"
+                translation="Platform (Sound)"
+                catImages={[
+                  'cats/kaishi/cat_origin_f1.png',
+                  'cats/kaishi/cat_origin_f2.png',
+                  'cats/kaishi/cat_origin_f3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.leftQie.endFrame}
+                exitFrame={anim.screen3.rightLi.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🌱"
+                radical="始"
+                pinyin="shǐ"
+                translation="Origin of Life / Birth"
+                catImages={[
+                  'cats/kaishi/cat_birth_f1.png',
+                  'cats/kaishi/cat_birth_f2.png',
+                  'cats/kaishi/cat_birth_f3.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.rightLi.endFrame}
+                exitFrame={anim.screen3.endFrame}
+              />
+            </>
+          ) : isPengyou ? (
             <>
               <OrganicCenterTag
                 emoji="🖐️"
@@ -740,7 +1225,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 pinyin="yǒu"
                 translation="True Friends Supporting Each Other"
                 catImages={[
-                  'cats/cat_you_whole_frame_1.png',
+                  'cats/cat_you_intro_frame_1.png',
                   'cats/cat_you_whole_frame_2.png',
                   'cats/cat_you_whole_frame_3.png',
                 ]}
@@ -797,7 +1282,36 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 4 CARD */}
-          {isPengyou ? (
+          {isXihuan ? (
+            <OrganicCenterTag
+              emoji="💖"
+              radical="喜欢"
+              pinyin="xǐ huan"
+              translation="Victory Drum + Joyful Cheering = Love!"
+              catImages={[
+                'cats/xihuan/cat_xihuan_f1.png',
+                'cats/xihuan/cat_xihuan_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : isKaishi ? (
+            <OrganicCenterTag
+              emoji="🏁"
+              radical="开始"
+              pinyin="kāi shǐ"
+              translation="Unlatch Gate + New Life = Start!"
+              catImages={[
+                'cats/kaishi/cat_kaishi_f1.png',
+                'cats/kaishi/cat_kaishi_f2.png',
+                'cats/kaishi/cat_kaishi_f3.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : isPengyou ? (
             <OrganicCenterTag
               emoji="🤝"
               radical="朋友"
@@ -830,9 +1344,42 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {wordsAlignment && wordsAlignment.length > 0 && (
-            <RealtimeCaptions words={wordsAlignment} positionBottom={200} />
+            <RealtimeCaptions words={wordsAlignment} positionBottom={110} />
           )}
         </AbsoluteFill>
+
+        {/* SFX: IMPACT BOOM ON FRAME 0 */}
+        <Sequence from={0} durationInFrames={40}>
+          <Audio src={staticFile('sfx_hit.mp3')} volume={0.4} />
+        </Sequence>
+
+        {/* SFX: POP ON WILD WORD IMPACT (Frame 43) */}
+        <Sequence from={43} durationInFrames={20}>
+          <Audio src={staticFile('sfx_pop.mp3')} volume={0.6} />
+        </Sequence>
+
+        {/* SFX: WHOOSH ON SCENE TRANSITIONS */}
+        <Sequence from={screen1EndFrame} durationInFrames={25}>
+          <Audio src={staticFile('sfx_whoosh.mp3')} volume={0.45} />
+        </Sequence>
+        <Sequence from={screen2EndFrame} durationInFrames={25}>
+          <Audio src={staticFile('sfx_whoosh.mp3')} volume={0.45} />
+        </Sequence>
+        <Sequence from={screen3EndFrame} durationInFrames={25}>
+          <Audio src={staticFile('sfx_whoosh.mp3')} volume={0.45} />
+        </Sequence>
+
+        {/* SFX: POP ON RADICAL EMOJI APPEARANCES */}
+        {anim.screen1.clothMention && (
+          <Sequence from={anim.screen1.clothMention.startFrame} durationInFrames={20}>
+            <Audio src={staticFile('sfx_pop.mp3')} volume={0.5} />
+          </Sequence>
+        )}
+        {anim.screen1.wallMention && (
+          <Sequence from={anim.screen1.wallMention.startFrame} durationInFrames={20}>
+            <Audio src={staticFile('sfx_pop.mp3')} volume={0.5} />
+          </Sequence>
+        )}
 
         {audioSrc && <Audio src={staticFile(audioSrc)} />}
       </Sequence>

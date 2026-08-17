@@ -1,0 +1,637 @@
+{
+  "character": "喜欢",
+  "pinyin": "xǐ huan",
+  "tone": 3,
+  "meaning": "To Like / Love",
+  "oracleBoneSymbol": "🥁🎉",
+  "radicals": [
+    {
+      "radical": "喜 (xǐ)",
+      "pinyin": "xǐ",
+      "meaning": "Victory war drum (壴) + singing mouth (口)",
+      "role": "semantic"
+    },
+    {
+      "radical": "欢 (huān)",
+      "pinyin": "huān",
+      "meaning": "Singing bird (又/雚) + open mouth cheering (欠)",
+      "role": "semantic"
+    }
+  ],
+  "story": "喜 depicts beating a celebratory victory drum with a singing mouth, while 欢 depicts cheering and gasping with joy.",
+  "exampleSentence": {
+    "cn": "我非常喜欢你！",
+    "pinyin": "Wǒ fēicháng xǐhuan nǐ!",
+    "en": "I really like you!",
+    "highlightWord": "喜欢"
+  },
+  "audioSrc": "xihuan_voice_single_pass_fast.mp3",
+  "bgmAudioSrc": "chinese_lofi_bgm.mp3",
+  "wordsAlignment": [
+    {
+      "word": "Chinese",
+      "start": 0.0,
+      "end": 0.415
+    },
+    {
+      "word": "is",
+      "start": 0.494,
+      "end": 0.652
+    },
+    {
+      "word": "wild.",
+      "start": 0.735,
+      "end": 1.126
+    },
+    {
+      "word": "To",
+      "start": 1.244,
+      "end": 1.481
+    },
+    {
+      "word": "say",
+      "start": 1.511,
+      "end": 1.6
+    },
+    {
+      "word": "I",
+      "start": 1.659,
+      "end": 1.719
+    },
+    {
+      "word": "like",
+      "start": 1.766,
+      "end": 1.956
+    },
+    {
+      "word": "you,",
+      "start": 1.985,
+      "end": 2.252
+    },
+    {
+      "word": "you",
+      "start": 2.281,
+      "end": 2.37
+    },
+    {
+      "word": "literally",
+      "start": 2.4,
+      "end": 2.667
+    },
+    {
+      "word": "combine",
+      "start": 2.711,
+      "end": 3.022
+    },
+    {
+      "word": "beating",
+      "start": 3.059,
+      "end": 3.319
+    },
+    {
+      "word": "a",
+      "start": 3.348,
+      "end": 3.378
+    },
+    {
+      "word": "victory",
+      "start": 3.422,
+      "end": 3.733
+    },
+    {
+      "word": "war",
+      "start": 3.793,
+      "end": 3.97
+    },
+    {
+      "word": "drum",
+      "start": 4.03,
+      "end": 4.267
+    },
+    {
+      "word": "with",
+      "start": 4.314,
+      "end": 4.504
+    },
+    {
+      "word": "cheering",
+      "start": 4.556,
+      "end": 4.978
+    },
+    {
+      "word": "until",
+      "start": 5.017,
+      "end": 5.215
+    },
+    {
+      "word": "you're",
+      "start": 5.23,
+      "end": 5.333
+    },
+    {
+      "word": "breathless!",
+      "start": 5.367,
+      "end": 5.926
+    },
+    {
+      "word": "Let's",
+      "start": 6.074,
+      "end": 6.578
+    },
+    {
+      "word": "break",
+      "start": 6.607,
+      "end": 6.756
+    },
+    {
+      "word": "down",
+      "start": 6.791,
+      "end": 6.933
+    },
+    {
+      "word": "喜",
+      "start": 7.052,
+      "end": 7.081
+    },
+    {
+      "word": "(xǐ)",
+      "start": 7.096,
+      "end": 7.348
+    },
+    {
+      "word": "first.",
+      "start": 7.398,
+      "end": 7.704
+    },
+    {
+      "word": "Originally",
+      "start": 7.784,
+      "end": 8.593
+    },
+    {
+      "word": "depicting",
+      "start": 8.628,
+      "end": 8.948
+    },
+    {
+      "word": "a",
+      "start": 9.007,
+      "end": 9.067
+    },
+    {
+      "word": "celebratory",
+      "start": 9.109,
+      "end": 9.659
+    },
+    {
+      "word": "drum",
+      "start": 9.719,
+      "end": 9.956
+    },
+    {
+      "word": "壴",
+      "start": 10.133,
+      "end": 10.153
+    },
+    {
+      "word": "(zhù)",
+      "start": 10.163,
+      "end": 10.43
+    },
+    {
+      "word": "over",
+      "start": 10.465,
+      "end": 10.607
+    },
+    {
+      "word": "a",
+      "start": 10.637,
+      "end": 10.667
+    },
+    {
+      "word": "singing",
+      "start": 10.704,
+      "end": 10.963
+    },
+    {
+      "word": "mouth",
+      "start": 11.022,
+      "end": 11.319
+    },
+    {
+      "word": "口",
+      "start": 11.496,
+      "end": 11.511
+    },
+    {
+      "word": "(kǒu),",
+      "start": 11.519,
+      "end": 12.148
+    },
+    {
+      "word": "喜",
+      "start": 12.267,
+      "end": 12.302
+    },
+    {
+      "word": "(xǐ)",
+      "start": 12.32,
+      "end": 12.444
+    },
+    {
+      "word": "represents",
+      "start": 12.487,
+      "end": 12.919
+    },
+    {
+      "word": "the",
+      "start": 12.948,
+      "end": 13.037
+    },
+    {
+      "word": "explosive",
+      "start": 13.096,
+      "end": 13.63
+    },
+    {
+      "word": "joy",
+      "start": 13.704,
+      "end": 13.926
+    },
+    {
+      "word": "of",
+      "start": 13.965,
+      "end": 14.044
+    },
+    {
+      "word": "celebrating",
+      "start": 14.084,
+      "end": 14.519
+    },
+    {
+      "word": "a",
+      "start": 14.578,
+      "end": 14.637
+    },
+    {
+      "word": "grand",
+      "start": 14.706,
+      "end": 15.052
+    },
+    {
+      "word": "triumph!",
+      "start": 15.126,
+      "end": 15.704
+    },
+    {
+      "word": "Now",
+      "start": 15.837,
+      "end": 16.237
+    },
+    {
+      "word": "look",
+      "start": 16.261,
+      "end": 16.356
+    },
+    {
+      "word": "at",
+      "start": 16.376,
+      "end": 16.415
+    },
+    {
+      "word": "欢",
+      "start": 16.533,
+      "end": 16.553
+    },
+    {
+      "word": "(huān).",
+      "start": 16.563,
+      "end": 16.77
+    },
+    {
+      "word": "On",
+      "start": 16.948,
+      "end": 17.304
+    },
+    {
+      "word": "the",
+      "start": 17.319,
+      "end": 17.363
+    },
+    {
+      "word": "left,",
+      "start": 17.422,
+      "end": 17.719
+    },
+    {
+      "word": "a",
+      "start": 17.748,
+      "end": 17.778
+    },
+    {
+      "word": "bird",
+      "start": 17.825,
+      "end": 18.015
+    },
+    {
+      "word": "sings,",
+      "start": 18.074,
+      "end": 18.43
+    },
+    {
+      "word": "while",
+      "start": 18.479,
+      "end": 18.726
+    },
+    {
+      "word": "on",
+      "start": 18.765,
+      "end": 18.844
+    },
+    {
+      "word": "the",
+      "start": 18.859,
+      "end": 18.904
+    },
+    {
+      "word": "right,",
+      "start": 18.953,
+      "end": 19.319
+    },
+    {
+      "word": "欠",
+      "start": 19.378,
+      "end": 19.407
+    },
+    {
+      "word": "(qiàn)",
+      "start": 19.422,
+      "end": 19.733
+    },
+    {
+      "word": "shows",
+      "start": 19.763,
+      "end": 19.911
+    },
+    {
+      "word": "a",
+      "start": 19.941,
+      "end": 19.97
+    },
+    {
+      "word": "person",
+      "start": 20.004,
+      "end": 20.207
+    },
+    {
+      "word": "with",
+      "start": 20.231,
+      "end": 20.326
+    },
+    {
+      "word": "their",
+      "start": 20.356,
+      "end": 20.504
+    },
+    {
+      "word": "mouth",
+      "start": 20.543,
+      "end": 20.741
+    },
+    {
+      "word": "wide",
+      "start": 20.812,
+      "end": 21.096
+    },
+    {
+      "word": "open,",
+      "start": 21.156,
+      "end": 21.689
+    },
+    {
+      "word": "cheering",
+      "start": 21.728,
+      "end": 22.044
+    },
+    {
+      "word": "and",
+      "start": 22.074,
+      "end": 22.163
+    },
+    {
+      "word": "gasping",
+      "start": 22.237,
+      "end": 22.637
+    },
+    {
+      "word": "with",
+      "start": 22.649,
+      "end": 22.696
+    },
+    {
+      "word": "excitement!",
+      "start": 22.734,
+      "end": 23.23
+    },
+    {
+      "word": "Put",
+      "start": 23.348,
+      "end": 23.704
+    },
+    {
+      "word": "them",
+      "start": 23.716,
+      "end": 23.763
+    },
+    {
+      "word": "together,",
+      "start": 23.802,
+      "end": 24.415
+    },
+    {
+      "word": "and",
+      "start": 24.444,
+      "end": 24.533
+    },
+    {
+      "word": "喜欢",
+      "start": 24.71,
+      "end": 24.712
+    },
+    {
+      "word": "(xǐhuan)",
+      "start": 24.731,
+      "end": 25.126
+    },
+    {
+      "word": "literally",
+      "start": 25.167,
+      "end": 25.541
+    },
+    {
+      "word": "means",
+      "start": 25.58,
+      "end": 25.778
+    },
+    {
+      "word": "celebrating",
+      "start": 25.817,
+      "end": 26.252
+    },
+    {
+      "word": "a",
+      "start": 26.311,
+      "end": 26.37
+    },
+    {
+      "word": "victory",
+      "start": 26.407,
+      "end": 26.667
+    },
+    {
+      "word": "with",
+      "start": 26.69,
+      "end": 26.785
+    },
+    {
+      "word": "joyful",
+      "start": 26.836,
+      "end": 27.141
+    },
+    {
+      "word": "cheers—which",
+      "start": 27.2,
+      "end": 27.97
+    },
+    {
+      "word": "is",
+      "start": 28.01,
+      "end": 28.089
+    },
+    {
+      "word": "the",
+      "start": 28.119,
+      "end": 28.207
+    },
+    {
+      "word": "ultimate",
+      "start": 28.247,
+      "end": 28.563
+    },
+    {
+      "word": "ancient",
+      "start": 28.6,
+      "end": 28.859
+    },
+    {
+      "word": "definition",
+      "start": 28.902,
+      "end": 29.333
+    },
+    {
+      "word": "of",
+      "start": 29.393,
+      "end": 29.511
+    },
+    {
+      "word": "falling",
+      "start": 29.541,
+      "end": 29.748
+    },
+    {
+      "word": "in",
+      "start": 29.787,
+      "end": 29.867
+    },
+    {
+      "word": "love",
+      "start": 29.89,
+      "end": 29.985
+    },
+    {
+      "word": "with",
+      "start": 30.009,
+      "end": 30.104
+    },
+    {
+      "word": "someone!",
+      "start": 30.148,
+      "end": 30.519
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 6.074,
+    "screen1EndFrame": 364,
+    "screen2EndSec": 15.837,
+    "screen2EndFrame": 950,
+    "screen3EndSec": 23.348,
+    "screen3EndFrame": 1401,
+    "lessonTotalSec": 30.563265,
+    "lessonTotalFrames": 1834
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 364,
+      "clothMention": {
+        "startFrame": 228,
+        "endFrame": 256
+      },
+      "wallMention": {
+        "startFrame": 273,
+        "endFrame": 299
+      },
+      "altarMention": {
+        "startFrame": 273,
+        "endFrame": 299
+      },
+      "muscleMention": {
+        "startFrame": 273,
+        "endFrame": 299
+      }
+    },
+    "screen2": {
+      "startFrame": 364,
+      "endFrame": 950,
+      "topBang": {
+        "startFrame": 364,
+        "endFrame": 642
+      },
+      "bottomJin": {
+        "startFrame": 642,
+        "endFrame": 786
+      },
+      "wholeBang": {
+        "startFrame": 786,
+        "endFrame": 950
+      }
+    },
+    "screen3": {
+      "startFrame": 950,
+      "endFrame": 1401,
+      "wholeZhuIntro": {
+        "startFrame": 950,
+        "endFrame": 1045
+      },
+      "leftQie": {
+        "startFrame": 1045,
+        "endFrame": 1126
+      },
+      "rightLi": {
+        "startFrame": 1126,
+        "endFrame": 1394
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1304,
+        "endFrame": 1401
+      }
+    },
+    "screen4": {
+      "startFrame": 1401,
+      "endFrame": 1834,
+      "bangHighlightEndFrame": 1601
+    }
+  },
+  "lessonDurationInFrames": 1834,
+  "outroDurationInFrames": 0
+}

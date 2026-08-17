@@ -1,0 +1,645 @@
+{
+  "character": "开始",
+  "pinyin": "kāi shǐ",
+  "tone": 1,
+  "meaning": "To Start / Begin",
+  "oracleBoneSymbol": "🚪🌱",
+  "radicals": [
+    {
+      "radical": "开 (kāi)",
+      "pinyin": "kāi",
+      "meaning": "Unlatching gate to clear path",
+      "role": "semantic"
+    },
+    {
+      "radical": "始 (shǐ)",
+      "pinyin": "shǐ",
+      "meaning": "女 + 台 — mother giving birth to new life",
+      "role": "semantic"
+    }
+  ],
+  "story": "开 originally depicts hands unlatching a gate to open a path, while 始 depicts a mother giving birth to new life.",
+  "exampleSentence": {
+    "cn": "我们现在开始吧！",
+    "pinyin": "Wǒmen xiànzài kāishǐ ba!",
+    "en": "Let's start now!",
+    "highlightWord": "开始"
+  },
+  "audioSrc": "kaishi_voice_single_pass_fast.mp3",
+  "bgmAudioSrc": "chinese_lofi_bgm.mp3",
+  "wordsAlignment": [
+    {
+      "word": "Why",
+      "start": 0.0,
+      "end": 0.133
+    },
+    {
+      "word": "does",
+      "start": 0.173,
+      "end": 0.333
+    },
+    {
+      "word": "开始",
+      "start": 0.444,
+      "end": 0.667
+    },
+    {
+      "word": "(kāishǐ)",
+      "start": 0.7,
+      "end": 1.067
+    },
+    {
+      "word": "contain",
+      "start": 1.133,
+      "end": 1.6
+    },
+    {
+      "word": "opening",
+      "start": 1.65,
+      "end": 2.0
+    },
+    {
+      "word": "a",
+      "start": 2.1,
+      "end": 2.2
+    },
+    {
+      "word": "gate",
+      "start": 2.24,
+      "end": 2.4
+    },
+    {
+      "word": "and",
+      "start": 2.45,
+      "end": 2.6
+    },
+    {
+      "word": "a",
+      "start": 2.633,
+      "end": 2.667
+    },
+    {
+      "word": "woman",
+      "start": 2.711,
+      "end": 2.933
+    },
+    {
+      "word": "giving",
+      "start": 2.972,
+      "end": 3.2
+    },
+    {
+      "word": "birth?",
+      "start": 3.256,
+      "end": 3.6
+    },
+    {
+      "word": "Let's",
+      "start": 3.75,
+      "end": 4.267
+    },
+    {
+      "word": "break",
+      "start": 4.3,
+      "end": 4.467
+    },
+    {
+      "word": "down",
+      "start": 4.52,
+      "end": 4.733
+    },
+    {
+      "word": "开",
+      "start": 4.967,
+      "end": 5.2
+    },
+    {
+      "word": "(kāi)",
+      "start": 5.267,
+      "end": 5.653
+    },
+    {
+      "word": "first.",
+      "start": 5.667,
+      "end": 5.867
+    },
+    {
+      "word": "Originally",
+      "start": 5.952,
+      "end": 6.8
+    },
+    {
+      "word": "depicting",
+      "start": 6.84,
+      "end": 7.2
+    },
+    {
+      "word": "hands",
+      "start": 7.267,
+      "end": 7.6
+    },
+    {
+      "word": "sliding",
+      "start": 7.65,
+      "end": 8.0
+    },
+    {
+      "word": "a",
+      "start": 8.033,
+      "end": 8.067
+    },
+    {
+      "word": "wooden",
+      "start": 8.105,
+      "end": 8.333
+    },
+    {
+      "word": "bolt",
+      "start": 8.387,
+      "end": 8.6
+    },
+    {
+      "word": "away",
+      "start": 8.653,
+      "end": 8.867
+    },
+    {
+      "word": "to",
+      "start": 8.911,
+      "end": 9.0
+    },
+    {
+      "word": "open",
+      "start": 9.04,
+      "end": 9.2
+    },
+    {
+      "word": "a",
+      "start": 9.233,
+      "end": 9.267
+    },
+    {
+      "word": "gate,",
+      "start": 9.333,
+      "end": 9.933
+    },
+    {
+      "word": "开",
+      "start": 9.95,
+      "end": 9.967
+    },
+    {
+      "word": "(kāi)",
+      "start": 9.983,
+      "end": 10.4
+    },
+    {
+      "word": "represents",
+      "start": 10.443,
+      "end": 10.867
+    },
+    {
+      "word": "lifting",
+      "start": 10.908,
+      "end": 11.2
+    },
+    {
+      "word": "the",
+      "start": 11.217,
+      "end": 11.267
+    },
+    {
+      "word": "barrier",
+      "start": 11.317,
+      "end": 11.667
+    },
+    {
+      "word": "to",
+      "start": 11.711,
+      "end": 11.8
+    },
+    {
+      "word": "clear",
+      "start": 11.833,
+      "end": 12.0
+    },
+    {
+      "word": "a",
+      "start": 12.033,
+      "end": 12.067
+    },
+    {
+      "word": "brand",
+      "start": 12.123,
+      "end": 12.4
+    },
+    {
+      "word": "new",
+      "start": 12.433,
+      "end": 12.533
+    },
+    {
+      "word": "path!",
+      "start": 12.627,
+      "end": 13.067
+    },
+    {
+      "word": "Now",
+      "start": 13.317,
+      "end": 14.067
+    },
+    {
+      "word": "let's",
+      "start": 14.117,
+      "end": 14.333
+    },
+    {
+      "word": "look",
+      "start": 14.36,
+      "end": 14.467
+    },
+    {
+      "word": "at",
+      "start": 14.511,
+      "end": 14.6
+    },
+    {
+      "word": "始",
+      "start": 14.933,
+      "end": 14.956
+    },
+    {
+      "word": "(shǐ).",
+      "start": 14.967,
+      "end": 15.333
+    },
+    {
+      "word": "On",
+      "start": 15.533,
+      "end": 15.933
+    },
+    {
+      "word": "the",
+      "start": 15.95,
+      "end": 16.0
+    },
+    {
+      "word": "left,",
+      "start": 16.067,
+      "end": 16.6
+    },
+    {
+      "word": "女",
+      "start": 16.8,
+      "end": 17.0
+    },
+    {
+      "word": "(nǚ)",
+      "start": 17.067,
+      "end": 17.4
+    },
+    {
+      "word": "represents",
+      "start": 17.413,
+      "end": 17.533
+    },
+    {
+      "word": "a",
+      "start": 17.567,
+      "end": 17.6
+    },
+    {
+      "word": "woman",
+      "start": 17.656,
+      "end": 17.933
+    },
+    {
+      "word": "or",
+      "start": 18.0,
+      "end": 18.133
+    },
+    {
+      "word": "mother.",
+      "start": 18.181,
+      "end": 18.533
+    },
+    {
+      "word": "On",
+      "start": 18.689,
+      "end": 19.0
+    },
+    {
+      "word": "the",
+      "start": 19.033,
+      "end": 19.133
+    },
+    {
+      "word": "right,",
+      "start": 19.178,
+      "end": 19.733
+    },
+    {
+      "word": "台",
+      "start": 19.9,
+      "end": 20.067
+    },
+    {
+      "word": "(tái)",
+      "start": 20.167,
+      "end": 20.517
+    },
+    {
+      "word": "provides",
+      "start": 20.526,
+      "end": 20.6
+    },
+    {
+      "word": "the",
+      "start": 20.633,
+      "end": 20.733
+    },
+    {
+      "word": "sound.",
+      "start": 20.8,
+      "end": 21.2
+    },
+    {
+      "word": "Together,",
+      "start": 21.297,
+      "end": 22.367
+    },
+    {
+      "word": "始",
+      "start": 22.667,
+      "end": 22.767
+    },
+    {
+      "word": "(shǐ)",
+      "start": 22.817,
+      "end": 23.267
+    },
+    {
+      "word": "originally",
+      "start": 23.279,
+      "end": 23.4
+    },
+    {
+      "word": "meant",
+      "start": 23.444,
+      "end": 23.667
+    },
+    {
+      "word": "the",
+      "start": 23.683,
+      "end": 23.733
+    },
+    {
+      "word": "very",
+      "start": 23.8,
+      "end": 24.067
+    },
+    {
+      "word": "beginning",
+      "start": 24.107,
+      "end": 24.467
+    },
+    {
+      "word": "of",
+      "start": 24.489,
+      "end": 24.533
+    },
+    {
+      "word": "human",
+      "start": 24.589,
+      "end": 24.867
+    },
+    {
+      "word": "life",
+      "start": 24.907,
+      "end": 25.067
+    },
+    {
+      "word": "through",
+      "start": 25.092,
+      "end": 25.267
+    },
+    {
+      "word": "birth!",
+      "start": 25.333,
+      "end": 25.733
+    },
+    {
+      "word": "Put",
+      "start": 25.883,
+      "end": 26.333
+    },
+    {
+      "word": "them",
+      "start": 26.36,
+      "end": 26.467
+    },
+    {
+      "word": "together,",
+      "start": 26.511,
+      "end": 27.133
+    },
+    {
+      "word": "and",
+      "start": 27.2,
+      "end": 27.4
+    },
+    {
+      "word": "开始",
+      "start": 27.533,
+      "end": 27.8
+    },
+    {
+      "word": "(kāishǐ)",
+      "start": 27.867,
+      "end": 28.333
+    },
+    {
+      "word": "literally",
+      "start": 28.373,
+      "end": 28.733
+    },
+    {
+      "word": "means",
+      "start": 28.789,
+      "end": 29.067
+    },
+    {
+      "word": "unlatching",
+      "start": 29.15,
+      "end": 29.667
+    },
+    {
+      "word": "the",
+      "start": 29.7,
+      "end": 29.8
+    },
+    {
+      "word": "gate",
+      "start": 29.853,
+      "end": 30.067
+    },
+    {
+      "word": "to",
+      "start": 30.089,
+      "end": 30.133
+    },
+    {
+      "word": "bring",
+      "start": 30.167,
+      "end": 30.333
+    },
+    {
+      "word": "new",
+      "start": 30.4,
+      "end": 30.6
+    },
+    {
+      "word": "life",
+      "start": 30.653,
+      "end": 30.867
+    },
+    {
+      "word": "into",
+      "start": 30.907,
+      "end": 31.067
+    },
+    {
+      "word": "the",
+      "start": 31.1,
+      "end": 31.2
+    },
+    {
+      "word": "world—which",
+      "start": 31.256,
+      "end": 32.067
+    },
+    {
+      "word": "is",
+      "start": 32.089,
+      "end": 32.133
+    },
+    {
+      "word": "the",
+      "start": 32.183,
+      "end": 32.333
+    },
+    {
+      "word": "ultimate",
+      "start": 32.37,
+      "end": 32.667
+    },
+    {
+      "word": "way",
+      "start": 32.717,
+      "end": 32.867
+    },
+    {
+      "word": "to",
+      "start": 32.889,
+      "end": 32.933
+    },
+    {
+      "word": "start",
+      "start": 32.977,
+      "end": 33.2
+    },
+    {
+      "word": "something",
+      "start": 33.227,
+      "end": 33.467
+    },
+    {
+      "word": "new!",
+      "start": 33.533,
+      "end": 33.8
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 3.75,
+    "screen1EndFrame": 225,
+    "screen2EndSec": 13.317,
+    "screen2EndFrame": 799,
+    "screen3EndSec": 25.883,
+    "screen3EndFrame": 1553,
+    "lessonTotalSec": 33.854694,
+    "lessonTotalFrames": 2031
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 225,
+      "clothMention": {
+        "startSec": 2.24,
+        "endSec": 2.4,
+        "startFrame": 134,
+        "endFrame": 144
+      },
+      "wallMention": {
+        "startSec": 2.711,
+        "endSec": 2.933,
+        "startFrame": 163,
+        "endFrame": 176
+      },
+      "altarMention": {
+        "startSec": 3.256,
+        "endSec": 3.6,
+        "startFrame": 195,
+        "endFrame": 216
+      },
+      "muscleMention": {
+        "startSec": 3.256,
+        "endSec": 3.6,
+        "startFrame": 195,
+        "endFrame": 216
+      }
+    },
+    "screen2": {
+      "startFrame": 225,
+      "endFrame": 799,
+      "topBang": {
+        "startFrame": 225,
+        "endFrame": 596
+      },
+      "bottomJin": {
+        "startFrame": 596,
+        "endFrame": 799
+      },
+      "wholeBang": {
+        "startFrame": 596,
+        "endFrame": 799
+      }
+    },
+    "screen3": {
+      "startFrame": 799,
+      "endFrame": 1553,
+      "wholeZhuIntro": {
+        "startFrame": 799,
+        "endFrame": 1008
+      },
+      "leftQie": {
+        "startFrame": 1008,
+        "endFrame": 1112
+      },
+      "rightLi": {
+        "startFrame": 1194,
+        "endFrame": 1272
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1272,
+        "endFrame": 1553
+      }
+    },
+    "screen4": {
+      "startFrame": 1553,
+      "endFrame": 2031,
+      "bangHighlightEndFrame": 1749
+    }
+  },
+  "lessonDurationInFrames": 2031,
+  "outroDurationInFrames": 0
+}

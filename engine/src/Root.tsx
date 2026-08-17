@@ -9,6 +9,11 @@ import { FPS, WIDTH, HEIGHT, TOTAL_FRAMES } from './shared/constants';
 import defaultXiuConfig from '../../content/03_etymology_xiu/config.json';
 import bangzhuConfig from '../../content/04_etymology_bangzhu/config.json';
 import pengyouConfig from '../../content/05_etymology_pengyou/config.json';
+import aiqingConfig from '../../content/06_etymology_aiqing/config.json';
+import wangjiConfig from '../../content/07_etymology_wangji/config.json';
+import jieshaoConfig from '../../content/08_etymology_jieshao/config.json';
+import kaishiConfig from '../../content/09_etymology_kaishi/config.json';
+import xihuanConfig from '../../content/10_etymology_xihuan/config.json';
 
 // ────────────────────────────────────────────────────────────
 // FONT LOADER GUARD
@@ -63,9 +68,84 @@ export const Root: React.FC = () => {
 
       const pengyouTotalFrames = pengyouConfig.lessonDurationInFrames + pengyouConfig.outroDurationInFrames;
       const bangzhuTotalFrames = bangzhuConfig.lessonDurationInFrames + bangzhuConfig.outroDurationInFrames;
+      const aiqingTotalFrames = aiqingConfig.lessonDurationInFrames + aiqingConfig.outroDurationInFrames;
+      const wangjiTotalFrames = wangjiConfig.lessonDurationInFrames + wangjiConfig.outroDurationInFrames;
+      const jieshaoTotalFrames = jieshaoConfig.lessonDurationInFrames + (jieshaoConfig.outroDurationInFrames || 0);
+      const kaishiTotalFrames = kaishiConfig.lessonDurationInFrames + (kaishiConfig.outroDurationInFrames || 0);
+      const xihuanTotalFrames = xihuanConfig.lessonDurationInFrames + (xihuanConfig.outroDurationInFrames || 0);
 
   return (
     <>
+      {/* Etymology Video Template Composition (Video #10: 喜欢) */}
+      <Composition
+        id="EtymologyXihuan"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(xihuanConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={xihuanTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Etymology Video Template Composition (Video #9: 开始) */}
+      <Composition
+        id="EtymologyKaishi"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(kaishiConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={kaishiTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Etymology Video Template Composition (Video #8: 介绍) */}
+      <Composition
+        id="EtymologyJieshao"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(jieshaoConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={jieshaoTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Etymology Video Template Composition (Video #7: 忘记) */}
+      <Composition
+        id="EtymologyWangji"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(wangjiConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={wangjiTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Etymology Video Template Composition (Video #6: 爱情) */}
+      <Composition
+        id="EtymologyAiqing"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(aiqingConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={aiqingTotalFrames} // ~43s @ 60fps
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
       {/* Etymology Video Template Composition (Video #5: 朋友) */}
       <Composition
         id="EtymologyPengyou"

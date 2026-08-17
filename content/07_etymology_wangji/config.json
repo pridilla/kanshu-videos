@@ -1,0 +1,648 @@
+{
+  "character": "忘记",
+  "pinyin": "wàng jì",
+  "tone": 4,
+  "meaning": "Love / Affection",
+  "oracleBoneSymbol": "❤️🌿",
+  "radicals": [
+    {
+      "radical": "爱 (ài)",
+      "pinyin": "ài",
+      "meaning": "爫 + 友 — hand reaching out to a friend",
+      "role": "semantic"
+    },
+    {
+      "radical": "情 (qíng)",
+      "pinyin": "qíng",
+      "meaning": "忄 + 青 — youthful, blossoming emotions of the heart",
+      "role": "semantic"
+    }
+  ],
+  "story": "爱 depicts a hand reaching out to embrace a friend, while 情 depicts the heart blossoming with youthful vitality.",
+  "exampleSentence": {
+    "cn": "他们的爱情很浪漫。",
+    "pinyin": "Tāmen de àiqíng hěn làngmàn.",
+    "en": "Their love is very romantic.",
+    "highlightWord": "爱情"
+  },
+  "audioSrc": "wangji_voice_single_pass_fast.mp3",
+  "outroAudioSrc": "kanshu_outro_elevenlabs.mp3",
+  "lessonDurationInFrames": 2200,
+  "outroDurationInFrames": 0,
+  "scriptText": "Why does 爱情 (àiqíng) contain a friend and a green heart? Let's break down 爱 (ài) first. The top part 爫 (zhǎo) represents a hand reaching down, and the bottom part 友 (yǒu) represents a friend. Together, 爱 (ài) means reaching out to embrace a friend with deep affection! Now let's look at 情 (qíng). On the left, 忄 (xīn) represents the heart and our emotions. On the right, 青 (qīng) represents the color green, symbolizing youth and vitality. Together, 情 (qíng) means the blossoming, youthful emotions of the heart! Put them together, and 爱情 (àiqíng) literally means the deep, blossoming affection between two people in love!",
+  "wordsAlignment": [
+    {
+      "word": "Why",
+      "start": 0.0,
+      "end": 0.139
+    },
+    {
+      "word": "does",
+      "start": 0.195,
+      "end": 0.417
+    },
+    {
+      "word": "忘记",
+      "start": 0.835,
+      "end": 1.113
+    },
+    {
+      "word": "(wàngjì)",
+      "start": 1.252,
+      "end": 1.534
+    },
+    {
+      "word": "contain",
+      "start": 1.551,
+      "end": 1.673
+    },
+    {
+      "word": "disappearing",
+      "start": 1.716,
+      "end": 2.23
+    },
+    {
+      "word": "and",
+      "start": 2.299,
+      "end": 2.508
+    },
+    {
+      "word": "words?",
+      "start": 2.577,
+      "end": 3.064
+    },
+    {
+      "word": "Let's",
+      "start": 3.203,
+      "end": 3.69
+    },
+    {
+      "word": "break",
+      "start": 3.714,
+      "end": 3.83
+    },
+    {
+      "word": "down",
+      "start": 3.885,
+      "end": 4.108
+    },
+    {
+      "word": "忘",
+      "start": 4.317,
+      "end": 4.49
+    },
+    {
+      "word": "(wàng)",
+      "start": 4.577,
+      "end": 4.873
+    },
+    {
+      "word": "first.",
+      "start": 4.884,
+      "end": 5.012
+    },
+    {
+      "word": "The",
+      "start": 5.151,
+      "end": 5.569
+    },
+    {
+      "word": "top",
+      "start": 5.621,
+      "end": 5.777
+    },
+    {
+      "word": "part",
+      "start": 5.847,
+      "end": 6.125
+    },
+    {
+      "word": "亡",
+      "start": 6.264,
+      "end": 6.543
+    },
+    {
+      "word": "(wáng)",
+      "start": 6.682,
+      "end": 7.134
+    },
+    {
+      "word": "represents",
+      "start": 7.143,
+      "end": 7.238
+    },
+    {
+      "word": "something",
+      "start": 7.273,
+      "end": 7.586
+    },
+    {
+      "word": "disappearing",
+      "start": 7.629,
+      "end": 8.143
+    },
+    {
+      "word": "or",
+      "start": 8.189,
+      "end": 8.282
+    },
+    {
+      "word": "being",
+      "start": 8.328,
+      "end": 8.56
+    },
+    {
+      "word": "lost,",
+      "start": 8.643,
+      "end": 9.325
+    },
+    {
+      "word": "while",
+      "start": 9.349,
+      "end": 9.464
+    },
+    {
+      "word": "the",
+      "start": 9.482,
+      "end": 9.534
+    },
+    {
+      "word": "bottom",
+      "start": 9.583,
+      "end": 9.882
+    },
+    {
+      "word": "part",
+      "start": 9.937,
+      "end": 10.16
+    },
+    {
+      "word": "心",
+      "start": 10.299,
+      "end": 10.437
+    },
+    {
+      "word": "(xīn)",
+      "start": 10.438,
+      "end": 10.717
+    },
+    {
+      "word": "represents",
+      "start": 10.773,
+      "end": 11.343
+    },
+    {
+      "word": "the",
+      "start": 11.36,
+      "end": 11.412
+    },
+    {
+      "word": "heart,",
+      "start": 11.47,
+      "end": 11.83
+    },
+    {
+      "word": "which",
+      "start": 11.888,
+      "end": 12.177
+    },
+    {
+      "word": "is",
+      "start": 12.201,
+      "end": 12.247
+    },
+    {
+      "word": "the",
+      "start": 12.282,
+      "end": 12.386
+    },
+    {
+      "word": "seat",
+      "start": 12.442,
+      "end": 12.664
+    },
+    {
+      "word": "of",
+      "start": 12.688,
+      "end": 12.734
+    },
+    {
+      "word": "memory.",
+      "start": 12.794,
+      "end": 13.221
+    },
+    {
+      "word": "Together,",
+      "start": 13.329,
+      "end": 14.334
+    },
+    {
+      "word": "忘",
+      "start": 14.681,
+      "end": 14.682
+    },
+    {
+      "word": "(wàng)",
+      "start": 14.683,
+      "end": 14.962
+    },
+    {
+      "word": "means",
+      "start": 15.02,
+      "end": 15.31
+    },
+    {
+      "word": "a",
+      "start": 15.344,
+      "end": 15.379
+    },
+    {
+      "word": "thought",
+      "start": 15.405,
+      "end": 15.588
+    },
+    {
+      "word": "has",
+      "start": 15.64,
+      "end": 15.797
+    },
+    {
+      "word": "disappeared",
+      "start": 15.837,
+      "end": 16.283
+    },
+    {
+      "word": "from",
+      "start": 16.311,
+      "end": 16.423
+    },
+    {
+      "word": "your",
+      "start": 16.45,
+      "end": 16.562
+    },
+    {
+      "word": "heart!",
+      "start": 16.62,
+      "end": 17.049
+    },
+    {
+      "word": "Now",
+      "start": 17.24,
+      "end": 17.814
+    },
+    {
+      "word": "let's",
+      "start": 17.831,
+      "end": 18.023
+    },
+    {
+      "word": "look",
+      "start": 18.05,
+      "end": 18.162
+    },
+    {
+      "word": "at",
+      "start": 18.208,
+      "end": 18.301
+    },
+    {
+      "word": "记",
+      "start": 18.718,
+      "end": 18.753
+    },
+    {
+      "word": "(jì).",
+      "start": 18.77,
+      "end": 19.344
+    },
+    {
+      "word": "On",
+      "start": 19.39,
+      "end": 19.483
+    },
+    {
+      "word": "the",
+      "start": 19.501,
+      "end": 19.553
+    },
+    {
+      "word": "left,",
+      "start": 19.623,
+      "end": 20.179
+    },
+    {
+      "word": "讠",
+      "start": 20.249,
+      "end": 20.283
+    },
+    {
+      "word": "(yán)",
+      "start": 20.301,
+      "end": 20.597
+    },
+    {
+      "word": "represents",
+      "start": 20.635,
+      "end": 21.014
+    },
+    {
+      "word": "speech",
+      "start": 21.063,
+      "end": 21.362
+    },
+    {
+      "word": "and",
+      "start": 21.431,
+      "end": 21.64
+    },
+    {
+      "word": "words.",
+      "start": 21.71,
+      "end": 22.197
+    },
+    {
+      "word": "On",
+      "start": 22.336,
+      "end": 22.614
+    },
+    {
+      "word": "the",
+      "start": 22.631,
+      "end": 22.683
+    },
+    {
+      "word": "right,",
+      "start": 22.742,
+      "end": 23.275
+    },
+    {
+      "word": "己",
+      "start": 23.518,
+      "end": 23.623
+    },
+    {
+      "word": "(jǐ)",
+      "start": 23.675,
+      "end": 23.936
+    },
+    {
+      "word": "means",
+      "start": 23.947,
+      "end": 24.005
+    },
+    {
+      "word": "oneself.",
+      "start": 24.083,
+      "end": 24.701
+    },
+    {
+      "word": "Together,",
+      "start": 24.809,
+      "end": 25.744
+    },
+    {
+      "word": "记",
+      "start": 26.37,
+      "end": 26.44
+    },
+    {
+      "word": "(jì)",
+      "start": 26.475,
+      "end": 26.666
+    },
+    {
+      "word": "means",
+      "start": 26.675,
+      "end": 26.718
+    },
+    {
+      "word": "using",
+      "start": 26.777,
+      "end": 27.066
+    },
+    {
+      "word": "words",
+      "start": 27.112,
+      "end": 27.344
+    },
+    {
+      "word": "to",
+      "start": 27.39,
+      "end": 27.483
+    },
+    {
+      "word": "record",
+      "start": 27.533,
+      "end": 27.831
+    },
+    {
+      "word": "something",
+      "start": 27.866,
+      "end": 28.179
+    },
+    {
+      "word": "so",
+      "start": 28.249,
+      "end": 28.388
+    },
+    {
+      "word": "you",
+      "start": 28.423,
+      "end": 28.527
+    },
+    {
+      "word": "can",
+      "start": 28.562,
+      "end": 28.666
+    },
+    {
+      "word": "remember",
+      "start": 28.704,
+      "end": 29.014
+    },
+    {
+      "word": "it",
+      "start": 29.06,
+      "end": 29.153
+    },
+    {
+      "word": "yourself!",
+      "start": 29.199,
+      "end": 29.64
+    },
+    {
+      "word": "Put",
+      "start": 29.814,
+      "end": 30.336
+    },
+    {
+      "word": "them",
+      "start": 30.363,
+      "end": 30.475
+    },
+    {
+      "word": "together,",
+      "start": 30.521,
+      "end": 31.101
+    },
+    {
+      "word": "and",
+      "start": 31.153,
+      "end": 31.31
+    },
+    {
+      "word": "忘记",
+      "start": 31.587,
+      "end": 31.589
+    },
+    {
+      "word": "(wàngjì)",
+      "start": 31.623,
+      "end": 32.144
+    },
+    {
+      "word": "literally",
+      "start": 32.193,
+      "end": 32.631
+    },
+    {
+      "word": "means",
+      "start": 32.701,
+      "end": 33.049
+    },
+    {
+      "word": "letting",
+      "start": 33.092,
+      "end": 33.397
+    },
+    {
+      "word": "what",
+      "start": 33.424,
+      "end": 33.536
+    },
+    {
+      "word": "you",
+      "start": 33.57,
+      "end": 33.675
+    },
+    {
+      "word": "recorded",
+      "start": 33.729,
+      "end": 34.162
+    },
+    {
+      "word": "disappear",
+      "start": 34.217,
+      "end": 34.718
+    },
+    {
+      "word": "from",
+      "start": 34.746,
+      "end": 34.857
+    },
+    {
+      "word": "your",
+      "start": 34.885,
+      "end": 34.997
+    },
+    {
+      "word": "heart,",
+      "start": 35.043,
+      "end": 35.344
+    },
+    {
+      "word": "which",
+      "start": 35.414,
+      "end": 35.762
+    },
+    {
+      "word": "means",
+      "start": 35.808,
+      "end": 36.04
+    },
+    {
+      "word": "to",
+      "start": 36.11,
+      "end": 36.249
+    },
+    {
+      "word": "forget!",
+      "start": 36.298,
+      "end": 36.666
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 3.203,
+    "screen1EndFrame": 192,
+    "screen2EndSec": 17.24,
+    "screen2EndFrame": 1034,
+    "screen3EndSec": 29.814,
+    "screen3EndFrame": 1789,
+    "lessonTotalSec": 36.666,
+    "lessonTotalFrames": 2200
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 192,
+      "clothMention": {
+        "startFrame": 103,
+        "endFrame": 134
+      },
+      "wallMention": {
+        "startFrame": 155,
+        "endFrame": 184
+      },
+      "altarMention": {
+        "startFrame": 155,
+        "endFrame": 184
+      },
+      "muscleMention": {
+        "startFrame": 155,
+        "endFrame": 184
+      }
+    },
+    "screen2": {
+      "startFrame": 192,
+      "endFrame": 1034,
+      "topBang": {
+        "startFrame": 192,
+        "endFrame": 618
+      },
+      "bottomJin": {
+        "startFrame": 618,
+        "endFrame": 881
+      },
+      "wholeBang": {
+        "startFrame": 881,
+        "endFrame": 1034
+      }
+    },
+    "screen3": {
+      "startFrame": 1034,
+      "endFrame": 1789,
+      "wholeZhuIntro": {
+        "startFrame": 1034,
+        "endFrame": 1215
+      },
+      "leftQie": {
+        "startFrame": 1215,
+        "endFrame": 1411
+      },
+      "rightLi": {
+        "startFrame": 1411,
+        "endFrame": 1582
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1582,
+        "endFrame": 1789
+      }
+    },
+    "screen4": {
+      "startFrame": 1789,
+      "endFrame": 2200,
+      "bangHighlightEndFrame": 1895
+    }
+  }
+}

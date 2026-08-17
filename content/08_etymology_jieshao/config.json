@@ -1,0 +1,680 @@
+{
+  "character": "介绍",
+  "pinyin": "jiè shào",
+  "tone": 4,
+  "meaning": "Introduce",
+  "oracleBoneSymbol": "🤝🧍",
+  "radicals": [
+    {
+      "radical": "介 (jiè)",
+      "pinyin": "jiè",
+      "meaning": "人 + 八 — a person between boundaries",
+      "role": "semantic"
+    },
+    {
+      "radical": "绍 (shào)",
+      "pinyin": "shào",
+      "meaning": "纟 + 召 — continuous silk thread",
+      "role": "semantic"
+    }
+  ],
+  "story": "介 originally meant a person standing between two things, while 绍 means to link things together like a continuous thread.",
+  "exampleSentence": {
+    "cn": "我给你介绍一下。",
+    "pinyin": "Wǒ gěi nǐ jièshào yíxià.",
+    "en": "Let me introduce you.",
+    "highlightWord": "介绍"
+  },
+  "audioSrc": "jieshao_voice_single_pass_fast.mp3",
+  "outroAudioSrc": "kanshu_outro_elevenlabs.mp3",
+  "lessonDurationInFrames": 2222,
+  "outroDurationInFrames": 0,
+  "scriptText": "Why does 介绍 (jièshào) contain a person between boundaries and a silk thread? Let's break down 介 (jiè) first. The outer strokes 八 (bā) represent boundaries, while the central part 人 (rén) represents a person. Together, 介 (jiè) originally meant a person standing between two things, acting as a go-between! Now let's look at 绍 (shào). On the left, 纟 (sī) represents a continuous silk thread. On the right, 召 (zhào) provides the sound. Together, 绍 (shào) means to link or connect things together like an unbroken thread! Put them together, and 介绍 (jièshào) literally means acting as a go-between to link two parties together—which is exactly what you do when you introduce someone!",
+  "wordsAlignment": [
+    {
+      "word": "Why",
+      "start": 0.0,
+      "end": 0.139
+    },
+    {
+      "word": "does",
+      "start": 0.181,
+      "end": 0.348
+    },
+    {
+      "word": "介绍",
+      "start": 0.417,
+      "end": 0.463
+    },
+    {
+      "word": "(jièshào)",
+      "start": 0.487,
+      "end": 0.904
+    },
+    {
+      "word": "contain",
+      "start": 0.939,
+      "end": 1.183
+    },
+    {
+      "word": "a",
+      "start": 1.217,
+      "end": 1.252
+    },
+    {
+      "word": "person",
+      "start": 1.312,
+      "end": 1.67
+    },
+    {
+      "word": "between",
+      "start": 1.713,
+      "end": 2.017
+    },
+    {
+      "word": "boundaries",
+      "start": 2.068,
+      "end": 2.574
+    },
+    {
+      "word": "and",
+      "start": 2.591,
+      "end": 2.643
+    },
+    {
+      "word": "a",
+      "start": 2.678,
+      "end": 2.713
+    },
+    {
+      "word": "silk",
+      "start": 2.769,
+      "end": 2.991
+    },
+    {
+      "word": "thread?",
+      "start": 3.031,
+      "end": 3.965
+    },
+    {
+      "word": "Let's",
+      "start": 4.0,
+      "end": 4.174
+    },
+    {
+      "word": "break",
+      "start": 4.209,
+      "end": 4.383
+    },
+    {
+      "word": "down",
+      "start": 4.424,
+      "end": 4.591
+    },
+    {
+      "word": "介",
+      "start": 4.73,
+      "end": 4.765
+    },
+    {
+      "word": "(jiè)",
+      "start": 4.783,
+      "end": 5.078
+    },
+    {
+      "word": "first.",
+      "start": 5.137,
+      "end": 5.843
+    },
+    {
+      "word": "The",
+      "start": 5.861,
+      "end": 5.913
+    },
+    {
+      "word": "outer",
+      "start": 5.959,
+      "end": 6.191
+    },
+    {
+      "word": "strokes",
+      "start": 6.235,
+      "end": 6.539
+    },
+    {
+      "word": "八",
+      "start": 6.574,
+      "end": 6.609
+    },
+    {
+      "word": "(bā)",
+      "start": 6.643,
+      "end": 6.887
+    },
+    {
+      "word": "represent",
+      "start": 6.943,
+      "end": 7.443
+    },
+    {
+      "word": "boundaries,",
+      "start": 7.494,
+      "end": 8.278
+    },
+    {
+      "word": "while",
+      "start": 8.302,
+      "end": 8.417
+    },
+    {
+      "word": "the",
+      "start": 8.435,
+      "end": 8.487
+    },
+    {
+      "word": "central",
+      "start": 8.53,
+      "end": 8.835
+    },
+    {
+      "word": "part",
+      "start": 8.89,
+      "end": 9.113
+    },
+    {
+      "word": "人",
+      "start": 9.357,
+      "end": 9.6
+    },
+    {
+      "word": "(rén)",
+      "start": 9.67,
+      "end": 9.971
+    },
+    {
+      "word": "represents",
+      "start": 9.982,
+      "end": 10.087
+    },
+    {
+      "word": "a",
+      "start": 10.122,
+      "end": 10.157
+    },
+    {
+      "word": "person.",
+      "start": 10.226,
+      "end": 11.13
+    },
+    {
+      "word": "Together,",
+      "start": 11.184,
+      "end": 11.896
+    },
+    {
+      "word": "介",
+      "start": 11.964,
+      "end": 11.965
+    },
+    {
+      "word": "(jiè)",
+      "start": 12.0,
+      "end": 12.313
+    },
+    {
+      "word": "originally",
+      "start": 12.351,
+      "end": 12.73
+    },
+    {
+      "word": "meant",
+      "start": 12.777,
+      "end": 13.009
+    },
+    {
+      "word": "a",
+      "start": 13.043,
+      "end": 13.078
+    },
+    {
+      "word": "person",
+      "start": 13.128,
+      "end": 13.426
+    },
+    {
+      "word": "standing",
+      "start": 13.464,
+      "end": 13.774
+    },
+    {
+      "word": "between",
+      "start": 13.817,
+      "end": 14.122
+    },
+    {
+      "word": "two",
+      "start": 14.174,
+      "end": 14.33
+    },
+    {
+      "word": "things,",
+      "start": 14.39,
+      "end": 14.957
+    },
+    {
+      "word": "acting",
+      "start": 15.006,
+      "end": 15.304
+    },
+    {
+      "word": "as",
+      "start": 15.328,
+      "end": 15.374
+    },
+    {
+      "word": "a",
+      "start": 15.409,
+      "end": 15.443
+    },
+    {
+      "word": "go-between!",
+      "start": 15.49,
+      "end": 16.139
+    },
+    {
+      "word": "Now",
+      "start": 16.383,
+      "end": 17.113
+    },
+    {
+      "word": "let's",
+      "start": 17.148,
+      "end": 17.322
+    },
+    {
+      "word": "look",
+      "start": 17.35,
+      "end": 17.461
+    },
+    {
+      "word": "at",
+      "start": 17.507,
+      "end": 17.6
+    },
+    {
+      "word": "绍",
+      "start": 17.739,
+      "end": 17.763
+    },
+    {
+      "word": "(shào).",
+      "start": 17.774,
+      "end": 18.017
+    },
+    {
+      "word": "On",
+      "start": 18.203,
+      "end": 18.574
+    },
+    {
+      "word": "the",
+      "start": 18.591,
+      "end": 18.643
+    },
+    {
+      "word": "left,",
+      "start": 18.713,
+      "end": 19.27
+    },
+    {
+      "word": "纟",
+      "start": 19.339,
+      "end": 19.513
+    },
+    {
+      "word": "(sī)",
+      "start": 19.6,
+      "end": 19.689
+    },
+    {
+      "word": "represents",
+      "start": 19.726,
+      "end": 20.105
+    },
+    {
+      "word": "a",
+      "start": 20.14,
+      "end": 20.175
+    },
+    {
+      "word": "continuous",
+      "start": 20.219,
+      "end": 20.662
+    },
+    {
+      "word": "silk",
+      "start": 20.717,
+      "end": 20.94
+    },
+    {
+      "word": "thread.",
+      "start": 20.99,
+      "end": 21.357
+    },
+    {
+      "word": "On",
+      "start": 21.543,
+      "end": 21.914
+    },
+    {
+      "word": "the",
+      "start": 21.931,
+      "end": 21.983
+    },
+    {
+      "word": "right,",
+      "start": 22.03,
+      "end": 22.61
+    },
+    {
+      "word": "召",
+      "start": 22.679,
+      "end": 22.888
+    },
+    {
+      "word": "(zhào)",
+      "start": 22.992,
+      "end": 23.357
+    },
+    {
+      "word": "provides",
+      "start": 23.367,
+      "end": 23.444
+    },
+    {
+      "word": "the",
+      "start": 23.462,
+      "end": 23.514
+    },
+    {
+      "word": "sound.",
+      "start": 23.583,
+      "end": 24.001
+    },
+    {
+      "word": "Together,",
+      "start": 24.094,
+      "end": 25.114
+    },
+    {
+      "word": "绍",
+      "start": 25.253,
+      "end": 25.392
+    },
+    {
+      "word": "(shào)",
+      "start": 25.462,
+      "end": 25.688
+    },
+    {
+      "word": "means",
+      "start": 25.697,
+      "end": 25.74
+    },
+    {
+      "word": "to",
+      "start": 25.786,
+      "end": 25.879
+    },
+    {
+      "word": "link",
+      "start": 25.935,
+      "end": 26.157
+    },
+    {
+      "word": "or",
+      "start": 26.203,
+      "end": 26.297
+    },
+    {
+      "word": "connect",
+      "start": 26.34,
+      "end": 26.644
+    },
+    {
+      "word": "things",
+      "start": 26.674,
+      "end": 26.853
+    },
+    {
+      "word": "together",
+      "start": 26.899,
+      "end": 27.27
+    },
+    {
+      "word": "like",
+      "start": 27.312,
+      "end": 27.479
+    },
+    {
+      "word": "an",
+      "start": 27.525,
+      "end": 27.618
+    },
+    {
+      "word": "unbroken",
+      "start": 27.688,
+      "end": 28.105
+    },
+    {
+      "word": "thread!",
+      "start": 28.155,
+      "end": 28.523
+    },
+    {
+      "word": "Put",
+      "start": 28.783,
+      "end": 29.566
+    },
+    {
+      "word": "them",
+      "start": 29.594,
+      "end": 29.705
+    },
+    {
+      "word": "together,",
+      "start": 29.751,
+      "end": 30.331
+    },
+    {
+      "word": "and",
+      "start": 30.366,
+      "end": 30.47
+    },
+    {
+      "word": "介绍",
+      "start": 30.61,
+      "end": 31.097
+    },
+    {
+      "word": "(jièshào)",
+      "start": 31.166,
+      "end": 31.514
+    },
+    {
+      "word": "literally",
+      "start": 31.521,
+      "end": 31.583
+    },
+    {
+      "word": "means",
+      "start": 31.642,
+      "end": 31.931
+    },
+    {
+      "word": "acting",
+      "start": 31.981,
+      "end": 32.279
+    },
+    {
+      "word": "as",
+      "start": 32.325,
+      "end": 32.418
+    },
+    {
+      "word": "a",
+      "start": 32.453,
+      "end": 32.488
+    },
+    {
+      "word": "go-between",
+      "start": 32.534,
+      "end": 33.044
+    },
+    {
+      "word": "to",
+      "start": 33.09,
+      "end": 33.183
+    },
+    {
+      "word": "link",
+      "start": 33.225,
+      "end": 33.392
+    },
+    {
+      "word": "two",
+      "start": 33.444,
+      "end": 33.601
+    },
+    {
+      "word": "parties",
+      "start": 33.653,
+      "end": 34.018
+    },
+    {
+      "word": "together—which",
+      "start": 34.064,
+      "end": 34.923
+    },
+    {
+      "word": "is",
+      "start": 34.946,
+      "end": 34.992
+    },
+    {
+      "word": "exactly",
+      "start": 35.053,
+      "end": 35.479
+    },
+    {
+      "word": "what",
+      "start": 35.507,
+      "end": 35.618
+    },
+    {
+      "word": "you",
+      "start": 35.636,
+      "end": 35.688
+    },
+    {
+      "word": "do",
+      "start": 35.757,
+      "end": 35.897
+    },
+    {
+      "word": "when",
+      "start": 35.924,
+      "end": 36.036
+    },
+    {
+      "word": "you",
+      "start": 36.053,
+      "end": 36.105
+    },
+    {
+      "word": "introduce",
+      "start": 36.147,
+      "end": 36.523
+    },
+    {
+      "word": "someone!",
+      "start": 36.566,
+      "end": 37.01
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 4.0,
+    "screen1EndFrame": 240,
+    "screen2EndSec": 16.14,
+    "screen2EndFrame": 970,
+    "screen3EndSec": 28.53,
+    "screen3EndFrame": 1715,
+    "lessonTotalSec": 37.042,
+    "lessonTotalFrames": 2222
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 240,
+      "personMention": {
+        "startSec": 1.3,
+        "endSec": 1.7,
+        "startFrame": 78,
+        "endFrame": 102
+      },
+      "boundariesMention": {
+        "startSec": 2.06,
+        "endSec": 2.58,
+        "startFrame": 124,
+        "endFrame": 155
+      },
+      "silkMention": {
+        "startSec": 2.76,
+        "endSec": 3.0,
+        "startFrame": 166,
+        "endFrame": 180
+      }
+    },
+    "screen2": {
+      "startFrame": 240,
+      "endFrame": 970,
+      "topBang": {
+        "startFrame": 240,
+        "endFrame": 520
+      },
+      "bottomJin": {
+        "startFrame": 520,
+        "endFrame": 680
+      },
+      "wholeBang": {
+        "startFrame": 680,
+        "endFrame": 970
+      }
+    },
+    "screen3": {
+      "startFrame": 970,
+      "endFrame": 1715,
+      "wholeZhuIntro": {
+        "startFrame": 970,
+        "endFrame": 1100
+      },
+      "leftQie": {
+        "startFrame": 1100,
+        "endFrame": 1300
+      },
+      "rightLi": {
+        "startFrame": 1300,
+        "endFrame": 1440
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1440,
+        "endFrame": 1715
+      }
+    },
+    "screen4": {
+      "startFrame": 1715,
+      "endFrame": 2222,
+      "bangHighlightEndFrame": 1837
+    }
+  }
+}

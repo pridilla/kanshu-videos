@@ -1,0 +1,223 @@
+{
+  "character": "爱情",
+  "pinyin": "ài qíng",
+  "tone": 4,
+  "meaning": "Love / Affection",
+  "oracleBoneSymbol": "❤️🌿",
+  "radicals": [
+    {
+      "radical": "爱 (ài)",
+      "pinyin": "ài",
+      "meaning": "爫 + 友 — hand reaching out to a friend",
+      "role": "semantic"
+    },
+    {
+      "radical": "情 (qíng)",
+      "pinyin": "qíng",
+      "meaning": "忄 + 青 — youthful, blossoming emotions of the heart",
+      "role": "semantic"
+    }
+  ],
+  "story": "爱 depicts a hand reaching out to embrace a friend, while 情 depicts the heart blossoming with youthful vitality.",
+  "exampleSentence": {
+    "cn": "他们的爱情很浪漫。",
+    "pinyin": "Tāmen de àiqíng hěn làngmàn.",
+    "en": "Their love is very romantic.",
+    "highlightWord": "爱情"
+  },
+  "audioSrc": "aiqing_voice_single_pass_fast.mp3",
+  "outroAudioSrc": "kanshu_outro_elevenlabs.mp3",
+  "lessonDurationInFrames": 2578,
+  "outroDurationInFrames": 0,
+  "scriptText": "Why does 爱情 (àiqíng) contain a friend and a green heart? Let's break down 爱 (ài) first. The top part 爫 (zhǎo) represents a hand reaching down, and the bottom part 友 (yǒu) represents a friend. Together, 爱 (ài) means reaching out to embrace a friend with deep affection! Now let's look at 情 (qíng). On the left, 忄 (xīn) represents the heart and our emotions. On the right, 青 (qīng) represents the color green, symbolizing youth and vitality. Together, 情 (qíng) means the blossoming, youthful emotions of the heart! Put them together, and 爱情 (àiqíng) literally means the deep, blossoming affection between two people in love!",
+  "wordsAlignment": [
+    { "word": "Why", "start": 0.0, "end": 0.139 },
+    { "word": "does", "start": 0.181, "end": 0.348 },
+    { "word": "爱情", "start": 0.522, "end": 1.113 },
+    { "word": "(àiqíng)", "start": 1.183, "end": 1.484 },
+    { "word": "contain", "start": 1.49, "end": 1.53 },
+    { "word": "a", "start": 1.6, "end": 1.67 },
+    { "word": "friend", "start": 1.739, "end": 2.157 },
+    { "word": "and", "start": 2.209, "end": 2.365 },
+    { "word": "a", "start": 2.4, "end": 2.435 },
+    { "word": "green", "start": 2.493, "end": 2.783 },
+    { "word": "heart?", "start": 2.863, "end": 3.409 },
+    { "word": "Let's", "start": 3.6, "end": 4.243 },
+    { "word": "break", "start": 4.278, "end": 4.452 },
+    { "word": "down", "start": 4.508, "end": 4.73 },
+    { "word": "爱", "start": 4.835, "end": 4.939 },
+    { "word": "(ài)", "start": 4.991, "end": 5.287 },
+    { "word": "first.", "start": 5.391, "end": 5.983 },
+    { "word": "The", "start": 6.174, "end": 6.748 },
+    { "word": "top", "start": 6.8, "end": 6.957 },
+    { "word": "part", "start": 7.026, "end": 7.304 },
+    { "word": "爫", "start": 7.512, "end": 7.513 },
+    { "word": "(zhǎo)", "start": 7.548, "end": 8.313 },
+    { "word": "represents", "start": 8.348, "end": 8.696 },
+    { "word": "a", "start": 8.73, "end": 8.765 },
+    { "word": "hand", "start": 8.863, "end": 9.252 },
+    { "word": "reaching", "start": 9.29, "end": 9.6 },
+    { "word": "down,", "start": 9.683, "end": 10.365 },
+    { "word": "and", "start": 10.4, "end": 10.504 },
+    { "word": "the", "start": 10.522, "end": 10.574 },
+    { "word": "bottom", "start": 10.614, "end": 10.852 },
+    { "word": "part", "start": 10.922, "end": 11.2 },
+    { "word": "友", "start": 11.617, "end": 11.635 },
+    { "word": "(yǒu)", "start": 11.643, "end": 11.826 },
+    { "word": "represents", "start": 11.883, "end": 12.452 },
+    { "word": "a", "start": 12.487, "end": 12.522 },
+    { "word": "friend.", "start": 12.582, "end": 13.078 },
+    { "word": "Together,", "start": 13.194, "end": 14.47 },
+    { "word": "爱", "start": 14.539, "end": 14.609 },
+    { "word": "(ài)", "start": 14.678, "end": 14.957 },
+    { "word": "means", "start": 15.026, "end": 15.374 },
+    { "word": "reaching", "start": 15.436, "end": 15.93 },
+    { "word": "out", "start": 15.983, "end": 16.139 },
+    { "word": "to", "start": 16.185, "end": 16.278 },
+    { "word": "embrace", "start": 16.33, "end": 16.696 },
+    { "word": "a", "start": 16.73, "end": 16.765 },
+    { "word": "friend", "start": 16.825, "end": 17.183 },
+    { "word": "with", "start": 17.238, "end": 17.461 },
+    { "word": "deep", "start": 17.544, "end": 17.878 },
+    { "word": "affection!", "start": 17.941, "end": 18.643 },
+    { "word": "Now", "start": 18.904, "end": 19.687 },
+    { "word": "let's", "start": 19.722, "end": 19.896 },
+    { "word": "look", "start": 19.937, "end": 20.104 },
+    { "word": "at", "start": 20.15, "end": 20.243 },
+    { "word": "情", "start": 20.417, "end": 20.591 },
+    { "word": "(qíng).", "start": 20.609, "end": 20.87 },
+    { "word": "On", "start": 21.124, "end": 21.635 },
+    { "word": "the", "start": 21.67, "end": 21.774 },
+    { "word": "left,", "start": 21.843, "end": 22.4 },
+    { "word": "忄", "start": 22.539, "end": 22.609 },
+    { "word": "(xīn)", "start": 22.643, "end": 22.957 },
+    { "word": "represents", "start": 22.995, "end": 23.374 },
+    { "word": "the", "start": 23.409, "end": 23.513 },
+    { "word": "heart", "start": 23.583, "end": 23.93 },
+    { "word": "and", "start": 23.983, "end": 24.139 },
+    { "word": "our", "start": 24.157, "end": 24.209 },
+    { "word": "emotions.", "start": 24.286, "end": 25.043 },
+    { "word": "On", "start": 25.159, "end": 25.391 },
+    { "word": "the", "start": 25.409, "end": 25.461 },
+    { "word": "right,", "start": 25.519, "end": 26.157 },
+    { "word": "青", "start": 26.226, "end": 26.296 },
+    { "word": "(qīng)", "start": 26.313, "end": 26.922 },
+    { "word": "represents", "start": 26.947, "end": 27.2 },
+    { "word": "the", "start": 27.217, "end": 27.27 },
+    { "word": "color", "start": 27.328, "end": 27.617 },
+    { "word": "green,", "start": 27.687, "end": 28.383 },
+    { "word": "symbolizing", "start": 28.432, "end": 29.009 },
+    { "word": "youth", "start": 29.078, "end": 29.426 },
+    { "word": "and", "start": 29.478, "end": 29.635 },
+    { "word": "vitality.", "start": 29.704, "end": 30.33 },
+    { "word": "Together,", "start": 30.438, "end": 31.652 },
+    { "word": "情", "start": 31.687, "end": 31.722 },
+    { "word": "(qíng)", "start": 31.739, "end": 32.348 },
+    { "word": "means", "start": 32.383, "end": 32.557 },
+    { "word": "the", "start": 32.591, "end": 32.696 },
+    { "word": "blossoming,", "start": 32.765, "end": 33.6 },
+    { "word": "youthful", "start": 33.654, "end": 34.087 },
+    { "word": "emotions", "start": 34.157, "end": 34.713 },
+    { "word": "of", "start": 34.759, "end": 34.852 },
+    { "word": "the", "start": 34.87, "end": 34.922 },
+    { "word": "heart!", "start": 34.991, "end": 35.409 },
+    { "word": "Put", "start": 35.6, "end": 36.174 },
+    { "word": "them", "start": 36.202, "end": 36.313 },
+    { "word": "together,", "start": 36.359, "end": 37.078 },
+    { "word": "and", "start": 37.113, "end": 37.217 },
+    { "word": "爱情", "start": 37.461, "end": 37.704 },
+    { "word": "(àiqíng)", "start": 37.705, "end": 38.123 },
+    { "word": "literally", "start": 38.185, "end": 38.749 },
+    { "word": "means", "start": 38.83, "end": 39.236 },
+    { "word": "the", "start": 39.305, "end": 39.514 },
+    { "word": "deep,", "start": 39.583, "end": 40.07 },
+    { "word": "blossoming", "start": 40.129, "end": 40.627 },
+    { "word": "affection", "start": 40.683, "end": 41.183 },
+    { "word": "between", "start": 41.236, "end": 41.601 },
+    { "word": "two", "start": 41.67, "end": 41.879 },
+    { "word": "people", "start": 41.939, "end": 42.297 },
+    { "word": "in", "start": 42.343, "end": 42.436 },
+    { "word": "love!", "start": 42.519, "end": 42.923 }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 3.6,
+    "screen1EndFrame": 216,
+    "screen2EndSec": 18.904,
+    "screen2EndFrame": 1134,
+    "screen3EndSec": 35.6,
+    "screen3EndFrame": 2136,
+    "lessonTotalSec": 42.971,
+    "lessonTotalFrames": 2578
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 216,
+      "clothMention": {
+        "startSec": 1.739,
+        "endSec": 2.157,
+        "startFrame": 104,
+        "endFrame": 129
+      },
+      "wallMention": {
+        "startSec": 1.739,
+        "endSec": 2.157,
+        "startFrame": 104,
+        "endFrame": 129
+      },
+      "altarMention": {
+        "startSec": 2.493,
+        "endSec": 2.783,
+        "startFrame": 149,
+        "endFrame": 167
+      },
+      "muscleMention": {
+        "startSec": 2.493,
+        "endSec": 2.783,
+        "startFrame": 149,
+        "endFrame": 167
+      }
+    },
+    "screen2": {
+      "startFrame": 216,
+      "endFrame": 1134,
+      "topBang": {
+        "startFrame": 370,
+        "endFrame": 624
+      },
+      "bottomJin": {
+        "startFrame": 631,
+        "endFrame": 791
+      },
+      "wholeBang": {
+        "startFrame": 791,
+        "endFrame": 1134
+      }
+    },
+    "screen3": {
+      "startFrame": 1134,
+      "endFrame": 2136,
+      "wholeZhuIntro": {
+        "startFrame": 1134,
+        "endFrame": 1267
+      },
+      "leftQie": {
+        "startFrame": 1267,
+        "endFrame": 1509
+      },
+      "rightLi": {
+        "startFrame": 1509,
+        "endFrame": 1826
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1826,
+        "endFrame": 2136
+      }
+    },
+    "screen4": {
+      "startFrame": 2136,
+      "endFrame": 2578,
+      "bangHighlightEndFrame": 2356
+    }
+  }
+}
