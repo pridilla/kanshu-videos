@@ -352,10 +352,15 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isWordIs = isHeroWordPhase && frame >= 28 && frame < 43;
   const isWordWild = isHeroWordPhase && frame >= 43;
 
+  // Word phases for isChicu ("JEALOUS" -> "IN CHINESE")
+  const isWordChicuJealous = isChicu && isHeroWordPhase && frame < 24;
+  const isWordChicuInChinese = isChicu && isHeroWordPhase && frame >= 24;
+
   // Springs for each hero word
   const springChinese = spring({ frame, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
   const springIs = spring({ frame: Math.max(0, frame - 28), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
   const springWild = spring({ frame: Math.max(0, frame - 43), fps, config: { damping: 9, mass: 0.5, stiffness: 300 } });
+  const springInChinese = spring({ frame: Math.max(0, frame - 24), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
 
   // Camera Crash-Zoom Transition Spring (frames 75-105: ~1.25s to 1.75s)
   const heroRevealSpring = spring({
@@ -401,18 +406,20 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
 
   // Combined camera zoom scale (strictly clamped to >= 1.0 to eliminate black border gaps)
   const rawCameraZoom = isHeroWordPhase
-    ? (isWordWild ? interpolate(springWild, [0, 1], [1.35, 1.0]) : 1.0)
+    ? (isWordWild || isWordChicuInChinese ? interpolate(isChicu ? springInChinese : springWild, [0, 1], [1.35, 1.0]) : 1.0)
     : (interpolate(heroRevealSpring, [0, 1], [1.35, 1.0]) + transition1To2Zoom + transition2To3Zoom + transition3To4Zoom) * continuousPush;
   const cameraZoomScale = Math.max(1.0, rawCameraZoom);
 
-  // Screen shake on Frame 0 and Wild word impact
+  // Screen shake on Frame 0 and word impact
   const shake1 = frame < 15 ? Math.sin(frame * 1.8) * (1 - frame / 15) * 8 : 0;
-  const shakeWild = frame >= 43 && frame < 58 ? Math.sin((frame - 43) * 2.0) * (1 - (frame - 43) / 15) * 10 : 0;
-  const totalShakeY = shake1 + shakeWild;
+  const shakeWild = (!isChicu && frame >= 43 && frame < 58) ? Math.sin((frame - 43) * 2.0) * (1 - (frame - 43) / 15) * 10 : 0;
+  const shakeChicu = (isChicu && frame >= 24 && frame < 39) ? Math.sin((frame - 24) * 2.0) * (1 - (frame - 24) / 15) * 8 : 0;
+  const totalShakeY = shake1 + shakeWild + shakeChicu;
 
-  // Visual pulse / fracture tension during "I like you" (frames 95-155)
-  const hookFracturePulse = isScreen1 && frame >= 95 && frame <= 155
-    ? Math.sin((frame - 95) * 0.12) * 35
+  // Smoothly damped fracture pulse during hook tension (frames 95-155) - seamlessly returns to 0
+  const relPulseFrame = frame - 95;
+  const hookFracturePulse = isScreen1 && relPulseFrame >= 0 && relPulseFrame <= 60
+    ? Math.sin(relPulseFrame * 0.15) * Math.sin((relPulseFrame / 60) * Math.PI) * 25
     : 0;
 
   const charSpacing = isKaishi || isXihuan || isDongxi || isChicu ? 120 : 150;
@@ -767,23 +774,42 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         {isHeroWordPhase && (
           <AbsoluteFill style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 150 }}>
             {isChicu ? (
-              <div style={{
-                transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.15])})`,
-                fontFamily: FONTS.display,
-                fontSize: 140,
-                fontWeight: 900,
-                color: '#FF6F59',
-                letterSpacing: '0.04em',
-                textAlign: 'center',
-                textTransform: 'uppercase',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 20,
-                filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.7)) drop-shadow(0 0 30px rgba(255,111,89,0.9))'
-              }}>
-                <span>JEALOUS</span>
-                <span style={{ fontSize: 150 }}>😒</span>
-              </div>
+              <>
+                {isWordChicuJealous && (
+                  <div style={{
+                    transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.15])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 140,
+                    fontWeight: 900,
+                    color: '#FF6F59',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 20,
+                    filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.7)) drop-shadow(0 0 30px rgba(255,111,89,0.9))'
+                  }}>
+                    <span>JEALOUS</span>
+                    <span style={{ fontSize: 150 }}>😒</span>
+                  </div>
+                )}
+                {isWordChicuInChinese && (
+                  <div style={{
+                    transform: `scale(${interpolate(springInChinese, [0, 1], [0.4, 1.05])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 110,
+                    fontWeight: 900,
+                    color: '#0F172A',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    filter: 'drop-shadow(0 15px 30px rgba(15,23,42,0.25))'
+                  }}>
+                    IN CHINESE
+                  </div>
+                )}
+              </>
             ) : (
               <>
                 {isWordChinese && (
@@ -841,7 +867,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         )}
 
         <AbsoluteFill style={{ 
-          padding: '30px 40px', 
+          padding: '30px 70px', 
           display: 'flex', 
           flexDirection: 'column', 
           alignItems: 'center', 
@@ -896,7 +922,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph1To2, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 940 }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
                   Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isChicu ? 'chī' : isDongxi ? 'dōng' : isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isChicu ? 'Open Mouth & Begging for Food' : isDongxi ? 'Sunrise & Travel Sack' : isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
                 </h2>
               </div>
@@ -906,7 +932,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph2To3, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 940 }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
                   Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
                 </h2>
               </div>
@@ -916,7 +942,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph3To4, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 940 }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
                   Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isChicu ? 'Drinking Vinegar = Romantic Jealousy!' : isDongxi ? 'East Market + West Market!' : isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
                 </h2>
               </div>

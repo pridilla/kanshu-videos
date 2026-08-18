@@ -546,7 +546,7 @@
   "screenTimestamps": {
     "screen1EndFrame": 324,
     "screen2EndFrame": 880,
-    "screen3EndFrame": 1553,
+    "screen3EndFrame": 1518,
     "lessonTotalFrames": 2290
   },
   "animationTimestamps": {
@@ -562,7 +562,7 @@
         "endFrame": 263
       },
       "whyMention": {
-        "startFrame": 301,
+        "startFrame": 271,
         "endFrame": 324
       }
     },
@@ -584,26 +584,26 @@
     },
     "screen3": {
       "startFrame": 880,
-      "endFrame": 1553,
+      "endFrame": 1518,
       "wholeZhuIntro": {
         "startFrame": 880,
         "endFrame": 1042
       },
       "leftQie": {
-        "startFrame": 1042,
+        "startFrame": 880,
         "endFrame": 1195
       },
       "rightLi": {
         "startFrame": 1195,
-        "endFrame": 1081
+        "endFrame": 1279
       },
       "wholeZhuOutro": {
-        "startFrame": 1081,
-        "endFrame": 1553
+        "startFrame": 1279,
+        "endFrame": 1518
       }
     },
     "screen4": {
-      "startFrame": 1553,
+      "startFrame": 1518,
       "endFrame": 2290,
       "bangHighlightEndFrame": 1995
     }

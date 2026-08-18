@@ -68,91 +68,33 @@ def main():
     audio_duration = get_audio_duration(audio_file)
     total_frames = sec_to_frame(audio_duration)
 
-    print(f"Total words: {len(words_alignment)}, Duration: {audio_duration:.2f}s ({total_frames} frames)")
-    for i, w in enumerate(words_alignment):
-        print(f"{i:02d}: '{w['word']}' [{w['startFrame']} - {w['endFrame']}] ({w['start']:.2f}s - {w['end']:.2f}s)")
+    # Key word indices:
+    # 0: Jealous [0 - 21]
+    # 1: in [24 - 28]
+    # 2: Chinese [32 - 57]
+    # 3: is [63 - 75]
+    # 4: 吃醋 [103 - 146]
+    # 5: (chīcù). [155 - 166]
+    # 6: It [167 - 167]
+    # 7: literally [169 - 188]
+    # 8: means [192 - 210]
+    # 9: eating [213 - 231]
+    # 10: vinegar. [235 - 263]
+    # 11: But [271 - 295]
+    # 12: why? [301 - 324]
+    # 13: Look [331 - 363]
+    # 21: 口 [484 - 485]
+    # 29: 乞 [622 - 623]
+    # 34: Together, [710 - 764]
+    # 39: Now look at 醋 [880 - 992]
+    # 48: 酉 (yǒu) [1042 - 1074]
+    # 57: 昔 (xī) [1195 - 1216]
+    # 61: Wine left in a jar [1279 - 1358]
+    # 72: When an Emperor [1518 - 1575]
 
-    # Find key phrase boundaries
-    # Words in transcript:
-    # 0: Jealous
-    # 1: in
-    # 2: Chinese
-    # 3: is
-    # 4: 吃醋
-    # 5: (chīcù).
-    # 6: It
-    # 7: literally
-    # 8: means
-    # 9: eating
-    # 10: vinegar.
-    # 11: But
-    # 12: why?
-    # 13: Look
-    # 14: at
-    # 15: 吃
-    # 16: (chī).
-    # 17: On
-    # 18: the
-    # 19: left
-    # 20: is
-    # 21: 口
-    # 22: (kǒu),
-    # 23: a
-    # 24: mouth.
-    # 25: On
-    # 26: the
-    # 27: right
-    # 28: is
-    # 29: 乞
-    # 30: (qǐ),
-    # 31: begging
-    # 32: for
-    # 33: food.
-    # 34: Together,
-    # 35: it
-    # 36: means
-    # 37: swallowing
-    # 38: food!
-    # 39: Now
-    # 40: look
-    # 41: at
-    # 42: 醋
-    # 43: (cù).
-    # ...
-
-    # Let's dynamically identify indices
-    def find_idx(target_word, start_from=0):
-        for idx in range(start_from, len(words_alignment)):
-            if target_word.lower() in words_alignment[idx]['word'].lower():
-                return idx
-        return -1
-
-    why_idx = find_idx("why")
-    screen1_end = words_alignment[why_idx]['endFrame'] if why_idx != -1 else 156
-
-    now_look_idx = find_idx("now", start_from=why_idx+1)
-    screen2_end = words_alignment[now_look_idx]['startFrame'] if now_look_idx != -1 else 600
-
-    emperor_idx = find_idx("emperor", start_from=now_look_idx+1)
-    if emperor_idx == -1:
-        emperor_idx = find_idx("tested", start_from=now_look_idx+1)
-    if emperor_idx == -1:
-        emperor_idx = find_idx("when", start_from=now_look_idx+1)
-    screen3_end = words_alignment[emperor_idx]['startFrame'] if emperor_idx != -1 else 1200
-
-    # Screen 1 mentions
-    eating_idx = find_idx("eating")
-    vinegar_idx = find_idx("vinegar")
-
-    # Screen 2 sub-parts: 口 (mouth) and 乞 (begging) and whole 吃
-    kou_idx = find_idx("口")
-    qi_idx = find_idx("乞")
-    together1_idx = find_idx("together", start_from=why_idx+1)
-
-    # Screen 3 sub-parts: 酉 (wine jar) and 昔 (past) and whole 醋
-    you_idx = find_idx("酉")
-    xi_idx = find_idx("昔")
-    wine_idx = find_idx("wine", start_from=now_look_idx+1)
+    screen1_end = 324
+    screen2_end = 880
+    screen3_end = 1518 # "When an Emperor" starts at 1518
 
     cfg = {
         "character": "吃醋",
@@ -174,16 +116,16 @@ def main():
                 "startFrame": 0,
                 "endFrame": screen1_end,
                 "clothMention": {
-                    "startFrame": words_alignment[eating_idx]['startFrame'] if eating_idx != -1 else 50,
-                    "endFrame": words_alignment[eating_idx]['endFrame'] if eating_idx != -1 else 75
+                    "startFrame": 213,
+                    "endFrame": 231
                 },
                 "wallMention": {
-                    "startFrame": words_alignment[vinegar_idx]['startFrame'] if vinegar_idx != -1 else 75,
-                    "endFrame": words_alignment[vinegar_idx]['endFrame'] if vinegar_idx != -1 else 105
+                    "startFrame": 235,
+                    "endFrame": 263
                 },
                 "whyMention": {
-                    "startFrame": words_alignment[why_idx]['startFrame'] if why_idx != -1 else 115,
-                    "endFrame": words_alignment[why_idx]['endFrame'] if why_idx != -1 else 156
+                    "startFrame": 271,
+                    "endFrame": 324
                 }
             },
             "screen2": {
@@ -191,14 +133,14 @@ def main():
                 "endFrame": screen2_end,
                 "topBang": {
                     "startFrame": screen1_end,
-                    "endFrame": words_alignment[qi_idx]['startFrame'] if qi_idx != -1 else (screen1_end + 180)
+                    "endFrame": 622
                 },
                 "bottomJin": {
-                    "startFrame": words_alignment[qi_idx]['startFrame'] if qi_idx != -1 else (screen1_end + 180),
-                    "endFrame": words_alignment[together1_idx]['startFrame'] if together1_idx != -1 else (screen1_end + 320)
+                    "startFrame": 622,
+                    "endFrame": 710
                 },
                 "wholeBang": {
-                    "startFrame": words_alignment[together1_idx]['startFrame'] if together1_idx != -1 else (screen1_end + 320),
+                    "startFrame": 710,
                     "endFrame": screen2_end
                 }
             },
@@ -207,25 +149,25 @@ def main():
                 "endFrame": screen3_end,
                 "wholeZhuIntro": {
                     "startFrame": screen2_end,
-                    "endFrame": words_alignment[you_idx]['startFrame'] if you_idx != -1 else (screen2_end + 80)
+                    "endFrame": 1042
                 },
                 "leftQie": {
-                    "startFrame": words_alignment[you_idx]['startFrame'] if you_idx != -1 else (screen2_end + 80),
-                    "endFrame": words_alignment[xi_idx]['startFrame'] if xi_idx != -1 else (screen2_end + 200)
+                    "startFrame": 880,
+                    "endFrame": 1195
                 },
                 "rightLi": {
-                    "startFrame": words_alignment[xi_idx]['startFrame'] if xi_idx != -1 else (screen2_end + 200),
-                    "endFrame": words_alignment[wine_idx]['startFrame'] if wine_idx != -1 else (screen2_end + 340)
+                    "startFrame": 1195,
+                    "endFrame": 1279
                 },
                 "wholeZhuOutro": {
-                    "startFrame": words_alignment[wine_idx]['startFrame'] if wine_idx != -1 else (screen2_end + 340),
+                    "startFrame": 1279,
                     "endFrame": screen3_end
                 }
             },
             "screen4": {
                 "startFrame": screen3_end,
                 "endFrame": total_frames,
-                "bangHighlightEndFrame": screen3_end + int((total_frames - screen3_end) * 0.6)
+                "bangHighlightEndFrame": 1995
             }
         }
     }
@@ -233,10 +175,13 @@ def main():
     with open(config_file, 'w', encoding='utf-8') as f:
         json.dump(cfg, f, indent=2, ensure_ascii=False)
 
-    print(f"\n✅ Created config at {config_file}")
+    print(f"\n✅ Cleanly updated config at {config_file}")
     print(f"Screen 1: 0 -> {screen1_end}")
     print(f"Screen 2: {screen1_end} -> {screen2_end}")
     print(f"Screen 3: {screen2_end} -> {screen3_end}")
+    print(f"  - 酉 (jar): 880 -> 1195")
+    print(f"  - 昔 (past): 1195 -> 1279")
+    print(f"  - 醋 (sour): 1279 -> {screen3_end}")
     print(f"Screen 4: {screen3_end} -> {total_frames}")
 
 if __name__ == '__main__':
