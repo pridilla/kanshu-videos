@@ -766,41 +766,11 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         {/* ============================================================ */}
         {isHeroWordPhase && (
           <AbsoluteFill style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 150 }}>
-            {isWordChinese && (
+            {isChicu ? (
               <div style={{
-                transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.0])})`,
+                transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.15])})`,
                 fontFamily: FONTS.display,
                 fontSize: 140,
-                fontWeight: 900,
-                color: '#0F172A',
-                letterSpacing: '0.04em',
-                textAlign: 'center',
-                textTransform: 'uppercase',
-                filter: 'drop-shadow(0 20px 40px rgba(15,23,42,0.3))'
-              }}>
-                CHINESE
-              </div>
-            )}
-            {isWordIs && (
-              <div style={{
-                transform: `scale(${interpolate(springIs, [0, 1], [0.4, 1.0])})`,
-                fontFamily: FONTS.display,
-                fontSize: 140,
-                fontWeight: 900,
-                color: '#0F172A',
-                letterSpacing: '0.04em',
-                textAlign: 'center',
-                textTransform: 'uppercase',
-                filter: 'drop-shadow(0 20px 40px rgba(15,23,42,0.3))'
-              }}>
-                IS
-              </div>
-            )}
-            {isWordWild && (
-              <div style={{
-                transform: `scale(${interpolate(springWild, [0, 1], [0.4, 1.25])})`,
-                fontFamily: FONTS.display,
-                fontSize: 150,
                 fontWeight: 900,
                 color: '#FF6F59',
                 letterSpacing: '0.04em',
@@ -808,12 +778,64 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 textTransform: 'uppercase',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 16,
+                gap: 20,
                 filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.7)) drop-shadow(0 0 30px rgba(255,111,89,0.9))'
               }}>
-                <span>WILD</span>
-                <span style={{ fontSize: 160 }}>🔥</span>
+                <span>JEALOUS</span>
+                <span style={{ fontSize: 150 }}>😒</span>
               </div>
+            ) : (
+              <>
+                {isWordChinese && (
+                  <div style={{
+                    transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.0])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 140,
+                    fontWeight: 900,
+                    color: '#0F172A',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    filter: 'drop-shadow(0 20px 40px rgba(15,23,42,0.3))'
+                  }}>
+                    CHINESE
+                  </div>
+                )}
+                {isWordIs && (
+                  <div style={{
+                    transform: `scale(${interpolate(springIs, [0, 1], [0.4, 1.0])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 140,
+                    fontWeight: 900,
+                    color: '#0F172A',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    filter: 'drop-shadow(0 20px 40px rgba(15,23,42,0.3))'
+                  }}>
+                    IS
+                  </div>
+                )}
+                {isWordWild && (
+                  <div style={{
+                    transform: `scale(${interpolate(springWild, [0, 1], [0.4, 1.25])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 150,
+                    fontWeight: 900,
+                    color: '#FF6F59',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 16,
+                    filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.7)) drop-shadow(0 0 30px rgba(255,111,89,0.9))'
+                  }}>
+                    <span>WILD</span>
+                    <span style={{ fontSize: 160 }}>🔥</span>
+                  </div>
+                )}
+              </>
             )}
           </AbsoluteFill>
         )}
@@ -844,11 +866,23 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 gap: 6
               }}>
                 <h1 style={{ fontFamily: FONTS.display, fontSize: 48, color: '#FF6F59', margin: 0, fontWeight: 900, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-                  {isChicu ? 'JEALOUS 😒' : 'CHINESE IS WILD 🔥'}
+                  {isChicu ? (
+                    frame >= 271 ? 'BUT WHY? 🤔' : frame >= 169 ? 'LITERALLY: EATING VINEGAR 🍶' : 'JEALOUS 😒'
+                  ) : isDongxi ? (
+                    'THINGS 📦'
+                  ) : (
+                    'CHINESE IS WILD 🔥'
+                  )}
                 </h1>
                 <div style={{ fontFamily: FONTS.display, fontSize: 28, color: '#FFFFFF', fontWeight: 700 }}>
                   {isChicu ? (
-                    <span>Why <span style={{ color: '#FF6F59' }}>{character}</span> = Eating Vinegar?!</span>
+                    frame >= 271 ? (
+                      <span>Why does <span style={{ color: '#FF6F59' }}>{character}</span> mean Jealousy?!</span>
+                    ) : frame >= 169 ? (
+                      <span>Eating (<span style={{ color: '#FF6F59' }}>吃</span>) + Vinegar (<span style={{ color: '#FF6F59' }}>醋</span>)</span>
+                    ) : (
+                      <span>In Chinese: <span style={{ color: '#FF6F59' }}>{character} (chī cù)</span></span>
+                    )
                   ) : isDongxi ? (
                     <span>Why <span style={{ color: '#FF6F59' }}>{character}</span> = East + West = Things?!</span>
                   ) : (
