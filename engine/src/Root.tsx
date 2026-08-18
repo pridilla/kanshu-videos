@@ -1,5 +1,5 @@
 import React from 'react';
-import { Composition, continueRender, delayRender, getInputProps } from 'remotion';
+import { Composition, continueRender, delayRender, getInputProps, staticFile } from 'remotion';
 import { ToneVideo } from './ToneVideo';
 import { KanshuAppOutro } from './components/AppOutro';
 import { EtymologyTemplate, EtymologyConfig } from './templates/EtymologyTemplate';
@@ -14,6 +14,8 @@ import wangjiConfig from '../../content/07_etymology_wangji/config.json';
 import jieshaoConfig from '../../content/08_etymology_jieshao/config.json';
 import kaishiConfig from '../../content/09_etymology_kaishi/config.json';
 import xihuanConfig from '../../content/10_etymology_xihuan/config.json';
+import dongxiConfig from '../../content/11_etymology_dongxi/config.json';
+import chicuConfig from '../../content/11_etymology_chicu/config.json';
 
 // ────────────────────────────────────────────────────────────
 // FONT LOADER GUARD
@@ -23,11 +25,6 @@ const FontLoader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [handle] = React.useState(() => delayRender('Loading Fonts'));
 
   React.useEffect(() => {
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css2?family=Finger+Paint&family=Inter:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;700;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap';
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-
     const preconnect = document.createElement('link');
     preconnect.href = 'https://fonts.googleapis.com';
     preconnect.rel = 'preconnect';
@@ -39,13 +36,54 @@ const FontLoader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     preconnect2.crossOrigin = 'anonymous';
     document.head.appendChild(preconnect2);
 
-    document.fonts.ready.then(() => {
-      continueRender(handle);
-    });
+    const link = document.createElement('link');
+    link.href = 'https://fonts.googleapis.com/css2?family=Finger+Paint&family=Inter:wght@400;600;700;800;900&family=Noto+Sans+SC:wght@400;700;900&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap';
+    link.rel = 'stylesheet';
+    document.head.appendChild(link);
+
+    // Add local @font-face style rule that maps all font-weight variants (400 to 900) to Finger Paint
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @font-face {
+        font-family: 'Finger Paint';
+        src: url('${staticFile('fonts/FingerPaint-Regular.woff2')}') format('woff2');
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: block;
+      }
+    `;
+    document.head.appendChild(style);
+
+    const checkAndPreload = async () => {
+      try {
+        const localFingerPaint = new FontFace('Finger Paint', `url('${staticFile('fonts/FingerPaint-Regular.woff2')}')`, {
+          weight: '100 900',
+          style: 'normal',
+        });
+        const loaded = await localFingerPaint.load();
+        document.fonts.add(loaded);
+
+        await document.fonts.ready;
+        await Promise.all([
+          document.fonts.load('140px "Finger Paint"', 'CHINESE IS WILD 🔥 JEALOUS EATING VINEGAR BUT WHY'),
+          document.fonts.load('900 140px "Finger Paint"', 'CHINESE IS WILD 🔥 JEALOUS EATING VINEGAR BUT WHY'),
+          document.fonts.load('900 250px "Noto Sans SC"', '吃醋东西喜欢开始介绍忘记爱情朋友'),
+          document.fonts.load('800 42px "Inter"', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
+          document.fonts.load('700 28px "Roboto"', 'abcdefghijklmnopqrstuvwxyz0123456789'),
+        ]);
+        await document.fonts.ready;
+      } catch (err) {
+        console.warn('Font preload warning:', err);
+      } finally {
+        continueRender(handle);
+      }
+    };
+
+    checkAndPreload();
 
     const timeout = setTimeout(() => {
       continueRender(handle);
-    }, 3000);
+    }, 4000);
 
     return () => {
       clearTimeout(timeout);
@@ -73,9 +111,39 @@ export const Root: React.FC = () => {
       const jieshaoTotalFrames = jieshaoConfig.lessonDurationInFrames + (jieshaoConfig.outroDurationInFrames || 0);
       const kaishiTotalFrames = kaishiConfig.lessonDurationInFrames + (kaishiConfig.outroDurationInFrames || 0);
       const xihuanTotalFrames = xihuanConfig.lessonDurationInFrames + (xihuanConfig.outroDurationInFrames || 0);
+      const dongxiTotalFrames = dongxiConfig.lessonDurationInFrames + (dongxiConfig.outroDurationInFrames || 0);
+      const chicuTotalFrames = chicuConfig.lessonDurationInFrames + (chicuConfig.outroDurationInFrames || 0);
 
   return (
     <>
+      {/* Etymology Video Template Composition (Video #11: 吃醋) */}
+      <Composition
+        id="EtymologyChicu"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(chicuConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={chicuTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Etymology Video Template Composition (Video #11: 东西) */}
+      <Composition
+        id="EtymologyDongxi"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(dongxiConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={dongxiTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
       {/* Etymology Video Template Composition (Video #10: 喜欢) */}
       <Composition
         id="EtymologyXihuan"

@@ -59,10 +59,10 @@ export const ChineseBackground: React.FC<ChineseBackgroundProps> = ({
       <div
         style={{
           position: 'absolute',
-          top: -200,
-          left: -200,
-          width: 'calc(100% + 400px)',
-          height: 'calc(100% + 400px)',
+          top: -600,
+          left: -600,
+          width: 'calc(100% + 1200px)',
+          height: 'calc(100% + 1200px)',
           backgroundImage: `url(${staticFile('chinese_cloud_pattern.png')})`,
           backgroundRepeat: 'repeat',
           backgroundSize: '950px auto',

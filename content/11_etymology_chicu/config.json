@@ -1,0 +1,611 @@
+{
+  "character": "吃醋",
+  "pinyin": "chī cù",
+  "tone": 1,
+  "meaning": "To Be Jealous",
+  "audioSrc": "chicu_voice_single_pass_fast.mp3",
+  "bgmAudioSrc": "chinese_lofi_bgm.mp3",
+  "lessonDurationInFrames": 2290,
+  "wordsAlignment": [
+    {
+      "word": "Jealous",
+      "start": 0.0,
+      "end": 0.356
+    },
+    {
+      "word": "in",
+      "start": 0.395,
+      "end": 0.474
+    },
+    {
+      "word": "Chinese",
+      "start": 0.533,
+      "end": 0.948
+    },
+    {
+      "word": "is",
+      "start": 1.047,
+      "end": 1.244
+    },
+    {
+      "word": "吃醋",
+      "start": 1.719,
+      "end": 2.43
+    },
+    {
+      "word": "(chīcù).",
+      "start": 2.578,
+      "end": 2.771
+    },
+    {
+      "word": "It",
+      "start": 2.776,
+      "end": 2.786
+    },
+    {
+      "word": "literally",
+      "start": 2.821,
+      "end": 3.141
+    },
+    {
+      "word": "means",
+      "start": 3.201,
+      "end": 3.497
+    },
+    {
+      "word": "eating",
+      "start": 3.548,
+      "end": 3.853
+    },
+    {
+      "word": "vinegar.",
+      "start": 3.912,
+      "end": 4.386
+    },
+    {
+      "word": "But",
+      "start": 4.519,
+      "end": 4.919
+    },
+    {
+      "word": "why?",
+      "start": 5.023,
+      "end": 5.393
+    },
+    {
+      "word": "Look",
+      "start": 5.524,
+      "end": 6.045
+    },
+    {
+      "word": "at",
+      "start": 6.104,
+      "end": 6.223
+    },
+    {
+      "word": "吃",
+      "start": 6.46,
+      "end": 6.48
+    },
+    {
+      "word": "(chī).",
+      "start": 6.49,
+      "end": 6.816
+    },
+    {
+      "word": "On",
+      "start": 6.993,
+      "end": 7.349
+    },
+    {
+      "word": "the",
+      "start": 7.379,
+      "end": 7.467
+    },
+    {
+      "word": "left",
+      "start": 7.515,
+      "end": 7.704
+    },
+    {
+      "word": "is",
+      "start": 7.764,
+      "end": 7.882
+    },
+    {
+      "word": "口",
+      "start": 8.06,
+      "end": 8.09
+    },
+    {
+      "word": "(kǒu),",
+      "start": 8.104,
+      "end": 8.416
+    },
+    {
+      "word": "a",
+      "start": 8.504,
+      "end": 8.593
+    },
+    {
+      "word": "mouth.",
+      "start": 8.662,
+      "end": 9.067
+    },
+    {
+      "word": "On",
+      "start": 9.206,
+      "end": 9.482
+    },
+    {
+      "word": "the",
+      "start": 9.512,
+      "end": 9.601
+    },
+    {
+      "word": "right",
+      "start": 9.65,
+      "end": 9.897
+    },
+    {
+      "word": "is",
+      "start": 9.976,
+      "end": 10.134
+    },
+    {
+      "word": "乞",
+      "start": 10.371,
+      "end": 10.391
+    },
+    {
+      "word": "(qǐ),",
+      "start": 10.401,
+      "end": 10.727
+    },
+    {
+      "word": "begging",
+      "start": 10.786,
+      "end": 11.201
+    },
+    {
+      "word": "for",
+      "start": 11.23,
+      "end": 11.319
+    },
+    {
+      "word": "food.",
+      "start": 11.39,
+      "end": 11.734
+    },
+    {
+      "word": "Together,",
+      "start": 11.826,
+      "end": 12.741
+    },
+    {
+      "word": "it",
+      "start": 12.781,
+      "end": 12.86
+    },
+    {
+      "word": "means",
+      "start": 12.919,
+      "end": 13.216
+    },
+    {
+      "word": "swallowing",
+      "start": 13.28,
+      "end": 13.927
+    },
+    {
+      "word": "food!",
+      "start": 14.01,
+      "end": 14.46
+    },
+    {
+      "word": "Now",
+      "start": 14.667,
+      "end": 15.29
+    },
+    {
+      "word": "look",
+      "start": 15.313,
+      "end": 15.408
+    },
+    {
+      "word": "at",
+      "start": 15.447,
+      "end": 15.527
+    },
+    {
+      "word": "醋",
+      "start": 15.704,
+      "end": 15.981
+    },
+    {
+      "word": "(cù).",
+      "start": 16.05,
+      "end": 16.534
+    },
+    {
+      "word": "On",
+      "start": 16.554,
+      "end": 16.593
+    },
+    {
+      "word": "the",
+      "start": 16.623,
+      "end": 16.712
+    },
+    {
+      "word": "left",
+      "start": 16.771,
+      "end": 17.008
+    },
+    {
+      "word": "is",
+      "start": 17.067,
+      "end": 17.186
+    },
+    {
+      "word": "酉",
+      "start": 17.363,
+      "end": 17.364
+    },
+    {
+      "word": "(yǒu),",
+      "start": 17.384,
+      "end": 17.897
+    },
+    {
+      "word": "a",
+      "start": 17.927,
+      "end": 17.956
+    },
+    {
+      "word": "wine",
+      "start": 18.016,
+      "end": 18.253
+    },
+    {
+      "word": "jar.",
+      "start": 18.327,
+      "end": 18.667
+    },
+    {
+      "word": "On",
+      "start": 18.806,
+      "end": 19.082
+    },
+    {
+      "word": "the",
+      "start": 19.097,
+      "end": 19.141
+    },
+    {
+      "word": "right",
+      "start": 19.201,
+      "end": 19.497
+    },
+    {
+      "word": "is",
+      "start": 19.576,
+      "end": 19.734
+    },
+    {
+      "word": "昔",
+      "start": 19.912,
+      "end": 19.983
+    },
+    {
+      "word": "(xī),",
+      "start": 20.019,
+      "end": 20.267
+    },
+    {
+      "word": "the",
+      "start": 20.327,
+      "end": 20.504
+    },
+    {
+      "word": "past.",
+      "start": 20.611,
+      "end": 21.156
+    },
+    {
+      "word": "Wine",
+      "start": 21.322,
+      "end": 21.986
+    },
+    {
+      "word": "left",
+      "start": 22.033,
+      "end": 22.223
+    },
+    {
+      "word": "in",
+      "start": 22.243,
+      "end": 22.282
+    },
+    {
+      "word": "a",
+      "start": 22.312,
+      "end": 22.341
+    },
+    {
+      "word": "jar",
+      "start": 22.416,
+      "end": 22.638
+    },
+    {
+      "word": "for",
+      "start": 22.682,
+      "end": 22.816
+    },
+    {
+      "word": "ages",
+      "start": 22.934,
+      "end": 23.408
+    },
+    {
+      "word": "ferments",
+      "start": 23.497,
+      "end": 24.06
+    },
+    {
+      "word": "into",
+      "start": 24.096,
+      "end": 24.238
+    },
+    {
+      "word": "sour",
+      "start": 24.333,
+      "end": 24.712
+    },
+    {
+      "word": "vinegar!",
+      "start": 24.771,
+      "end": 25.186
+    },
+    {
+      "word": "When",
+      "start": 25.293,
+      "end": 25.719
+    },
+    {
+      "word": "an",
+      "start": 25.759,
+      "end": 25.838
+    },
+    {
+      "word": "Emperor",
+      "start": 25.89,
+      "end": 26.253
+    },
+    {
+      "word": "tested",
+      "start": 26.295,
+      "end": 26.549
+    },
+    {
+      "word": "a",
+      "start": 26.579,
+      "end": 26.608
+    },
+    {
+      "word": "loyal",
+      "start": 26.667,
+      "end": 26.964
+    },
+    {
+      "word": "wife",
+      "start": 27.047,
+      "end": 27.379
+    },
+    {
+      "word": "with",
+      "start": 27.402,
+      "end": 27.497
+    },
+    {
+      "word": "a",
+      "start": 27.527,
+      "end": 27.556
+    },
+    {
+      "word": "cup",
+      "start": 27.601,
+      "end": 27.734
+    },
+    {
+      "word": "of",
+      "start": 27.773,
+      "end": 27.853
+    },
+    {
+      "word": "poison",
+      "start": 27.963,
+      "end": 28.623
+    },
+    {
+      "word": "or",
+      "start": 28.741,
+      "end": 28.979
+    },
+    {
+      "word": "sharing",
+      "start": 29.03,
+      "end": 29.393
+    },
+    {
+      "word": "her",
+      "start": 29.423,
+      "end": 29.512
+    },
+    {
+      "word": "husband,",
+      "start": 29.564,
+      "end": 30.223
+    },
+    {
+      "word": "she",
+      "start": 30.267,
+      "end": 30.401
+    },
+    {
+      "word": "drank",
+      "start": 30.46,
+      "end": 30.756
+    },
+    {
+      "word": "the",
+      "start": 30.801,
+      "end": 30.934
+    },
+    {
+      "word": "whole",
+      "start": 30.964,
+      "end": 31.112
+    },
+    {
+      "word": "cup",
+      "start": 31.186,
+      "end": 31.408
+    },
+    {
+      "word": "instantly—which",
+      "start": 31.473,
+      "end": 32.593
+    },
+    {
+      "word": "was",
+      "start": 32.638,
+      "end": 32.771
+    },
+    {
+      "word": "actually",
+      "start": 32.817,
+      "end": 33.186
+    },
+    {
+      "word": "vinegar!",
+      "start": 33.253,
+      "end": 33.779
+    },
+    {
+      "word": "That's",
+      "start": 33.956,
+      "end": 34.727
+    },
+    {
+      "word": "why",
+      "start": 34.771,
+      "end": 34.904
+    },
+    {
+      "word": "吃醋",
+      "start": 35.141,
+      "end": 35.186
+    },
+    {
+      "word": "(chīcù)",
+      "start": 35.193,
+      "end": 35.912
+    },
+    {
+      "word": "means",
+      "start": 35.951,
+      "end": 36.149
+    },
+    {
+      "word": "the",
+      "start": 36.179,
+      "end": 36.267
+    },
+    {
+      "word": "sour",
+      "start": 36.362,
+      "end": 36.741
+    },
+    {
+      "word": "sting",
+      "start": 36.81,
+      "end": 37.156
+    },
+    {
+      "word": "of",
+      "start": 37.216,
+      "end": 37.334
+    },
+    {
+      "word": "jealousy!",
+      "start": 37.387,
+      "end": 37.986
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndFrame": 324,
+    "screen2EndFrame": 880,
+    "screen3EndFrame": 1553,
+    "lessonTotalFrames": 2290
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 324,
+      "clothMention": {
+        "startFrame": 213,
+        "endFrame": 231
+      },
+      "wallMention": {
+        "startFrame": 235,
+        "endFrame": 263
+      },
+      "whyMention": {
+        "startFrame": 301,
+        "endFrame": 324
+      }
+    },
+    "screen2": {
+      "startFrame": 324,
+      "endFrame": 880,
+      "topBang": {
+        "startFrame": 324,
+        "endFrame": 622
+      },
+      "bottomJin": {
+        "startFrame": 622,
+        "endFrame": 710
+      },
+      "wholeBang": {
+        "startFrame": 710,
+        "endFrame": 880
+      }
+    },
+    "screen3": {
+      "startFrame": 880,
+      "endFrame": 1553,
+      "wholeZhuIntro": {
+        "startFrame": 880,
+        "endFrame": 1042
+      },
+      "leftQie": {
+        "startFrame": 1042,
+        "endFrame": 1195
+      },
+      "rightLi": {
+        "startFrame": 1195,
+        "endFrame": 1081
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1081,
+        "endFrame": 1553
+      }
+    },
+    "screen4": {
+      "startFrame": 1553,
+      "endFrame": 2290,
+      "bangHighlightEndFrame": 1995
+    }
+  }
+}

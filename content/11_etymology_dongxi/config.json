@@ -1,0 +1,602 @@
+{
+  "character": "东西",
+  "pinyin": "dōng xi",
+  "tone": 1,
+  "meaning": "Thing / Objects",
+  "oracleBoneSymbol": "🌅🌇",
+  "radicals": [
+    {
+      "radical": "东 (dōng)",
+      "pinyin": "dōng",
+      "meaning": "Sunrise + travel sack bundled on carrying pole",
+      "role": "semantic"
+    },
+    {
+      "radical": "西 (xī)",
+      "pinyin": "xī",
+      "meaning": "Sunset + bird roosting safely in woven nest",
+      "role": "semantic"
+    }
+  ],
+  "story": "东 originally depicted a travel sack on a pole pointing to the sunrise in the East, while 西 showed a bird resting in its nest at sunset in the West. In ancient Chang'an, shopping was only allowed in East & West markets, so buying goods became 'buying East and West' (买东西)!",
+  "exampleSentence": {
+    "cn": "你去买什么东西？",
+    "pinyin": "Nǐ qù mǎi shénme dōngxi?",
+    "en": "What things are you going to buy?",
+    "highlightWord": "东西"
+  },
+  "audioSrc": "dongxi_voice_single_pass_fast.mp3",
+  "bgmAudioSrc": "chinese_lofi_bgm.mp3",
+  "wordsAlignment": [
+    {
+      "word": "Chinese",
+      "start": 0.0,
+      "end": 0.296
+    },
+    {
+      "word": "is",
+      "start": 0.376,
+      "end": 0.533
+    },
+    {
+      "word": "wild.",
+      "start": 0.604,
+      "end": 0.948
+    },
+    {
+      "word": "To",
+      "start": 1.067,
+      "end": 1.304
+    },
+    {
+      "word": "say",
+      "start": 1.348,
+      "end": 1.481
+    },
+    {
+      "word": "\"thing\"",
+      "start": 1.541,
+      "end": 1.896
+    },
+    {
+      "word": "or",
+      "start": 1.956,
+      "end": 2.074
+    },
+    {
+      "word": "\"stuff\",",
+      "start": 2.163,
+      "end": 2.785
+    },
+    {
+      "word": "you",
+      "start": 2.8,
+      "end": 2.844
+    },
+    {
+      "word": "literally",
+      "start": 2.88,
+      "end": 3.2
+    },
+    {
+      "word": "say",
+      "start": 3.274,
+      "end": 3.496
+    },
+    {
+      "word": "\"East-West\"!",
+      "start": 3.615,
+      "end": 4.681
+    },
+    {
+      "word": "But",
+      "start": 4.726,
+      "end": 4.859
+    },
+    {
+      "word": "why?",
+      "start": 4.948,
+      "end": 5.393
+    },
+    {
+      "word": "Let's",
+      "start": 5.526,
+      "end": 5.985
+    },
+    {
+      "word": "break",
+      "start": 6.015,
+      "end": 6.163
+    },
+    {
+      "word": "down",
+      "start": 6.199,
+      "end": 6.341
+    },
+    {
+      "word": "东",
+      "start": 6.489,
+      "end": 6.637
+    },
+    {
+      "word": "(dōng)",
+      "start": 6.696,
+      "end": 6.993
+    },
+    {
+      "word": "first.",
+      "start": 7.002,
+      "end": 7.111
+    },
+    {
+      "word": "Originally",
+      "start": 7.203,
+      "end": 8.119
+    },
+    {
+      "word": "depicting",
+      "start": 8.154,
+      "end": 8.474
+    },
+    {
+      "word": "a",
+      "start": 8.504,
+      "end": 8.533
+    },
+    {
+      "word": "travel",
+      "start": 8.576,
+      "end": 8.83
+    },
+    {
+      "word": "sack",
+      "start": 8.889,
+      "end": 9.126
+    },
+    {
+      "word": "bundled",
+      "start": 9.185,
+      "end": 9.6
+    },
+    {
+      "word": "tightly",
+      "start": 9.637,
+      "end": 9.896
+    },
+    {
+      "word": "onto",
+      "start": 9.944,
+      "end": 10.133
+    },
+    {
+      "word": "a",
+      "start": 10.163,
+      "end": 10.193
+    },
+    {
+      "word": "carrying",
+      "start": 10.225,
+      "end": 10.489
+    },
+    {
+      "word": "pole,",
+      "start": 10.548,
+      "end": 11.141
+    },
+    {
+      "word": "东",
+      "start": 11.156,
+      "end": 11.17
+    },
+    {
+      "word": "(dōng)",
+      "start": 11.185,
+      "end": 11.378
+    },
+    {
+      "word": "points",
+      "start": 11.412,
+      "end": 11.615
+    },
+    {
+      "word": "toward",
+      "start": 11.64,
+      "end": 11.793
+    },
+    {
+      "word": "the",
+      "start": 11.807,
+      "end": 11.852
+    },
+    {
+      "word": "sunrise",
+      "start": 11.904,
+      "end": 12.267
+    },
+    {
+      "word": "in",
+      "start": 12.306,
+      "end": 12.385
+    },
+    {
+      "word": "the",
+      "start": 12.4,
+      "end": 12.444
+    },
+    {
+      "word": "East!",
+      "start": 12.504,
+      "end": 12.919
+    },
+    {
+      "word": "Now",
+      "start": 13.067,
+      "end": 13.511
+    },
+    {
+      "word": "look",
+      "start": 13.535,
+      "end": 13.63
+    },
+    {
+      "word": "at",
+      "start": 13.669,
+      "end": 13.748
+    },
+    {
+      "word": "西",
+      "start": 13.896,
+      "end": 14.044
+    },
+    {
+      "word": "(xī).",
+      "start": 14.341,
+      "end": 14.726
+    },
+    {
+      "word": "It",
+      "start": 14.736,
+      "end": 14.756
+    },
+    {
+      "word": "originally",
+      "start": 14.788,
+      "end": 15.111
+    },
+    {
+      "word": "showed",
+      "start": 15.145,
+      "end": 15.348
+    },
+    {
+      "word": "a",
+      "start": 15.378,
+      "end": 15.407
+    },
+    {
+      "word": "bird",
+      "start": 15.443,
+      "end": 15.585
+    },
+    {
+      "word": "perching",
+      "start": 15.63,
+      "end": 15.941
+    },
+    {
+      "word": "safely",
+      "start": 15.983,
+      "end": 16.237
+    },
+    {
+      "word": "in",
+      "start": 16.257,
+      "end": 16.296
+    },
+    {
+      "word": "its",
+      "start": 16.326,
+      "end": 16.415
+    },
+    {
+      "word": "woven",
+      "start": 16.464,
+      "end": 16.711
+    },
+    {
+      "word": "nest",
+      "start": 16.759,
+      "end": 16.948
+    },
+    {
+      "word": "at",
+      "start": 16.968,
+      "end": 17.007
+    },
+    {
+      "word": "sunset",
+      "start": 17.059,
+      "end": 17.363
+    },
+    {
+      "word": "in",
+      "start": 17.402,
+      "end": 17.481
+    },
+    {
+      "word": "the",
+      "start": 17.496,
+      "end": 17.541
+    },
+    {
+      "word": "West.",
+      "start": 17.6,
+      "end": 18.015
+    },
+    {
+      "word": "In",
+      "start": 18.232,
+      "end": 18.667
+    },
+    {
+      "word": "ancient",
+      "start": 18.704,
+      "end": 18.963
+    },
+    {
+      "word": "capitals",
+      "start": 19.002,
+      "end": 19.319
+    },
+    {
+      "word": "like",
+      "start": 19.342,
+      "end": 19.437
+    },
+    {
+      "word": "Chang'an,",
+      "start": 19.476,
+      "end": 19.97
+    },
+    {
+      "word": "shopping",
+      "start": 20.03,
+      "end": 20.504
+    },
+    {
+      "word": "was",
+      "start": 20.548,
+      "end": 20.681
+    },
+    {
+      "word": "only",
+      "start": 20.729,
+      "end": 20.919
+    },
+    {
+      "word": "allowed",
+      "start": 20.956,
+      "end": 21.215
+    },
+    {
+      "word": "in",
+      "start": 21.235,
+      "end": 21.274
+    },
+    {
+      "word": "the",
+      "start": 21.289,
+      "end": 21.333
+    },
+    {
+      "word": "East",
+      "start": 21.393,
+      "end": 21.63
+    },
+    {
+      "word": "and",
+      "start": 21.659,
+      "end": 21.748
+    },
+    {
+      "word": "West",
+      "start": 21.807,
+      "end": 22.044
+    },
+    {
+      "word": "imperial",
+      "start": 22.084,
+      "end": 22.4
+    },
+    {
+      "word": "markets—so",
+      "start": 22.459,
+      "end": 23.407
+    },
+    {
+      "word": "buying",
+      "start": 23.441,
+      "end": 23.644
+    },
+    {
+      "word": "goods",
+      "start": 23.684,
+      "end": 23.881
+    },
+    {
+      "word": "was",
+      "start": 23.911,
+      "end": 24.0
+    },
+    {
+      "word": "literally",
+      "start": 24.041,
+      "end": 24.415
+    },
+    {
+      "word": "\"buying",
+      "start": 24.563,
+      "end": 24.889
+    },
+    {
+      "word": "East",
+      "start": 24.948,
+      "end": 25.185
+    },
+    {
+      "word": "and",
+      "start": 25.23,
+      "end": 25.363
+    },
+    {
+      "word": "West\"!",
+      "start": 25.422,
+      "end": 25.778
+    },
+    {
+      "word": "Put",
+      "start": 25.956,
+      "end": 26.489
+    },
+    {
+      "word": "them",
+      "start": 26.501,
+      "end": 26.548
+    },
+    {
+      "word": "together,",
+      "start": 26.587,
+      "end": 27.2
+    },
+    {
+      "word": "and",
+      "start": 27.23,
+      "end": 27.319
+    },
+    {
+      "word": "东西",
+      "start": 27.378,
+      "end": 27.674
+    },
+    {
+      "word": "(dōngxi)",
+      "start": 27.686,
+      "end": 27.911
+    },
+    {
+      "word": "became",
+      "start": 27.945,
+      "end": 28.148
+    },
+    {
+      "word": "the",
+      "start": 28.178,
+      "end": 28.267
+    },
+    {
+      "word": "ultimate",
+      "start": 28.306,
+      "end": 28.622
+    },
+    {
+      "word": "word",
+      "start": 28.67,
+      "end": 28.859
+    },
+    {
+      "word": "for",
+      "start": 28.889,
+      "end": 28.978
+    },
+    {
+      "word": "all",
+      "start": 29.037,
+      "end": 29.215
+    },
+    {
+      "word": "physical",
+      "start": 29.247,
+      "end": 29.511
+    },
+    {
+      "word": "things!",
+      "start": 29.562,
+      "end": 30.044
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndSec": 5.526,
+    "screen1EndFrame": 332,
+    "screen2EndSec": 13.067,
+    "screen2EndFrame": 784,
+    "screen3EndSec": 18.232,
+    "screen3EndFrame": 1094,
+    "lessonTotalSec": 30.093061,
+    "lessonTotalFrames": 1806
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 332,
+      "clothMention": {
+        "startFrame": 92,
+        "endFrame": 167
+      },
+      "wallMention": {
+        "startFrame": 217,
+        "endFrame": 281
+      },
+      "altarMention": {
+        "startFrame": 217,
+        "endFrame": 281
+      },
+      "muscleMention": {
+        "startFrame": 217,
+        "endFrame": 281
+      }
+    },
+    "screen2": {
+      "startFrame": 332,
+      "endFrame": 784,
+      "topBang": {
+        "startFrame": 332,
+        "endFrame": 668
+      },
+      "bottomJin": {
+        "startFrame": 668,
+        "endFrame": 784
+      },
+      "wholeBang": {
+        "startFrame": 668,
+        "endFrame": 784
+      }
+    },
+    "screen3": {
+      "startFrame": 784,
+      "endFrame": 1094,
+      "wholeZhuIntro": {
+        "startFrame": 784,
+        "endFrame": 844
+      },
+      "leftQie": {
+        "startFrame": 844,
+        "endFrame": 1034
+      },
+      "rightLi": {
+        "startFrame": 844,
+        "endFrame": 1034
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1034,
+        "endFrame": 1094
+      }
+    },
+    "screen4": {
+      "startFrame": 1094,
+      "endFrame": 1806,
+      "bangHighlightEndFrame": 1643
+    }
+  },
+  "lessonDurationInFrames": 1806,
+  "outroDurationInFrames": 0
+}

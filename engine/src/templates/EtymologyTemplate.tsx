@@ -239,7 +239,7 @@ const OrganicCenterTag: React.FC<{
     <div
       style={{
         position: 'absolute',
-        top: 680,
+        top: 730,
         left: '50%',
         transform: `translateX(calc(-50% + ${currentX}px)) translateY(${driftY}px) rotate(${tiltAngle}deg)`,
         display: 'flex',
@@ -255,7 +255,7 @@ const OrganicCenterTag: React.FC<{
         style={{
           backgroundColor: '#0F172A',
           color: '#FFFFFF',
-          padding: '14px 38px',
+          padding: '10px 32px',
           borderRadius: 26,
           boxShadow: '0 16px 40px rgba(15, 23, 42, 0.45)',
           border: '2px solid rgba(255, 111, 89, 0.5)',
@@ -268,15 +268,15 @@ const OrganicCenterTag: React.FC<{
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 38 }}>{emoji}</span>
-          <span style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: 40, fontWeight: 900, color: '#FFFFFF' }}>
+          <span style={{ fontFamily: '"Noto Sans SC", sans-serif', fontSize: 36, fontWeight: 900, color: '#FFFFFF' }}>
             {radical}
           </span>
-          <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: 28, fontWeight: 700, color: '#94A3B8', fontStyle: 'italic' }}>
+          <span style={{ fontFamily: 'Roboto, sans-serif', fontSize: 24, fontWeight: 700, color: '#94A3B8', fontStyle: 'italic' }}>
             ({pinyin})
           </span>
         </div>
 
-        <div style={{ fontFamily: FONTS.display, fontSize: 28, fontWeight: 700, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+        <div style={{ fontFamily: FONTS.display, fontSize: 24, fontWeight: 700, color: '#FF6F59', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
           {translation}
         </div>
       </div>
@@ -294,7 +294,7 @@ const OrganicCenterTag: React.FC<{
             src={staticFile(currentCatSrc)}
             alt="Borderless Transparent Cat Sketch"
             style={{
-              height: 680,
+              height: 500,
               width: 'auto',
               objectFit: 'contain',
               filter: 'drop-shadow(0 14px 28px rgba(15, 23, 42, 0.18))',
@@ -327,6 +327,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const isChicu = character === '吃醋';
+  const isDongxi = character === '东西';
   const isXihuan = character === '喜欢';
   const isKaishi = character === '开始';
   const isJieshao = character === '介绍';
@@ -345,7 +347,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen4 = frame >= screen3EndFrame;
 
   // --- KINETIC HERO HOOK PHASES (0 to 75 frames: ~1.25s) ---
-  const isHeroWordPhase = isXihuan && frame < 75;
+  const isHeroWordPhase = (isXihuan || isDongxi || isChicu) && frame < 75;
   const isWordChinese = isHeroWordPhase && frame < 28;
   const isWordIs = isHeroWordPhase && frame >= 28 && frame < 43;
   const isWordWild = isHeroWordPhase && frame >= 43;
@@ -391,16 +393,17 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     : 0;
 
   const transition3To4Zoom = isScreen4 && frame < screen3EndFrame + 30
-    ? Math.sin((frame - screen3EndFrame) / 30 * Math.PI) * -0.06
+    ? Math.sin((frame - screen3EndFrame) / 30 * Math.PI) * 0.08
     : 0;
 
   // Continuous subtle digital push-in across the whole video (0.04x / 4%)
   const continuousPush = 1 + (frame / lessonDurationInFrames) * 0.04;
 
-  // Combined camera zoom scale
-  const cameraZoomScale = isHeroWordPhase
+  // Combined camera zoom scale (strictly clamped to >= 1.0 to eliminate black border gaps)
+  const rawCameraZoom = isHeroWordPhase
     ? (isWordWild ? interpolate(springWild, [0, 1], [1.35, 1.0]) : 1.0)
     : (interpolate(heroRevealSpring, [0, 1], [1.35, 1.0]) + transition1To2Zoom + transition2To3Zoom + transition3To4Zoom) * continuousPush;
+  const cameraZoomScale = Math.max(1.0, rawCameraZoom);
 
   // Screen shake on Frame 0 and Wild word impact
   const shake1 = frame < 15 ? Math.sin(frame * 1.8) * (1 - frame / 15) * 8 : 0;
@@ -412,7 +415,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     ? Math.sin((frame - 95) * 0.12) * 35
     : 0;
 
-  const charSpacing = isKaishi || isXihuan ? 120 : 150;
+  const charSpacing = isKaishi || isXihuan || isDongxi || isChicu ? 120 : 150;
   const bangX =
     interpolate(morph1To2, [0, 1], [-charSpacing - hookFracturePulse, 0]) +
     interpolate(morph2To3, [0, 1], [0, -800]) +
@@ -473,7 +476,38 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot2Y = isKaishi || isXihuan ? 240 : isJieshao ? 250 : isWangji ? 210 : isAiqing ? 220 : isPengyou ? 300 : 210;
   let spot2R = isKaishi || isXihuan ? 180 : 120;
 
-  if (isXihuan) {
+  if (isChicu) {
+    if (isScreen2TopBang) {
+      // 口 (left)
+      spot2X = 430;
+      spot2Y = 160;
+      spot2R = 95;
+    } else if (isScreen2BottomJin) {
+      // 乞 (right)
+      spot2X = 590;
+      spot2Y = 165;
+      spot2R = 120;
+    } else if (isScreen2WholeBang) {
+      // 吃 (whole)
+      spot2X = 540;
+      spot2Y = 160;
+      spot2R = 150;
+    }
+  } else if (isDongxi) {
+    if (isScreen2TopBang) {
+      spot2X = 540;
+      spot2Y = 160;
+      spot2R = 140;
+    } else if (isScreen2BottomJin) {
+      spot2X = 540;
+      spot2Y = 160;
+      spot2R = 150;
+    } else if (isScreen2WholeBang) {
+      spot2X = 540;
+      spot2Y = 160;
+      spot2R = 160;
+    }
+  } else if (isXihuan) {
     if (isScreen2TopBang) {
       spot2Y = 190;
       spot2R = 120;
@@ -481,7 +515,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
       spot2Y = 320;
       spot2R = 110;
     } else if (isScreen2WholeBang) {
-      spot2Y = 240;
+      spot2Y = 160;
       spot2R = 180;
     }
   } else if (isKaishi) {
@@ -489,7 +523,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
       spot2Y = 200;
       spot2R = 130;
     } else if (isScreen2WholeBang) {
-      spot2Y = 240;
+      spot2Y = 160;
       spot2R = 180;
     }
   } else if (isAiqing) {
@@ -528,36 +562,67 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   }
 
   let spot3X = 540;
-  let spot3Y = isKaishi || isXihuan ? 240 : 300;
-  let spot3R = isKaishi || isXihuan ? 180 : 230;
+  let spot3Y = isKaishi || isXihuan || isDongxi ? 240 : 300;
+  let spot3R = isKaishi || isXihuan || isDongxi ? 180 : 230;
 
-  if (isXihuan) {
+  if (isChicu) {
+    if (isScreen3LeftQie) {
+      // 酉 (left)
+      spot3X = 440;
+      spot3Y = 165;
+      spot3R = 120;
+    } else if (isScreen3RightLi) {
+      // 昔 (right)
+      spot3X = 600;
+      spot3Y = 165;
+      spot3R = 120;
+    } else if (isScreen3WholeZhu) {
+      // 醋 (whole)
+      spot3X = 540;
+      spot3Y = 160;
+      spot3R = 150;
+    }
+  } else if (isDongxi) {
+    if (isScreen3LeftQie) {
+      spot3X = 540;
+      spot3Y = 160;
+      spot3R = 150;
+    } else if (isScreen3RightLi) {
+      spot3X = 540;
+      spot3Y = 160;
+      spot3R = 150;
+    } else if (isScreen3WholeZhu) {
+      spot3X = 540;
+      spot3Y = 160;
+      spot3R = 160;
+    }
+  } else if (isXihuan) {
     if (isScreen3LeftQie) {
       spot3X = 430;
-      spot3Y = 240;
+      spot3Y = 160;
       spot3R = 110;
     } else if (isScreen3RightLi) {
       spot3X = 620;
-      spot3Y = 240;
+      spot3Y = 160;
       spot3R = 110;
     } else if (isScreen3WholeZhu) {
       spot3X = 540;
-      spot3Y = 240;
-      spot3R = 180;
+      spot3Y = 160;
+      spot3R = 150;
     }
   } else if (isKaishi) {
     if (isScreen3LeftQie) {
       spot3X = 430;
-      spot3Y = 240;
+      spot3Y = 160;
       spot3R = 110;
     } else if (isScreen3RightLi) {
       spot3X = 620;
-      spot3Y = 240;
+      spot3Y = 160;
       spot3R = 110;
     } else if (isScreen3WholeZhu) {
       spot3X = 540;
-      spot3Y = 240;
-      spot3R = 180;
+      spot3Y = 160;
+      spot3R = 150;
     }
   } else if (isAiqing) {
     if (isScreen3LeftQie) {
@@ -604,7 +669,17 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const altarSpring = spring({ frame: Math.max(0, frame - (anim.screen1.altarMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
   const muscleSpring = spring({ frame: Math.max(0, frame - (anim.screen1.muscleMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
 
-  const emojisData = isXihuan
+  const emojisData = isChicu
+    ? [
+        { emoji: '🍜', label: '吃 (Eating)', angleOffset: -Math.PI / 4, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedCloth },
+        { emoji: '🍶', label: '醋 (Vinegar)', angleOffset: 5 * Math.PI / 4, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedWall },
+      ]
+    : isDongxi
+    ? [
+        { emoji: '📦', label: '物 (Goods)', angleOffset: -Math.PI / 4, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedCloth },
+        { emoji: '🧭', label: '东西 (East & West)', angleOffset: 5 * Math.PI / 4, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedWall },
+      ]
+    : isXihuan
     ? [
         { emoji: '🥁', label: '壴 (War Drum)', angleOffset: -Math.PI / 6, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedCloth },
         { emoji: '🗣️', label: '口 (Singing Mouth)', angleOffset: -Math.PI / 3, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.5]) : 0, active: isMentionedWall },
@@ -644,21 +719,42 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const bgmVolume = 0.15 * bgmFadeOut;
 
   return (
-    <AbsoluteFill style={{ 
-      backgroundColor: COLORS.bg, 
-      fontFamily: 'Roboto, sans-serif', 
-      overflow: 'hidden',
-      transform: `translateY(${totalShakeY}px) scale(${cameraZoomScale})`,
-      transformOrigin: '50% 40%'
-    }}>
-      <Sequence from={0} durationInFrames={lessonDurationInFrames}>
-        <ChineseBackground
-          frame={frame}
-          lessonTotalFrames={lessonDurationInFrames}
-          morph1To2={morph1To2}
-          morph2To3={morph2To3}
-          morph3To4={morph3To4}
-        />
+    <AbsoluteFill
+      style={{
+        backgroundColor: COLORS.bg,
+        fontFamily: 'Roboto, sans-serif',
+        overflow: 'hidden',
+      }}
+    >
+      {/* 1. Base solid safety bleed background preventing any black edges */}
+      <div
+        style={{
+          position: 'absolute',
+          top: -600,
+          left: -600,
+          width: 'calc(100% + 1200px)',
+          height: 'calc(100% + 1200px)',
+          backgroundColor: COLORS.bg,
+          zIndex: 0,
+        }}
+      />
+
+      {/* 2. Motion / Camera Layer with Crash Zoom, Scale & Shake */}
+      <AbsoluteFill
+        style={{
+          transform: `translateY(${totalShakeY}px) scale(${cameraZoomScale})`,
+          transformOrigin: '50% 40%',
+          overflow: 'visible',
+        }}
+      >
+        <Sequence from={0} durationInFrames={lessonDurationInFrames}>
+          <ChineseBackground
+            frame={frame}
+            lessonTotalFrames={lessonDurationInFrames}
+            morph1To2={morph1To2}
+            morph2To3={morph2To3}
+            morph3To4={morph3To4}
+          />
 
         {/* SHOCKWAVE PULSES ON SCENE TRANSITIONS */}
         <ShockwaveRing triggerFrame={screen1EndFrame} frame={frame} x={540} y={400} color="#FF6F59" />
@@ -733,11 +829,11 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           <FloatingParticles count={14} color="#FF6F59" />
 
           {/* TOP HEADER CONTAINER */}
-          <div style={{ marginTop: 20, height: 180, textAlign: 'center', width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ marginTop: 240, height: 150, textAlign: 'center', width: '100%', display: 'flex', justifyContent: 'center' }}>
             {isScreen1 && (
               <div style={{
                 backgroundColor: '#0F172A',
-                padding: '20px 44px',
+                padding: '16px 36px',
                 borderRadius: 24,
                 boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
                 border: '3px solid #FF6F59',
@@ -747,11 +843,17 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 alignItems: 'center',
                 gap: 6
               }}>
-                <h1 style={{ fontFamily: FONTS.display, fontSize: 58, color: '#FF6F59', margin: 0, fontWeight: 900, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-                  CHINESE IS WILD 🔥
+                <h1 style={{ fontFamily: FONTS.display, fontSize: 48, color: '#FF6F59', margin: 0, fontWeight: 900, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
+                  {isChicu ? 'JEALOUS 😒' : 'CHINESE IS WILD 🔥'}
                 </h1>
-                <div style={{ fontFamily: FONTS.display, fontSize: 32, color: '#FFFFFF', fontWeight: 700 }}>
-                  Why <span style={{ color: '#FF6F59' }}>喜欢</span> = War Drum + Cheering!
+                <div style={{ fontFamily: FONTS.display, fontSize: 28, color: '#FFFFFF', fontWeight: 700 }}>
+                  {isChicu ? (
+                    <span>Why <span style={{ color: '#FF6F59' }}>{character}</span> = Eating Vinegar?!</span>
+                  ) : isDongxi ? (
+                    <span>Why <span style={{ color: '#FF6F59' }}>{character}</span> = East + West = Things?!</span>
+                  ) : (
+                    <span>Why <span style={{ color: '#FF6F59' }}>{character}</span> = War Drum + Cheering!</span>
+                  )}
                 </div>
               </div>
             )}
@@ -760,8 +862,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph1To2, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 940 }}>
+                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isChicu ? 'chī' : isDongxi ? 'dōng' : isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isChicu ? 'Open Mouth & Begging for Food' : isDongxi ? 'Sunrise & Travel Sack' : isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
                 </h2>
               </div>
             )}
@@ -770,8 +872,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph2To3, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 50, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 940 }}>
+                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
                 </h2>
               </div>
             )}
@@ -780,8 +882,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph3To4, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 52, color: '#0F172A', margin: 0, lineHeight: 1.2 }}>
-                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 940 }}>
+                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isChicu ? 'Drinking Vinegar = Romantic Jealousy!' : isDongxi ? 'East Market + West Market!' : isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
                 </h2>
               </div>
             )}
@@ -792,8 +894,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             style={{
               position: 'relative',
               width: '100%',
-              height: 420,
-              marginTop: 25,
+              height: 320,
+              marginTop: 15,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -803,7 +905,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               style={{
                 position: 'absolute',
                 transform: `translateX(${bangX}px) scale(${bangScale})`,
-                fontSize: 250,
+                fontSize: 210,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
                 color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : '#0F172A',
@@ -818,7 +920,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               style={{
                 position: 'absolute',
                 transform: `translateX(${zhuX}px) scale(${zhuScale})`,
-                fontSize: 250,
+                fontSize: 210,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
                 color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : '#0F172A',
@@ -874,7 +976,35 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           </div>
 
           {/* SCENE 1 CARD */}
-          {isXihuan ? (
+          {isChicu ? (
+            <OrganicCenterTag
+              emoji="🍶"
+              radical="吃醋"
+              pinyin="chī cù"
+              translation="Eating Vinegar = Jealousy"
+              catImages={[
+                'cats/chicu/cat_chicu_f1.png',
+                'cats/chicu/cat_chicu_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={75}
+              exitFrame={anim.screen1.endFrame}
+            />
+          ) : isDongxi ? (
+            <OrganicCenterTag
+              emoji="📦"
+              radical="东西"
+              pinyin="dōng xi"
+              translation="Things & Objects"
+              catImages={[
+                'cats/dongxi/cat_dongxi_f1.png',
+                'cats/dongxi/cat_dongxi_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={75}
+              exitFrame={anim.screen1.endFrame}
+            />
+          ) : isXihuan ? (
             <OrganicCenterTag
               emoji="💖"
               radical="喜欢"
@@ -936,7 +1066,78 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 2 CARDS */}
-          {isXihuan ? (
+          {isChicu ? (
+            <>
+              <OrganicCenterTag
+                emoji="👄"
+                radical="口"
+                pinyin="kǒu"
+                translation="Open Mouth"
+                catImages={[
+                  'cats/chicu/cat_mouth_f1.png',
+                  'cats/chicu/cat_mouth_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🥺"
+                radical="乞"
+                pinyin="qǐ"
+                translation="Begging for Food"
+                catImages={[
+                  'cats/chicu/cat_beg_f1.png',
+                  'cats/chicu/cat_beg_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.endFrame}
+                exitFrame={anim.screen2.bottomJin.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="😋"
+                radical="吃"
+                pinyin="chī"
+                translation="Swallowing & Eating Food"
+                catImages={[
+                  'cats/chicu/cat_eat_f1.png',
+                  'cats/chicu/cat_eat_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.bottomJin.endFrame}
+                exitFrame={anim.screen2.endFrame}
+              />
+            </>
+          ) : isDongxi ? (
+            <>
+              <OrganicCenterTag
+                emoji="🌅"
+                radical="东"
+                pinyin="dōng"
+                translation="Travel Sack on Carrying Pole"
+                catImages={[
+                  'cats/dongxi/cat_dong_f1.png',
+                  'cats/dongxi/cat_dong_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="☀️"
+                radical="东"
+                pinyin="dōng"
+                translation="Sunrise in the East"
+                catImages={[
+                  'cats/dongxi/cat_dong_f1.png',
+                  'cats/dongxi/cat_dong_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.endFrame}
+                exitFrame={anim.screen2.endFrame}
+              />
+            </>
+          ) : isXihuan ? (
             <>
               <OrganicCenterTag
                 emoji="🥁"
@@ -1102,7 +1303,65 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 3 CARDS */}
-          {isXihuan ? (
+          {isChicu ? (
+            <>
+              <OrganicCenterTag
+                emoji="🏺"
+                radical="酉"
+                pinyin="yǒu"
+                translation="Ancient Wine Jar"
+                catImages={[
+                  'cats/chicu/cat_jar_f1.png',
+                  'cats/chicu/cat_jar_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.startFrame}
+                exitFrame={anim.screen3.leftQie.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="⏳"
+                radical="昔"
+                pinyin="xī"
+                translation="Sun Over Past Days"
+                catImages={[
+                  'cats/chicu/cat_time_f1.png',
+                  'cats/chicu/cat_time_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.leftQie.endFrame}
+                exitFrame={anim.screen3.rightLi.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="😖"
+                radical="醋"
+                pinyin="cù"
+                translation="Aged Sour Vinegar"
+                catImages={[
+                  'cats/chicu/cat_sour_f1.png',
+                  'cats/chicu/cat_sour_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.rightLi.endFrame}
+                exitFrame={anim.screen3.endFrame}
+              />
+            </>
+          ) : isDongxi ? (
+            <>
+              <OrganicCenterTag
+                emoji="🌇"
+                radical="西"
+                pinyin="xī"
+                translation="Sunset & Bird in Woven Nest"
+                catImages={[
+                  'cats/dongxi/cat_xi_f1.png',
+                  'cats/dongxi/cat_xi_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.startFrame}
+                exitFrame={anim.screen3.endFrame}
+              />
+            </>
+          ) : isXihuan ? (
             <>
               <OrganicCenterTag
                 emoji="🕊️"
@@ -1282,7 +1541,35 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 4 CARD */}
-          {isXihuan ? (
+          {isChicu ? (
+            <OrganicCenterTag
+              emoji="👑"
+              radical="吃醋"
+              pinyin="chī cù"
+              translation="Loyal Wife's Vinegar Test = Jealousy!"
+              catImages={[
+                'cats/chicu/cat_jealous_f1.png',
+                'cats/chicu/cat_jealous_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : isDongxi ? (
+            <OrganicCenterTag
+              emoji="🛍️"
+              radical="东西"
+              pinyin="dōng xi"
+              translation="East & West Markets = Buying Goods!"
+              catImages={[
+                'cats/dongxi/cat_market_f1.png',
+                'cats/dongxi/cat_market_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : isXihuan ? (
             <OrganicCenterTag
               emoji="💖"
               radical="喜欢"
@@ -1344,7 +1631,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {wordsAlignment && wordsAlignment.length > 0 && (
-            <RealtimeCaptions words={wordsAlignment} positionBottom={110} />
+            <RealtimeCaptions words={wordsAlignment} positionBottom={440} />
           )}
         </AbsoluteFill>
 
@@ -1391,6 +1678,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           <KanshuAppOutro showAudio={true} audioSrc={outroAudioSrc} />
         </Sequence>
       )}
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

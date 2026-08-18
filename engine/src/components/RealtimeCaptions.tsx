@@ -12,7 +12,7 @@ export interface RealtimeCaptionsProps {
   positionBottom?: number;
 }
 
-export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, positionBottom = 130 }) => {
+export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, positionBottom = 440 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const currentTime = frame / fps;
@@ -85,8 +85,8 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
         gap: '8px 14px',
         backgroundColor: 'rgba(15, 23, 42, 0.94)',
         backdropFilter: 'blur(20px)',
-        padding: '24px 36px', // Scaled up container padding!
-        borderRadius: 32,
+        padding: '20px 32px',
+        borderRadius: 28,
         border: '2px solid rgba(255, 111, 89, 0.4)',
         boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
         zIndex: 100,
@@ -100,19 +100,21 @@ export const RealtimeCaptions: React.FC<RealtimeCaptionsProps> = ({ words, posit
           <span
             key={idx}
             style={{
-              fontSize: 46, // Scaled up caption font size (was 32px)!
+              fontSize: 42,
               fontWeight: 800,
               fontFamily: 'Inter, sans-serif',
+              textTransform: 'uppercase',
+              letterSpacing: '0.03em',
               color: isActive ? '#FF6F59' : '#FFFFFF',
               backgroundColor: isActive ? 'rgba(255, 111, 89, 0.25)' : 'transparent',
-              padding: '6px 12px', // CONSTANT PADDING FOR ZERO RESIZING JITTER!
+              padding: '6px 12px',
               borderRadius: 12,
               textShadow: isActive ? '0 4px 16px rgba(255, 111, 89, 0.75)' : 'none',
               display: 'inline-block',
               transition: 'color 0.05s linear, background-color 0.05s linear',
             }}
           >
-            {item.word}
+            {item.word.toUpperCase()}
           </span>
         );
       })}
