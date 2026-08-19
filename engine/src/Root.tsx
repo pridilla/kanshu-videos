@@ -16,6 +16,7 @@ import kaishiConfig from '../../content/09_etymology_kaishi/config.json';
 import xihuanConfig from '../../content/10_etymology_xihuan/config.json';
 import dongxiConfig from '../../content/11_etymology_dongxi/config.json';
 import chicuConfig from '../../content/11_etymology_chicu/config.json';
+import daraoConfig from '../../content/12_etymology_darao/config.json';
 
 // ────────────────────────────────────────────────────────────
 // FONT LOADER GUARD
@@ -65,9 +66,9 @@ const FontLoader: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
         await document.fonts.ready;
         await Promise.all([
-          document.fonts.load('140px "Finger Paint"', 'CHINESE IS WILD 🔥 JEALOUS EATING VINEGAR BUT WHY'),
-          document.fonts.load('900 140px "Finger Paint"', 'CHINESE IS WILD 🔥 JEALOUS EATING VINEGAR BUT WHY'),
-          document.fonts.load('900 250px "Noto Sans SC"', '吃醋东西喜欢开始介绍忘记爱情朋友'),
+          document.fonts.load('140px "Finger Paint"', 'CHINESE IS WILD 🔥 JEALOUS EATING VINEGAR BUT WHY EXCUSE ME HITTING MONKEYS'),
+          document.fonts.load('900 140px "Finger Paint"', 'CHINESE IS WILD 🔥 JEALOUS EATING VINEGAR BUT WHY EXCUSE ME HITTING MONKEYS'),
+          document.fonts.load('900 250px "Noto Sans SC"', '打扰吃醋东西喜欢开始介绍忘记爱情朋友'),
           document.fonts.load('800 42px "Inter"', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
           document.fonts.load('700 28px "Roboto"', 'abcdefghijklmnopqrstuvwxyz0123456789'),
         ]);
@@ -113,9 +114,24 @@ export const Root: React.FC = () => {
       const xihuanTotalFrames = xihuanConfig.lessonDurationInFrames + (xihuanConfig.outroDurationInFrames || 0);
       const dongxiTotalFrames = dongxiConfig.lessonDurationInFrames + (dongxiConfig.outroDurationInFrames || 0);
       const chicuTotalFrames = chicuConfig.lessonDurationInFrames + (chicuConfig.outroDurationInFrames || 0);
+      const daraoTotalFrames = daraoConfig.lessonDurationInFrames + (daraoConfig.outroDurationInFrames || 0);
 
   return (
     <>
+      {/* Etymology Video Template Composition (Video #12: 打扰) */}
+      <Composition
+        id="EtymologyDarao"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(daraoConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={daraoTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
       {/* Etymology Video Template Composition (Video #11: 吃醋) */}
       <Composition
         id="EtymologyChicu"

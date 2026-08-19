@@ -1,0 +1,577 @@
+{
+  "character": "打扰",
+  "pinyin": "dǎ rǎo",
+  "tone": 3,
+  "meaning": "To Disturb / Excuse Me",
+  "audioSrc": "darao_voice_single_pass_fast.mp3",
+  "bgmAudioSrc": "chinese_lofi_bgm.mp3",
+  "lessonDurationInFrames": 2072,
+  "wordsAlignment": [
+    {
+      "word": "EXCUSE",
+      "start": 0.0,
+      "end": 0.356
+    },
+    {
+      "word": "ME",
+      "start": 0.415,
+      "end": 0.533
+    },
+    {
+      "word": "in",
+      "start": 0.573,
+      "end": 0.652
+    },
+    {
+      "word": "Chinese",
+      "start": 0.711,
+      "end": 1.126
+    },
+    {
+      "word": "is",
+      "start": 1.224,
+      "end": 1.422
+    },
+    {
+      "word": "打扰",
+      "start": 1.659,
+      "end": 1.92
+    },
+    {
+      "word": "(dǎrǎo).",
+      "start": 1.926,
+      "end": 2.193
+    },
+    {
+      "word": "It",
+      "start": 2.667,
+      "end": 2.904
+    },
+    {
+      "word": "literally",
+      "start": 2.939,
+      "end": 3.259
+    },
+    {
+      "word": "means",
+      "start": 3.309,
+      "end": 3.556
+    },
+    {
+      "word": "\"hitting",
+      "start": 3.644,
+      "end": 3.97
+    },
+    {
+      "word": "monkeys\".",
+      "start": 4.03,
+      "end": 4.563
+    },
+    {
+      "word": "But",
+      "start": 4.741,
+      "end": 5.096
+    },
+    {
+      "word": "why?",
+      "start": 5.215,
+      "end": 5.63
+    },
+    {
+      "word": "Look",
+      "start": 6.127,
+      "end": 6.459
+    },
+    {
+      "word": "at",
+      "start": 6.499,
+      "end": 6.578
+    },
+    {
+      "word": "打",
+      "start": 6.578,
+      "end": 6.993
+    },
+    {
+      "word": "(dǎ).",
+      "start": 7.022,
+      "end": 7.054
+    },
+    {
+      "word": "On",
+      "start": 7.094,
+      "end": 7.173
+    },
+    {
+      "word": "the",
+      "start": 7.188,
+      "end": 7.233
+    },
+    {
+      "word": "left",
+      "start": 7.304,
+      "end": 7.588
+    },
+    {
+      "word": "is",
+      "start": 7.667,
+      "end": 7.825
+    },
+    {
+      "word": "扌",
+      "start": 7.944,
+      "end": 8.003
+    },
+    {
+      "word": "(shǒu),",
+      "start": 8.033,
+      "end": 8.477
+    },
+    {
+      "word": "a",
+      "start": 8.536,
+      "end": 8.596
+    },
+    {
+      "word": "hand.",
+      "start": 8.667,
+      "end": 9.01
+    },
+    {
+      "word": "On",
+      "start": 9.227,
+      "end": 9.544
+    },
+    {
+      "word": "the",
+      "start": 9.573,
+      "end": 9.662
+    },
+    {
+      "word": "right",
+      "start": 9.712,
+      "end": 9.959
+    },
+    {
+      "word": "is",
+      "start": 10.018,
+      "end": 10.136
+    },
+    {
+      "word": "丁",
+      "start": 10.255,
+      "end": 10.284
+    },
+    {
+      "word": "(dīng),",
+      "start": 10.299,
+      "end": 10.61
+    },
+    {
+      "word": "striking",
+      "start": 10.67,
+      "end": 11.144
+    },
+    {
+      "word": "like",
+      "start": 11.179,
+      "end": 11.321
+    },
+    {
+      "word": "a",
+      "start": 11.351,
+      "end": 11.381
+    },
+    {
+      "word": "nail.",
+      "start": 11.44,
+      "end": 11.707
+    },
+    {
+      "word": "Together,",
+      "start": 11.828,
+      "end": 12.684
+    },
+    {
+      "word": "it",
+      "start": 12.704,
+      "end": 12.744
+    },
+    {
+      "word": "means",
+      "start": 12.793,
+      "end": 13.04
+    },
+    {
+      "word": "striking",
+      "start": 13.093,
+      "end": 13.514
+    },
+    {
+      "word": "with",
+      "start": 13.538,
+      "end": 13.633
+    },
+    {
+      "word": "your",
+      "start": 13.656,
+      "end": 13.751
+    },
+    {
+      "word": "hands!",
+      "start": 13.83,
+      "end": 14.255
+    },
+    {
+      "word": "Now",
+      "start": 14.507,
+      "end": 15.173
+    },
+    {
+      "word": "look",
+      "start": 15.209,
+      "end": 15.351
+    },
+    {
+      "word": "at",
+      "start": 15.39,
+      "end": 15.47
+    },
+    {
+      "word": "扰",
+      "start": 15.647,
+      "end": 15.914
+    },
+    {
+      "word": "(rǎo).",
+      "start": 16.047,
+      "end": 16.3
+    },
+    {
+      "word": "On",
+      "start": 16.458,
+      "end": 16.537
+    },
+    {
+      "word": "the",
+      "start": 16.552,
+      "end": 16.596
+    },
+    {
+      "word": "left",
+      "start": 16.667,
+      "end": 16.952
+    },
+    {
+      "word": "is",
+      "start": 17.011,
+      "end": 17.13
+    },
+    {
+      "word": "扌",
+      "start": 17.248,
+      "end": 17.278
+    },
+    {
+      "word": "(shǒu),",
+      "start": 17.293,
+      "end": 17.664
+    },
+    {
+      "word": "another",
+      "start": 17.701,
+      "end": 17.96
+    },
+    {
+      "word": "hand.",
+      "start": 18.031,
+      "end": 18.375
+    },
+    {
+      "word": "On",
+      "start": 18.73,
+      "end": 18.908
+    },
+    {
+      "word": "the",
+      "start": 18.923,
+      "end": 18.967
+    },
+    {
+      "word": "right",
+      "start": 19.017,
+      "end": 19.264
+    },
+    {
+      "word": "is",
+      "start": 19.323,
+      "end": 19.441
+    },
+    {
+      "word": "尤",
+      "start": 19.679,
+      "end": 19.699
+    },
+    {
+      "word": "(yóu),",
+      "start": 19.708,
+      "end": 20.034
+    },
+    {
+      "word": "a",
+      "start": 20.093,
+      "end": 20.153
+    },
+    {
+      "word": "chaotic",
+      "start": 20.204,
+      "end": 20.567
+    },
+    {
+      "word": "beast.",
+      "start": 20.636,
+      "end": 21.041
+    },
+    {
+      "word": "It",
+      "start": 21.279,
+      "end": 21.634
+    },
+    {
+      "word": "originally",
+      "start": 21.672,
+      "end": 22.049
+    },
+    {
+      "word": "pictured",
+      "start": 22.095,
+      "end": 22.464
+    },
+    {
+      "word": "swatting",
+      "start": 22.523,
+      "end": 22.819
+    },
+    {
+      "word": "away",
+      "start": 22.879,
+      "end": 23.116
+    },
+    {
+      "word": "wild,",
+      "start": 23.199,
+      "end": 23.59
+    },
+    {
+      "word": "mischievous",
+      "start": 23.649,
+      "end": 24.064
+    },
+    {
+      "word": "monkeys!",
+      "start": 24.123,
+      "end": 24.597
+    },
+    {
+      "word": "Put",
+      "start": 24.804,
+      "end": 25.249
+    },
+    {
+      "word": "them",
+      "start": 25.273,
+      "end": 25.367
+    },
+    {
+      "word": "together,",
+      "start": 25.413,
+      "end": 26.019
+    },
+    {
+      "word": "and",
+      "start": 26.064,
+      "end": 26.197
+    },
+    {
+      "word": "打扰",
+      "start": 26.316,
+      "end": 26.517
+    },
+    {
+      "word": "(dǎrǎo)",
+      "start": 26.529,
+      "end": 26.849
+    },
+    {
+      "word": "means",
+      "start": 26.888,
+      "end": 27.086
+    },
+    {
+      "word": "stirring",
+      "start": 27.132,
+      "end": 27.501
+    },
+    {
+      "word": "up",
+      "start": 27.56,
+      "end": 27.679
+    },
+    {
+      "word": "chaotic",
+      "start": 27.73,
+      "end": 28.093
+    },
+    {
+      "word": "monkeys.",
+      "start": 28.16,
+      "end": 28.686
+    },
+    {
+      "word": "That's",
+      "start": 28.887,
+      "end": 29.516
+    },
+    {
+      "word": "why",
+      "start": 29.56,
+      "end": 29.693
+    },
+    {
+      "word": "when",
+      "start": 29.729,
+      "end": 29.871
+    },
+    {
+      "word": "you",
+      "start": 29.901,
+      "end": 29.99
+    },
+    {
+      "word": "politely",
+      "start": 30.022,
+      "end": 30.286
+    },
+    {
+      "word": "interrupt",
+      "start": 30.321,
+      "end": 30.641
+    },
+    {
+      "word": "someone,",
+      "start": 30.679,
+      "end": 31.175
+    },
+    {
+      "word": "you",
+      "start": 31.204,
+      "end": 31.293
+    },
+    {
+      "word": "say",
+      "start": 31.353,
+      "end": 31.53
+    },
+    {
+      "word": "打扰",
+      "start": 31.738,
+      "end": 31.965
+    },
+    {
+      "word": "(dǎrǎo)",
+      "start": 31.97,
+      "end": 32.242
+    },
+    {
+      "word": "—",
+      "start": 32.42,
+      "end": 32.598
+    },
+    {
+      "word": "sorry",
+      "start": 32.637,
+      "end": 32.835
+    },
+    {
+      "word": "for",
+      "start": 32.879,
+      "end": 33.013
+    },
+    {
+      "word": "the",
+      "start": 33.027,
+      "end": 33.072
+    },
+    {
+      "word": "monkey",
+      "start": 33.106,
+      "end": 33.309
+    },
+    {
+      "word": "chaos!",
+      "start": 33.398,
+      "end": 33.961
+    }
+  ],
+  "screenTimestamps": {
+    "screen1EndFrame": 368,
+    "screen2EndFrame": 870,
+    "screen3EndFrame": 1488,
+    "lessonTotalFrames": 2072
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 368,
+      "clothMention": {
+        "startFrame": 219,
+        "endFrame": 274
+      },
+      "whyMention": {
+        "startFrame": 303,
+        "endFrame": 368
+      }
+    },
+    "screen2": {
+      "startFrame": 368,
+      "endFrame": 870,
+      "topBang": {
+        "startFrame": 368,
+        "endFrame": 615
+      },
+      "bottomJin": {
+        "startFrame": 615,
+        "endFrame": 710
+      },
+      "wholeBang": {
+        "startFrame": 710,
+        "endFrame": 870
+      }
+    },
+    "screen3": {
+      "startFrame": 870,
+      "endFrame": 1488,
+      "wholeZhuIntro": {
+        "startFrame": 870,
+        "endFrame": 1035
+      },
+      "leftQie": {
+        "startFrame": 870,
+        "endFrame": 1181
+      },
+      "rightLi": {
+        "startFrame": 1181,
+        "endFrame": 1300
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1300,
+        "endFrame": 1488
+      }
+    },
+    "screen4": {
+      "startFrame": 1488,
+      "endFrame": 2072,
+      "bangHighlightEndFrame": 1780
+    }
+  }
+}

@@ -327,6 +327,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const isDarao = character === '打扰';
   const isChicu = character === '吃醋';
   const isDongxi = character === '东西';
   const isXihuan = character === '喜欢';
@@ -347,7 +348,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen4 = frame >= screen3EndFrame;
 
   // --- KINETIC HERO HOOK PHASES (0 to 75 frames: ~1.25s) ---
-  const isHeroWordPhase = (isXihuan || isDongxi || isChicu) && frame < 75;
+  const isHeroWordPhase = (isXihuan || isDongxi || isChicu || isDarao) && frame < (isDarao ? 68 : 75);
   const isWordChinese = isHeroWordPhase && frame < 28;
   const isWordIs = isHeroWordPhase && frame >= 28 && frame < 43;
   const isWordWild = isHeroWordPhase && frame >= 43;
@@ -356,15 +357,19 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isWordChicuJealous = isChicu && isHeroWordPhase && frame < 24;
   const isWordChicuInChinese = isChicu && isHeroWordPhase && frame >= 24;
 
+  // Word phases for isDarao ("EXCUSE ME" -> "IN CHINESE")
+  const isWordDaraoExcuseMe = isDarao && isHeroWordPhase && frame < 22;
+  const isWordDaraoInChinese = isDarao && isHeroWordPhase && frame >= 22;
+
   // Springs for each hero word
   const springChinese = spring({ frame, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
   const springIs = spring({ frame: Math.max(0, frame - 28), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
   const springWild = spring({ frame: Math.max(0, frame - 43), fps, config: { damping: 9, mass: 0.5, stiffness: 300 } });
-  const springInChinese = spring({ frame: Math.max(0, frame - 24), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
+  const springInChinese = spring({ frame: Math.max(0, frame - (isDarao ? 22 : 24)), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
 
   // Camera Crash-Zoom Transition Spring (frames 75-105: ~1.25s to 1.75s)
   const heroRevealSpring = spring({
-    frame: Math.max(0, frame - 75),
+    frame: Math.max(0, frame - (isDarao ? 68 : 75)),
     fps,
     config: { damping: 14, mass: 0.7, stiffness: 180 },
   });
@@ -406,15 +411,16 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
 
   // Combined camera zoom scale (strictly clamped to >= 1.0 to eliminate black border gaps)
   const rawCameraZoom = isHeroWordPhase
-    ? (isWordWild || isWordChicuInChinese ? interpolate(isChicu ? springInChinese : springWild, [0, 1], [1.35, 1.0]) : 1.0)
+    ? (isWordWild || isWordChicuInChinese || isWordDaraoInChinese ? interpolate(isChicu || isDarao ? springInChinese : springWild, [0, 1], [1.35, 1.0]) : 1.0)
     : (interpolate(heroRevealSpring, [0, 1], [1.35, 1.0]) + transition1To2Zoom + transition2To3Zoom + transition3To4Zoom) * continuousPush;
   const cameraZoomScale = Math.max(1.0, rawCameraZoom);
 
   // Screen shake on Frame 0 and word impact
   const shake1 = frame < 15 ? Math.sin(frame * 1.8) * (1 - frame / 15) * 8 : 0;
-  const shakeWild = (!isChicu && frame >= 43 && frame < 58) ? Math.sin((frame - 43) * 2.0) * (1 - (frame - 43) / 15) * 10 : 0;
+  const shakeWild = (!isChicu && !isDarao && frame >= 43 && frame < 58) ? Math.sin((frame - 43) * 2.0) * (1 - (frame - 43) / 15) * 10 : 0;
   const shakeChicu = (isChicu && frame >= 24 && frame < 39) ? Math.sin((frame - 24) * 2.0) * (1 - (frame - 24) / 15) * 8 : 0;
-  const totalShakeY = shake1 + shakeWild + shakeChicu;
+  const shakeDarao = (isDarao && frame >= 22 && frame < 37) ? Math.sin((frame - 22) * 2.0) * (1 - (frame - 22) / 15) * 8 : 0;
+  const totalShakeY = shake1 + shakeWild + shakeChicu + shakeDarao;
 
   // Smoothly damped fracture pulse during hook tension (frames 95-155) - seamlessly returns to 0
   const relPulseFrame = frame - 95;
@@ -422,7 +428,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     ? Math.sin(relPulseFrame * 0.15) * Math.sin((relPulseFrame / 60) * Math.PI) * 25
     : 0;
 
-  const charSpacing = isKaishi || isXihuan || isDongxi || isChicu ? 120 : 150;
+  const charSpacing = isKaishi || isXihuan || isDongxi || isChicu || isDarao ? 120 : 150;
   const bangX =
     interpolate(morph1To2, [0, 1], [-charSpacing - hookFracturePulse, 0]) +
     interpolate(morph2To3, [0, 1], [0, -800]) +
@@ -483,7 +489,24 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot2Y = isKaishi || isXihuan ? 240 : isJieshao ? 250 : isWangji ? 210 : isAiqing ? 220 : isPengyou ? 300 : 210;
   let spot2R = isKaishi || isXihuan ? 180 : 120;
 
-  if (isChicu) {
+  if (isDarao) {
+    if (isScreen2TopBang) {
+      // 扌 (left)
+      spot2X = 450;
+      spot2Y = 165;
+      spot2R = 95;
+    } else if (isScreen2BottomJin) {
+      // 丁 (right)
+      spot2X = 615;
+      spot2Y = 165;
+      spot2R = 105;
+    } else if (isScreen2WholeBang) {
+      // 打 (whole)
+      spot2X = 540;
+      spot2Y = 165;
+      spot2R = 155;
+    }
+  } else if (isChicu) {
     if (isScreen2TopBang) {
       // 口 (left)
       spot2X = 430;
@@ -572,7 +595,24 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot3Y = isKaishi || isXihuan || isDongxi ? 240 : 300;
   let spot3R = isKaishi || isXihuan || isDongxi ? 180 : 230;
 
-  if (isChicu) {
+  if (isDarao) {
+    if (isScreen3LeftQie) {
+      // 扌 (left)
+      spot3X = 450;
+      spot3Y = 165;
+      spot3R = 95;
+    } else if (isScreen3RightLi) {
+      // 尤 (right)
+      spot3X = 615;
+      spot3Y = 165;
+      spot3R = 105;
+    } else if (isScreen3WholeZhu) {
+      // 扰 (whole)
+      spot3X = 540;
+      spot3Y = 165;
+      spot3R = 155;
+    }
+  } else if (isChicu) {
     if (isScreen3LeftQie) {
       // 酉 (left)
       spot3X = 460;
@@ -676,7 +716,12 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const altarSpring = spring({ frame: Math.max(0, frame - (anim.screen1.altarMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
   const muscleSpring = spring({ frame: Math.max(0, frame - (anim.screen1.muscleMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
 
-  const emojisData = isChicu
+  const emojisData = isDarao
+    ? [
+        { emoji: '🔨', label: '打 (Strike)', angleOffset: -Math.PI / 4, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedCloth },
+        { emoji: '🐒', label: '扰 (Monkeys)', angleOffset: 5 * Math.PI / 4, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedWall },
+      ]
+    : isChicu
     ? [
         { emoji: '🍜', label: '吃 (Eating)', angleOffset: -Math.PI / 4, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedCloth },
         { emoji: '🍶', label: '醋 (Vinegar)', angleOffset: 5 * Math.PI / 4, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedWall },
@@ -773,7 +818,44 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         {/* ============================================================ */}
         {isHeroWordPhase && (
           <AbsoluteFill style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 150 }}>
-            {isChicu ? (
+            {isDarao ? (
+              <>
+                {isWordDaraoExcuseMe && (
+                  <div style={{
+                    transform: `scale(${interpolate(springChinese, [0, 1], [0.4, 1.15])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 120,
+                    fontWeight: 900,
+                    color: '#FF6F59',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 20,
+                    filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.7)) drop-shadow(0 0 30px rgba(255,111,89,0.9))'
+                  }}>
+                    <span>EXCUSE ME</span>
+                    <span style={{ fontSize: 130 }}>🐒</span>
+                  </div>
+                )}
+                {isWordDaraoInChinese && (
+                  <div style={{
+                    transform: `scale(${interpolate(springInChinese, [0, 1], [0.4, 1.05])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 110,
+                    fontWeight: 900,
+                    color: '#0F172A',
+                    letterSpacing: '0.04em',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    filter: 'drop-shadow(0 15px 30px rgba(15,23,42,0.25))'
+                  }}>
+                    IN CHINESE
+                  </div>
+                )}
+              </>
+            ) : isChicu ? (
               <>
                 {isWordChicuJealous && (
                   <div style={{
@@ -892,7 +974,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 gap: 6
               }}>
                 <h1 style={{ fontFamily: FONTS.display, fontSize: 48, color: '#FF6F59', margin: 0, fontWeight: 900, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-                  {isChicu ? (
+                  {isDarao ? (
+                    frame >= 284 ? 'BUT WHY? 🤔' : frame >= 160 ? 'LITERALLY: HITTING MONKEYS 🐒' : 'EXCUSE ME 🐒'
+                  ) : isChicu ? (
                     frame >= 271 ? 'BUT WHY? 🤔' : frame >= 169 ? 'LITERALLY: EATING VINEGAR 🍶' : 'JEALOUS 😒'
                   ) : isDongxi ? (
                     'THINGS 📦'
@@ -901,7 +985,15 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                   )}
                 </h1>
                 <div style={{ fontFamily: FONTS.display, fontSize: 28, color: '#FFFFFF', fontWeight: 700 }}>
-                  {isChicu ? (
+                  {isDarao ? (
+                    frame >= 284 ? (
+                      <span>Why does <span style={{ color: '#FF6F59' }}>{character}</span> mean Excuse Me?!</span>
+                    ) : frame >= 160 ? (
+                      <span>Striking (<span style={{ color: '#FF6F59' }}>打</span>) + Monkeys (<span style={{ color: '#FF6F59' }}>扰</span>)</span>
+                    ) : (
+                      <span>In Chinese: <span style={{ color: '#FF6F59' }}>{character} (dǎ rǎo)</span></span>
+                    )
+                  ) : isChicu ? (
                     frame >= 271 ? (
                       <span>Why does <span style={{ color: '#FF6F59' }}>{character}</span> mean Jealousy?!</span>
                     ) : frame >= 169 ? (
@@ -923,7 +1015,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'transform 0.2s ease',
               }}>
                 <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
-                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isChicu ? 'chī' : isDongxi ? 'dōng' : isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isChicu ? 'Open Mouth & Begging for Food' : isDongxi ? 'Sunrise & Travel Sack' : isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
+                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isDarao ? 'dǎ' : isChicu ? 'chī' : isDongxi ? 'dōng' : isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isDarao ? 'Striking with Hands' : isChicu ? 'Open Mouth & Begging for Food' : isDongxi ? 'Sunrise & Travel Sack' : isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
                 </h2>
               </div>
             )}
@@ -933,7 +1025,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'transform 0.2s ease',
               }}>
                 <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
-                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
+                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isDarao ? 'rǎo' : isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isDarao ? 'Swatting Chaotic Monkeys' : isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
                 </h2>
               </div>
             )}
@@ -943,7 +1035,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'transform 0.2s ease',
               }}>
                 <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
-                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isChicu ? 'Drinking Vinegar = Romantic Jealousy!' : isDongxi ? 'East Market + West Market!' : isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
+                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isDarao ? 'Hand Strike + Wild Monkeys = Excuse Me!' : isChicu ? 'Drinking Vinegar = Romantic Jealousy!' : isDongxi ? 'East Market + West Market!' : isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
                 </h2>
               </div>
             )}
@@ -1036,7 +1128,21 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           </div>
 
           {/* SCENE 1 CARD */}
-          {isChicu ? (
+          {isDarao ? (
+            <OrganicCenterTag
+              emoji="🐒"
+              radical="打扰"
+              pinyin="dǎ rǎo"
+              translation="Hitting Monkeys = Excuse Me"
+              catImages={[
+                'cats/darao/cat_darao_f1.png',
+                'cats/darao/cat_darao_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={68}
+              exitFrame={anim.screen1.endFrame}
+            />
+          ) : isChicu ? (
             <OrganicCenterTag
               emoji="🍶"
               radical="吃醋"
@@ -1126,7 +1232,49 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 2 CARDS */}
-          {isChicu ? (
+          {isDarao ? (
+            <>
+              <OrganicCenterTag
+                emoji="✋"
+                radical="扌"
+                pinyin="shǒu"
+                translation="Hand Radical"
+                catImages={[
+                  'cats/darao/cat_shou_f1.png',
+                  'cats/darao/cat_shou_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.startFrame}
+                exitFrame={anim.screen2.topBang.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🔨"
+                radical="丁"
+                pinyin="dīng"
+                translation="Striking Like a Nail"
+                catImages={[
+                  'cats/darao/cat_ding_f1.png',
+                  'cats/darao/cat_ding_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.topBang.endFrame}
+                exitFrame={anim.screen2.bottomJin.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🥋"
+                radical="打"
+                pinyin="dǎ"
+                translation="Striking with Hands"
+                catImages={[
+                  'cats/darao/cat_da_f1.png',
+                  'cats/darao/cat_da_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.bottomJin.endFrame}
+                exitFrame={anim.screen2.endFrame}
+              />
+            </>
+          ) : isChicu ? (
             <>
               <OrganicCenterTag
                 emoji="👄"
@@ -1363,7 +1511,49 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 3 CARDS */}
-          {isChicu ? (
+          {isDarao ? (
+            <>
+              <OrganicCenterTag
+                emoji="✋"
+                radical="扌"
+                pinyin="shǒu"
+                translation="Another Hand Radical"
+                catImages={[
+                  'cats/darao/cat_shou_f1.png',
+                  'cats/darao/cat_shou_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.startFrame}
+                exitFrame={anim.screen3.leftQie.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🐒"
+                radical="尤"
+                pinyin="yóu"
+                translation="Mischievous Wild Beast"
+                catImages={[
+                  'cats/darao/cat_you_f1.png',
+                  'cats/darao/cat_you_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.leftQie.endFrame}
+                exitFrame={anim.screen3.rightLi.endFrame}
+              />
+              <OrganicCenterTag
+                emoji="🌪️"
+                radical="扰"
+                pinyin="rǎo"
+                translation="Swatting Chaotic Monkeys"
+                catImages={[
+                  'cats/darao/cat_rao_f1.png',
+                  'cats/darao/cat_rao_f2.png',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen3.rightLi.endFrame}
+                exitFrame={anim.screen3.endFrame}
+              />
+            </>
+          ) : isChicu ? (
             <>
               <OrganicCenterTag
                 emoji="🏺"
@@ -1601,7 +1791,21 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 4 CARD */}
-          {isChicu ? (
+          {isDarao ? (
+            <OrganicCenterTag
+              emoji="🙇"
+              radical="打扰"
+              pinyin="dǎ rǎo"
+              translation="Sorry for the Monkey Chaos = Excuse Me!"
+              catImages={[
+                'cats/darao/cat_darao_f1.png',
+                'cats/darao/cat_darao_f2.png',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : isChicu ? (
             <OrganicCenterTag
               emoji="👑"
               radical="吃醋"
