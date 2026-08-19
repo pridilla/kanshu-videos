@@ -7,6 +7,7 @@ export interface ChineseBackgroundProps {
   morph1To2?: number; // 0 to 1
   morph2To3?: number; // 0 to 1
   morph3To4?: number; // 0 to 1
+  isDarkMode?: boolean;
 }
 
 export const ChineseBackground: React.FC<ChineseBackgroundProps> = ({
@@ -15,6 +16,7 @@ export const ChineseBackground: React.FC<ChineseBackgroundProps> = ({
   morph1To2 = 0,
   morph2To3 = 0,
   morph3To4 = 0,
+  isDarkMode = false,
 }) => {
   // ── 1. QUADRATIC INTRO EASE-IN FADE (0 -> 35 frames) ──
   const enterProgress = Math.min(1, Math.max(0, frame / 35));
@@ -48,11 +50,13 @@ export const ChineseBackground: React.FC<ChineseBackgroundProps> = ({
   return (
     <AbsoluteFill
       style={{
-        opacity: totalOpacity * 0.12, // Subtle opacity level
+        opacity: totalOpacity * (isDarkMode ? 0.08 : 0.12),
+        filter: isDarkMode ? 'invert(1) brightness(1.6)' : 'none',
         transform: `translateY(${enterY}px) scale(${patternScale})`,
         pointerEvents: 'none',
         zIndex: 1, // Layer 1: Strictly behind all text & characters!
         overflow: 'hidden',
+        transition: 'filter 0.3s ease, opacity 0.3s ease',
       }}
     >
       {/* SEAMLESS ORIENTAL CLOUD LINE-ART PATTERN REPEAT */}

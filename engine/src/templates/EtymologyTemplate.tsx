@@ -153,6 +153,25 @@ const DynamicSmoothSpotlight: React.FC<{
   );
 };
 
+const interpolateColor = (progress: number, color1: string, color2: string) => {
+  const p = Math.min(1, Math.max(0, progress));
+  const hex1 = color1.replace('#', '');
+  const r1 = parseInt(hex1.substring(0, 2), 16);
+  const g1 = parseInt(hex1.substring(2, 4), 16);
+  const b1 = parseInt(hex1.substring(4, 6), 16);
+
+  const hex2 = color2.replace('#', '');
+  const r2 = parseInt(hex2.substring(0, 2), 16);
+  const g2 = parseInt(hex2.substring(2, 4), 16);
+  const b2 = parseInt(hex2.substring(4, 6), 16);
+
+  const r = Math.round(r1 + (r2 - r1) * p);
+  const g = Math.round(g1 + (g2 - g1) * p);
+  const b = Math.round(b1 + (b2 - b1) * p);
+
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
 const ShockwaveRing: React.FC<{
   triggerFrame: number;
   frame: number;
@@ -202,7 +221,8 @@ const OrganicCenterTag: React.FC<{
   frame: number;
   enterFrame: number;
   exitFrame: number;
-}> = ({ emoji, radical, pinyin, translation, catImages, frame, enterFrame, exitFrame }) => {
+  isDarkMode?: boolean;
+}> = ({ emoji, radical, pinyin, translation, catImages, frame, enterFrame, exitFrame, isDarkMode = false }) => {
   const { fps } = useVideoConfig();
 
   const enterSpring = spring({
@@ -253,12 +273,12 @@ const OrganicCenterTag: React.FC<{
     >
       <div
         style={{
-          backgroundColor: '#0F172A',
+          backgroundColor: isDarkMode ? '#1E293B' : '#0F172A',
           color: '#FFFFFF',
           padding: '10px 32px',
           borderRadius: 26,
-          boxShadow: '0 16px 40px rgba(15, 23, 42, 0.45)',
-          border: '2px solid rgba(255, 111, 89, 0.5)',
+          boxShadow: isDarkMode ? '0 20px 50px rgba(0, 0, 0, 0.7)' : '0 16px 40px rgba(15, 23, 42, 0.45)',
+          border: isDarkMode ? '2px solid #FF6F59' : '2px solid rgba(255, 111, 89, 0.5)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -297,7 +317,9 @@ const OrganicCenterTag: React.FC<{
               height: 500,
               width: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 14px 28px rgba(15, 23, 42, 0.18))',
+              filter: isDarkMode
+                ? 'invert(1) brightness(1.8) drop-shadow(0 0 30px rgba(255, 255, 255, 0.4))'
+                : 'drop-shadow(0 14px 28px rgba(15, 23, 42, 0.18))',
             }}
           />
         </div>
@@ -770,10 +792,33 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   });
   const bgmVolume = 0.15 * bgmFadeOut;
 
+  // Dynamic Background & Dark Mode Scene Swapping
+  const bgDark = '#0F172A';
+  const bgLight = '#FAF9F6';
+
+  let currentBgColor = COLORS.bg;
+  let isSceneDark = false;
+
+  if (isDarao) {
+    if (isScreen1) {
+      currentBgColor = bgDark;
+      isSceneDark = true;
+    } else if (isScreen2) {
+      currentBgColor = interpolateColor(morph1To2, bgDark, bgLight);
+      isSceneDark = morph1To2 < 0.5;
+    } else if (isScreen3) {
+      currentBgColor = interpolateColor(morph2To3, bgLight, bgDark);
+      isSceneDark = morph2To3 >= 0.5;
+    } else {
+      currentBgColor = interpolateColor(morph3To4, bgDark, bgLight);
+      isSceneDark = morph3To4 < 0.5;
+    }
+  }
+
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: COLORS.bg,
+        backgroundColor: currentBgColor,
         fontFamily: 'Roboto, sans-serif',
         overflow: 'hidden',
       }}
@@ -786,7 +831,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           left: -600,
           width: 'calc(100% + 1200px)',
           height: 'calc(100% + 1200px)',
-          backgroundColor: COLORS.bg,
+          backgroundColor: currentBgColor,
           zIndex: 0,
         }}
       />
@@ -806,6 +851,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
             morph1To2={morph1To2}
             morph2To3={morph2To3}
             morph3To4={morph3To4}
+            isDarkMode={isSceneDark}
           />
 
         {/* SHOCKWAVE PULSES ON SCENE TRANSITIONS */}
@@ -845,11 +891,11 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                     fontFamily: FONTS.display,
                     fontSize: 110,
                     fontWeight: 900,
-                    color: '#0F172A',
+                    color: '#FFFFFF',
                     letterSpacing: '0.04em',
                     textAlign: 'center',
                     textTransform: 'uppercase',
-                    filter: 'drop-shadow(0 15px 30px rgba(15,23,42,0.25))'
+                    filter: 'drop-shadow(0 15px 30px rgba(0,0,0,0.5)) drop-shadow(0 0 25px rgba(255,255,255,0.4))'
                   }}>
                     IN CHINESE
                   </div>
@@ -1024,7 +1070,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph2To3, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: (isDarao && isScreen3) ? '#FFFFFF' : '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
                   Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isDarao ? 'rǎo' : isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isDarao ? 'Swatting Chaotic Monkeys' : isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
                 </h2>
               </div>
@@ -1060,8 +1106,12 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 fontSize: 210,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
-                color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : '#0F172A',
-                textShadow: isScreen2 || isScreen4BangHighlight ? '0 16px 50px rgba(255, 111, 89, 0.45)' : '0 10px 30px rgba(15,23,42,0.1)',
+                color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : (isDarao && (isScreen1 || isScreen3) ? '#FFFFFF' : '#0F172A'),
+                textShadow: isScreen2 || isScreen4BangHighlight
+                  ? '0 16px 50px rgba(255, 111, 89, 0.45)'
+                  : (isDarao && (isScreen1 || isScreen3))
+                  ? '0 16px 50px rgba(255, 255, 255, 0.25)'
+                  : '0 10px 30px rgba(15,23,42,0.1)',
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
               }}
             >
@@ -1075,8 +1125,12 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 fontSize: 210,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
-                color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : '#0F172A',
-                textShadow: isScreen3 || isScreen4ZhuHighlight ? '0 16px 50px rgba(255, 111, 89, 0.45)' : '0 10px 30px rgba(15,23,42,0.1)',
+                color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : (isDarao && (isScreen1 || isScreen3) ? '#FFFFFF' : '#0F172A'),
+                textShadow: isScreen3 || isScreen4ZhuHighlight
+                  ? '0 16px 50px rgba(255, 111, 89, 0.45)'
+                  : (isDarao && (isScreen1 || isScreen3))
+                  ? '0 16px 50px rgba(255, 255, 255, 0.25)'
+                  : '0 10px 30px rgba(15,23,42,0.1)',
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
               }}
             >
@@ -1141,6 +1195,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               frame={frame}
               enterFrame={68}
               exitFrame={anim.screen1.endFrame}
+              isDarkMode={true}
             />
           ) : isChicu ? (
             <OrganicCenterTag
@@ -1525,6 +1580,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 frame={frame}
                 enterFrame={anim.screen3.startFrame}
                 exitFrame={anim.screen3.leftQie.endFrame}
+                isDarkMode={true}
               />
               <OrganicCenterTag
                 emoji="🐒"
@@ -1538,6 +1594,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 frame={frame}
                 enterFrame={anim.screen3.leftQie.endFrame}
                 exitFrame={anim.screen3.rightLi.endFrame}
+                isDarkMode={true}
               />
               <OrganicCenterTag
                 emoji="🌪️"
@@ -1551,6 +1608,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 frame={frame}
                 enterFrame={anim.screen3.rightLi.endFrame}
                 exitFrame={anim.screen3.endFrame}
+                isDarkMode={true}
               />
             </>
           ) : isChicu ? (
