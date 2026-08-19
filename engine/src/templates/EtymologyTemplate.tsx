@@ -134,7 +134,7 @@ const DynamicSmoothSpotlight: React.FC<{
       <div
         style={{
           position: 'absolute',
-          top: -(radius - 15),
+          top: -(radius - 30),
           left: '50%',
           transform: 'translateX(-50%)',
           color: '#FF6F59',
@@ -487,18 +487,18 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
     if (isScreen2TopBang) {
       // 口 (left)
       spot2X = 430;
-      spot2Y = 160;
-      spot2R = 95;
+      spot2Y = 165;
+      spot2R = 85;
     } else if (isScreen2BottomJin) {
       // 乞 (right)
-      spot2X = 590;
-      spot2Y = 165;
-      spot2R = 120;
+      spot2X = 585;
+      spot2Y = 175;
+      spot2R = 105;
     } else if (isScreen2WholeBang) {
       // 吃 (whole)
       spot2X = 540;
-      spot2Y = 160;
-      spot2R = 150;
+      spot2Y = 170;
+      spot2R = 165;
     }
   } else if (isDongxi) {
     if (isScreen2TopBang) {
@@ -575,19 +575,19 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   if (isChicu) {
     if (isScreen3LeftQie) {
       // 酉 (left)
-      spot3X = 440;
-      spot3Y = 165;
-      spot3R = 120;
+      spot3X = 460;
+      spot3Y = 175;
+      spot3R = 105;
     } else if (isScreen3RightLi) {
       // 昔 (right)
-      spot3X = 600;
-      spot3Y = 165;
-      spot3R = 120;
+      spot3X = 605;
+      spot3Y = 175;
+      spot3R = 105;
     } else if (isScreen3WholeZhu) {
       // 醋 (whole)
       spot3X = 540;
-      spot3Y = 160;
-      spot3R = 150;
+      spot3Y = 170;
+      spot3R = 165;
     }
   } else if (isDongxi) {
     if (isScreen3LeftQie) {
@@ -867,7 +867,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         )}
 
         <AbsoluteFill style={{ 
-          padding: '30px 70px', 
+          padding: '30px 0', 
           display: 'flex', 
           flexDirection: 'column', 
           alignItems: 'center', 
@@ -955,7 +955,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               position: 'relative',
               width: '100%',
               height: 320,
-              marginTop: 15,
+              marginTop: 35,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
