@@ -259,7 +259,7 @@ const OrganicCenterTag: React.FC<{
     <div
       style={{
         position: 'absolute',
-        top: 730,
+        top: 775,
         left: '50%',
         transform: `translateX(calc(-50% + ${currentX}px)) translateY(${driftY}px) rotate(${tiltAngle}deg)`,
         display: 'flex',
