@@ -1368,8 +1368,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               pinyin="mǎ shàng"
               translation="On Horseback = Immediately"
               catImages={[
-                'cats/mashang/cat_hook_f1.svg',
-                'cats/mashang/cat_hook_f2.svg',
+                'cats/mashang/cat_hook_f1.png',
+                'cats/mashang/cat_hook_f2.png',
               ]}
               frame={frame}
               enterFrame={275}
@@ -1488,8 +1488,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               pinyin="mǎ"
               translation="Pictograph of a Wild Horse (Mane & Hooves)"
               catImages={[
-                'cats/mashang/cat_horse_f1.svg',
-                'cats/mashang/cat_horse_f2.svg',
+                'cats/mashang/cat_horse_f1.png',
+                'cats/mashang/cat_horse_f2.png',
               ]}
               frame={frame}
               enterFrame={anim.screen2.startFrame}
@@ -1781,8 +1781,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               pinyin="shàng"
               translation="Baseline & Mounting Upward"
               catImages={[
-                'cats/mashang/cat_mount_f1.svg',
-                'cats/mashang/cat_mount_f2.svg',
+                'cats/mashang/cat_mount_f1.png',
+                'cats/mashang/cat_mount_f2.png',
               ]}
               frame={frame}
               enterFrame={anim.screen3.startFrame}
@@ -2079,8 +2079,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
               pinyin="mǎ shàng"
               translation="Imperial Messages Delivered on Horseback!"
               catImages={[
-                'cats/mashang/cat_courier_f1.svg',
-                'cats/mashang/cat_courier_f2.svg',
+                'cats/mashang/cat_courier_f1.png',
+                'cats/mashang/cat_courier_f2.png',
               ]}
               frame={frame}
               enterFrame={anim.screen4.startFrame}
