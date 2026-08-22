@@ -1022,14 +1022,14 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                       <span style={{ fontSize: 74 }}>🐎🔥</span>
                     </div>
 
-                    {/* Galloping Samurai Cat Sketch popping in */}
+                    {/* Galloping Warrior Cat Sketch popping in */}
                     <div style={{
                       transform: `scale(${interpolate(spring({ frame: frame - 180, fps, config: { damping: 12, mass: 0.6, stiffness: 240 } }), [0, 1], [0.4, 1.0])})`,
-                      filter: 'invert(1) drop-shadow(0 0 20px rgba(255,255,255,0.6))',
+                      filter: 'invert(1) drop-shadow(0 0 25px rgba(255,255,255,0.7))',
                     }}>
                       <Img
-                        src={staticFile(Math.floor((frame - 180) / 22) % 2 === 0 ? 'cats/mashang/cat_hook_f1.svg' : 'cats/mashang/cat_hook_f2.svg')}
-                        style={{ width: 440, height: 440, objectFit: 'contain' }}
+                        src={staticFile(Math.floor((frame - 180) / 22) % 2 === 0 ? 'cats/mashang/cat_hook_f1.png' : 'cats/mashang/cat_hook_f2.png')}
+                        style={{ width: 540, height: 540, objectFit: 'contain' }}
                       />
                     </div>
                   </div>
