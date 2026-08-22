@@ -514,7 +514,24 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot2Y = isKaishi || isXihuan ? 240 : isJieshao ? 250 : isWangji ? 210 : isAiqing ? 220 : isPengyou ? 300 : 210;
   let spot2R = isKaishi || isXihuan ? 180 : 120;
 
-  if (isDarao) {
+  if (isMashang) {
+    if (isScreen2TopBang) {
+      // Mane of 马 (top part)
+      spot2X = 540;
+      spot2Y = 90;
+      spot2R = 75;
+    } else if (isScreen2BottomJin) {
+      // 4 Hooves of 马 (bottom part)
+      spot2X = 540;
+      spot2Y = 245;
+      spot2R = 70;
+    } else if (isScreen2WholeBang) {
+      // Whole 马
+      spot2X = 540;
+      spot2Y = 160;
+      spot2R = 150;
+    }
+  } else if (isDarao) {
     if (isScreen2TopBang) {
       // 扌 (left)
       spot2X = 450;
@@ -620,7 +637,24 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot3Y = isKaishi || isXihuan || isDongxi ? 240 : 300;
   let spot3R = isKaishi || isXihuan || isDongxi ? 180 : 230;
 
-  if (isDarao) {
+  if (isMashang) {
+    if (isScreen3LeftQie) {
+      // Baseline stroke of 上 (bottom horizontal)
+      spot3X = 540;
+      spot3Y = 265;
+      spot3R = 60;
+    } else if (isScreen3RightLi) {
+      // Upward rising stroke of 上 (vertical stem)
+      spot3X = 540;
+      spot3Y = 115;
+      spot3R = 85;
+    } else {
+      // Whole 上
+      spot3X = 540;
+      spot3Y = 160;
+      spot3R = 145;
+    }
+  } else if (isDarao) {
     if (isScreen3LeftQie) {
       // 扌 (left)
       spot3X = 450;
@@ -925,82 +959,91 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 {frame < 55 && (
                   <div style={{
                     position: 'absolute',
-                    top: 860,
+                    top: 830,
+                    maxWidth: 900,
                     transform: `scale(${interpolate(springChinese, [0, 1], [0.5, 1.1])})`,
                     fontFamily: FONTS.display,
-                    fontSize: 66,
+                    fontSize: 68,
                     fontWeight: 900,
                     color: '#FFFFFF',
                     textAlign: 'center',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
+                    lineHeight: 1.18,
+                    letterSpacing: '0.03em',
                     filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.6))',
                   }}>
-                    WHEN CHINESE PEOPLE SAY
+                    WHEN CHINESE<br />PEOPLE SAY
                   </div>
                 )}
 
                 {frame >= 55 && frame < 125 && (
                   <div style={{
                     position: 'absolute',
-                    top: 860,
+                    top: 830,
+                    maxWidth: 900,
                     transform: `scale(${interpolate(spring({ frame: frame - 55, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } }), [0, 1], [0.4, 1.15])})`,
                     fontFamily: FONTS.display,
-                    fontSize: 78,
+                    fontSize: 72,
                     fontWeight: 900,
                     color: '#FF6F59',
                     textAlign: 'center',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
+                    lineHeight: 1.18,
+                    letterSpacing: '0.03em',
                     filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.8)) drop-shadow(0 0 30px rgba(255,111,89,0.9))',
                   }}>
-                    "I'M DOING IT RIGHT NOW"
+                    "I'M DOING IT<br />RIGHT NOW"
                   </div>
                 )}
 
                 {frame >= 125 && frame < 180 && (
                   <div style={{
                     position: 'absolute',
-                    top: 860,
+                    top: 830,
+                    maxWidth: 900,
                     transform: `scale(${interpolate(spring({ frame: frame - 125, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } }), [0, 1], [0.5, 1.1])})`,
                     fontFamily: FONTS.display,
-                    fontSize: 74,
+                    fontSize: 68,
                     fontWeight: 900,
                     color: '#FFFFFF',
                     textAlign: 'center',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
+                    lineHeight: 1.18,
+                    letterSpacing: '0.03em',
                     filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.6))',
                   }}>
-                    THEY LITERALLY SAY:
+                    THEY LITERALLY<br />SAY:
                   </div>
                 )}
 
                 {frame >= 180 && (
                   <div style={{
                     position: 'absolute',
-                    top: 500,
+                    top: 480,
+                    width: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: 30,
+                    gap: 25,
                   }}>
                     <div style={{
-                      transform: `scale(${interpolate(spring({ frame: frame - 180, fps, config: { damping: 9, mass: 0.6, stiffness: 320 } }), [0, 1], [0.3, 1.2])})`,
+                      transform: `scale(${interpolate(spring({ frame: frame - 180, fps, config: { damping: 9, mass: 0.6, stiffness: 320 } }), [0, 1], [0.3, 1.15])})`,
                       fontFamily: FONTS.display,
-                      fontSize: 74,
+                      fontSize: 68,
                       fontWeight: 900,
                       color: '#FF6F59',
                       textAlign: 'center',
                       textTransform: 'uppercase',
-                      letterSpacing: '0.04em',
+                      letterSpacing: '0.03em',
                       filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.9)) drop-shadow(0 0 35px rgba(255,111,89,1))',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 14,
+                      justifyContent: 'center',
+                      gap: 12,
+                      maxWidth: 920,
                     }}>
                       <span>ON A HORSE!</span>
-                      <span style={{ fontSize: 82 }}>🐎🔥</span>
+                      <span style={{ fontSize: 74 }}>🐎🔥</span>
                     </div>
 
                     {/* Galloping Samurai Cat Sketch popping in */}
