@@ -1,0 +1,833 @@
+{
+  "character": "马上",
+  "pinyin": "mǎ shàng",
+  "tone": 3,
+  "meaning": "Immediately / Right Away",
+  "story": "In ancient China, the most urgent imperial dispatches were carried by couriers on horseback (马上). So 'on a horse' became the universal expression for doing something right away!",
+  "exampleSentence": {
+    "cn": "我马上就到！",
+    "pinyin": "wǒ mǎshàng jiù dào!",
+    "en": "I'll be there right away!",
+    "highlightWord": "马上"
+  },
+  "radicals": [
+    {
+      "radical": "马",
+      "pinyin": "mǎ",
+      "meaning": "Horse",
+      "role": "semantic"
+    },
+    {
+      "radical": "上",
+      "pinyin": "shàng",
+      "meaning": "On top / Above / To mount",
+      "role": "semantic"
+    }
+  ],
+  "audioSrc": "mashang_voice_single_pass_fast.mp3",
+  "bgmAudioSrc": "chinese_lofi_bgm.mp3",
+  "lessonDurationInFrames": 1793,
+  "screenTimestamps": {
+    "screen1EndSec": 8.1,
+    "screen1EndFrame": 486,
+    "screen2EndSec": 13.967,
+    "screen2EndFrame": 838,
+    "screen3EndSec": 19.75,
+    "screen3EndFrame": 1185,
+    "lessonTotalSec": 29.884,
+    "lessonTotalFrames": 1793
+  },
+  "animationTimestamps": {
+    "screen1": {
+      "startFrame": 0,
+      "endFrame": 486,
+      "clothMention": {
+        "startFrame": 0,
+        "endFrame": 157
+      },
+      "wallMention": {
+        "startFrame": 161,
+        "endFrame": 486
+      }
+    },
+    "screen2": {
+      "startFrame": 486,
+      "endFrame": 838,
+      "topBang": {
+        "startFrame": 486,
+        "endFrame": 751
+      },
+      "bottomJin": {
+        "startFrame": 751,
+        "endFrame": 808
+      },
+      "wholeBang": {
+        "startFrame": 808,
+        "endFrame": 838
+      }
+    },
+    "screen3": {
+      "startFrame": 838,
+      "endFrame": 1185,
+      "wholeZhuIntro": {
+        "startFrame": 838,
+        "endFrame": 945
+      },
+      "leftQie": {
+        "startFrame": 945,
+        "endFrame": 983
+      },
+      "rightLi": {
+        "startFrame": 983,
+        "endFrame": 1155
+      },
+      "wholeZhuOutro": {
+        "startFrame": 1155,
+        "endFrame": 1185
+      }
+    },
+    "screen4": {
+      "startFrame": 1185,
+      "endFrame": 1793,
+      "bangHighlightEndFrame": 1489
+    }
+  },
+  "wordsAlignment": [
+    {
+      "idx": 0,
+      "word": "When",
+      "start": 0.0,
+      "end": 0.116,
+      "startFrame": 0,
+      "endFrame": 7
+    },
+    {
+      "idx": 1,
+      "word": "Chinese",
+      "start": 0.152,
+      "end": 0.406,
+      "startFrame": 9,
+      "endFrame": 24
+    },
+    {
+      "idx": 2,
+      "word": "people",
+      "start": 0.43,
+      "end": 0.58,
+      "startFrame": 26,
+      "endFrame": 35
+    },
+    {
+      "idx": 3,
+      "word": "say",
+      "start": 0.652,
+      "end": 0.87,
+      "startFrame": 39,
+      "endFrame": 52
+    },
+    {
+      "idx": 4,
+      "word": "\"I'm",
+      "start": 0.928,
+      "end": 1.101,
+      "startFrame": 56,
+      "endFrame": 66
+    },
+    {
+      "idx": 5,
+      "word": "doing",
+      "start": 1.13,
+      "end": 1.275,
+      "startFrame": 68,
+      "endFrame": 77
+    },
+    {
+      "idx": 6,
+      "word": "it",
+      "start": 1.295,
+      "end": 1.333,
+      "startFrame": 78,
+      "endFrame": 80
+    },
+    {
+      "idx": 7,
+      "word": "right",
+      "start": 1.362,
+      "end": 1.507,
+      "startFrame": 82,
+      "endFrame": 90
+    },
+    {
+      "idx": 8,
+      "word": "now\",",
+      "start": 1.565,
+      "end": 2.087,
+      "startFrame": 94,
+      "endFrame": 125
+    },
+    {
+      "idx": 9,
+      "word": "they",
+      "start": 2.11,
+      "end": 2.203,
+      "startFrame": 127,
+      "endFrame": 132
+    },
+    {
+      "idx": 10,
+      "word": "literally",
+      "start": 2.243,
+      "end": 2.609,
+      "startFrame": 135,
+      "endFrame": 157
+    },
+    {
+      "idx": 11,
+      "word": "say:",
+      "start": 2.681,
+      "end": 2.957,
+      "startFrame": 161,
+      "endFrame": 177
+    },
+    {
+      "idx": 12,
+      "word": "\"I",
+      "start": 3.101,
+      "end": 3.304,
+      "startFrame": 186,
+      "endFrame": 198
+    },
+    {
+      "idx": 13,
+      "word": "am",
+      "start": 3.343,
+      "end": 3.42,
+      "startFrame": 201,
+      "endFrame": 205
+    },
+    {
+      "idx": 14,
+      "word": "on",
+      "start": 3.459,
+      "end": 3.536,
+      "startFrame": 208,
+      "endFrame": 212
+    },
+    {
+      "idx": 15,
+      "word": "a",
+      "start": 3.565,
+      "end": 3.594,
+      "startFrame": 214,
+      "endFrame": 216
+    },
+    {
+      "idx": 16,
+      "word": "horse!\"",
+      "start": 3.662,
+      "end": 4.522,
+      "startFrame": 220,
+      "endFrame": 271
+    },
+    {
+      "idx": 17,
+      "word": "马上",
+      "start": 4.638,
+      "end": 5.101,
+      "startFrame": 278,
+      "endFrame": 306
+    },
+    {
+      "idx": 18,
+      "word": "(mǎ",
+      "start": 5.13,
+      "end": 5.16,
+      "startFrame": 308,
+      "endFrame": 310
+    },
+    {
+      "idx": 19,
+      "word": "shàng)",
+      "start": 5.161,
+      "end": 5.251,
+      "startFrame": 310,
+      "endFrame": 315
+    },
+    {
+      "idx": 20,
+      "word": "means",
+      "start": 5.266,
+      "end": 5.338,
+      "startFrame": 316,
+      "endFrame": 320
+    },
+    {
+      "idx": 21,
+      "word": "\"immediately\".",
+      "start": 5.396,
+      "end": 6.44,
+      "startFrame": 324,
+      "endFrame": 386
+    },
+    {
+      "idx": 22,
+      "word": "But",
+      "start": 6.483,
+      "end": 6.614,
+      "startFrame": 389,
+      "endFrame": 397
+    },
+    {
+      "idx": 23,
+      "word": "why",
+      "start": 6.701,
+      "end": 6.962,
+      "startFrame": 402,
+      "endFrame": 418
+    },
+    {
+      "idx": 24,
+      "word": "a",
+      "start": 6.991,
+      "end": 7.02,
+      "startFrame": 419,
+      "endFrame": 421
+    },
+    {
+      "idx": 25,
+      "word": "horse?",
+      "start": 7.078,
+      "end": 7.425,
+      "startFrame": 425,
+      "endFrame": 446
+    },
+    {
+      "idx": 26,
+      "word": "The",
+      "start": 7.824,
+      "end": 8.063,
+      "startFrame": 469,
+      "endFrame": 484
+    },
+    {
+      "idx": 27,
+      "word": "first",
+      "start": 8.092,
+      "end": 8.237,
+      "startFrame": 486,
+      "endFrame": 494
+    },
+    {
+      "idx": 28,
+      "word": "character",
+      "start": 8.278,
+      "end": 8.643,
+      "startFrame": 497,
+      "endFrame": 519
+    },
+    {
+      "idx": 29,
+      "word": "is",
+      "start": 8.701,
+      "end": 8.817,
+      "startFrame": 522,
+      "endFrame": 529
+    },
+    {
+      "idx": 30,
+      "word": "马",
+      "start": 9.049,
+      "end": 9.28,
+      "startFrame": 543,
+      "endFrame": 557
+    },
+    {
+      "idx": 31,
+      "word": "(mǎ).",
+      "start": 9.309,
+      "end": 9.493,
+      "startFrame": 559,
+      "endFrame": 570
+    },
+    {
+      "idx": 32,
+      "word": "It",
+      "start": 9.699,
+      "end": 9.802,
+      "startFrame": 582,
+      "endFrame": 588
+    },
+    {
+      "idx": 33,
+      "word": "originally",
+      "start": 9.834,
+      "end": 10.15,
+      "startFrame": 590,
+      "endFrame": 609
+    },
+    {
+      "idx": 34,
+      "word": "pictured",
+      "start": 10.195,
+      "end": 10.556,
+      "startFrame": 612,
+      "endFrame": 633
+    },
+    {
+      "idx": 35,
+      "word": "a",
+      "start": 10.585,
+      "end": 10.614,
+      "startFrame": 635,
+      "endFrame": 637
+    },
+    {
+      "idx": 36,
+      "word": "wild",
+      "start": 10.683,
+      "end": 10.962,
+      "startFrame": 641,
+      "endFrame": 658
+    },
+    {
+      "idx": 37,
+      "word": "horse",
+      "start": 11.01,
+      "end": 11.251,
+      "startFrame": 661,
+      "endFrame": 675
+    },
+    {
+      "idx": 38,
+      "word": "with",
+      "start": 11.275,
+      "end": 11.367,
+      "startFrame": 676,
+      "endFrame": 682
+    },
+    {
+      "idx": 39,
+      "word": "a",
+      "start": 11.396,
+      "end": 11.425,
+      "startFrame": 684,
+      "endFrame": 686
+    },
+    {
+      "idx": 40,
+      "word": "flowing",
+      "start": 11.469,
+      "end": 11.773,
+      "startFrame": 688,
+      "endFrame": 706
+    },
+    {
+      "idx": 41,
+      "word": "mane",
+      "start": 11.831,
+      "end": 12.063,
+      "startFrame": 710,
+      "endFrame": 724
+    },
+    {
+      "idx": 42,
+      "word": "and",
+      "start": 12.092,
+      "end": 12.179,
+      "startFrame": 726,
+      "endFrame": 731
+    },
+    {
+      "idx": 43,
+      "word": "four",
+      "start": 12.237,
+      "end": 12.469,
+      "startFrame": 734,
+      "endFrame": 748
+    },
+    {
+      "idx": 44,
+      "word": "galloping",
+      "start": 12.512,
+      "end": 12.875,
+      "startFrame": 751,
+      "endFrame": 772
+    },
+    {
+      "idx": 45,
+      "word": "hooves.",
+      "start": 12.913,
+      "end": 13.28,
+      "startFrame": 775,
+      "endFrame": 797
+    },
+    {
+      "idx": 46,
+      "word": "The",
+      "start": 13.679,
+      "end": 13.918,
+      "startFrame": 821,
+      "endFrame": 835
+    },
+    {
+      "idx": 47,
+      "word": "second",
+      "start": 13.959,
+      "end": 14.208,
+      "startFrame": 838,
+      "endFrame": 852
+    },
+    {
+      "idx": 48,
+      "word": "character",
+      "start": 14.243,
+      "end": 14.556,
+      "startFrame": 855,
+      "endFrame": 873
+    },
+    {
+      "idx": 49,
+      "word": "is",
+      "start": 14.633,
+      "end": 14.788,
+      "startFrame": 878,
+      "endFrame": 887
+    },
+    {
+      "idx": 50,
+      "word": "上",
+      "start": 15.02,
+      "end": 15.251,
+      "startFrame": 901,
+      "endFrame": 915
+    },
+    {
+      "idx": 51,
+      "word": "(shàng).",
+      "start": 15.309,
+      "end": 15.372,
+      "startFrame": 919,
+      "endFrame": 922
+    },
+    {
+      "idx": 52,
+      "word": "A",
+      "start": 15.632,
+      "end": 15.719,
+      "startFrame": 938,
+      "endFrame": 943
+    },
+    {
+      "idx": 53,
+      "word": "baseline",
+      "start": 15.757,
+      "end": 16.067,
+      "startFrame": 945,
+      "endFrame": 964
+    },
+    {
+      "idx": 54,
+      "word": "stroke",
+      "start": 16.108,
+      "end": 16.357,
+      "startFrame": 966,
+      "endFrame": 981
+    },
+    {
+      "idx": 55,
+      "word": "pointing",
+      "start": 16.383,
+      "end": 16.588,
+      "startFrame": 983,
+      "endFrame": 995
+    },
+    {
+      "idx": 56,
+      "word": "upwards,",
+      "start": 16.639,
+      "end": 17.052,
+      "startFrame": 998,
+      "endFrame": 1023
+    },
+    {
+      "idx": 57,
+      "word": "meaning",
+      "start": 17.11,
+      "end": 17.516,
+      "startFrame": 1027,
+      "endFrame": 1051
+    },
+    {
+      "idx": 58,
+      "word": "\"on",
+      "start": 17.603,
+      "end": 17.806,
+      "startFrame": 1056,
+      "endFrame": 1068
+    },
+    {
+      "idx": 59,
+      "word": "top\"",
+      "start": 17.893,
+      "end": 18.212,
+      "startFrame": 1074,
+      "endFrame": 1093
+    },
+    {
+      "idx": 60,
+      "word": "or",
+      "start": 18.289,
+      "end": 18.443,
+      "startFrame": 1097,
+      "endFrame": 1107
+    },
+    {
+      "idx": 61,
+      "word": "\"to",
+      "start": 18.53,
+      "end": 18.675,
+      "startFrame": 1112,
+      "endFrame": 1121
+    },
+    {
+      "idx": 62,
+      "word": "mount\".",
+      "start": 18.733,
+      "end": 19.081,
+      "startFrame": 1124,
+      "endFrame": 1145
+    },
+    {
+      "idx": 63,
+      "word": "In",
+      "start": 19.507,
+      "end": 19.719,
+      "startFrame": 1170,
+      "endFrame": 1183
+    },
+    {
+      "idx": 64,
+      "word": "ancient",
+      "start": 19.755,
+      "end": 20.009,
+      "startFrame": 1185,
+      "endFrame": 1201
+    },
+    {
+      "idx": 65,
+      "word": "China,",
+      "start": 20.067,
+      "end": 20.588,
+      "startFrame": 1204,
+      "endFrame": 1235
+    },
+    {
+      "idx": 66,
+      "word": "the",
+      "start": 20.603,
+      "end": 20.646,
+      "startFrame": 1236,
+      "endFrame": 1239
+    },
+    {
+      "idx": 67,
+      "word": "fastest",
+      "start": 20.712,
+      "end": 21.168,
+      "startFrame": 1243,
+      "endFrame": 1270
+    },
+    {
+      "idx": 68,
+      "word": "urgent",
+      "start": 21.218,
+      "end": 21.516,
+      "startFrame": 1273,
+      "endFrame": 1291
+    },
+    {
+      "idx": 69,
+      "word": "imperial",
+      "start": 21.561,
+      "end": 21.922,
+      "startFrame": 1294,
+      "endFrame": 1315
+    },
+    {
+      "idx": 70,
+      "word": "messages",
+      "start": 21.973,
+      "end": 22.386,
+      "startFrame": 1318,
+      "endFrame": 1343
+    },
+    {
+      "idx": 71,
+      "word": "were",
+      "start": 22.409,
+      "end": 22.501,
+      "startFrame": 1345,
+      "endFrame": 1350
+    },
+    {
+      "idx": 72,
+      "word": "delivered",
+      "start": 22.536,
+      "end": 22.849,
+      "startFrame": 1352,
+      "endFrame": 1371
+    },
+    {
+      "idx": 73,
+      "word": "on",
+      "start": 22.888,
+      "end": 22.965,
+      "startFrame": 1373,
+      "endFrame": 1378
+    },
+    {
+      "idx": 74,
+      "word": "horseback.",
+      "start": 23.014,
+      "end": 23.487,
+      "startFrame": 1381,
+      "endFrame": 1409
+    },
+    {
+      "idx": 75,
+      "word": "So",
+      "start": 23.661,
+      "end": 24.009,
+      "startFrame": 1420,
+      "endFrame": 1441
+    },
+    {
+      "idx": 76,
+      "word": "\"on",
+      "start": 24.154,
+      "end": 24.357,
+      "startFrame": 1449,
+      "endFrame": 1461
+    },
+    {
+      "idx": 77,
+      "word": "a",
+      "start": 24.386,
+      "end": 24.414,
+      "startFrame": 1463,
+      "endFrame": 1465
+    },
+    {
+      "idx": 78,
+      "word": "horse\"",
+      "start": 24.472,
+      "end": 24.936,
+      "startFrame": 1468,
+      "endFrame": 1496
+    },
+    {
+      "idx": 79,
+      "word": "became",
+      "start": 24.97,
+      "end": 25.168,
+      "startFrame": 1498,
+      "endFrame": 1510
+    },
+    {
+      "idx": 80,
+      "word": "the",
+      "start": 25.183,
+      "end": 25.226,
+      "startFrame": 1511,
+      "endFrame": 1514
+    },
+    {
+      "idx": 81,
+      "word": "universal",
+      "start": 25.278,
+      "end": 25.748,
+      "startFrame": 1517,
+      "endFrame": 1545
+    },
+    {
+      "idx": 82,
+      "word": "word",
+      "start": 25.783,
+      "end": 25.922,
+      "startFrame": 1547,
+      "endFrame": 1555
+    },
+    {
+      "idx": 83,
+      "word": "for:",
+      "start": 25.994,
+      "end": 26.27,
+      "startFrame": 1560,
+      "endFrame": 1576
+    },
+    {
+      "idx": 84,
+      "word": "\"Right",
+      "start": 26.357,
+      "end": 26.617,
+      "startFrame": 1581,
+      "endFrame": 1597
+    },
+    {
+      "idx": 85,
+      "word": "this",
+      "start": 26.652,
+      "end": 26.791,
+      "startFrame": 1599,
+      "endFrame": 1607
+    },
+    {
+      "idx": 86,
+      "word": "second!\"",
+      "start": 26.841,
+      "end": 27.255,
+      "startFrame": 1610,
+      "endFrame": 1635
+    },
+    {
+      "idx": 87,
+      "word": "Master",
+      "start": 27.379,
+      "end": 28.125,
+      "startFrame": 1643,
+      "endFrame": 1687
+    },
+    {
+      "idx": 88,
+      "word": "Chinese",
+      "start": 28.161,
+      "end": 28.414,
+      "startFrame": 1690,
+      "endFrame": 1705
+    },
+    {
+      "idx": 89,
+      "word": "characters",
+      "start": 28.451,
+      "end": 28.82,
+      "startFrame": 1707,
+      "endFrame": 1729
+    },
+    {
+      "idx": 90,
+      "word": "with",
+      "start": 28.843,
+      "end": 28.936,
+      "startFrame": 1731,
+      "endFrame": 1736
+    },
+    {
+      "idx": 91,
+      "word": "Kanshu.app!",
+      "start": 28.994,
+      "end": 29.864,
+      "startFrame": 1740,
+      "endFrame": 1792
+    }
+  ]
+}

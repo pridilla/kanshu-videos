@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <g stroke="#0F172A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Big Glowing UP Arrow (Ideograph 上) -->
+    <polygon points="400,140 340,210 380,210 380,300 420,300 420,210 460,210" fill="#FF6F59" stroke="#FF6F59" stroke-width="8"/>
+    
+    <!-- Horizontal Saddle Stirrup Baseline (The line in 上) -->
+    <line x1="150" y1="620" x2="650" y2="620" stroke="#0F172A" stroke-width="18"/>
+    <rect x="220" y="620" width="80" height="15" fill="#0F172A"/>
+    <rect x="500" y="620" width="80" height="15" fill="#0F172A"/>
+    
+    <!-- Cat Reaching & Climbing UPWARD -->
+    <ellipse cx="400" cy="520" rx="100" ry="90" fill="#FFFFFF"/>
+    <ellipse cx="400" cy="380" rx="85" ry="75" fill="#FFFFFF"/>
+    <!-- Ears -->
+    <path d="M 335 320 L 320 250 L 375 300 Z" fill="#FFFFFF"/>
+    <path d="M 465 320 L 480 250 L 425 300 Z" fill="#FFFFFF"/>
+    <!-- Determined Face -->
+    <ellipse cx="365" cy="380" rx="10" ry="12" fill="#0F172A"/>
+    <ellipse cx="435" cy="380" rx="10" ry="12" fill="#0F172A"/>
+    <polygon points="395,395 405,395 400,402" fill="#0F172A"/>
+    <path d="M 385 410 Q 400 425 415 410" stroke-width="6"/>
+    
+    <!-- Paws Gripping and Climbing UP -->
+    <path d="M 320 440 L 300 350"/>
+    <circle cx="300" cy="340" r="20" fill="#FFFFFF"/>
+    <path d="M 480 440 L 500 350"/>
+    <circle cx="500" cy="340" r="20" fill="#FFFFFF"/>
+    
+    <!-- Cat Feet on Baseline -->
+    <ellipse cx="340" cy="600" rx="25" ry="18" fill="#FFFFFF"/>
+    <ellipse cx="460" cy="600" rx="25" ry="18" fill="#FFFFFF"/>
+  </g>
+</svg>

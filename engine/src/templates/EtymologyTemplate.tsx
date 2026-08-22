@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Sequence, spring, interpolate, useCurrentFrame, useVideoConfig, Audio, staticFile, Easing } from 'remotion';
+import { AbsoluteFill, Sequence, spring, interpolate, useCurrentFrame, useVideoConfig, Audio, staticFile, Easing, Img } from 'remotion';
 import { COLORS, FONTS, SPRING_OVERSHOOT, SPRING_GENTLE, SPRING_BOUNCE, SPRING_SMOOTH, FPS } from '../shared/constants';
 import { FloatingParticles } from '../components/Icons';
 import { KanshuAppOutro } from '../components/AppOutro';
@@ -349,6 +349,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const isMashang = character === '马上';
   const isDarao = character === '打扰';
   const isChicu = character === '吃醋';
   const isDongxi = character === '东西';
@@ -369,8 +370,10 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const isScreen3 = frame >= screen2EndFrame && frame < screen3EndFrame;
   const isScreen4 = frame >= screen3EndFrame;
 
-  // --- KINETIC HERO HOOK PHASES (0 to 75 frames: ~1.25s) ---
-  const isHeroWordPhase = (isXihuan || isDongxi || isChicu || isDarao) && frame < (isDarao ? 68 : 75);
+  // --- KINETIC HERO HOOK PHASES ---
+  const isHeroWordPhase = isMashang
+    ? frame < 275
+    : (isXihuan || isDongxi || isChicu || isDarao) && frame < (isDarao ? 68 : 75);
   const isWordChinese = isHeroWordPhase && frame < 28;
   const isWordIs = isHeroWordPhase && frame >= 28 && frame < 43;
   const isWordWild = isHeroWordPhase && frame >= 43;
@@ -389,9 +392,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const springWild = spring({ frame: Math.max(0, frame - 43), fps, config: { damping: 9, mass: 0.5, stiffness: 300 } });
   const springInChinese = spring({ frame: Math.max(0, frame - (isDarao ? 22 : 24)), fps, config: { damping: 10, mass: 0.5, stiffness: 280 } });
 
-  // Camera Crash-Zoom Transition Spring (frames 75-105: ~1.25s to 1.75s)
+  // Camera Crash-Zoom Transition Spring
   const heroRevealSpring = spring({
-    frame: Math.max(0, frame - (isDarao ? 68 : 75)),
+    frame: Math.max(0, frame - (isMashang ? 275 : isDarao ? 68 : 75)),
     fps,
     config: { damping: 14, mass: 0.7, stiffness: 180 },
   });
@@ -738,7 +741,12 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   const altarSpring = spring({ frame: Math.max(0, frame - (anim.screen1.altarMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
   const muscleSpring = spring({ frame: Math.max(0, frame - (anim.screen1.muscleMention?.startFrame ?? 0)), fps, config: SPRING_BOUNCE });
 
-  const emojisData = isDarao
+  const emojisData = isMashang
+    ? [
+        { emoji: '🐎', label: '马 (Horse)', angleOffset: -Math.PI / 4, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedCloth },
+        { emoji: '🧗', label: '上 (Mount)', angleOffset: 5 * Math.PI / 4, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedWall },
+      ]
+    : isDarao
     ? [
         { emoji: '🔨', label: '打 (Strike)', angleOffset: -Math.PI / 4, scale: isMentionedCloth ? interpolate(clothSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedCloth },
         { emoji: '🐒', label: '扰 (Monkeys)', angleOffset: 5 * Math.PI / 4, scale: isMentionedWall ? interpolate(wallSpring, [0, 1], [0, 1.6]) : 0, active: isMentionedWall },
@@ -799,7 +807,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let currentBgColor = COLORS.bg;
   let isSceneDark = false;
 
-  if (isDarao) {
+  if (isDarao || isMashang) {
     if (isScreen1) {
       currentBgColor = bgDark;
       isSceneDark = true;
@@ -864,7 +872,151 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         {/* ============================================================ */}
         {isHeroWordPhase && (
           <AbsoluteFill style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 150 }}>
-            {isDarao ? (
+            {isMashang ? (
+              <AbsoluteFill style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                {/* 1. Fake iMessage Chat UI (frames 0 to 180 / 0.0s to 3.0s) */}
+                {frame < 180 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 280,
+                    width: 800,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 24,
+                  }}>
+                    {/* Recipient Message Bubble (pops in at frame 0) */}
+                    <div style={{
+                      alignSelf: 'flex-start',
+                      backgroundColor: '#1E293B',
+                      color: '#F8FAFC',
+                      padding: '24px 36px',
+                      borderRadius: '32px 32px 32px 8px',
+                      fontFamily: FONTS.display,
+                      fontSize: 40,
+                      fontWeight: 800,
+                      boxShadow: '0 15px 35px rgba(0,0,0,0.5)',
+                      border: '2px solid rgba(255,255,255,0.15)',
+                      transform: `scale(${interpolate(spring({ frame, fps, config: { damping: 12, mass: 0.5, stiffness: 240 } }), [0, 1], [0.5, 1])})`,
+                    }}>
+                      📍 "Where are you??" 😡
+                    </div>
+
+                    {/* Sender Message Bubble (pops in at frame 50) */}
+                    {frame >= 50 && (
+                      <div style={{
+                        alignSelf: 'flex-end',
+                        backgroundColor: '#FF6F59',
+                        color: '#FFFFFF',
+                        padding: '24px 36px',
+                        borderRadius: '32px 32px 8px 32px',
+                        fontFamily: FONTS.display,
+                        fontSize: 44,
+                        fontWeight: 900,
+                        boxShadow: '0 15px 35px rgba(255,111,89,0.5)',
+                        transform: `scale(${interpolate(spring({ frame: frame - 50, fps, config: { damping: 12, mass: 0.5, stiffness: 240 } }), [0, 1], [0.5, 1])})`,
+                      }}>
+                        💬 "马上! (Coming right now!)" 😇
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 2. Kinetic Words & Punchlines */}
+                {frame < 55 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 860,
+                    transform: `scale(${interpolate(springChinese, [0, 1], [0.5, 1.1])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 66,
+                    fontWeight: 900,
+                    color: '#FFFFFF',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                    filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.6))',
+                  }}>
+                    WHEN CHINESE PEOPLE SAY
+                  </div>
+                )}
+
+                {frame >= 55 && frame < 125 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 860,
+                    transform: `scale(${interpolate(spring({ frame: frame - 55, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } }), [0, 1], [0.4, 1.15])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 78,
+                    fontWeight: 900,
+                    color: '#FF6F59',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                    filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.8)) drop-shadow(0 0 30px rgba(255,111,89,0.9))',
+                  }}>
+                    "I'M DOING IT RIGHT NOW"
+                  </div>
+                )}
+
+                {frame >= 125 && frame < 180 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 860,
+                    transform: `scale(${interpolate(spring({ frame: frame - 125, fps, config: { damping: 10, mass: 0.5, stiffness: 280 } }), [0, 1], [0.5, 1.1])})`,
+                    fontFamily: FONTS.display,
+                    fontSize: 74,
+                    fontWeight: 900,
+                    color: '#FFFFFF',
+                    textAlign: 'center',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                    filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.6))',
+                  }}>
+                    THEY LITERALLY SAY:
+                  </div>
+                )}
+
+                {frame >= 180 && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 500,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 30,
+                  }}>
+                    <div style={{
+                      transform: `scale(${interpolate(spring({ frame: frame - 180, fps, config: { damping: 9, mass: 0.6, stiffness: 320 } }), [0, 1], [0.3, 1.2])})`,
+                      fontFamily: FONTS.display,
+                      fontSize: 74,
+                      fontWeight: 900,
+                      color: '#FF6F59',
+                      textAlign: 'center',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      filter: 'drop-shadow(0 20px 50px rgba(255,111,89,0.9)) drop-shadow(0 0 35px rgba(255,111,89,1))',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 14,
+                    }}>
+                      <span>ON A HORSE!</span>
+                      <span style={{ fontSize: 82 }}>🐎🔥</span>
+                    </div>
+
+                    {/* Galloping Samurai Cat Sketch popping in */}
+                    <div style={{
+                      transform: `scale(${interpolate(spring({ frame: frame - 180, fps, config: { damping: 12, mass: 0.6, stiffness: 240 } }), [0, 1], [0.4, 1.0])})`,
+                      filter: 'invert(1) drop-shadow(0 0 20px rgba(255,255,255,0.6))',
+                    }}>
+                      <Img
+                        src={staticFile(Math.floor((frame - 180) / 22) % 2 === 0 ? 'cats/mashang/cat_hook_f1.svg' : 'cats/mashang/cat_hook_f2.svg')}
+                        style={{ width: 440, height: 440, objectFit: 'contain' }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </AbsoluteFill>
+            ) : isDarao ? (
               <>
                 {isWordDaraoExcuseMe && (
                   <div style={{
@@ -1020,7 +1172,9 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 gap: 6
               }}>
                 <h1 style={{ fontFamily: FONTS.display, fontSize: 48, color: '#FF6F59', margin: 0, fontWeight: 900, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-                  {isDarao ? (
+                  {isMashang ? (
+                    frame >= 390 ? 'BUT WHY? 🤔' : 'LITERALLY: ON HORSEBACK 🐎'
+                  ) : isDarao ? (
                     frame >= 284 ? 'BUT WHY? 🤔' : frame >= 160 ? 'LITERALLY: HITTING MONKEYS 🐒' : 'EXCUSE ME 🐒'
                   ) : isChicu ? (
                     frame >= 271 ? 'BUT WHY? 🤔' : frame >= 169 ? 'LITERALLY: EATING VINEGAR 🍶' : 'JEALOUS 😒'
@@ -1031,7 +1185,13 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                   )}
                 </h1>
                 <div style={{ fontFamily: FONTS.display, fontSize: 28, color: '#FFFFFF', fontWeight: 700 }}>
-                  {isDarao ? (
+                  {isMashang ? (
+                    frame >= 390 ? (
+                      <span>Why does <span style={{ color: '#FF6F59' }}>{character}</span> mean Immediately?!</span>
+                    ) : (
+                      <span>Horse (<span style={{ color: '#FF6F59' }}>马</span>) + On Top (<span style={{ color: '#FF6F59' }}>上</span>)</span>
+                    )
+                  ) : isDarao ? (
                     frame >= 284 ? (
                       <span>Why does <span style={{ color: '#FF6F59' }}>{character}</span> mean Excuse Me?!</span>
                     ) : frame >= 160 ? (
@@ -1061,7 +1221,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'transform 0.2s ease',
               }}>
                 <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
-                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isDarao ? 'dǎ' : isChicu ? 'chī' : isDongxi ? 'dōng' : isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isDarao ? 'Striking with Hands' : isChicu ? 'Open Mouth & Begging for Food' : isDongxi ? 'Sunrise & Travel Sack' : isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
+                  Character 1: <span style={{ color: '#FF6F59' }}>{char1} ({isMashang ? 'mǎ' : isDarao ? 'dǎ' : isChicu ? 'chī' : isDongxi ? 'dōng' : isXihuan ? 'xǐ' : isKaishi ? 'kāi' : isJieshao ? 'jiè' : isWangji ? 'wàng' : isAiqing ? 'ài' : isPengyou ? 'péng' : 'bāng'})</span> — {isMashang ? 'Wild Galloping Horse' : isDarao ? 'Striking with Hands' : isChicu ? 'Open Mouth & Begging for Food' : isDongxi ? 'Sunrise & Travel Sack' : isXihuan ? 'Celebratory War Drum' : isKaishi ? 'Opening the Gate' : isJieshao ? 'Go-Between' : isWangji ? 'Disappearing Heart' : isAiqing ? 'Hand Embracing Friend' : isPengyou ? 'Twin Companions' : 'Protective Backing'}
                 </h2>
               </div>
             )}
@@ -1070,8 +1230,8 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transform: `scale(${interpolate(morph2To3, [0, 0.5, 1], [0.85, 1.05, 1.0])})`,
                 transition: 'transform 0.2s ease',
               }}>
-                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: (isDarao && isScreen3) ? '#FFFFFF' : '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
-                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isDarao ? 'rǎo' : isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isDarao ? 'Swatting Chaotic Monkeys' : isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
+                <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: ((isDarao || isMashang) && isScreen3) ? '#FFFFFF' : '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
+                  Character 2: <span style={{ color: '#FF6F59' }}>{char2} ({isMashang ? 'shàng' : isDarao ? 'rǎo' : isChicu ? 'cù' : isDongxi ? 'xī' : isXihuan ? 'huān' : isKaishi ? 'shǐ' : isJieshao ? 'shào' : isWangji ? 'jì' : isAiqing ? 'qíng' : isPengyou ? 'yǒu' : 'zhù'})</span> — {isMashang ? 'Baseline & Mounting Upward' : isDarao ? 'Swatting Chaotic Monkeys' : isChicu ? 'Wine Jar & Fermented Vinegar' : isDongxi ? 'Sunset & Bird in Nest' : isXihuan ? 'Singing Bird & Cheering' : isKaishi ? 'New Life & Origin' : isJieshao ? 'Linking Thread' : isWangji ? 'Recording Words' : isAiqing ? 'Youthful Heart' : isPengyou ? 'Helping Hands' : 'Muscle Power'}
                 </h2>
               </div>
             )}
@@ -1081,7 +1241,7 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 transition: 'transform 0.2s ease',
               }}>
                 <h2 style={{ fontFamily: FONTS.display, fontSize: 38, color: '#0F172A', margin: 0, lineHeight: 1.25, maxWidth: 820 }}>
-                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isDarao ? 'Hand Strike + Wild Monkeys = Excuse Me!' : isChicu ? 'Drinking Vinegar = Romantic Jealousy!' : isDongxi ? 'East Market + West Market!' : isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
+                  Synthesis: <span style={{ color: '#FF6F59' }}>{character}</span> = {isMashang ? 'Imperial Messenger on Horseback = Immediately!' : isDarao ? 'Hand Strike + Wild Monkeys = Excuse Me!' : isChicu ? 'Drinking Vinegar = Romantic Jealousy!' : isDongxi ? 'East Market + West Market!' : isXihuan ? 'Victory Drum + Joyful Cheering!' : isKaishi ? 'Opening Gates + Giving Birth!' : isJieshao ? 'Connecting Two Parties!' : isWangji ? 'Disappearing from Memory!' : isAiqing ? 'Blossoming Affection!' : isPengyou ? 'Companions + Helping Hands!' : 'Protection + Muscle!'}
                 </h2>
               </div>
             )}
@@ -1106,10 +1266,10 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 fontSize: 210,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
-                color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : (isDarao && (isScreen1 || isScreen3) ? '#FFFFFF' : '#0F172A'),
+                color: isScreen4BangHighlight || isScreen2 ? '#FF6F59' : ((isDarao || isMashang) && (isScreen1 || isScreen3) ? '#FFFFFF' : '#0F172A'),
                 textShadow: isScreen2 || isScreen4BangHighlight
                   ? '0 16px 50px rgba(255, 111, 89, 0.45)'
-                  : (isDarao && (isScreen1 || isScreen3))
+                  : ((isDarao || isMashang) && (isScreen1 || isScreen3))
                   ? '0 16px 50px rgba(255, 255, 255, 0.25)'
                   : '0 10px 30px rgba(15,23,42,0.1)',
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
@@ -1125,10 +1285,10 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
                 fontSize: 210,
                 fontWeight: 900,
                 fontFamily: '"Noto Sans SC", sans-serif',
-                color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : (isDarao && (isScreen1 || isScreen3) ? '#FFFFFF' : '#0F172A'),
+                color: isScreen4ZhuHighlight || isScreen3 ? '#FF6F59' : ((isDarao || isMashang) && (isScreen1 || isScreen3) ? '#FFFFFF' : '#0F172A'),
                 textShadow: isScreen3 || isScreen4ZhuHighlight
                   ? '0 16px 50px rgba(255, 111, 89, 0.45)'
-                  : (isDarao && (isScreen1 || isScreen3))
+                  : ((isDarao || isMashang) && (isScreen1 || isScreen3))
                   ? '0 16px 50px rgba(255, 255, 255, 0.25)'
                   : '0 10px 30px rgba(15,23,42,0.1)',
                 transition: 'color 0.25s ease, text-shadow 0.25s ease',
@@ -1182,7 +1342,22 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           </div>
 
           {/* SCENE 1 CARD */}
-          {isDarao ? (
+          {isMashang ? (
+            <OrganicCenterTag
+              emoji="🐎"
+              radical="马上"
+              pinyin="mǎ shàng"
+              translation="On Horseback = Immediately"
+              catImages={[
+                'cats/mashang/cat_hook_f1.svg',
+                'cats/mashang/cat_hook_f2.svg',
+              ]}
+              frame={frame}
+              enterFrame={275}
+              exitFrame={anim.screen1.endFrame}
+              isDarkMode={true}
+            />
+          ) : isDarao ? (
             <OrganicCenterTag
               emoji="🐒"
               radical="打扰"
@@ -1287,7 +1462,49 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 2 CARDS */}
-          {isDarao ? (
+          {isMashang ? (
+            <>
+              <OrganicCenterTag
+                emoji="✨"
+                radical="马"
+                pinyin="mǎ"
+                translation="Flowing Mane of a Wild Horse"
+                catImages={[
+                  'cats/mashang/cat_mane_f1.svg',
+                  'cats/mashang/cat_mane_f2.svg',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.startFrame}
+                exitFrame={anim.screen2.bottomJin.startFrame}
+              />
+              <OrganicCenterTag
+                emoji="🐎"
+                radical="马"
+                pinyin="mǎ"
+                translation="Four Galloping Hooves"
+                catImages={[
+                  'cats/mashang/cat_hooves_f1.svg',
+                  'cats/mashang/cat_hooves_f2.svg',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.bottomJin.startFrame}
+                exitFrame={anim.screen2.wholeBang.startFrame}
+              />
+              <OrganicCenterTag
+                emoji="🏇"
+                radical="马"
+                pinyin="mǎ"
+                translation="Wild Galloping Horse"
+                catImages={[
+                  'cats/mashang/cat_horse_f1.svg',
+                  'cats/mashang/cat_horse_f2.svg',
+                ]}
+                frame={frame}
+                enterFrame={anim.screen2.wholeBang.startFrame}
+                exitFrame={anim.screen2.endFrame}
+              />
+            </>
+          ) : isDarao ? (
             <>
               <OrganicCenterTag
                 emoji="✋"
@@ -1566,7 +1783,22 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 3 CARDS */}
-          {isDarao ? (
+          {isMashang ? (
+            <OrganicCenterTag
+              emoji="🧗"
+              radical="上"
+              pinyin="shàng"
+              translation="Baseline & Mounting Upward"
+              catImages={[
+                'cats/mashang/cat_mount_f1.svg',
+                'cats/mashang/cat_mount_f2.svg',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen3.startFrame}
+              exitFrame={anim.screen3.endFrame}
+              isDarkMode={true}
+            />
+          ) : isDarao ? (
             <>
               <OrganicCenterTag
                 emoji="✋"
@@ -1849,7 +2081,21 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
           )}
 
           {/* SCENE 4 CARD */}
-          {isDarao ? (
+          {isMashang ? (
+            <OrganicCenterTag
+              emoji="📜"
+              radical="马上"
+              pinyin="mǎ shàng"
+              translation="Imperial Messages Delivered on Horseback!"
+              catImages={[
+                'cats/mashang/cat_courier_f1.svg',
+                'cats/mashang/cat_courier_f2.svg',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen4.startFrame}
+              exitFrame={anim.screen4.endFrame}
+            />
+          ) : isDarao ? (
             <OrganicCenterTag
               emoji="🙇"
               radical="打扰"
@@ -1958,14 +2204,41 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
         </AbsoluteFill>
 
         {/* SFX: IMPACT BOOM ON FRAME 0 */}
-        <Sequence from={0} durationInFrames={40}>
-          <Audio src={staticFile('sfx_hit.mp3')} volume={0.4} />
-        </Sequence>
+        {isMashang ? (
+          <>
+            {/* Frame 0: iOS Message Pop */}
+            <Sequence from={0} durationInFrames={20}>
+              <Audio src={staticFile('sfx_msg_pop.mp3')} volume={0.85} />
+            </Sequence>
+            {/* Frame 50: Outgoing Message Pop */}
+            <Sequence from={50} durationInFrames={20}>
+              <Audio src={staticFile('sfx_msg_pop.mp3')} volume={0.85} />
+            </Sequence>
+            {/* Frame 170: Horse Ambush Whoosh */}
+            <Sequence from={170} durationInFrames={25}>
+              <Audio src={staticFile('sfx_whoosh.mp3')} volume={0.7} />
+            </Sequence>
+            {/* Frame 180: ON A HORSE Slam Impact */}
+            <Sequence from={180} durationInFrames={35}>
+              <Audio src={staticFile('sfx_hit.mp3')} volume={0.9} />
+            </Sequence>
+            {/* Synthesis Royal Chime */}
+            <Sequence from={screen3EndFrame} durationInFrames={45}>
+              <Audio src={staticFile('sfx_chime.mp3')} volume={0.75} />
+            </Sequence>
+          </>
+        ) : (
+          <Sequence from={0} durationInFrames={40}>
+            <Audio src={staticFile('sfx_hit.mp3')} volume={0.4} />
+          </Sequence>
+        )}
 
         {/* SFX: POP ON WILD WORD IMPACT (Frame 43) */}
-        <Sequence from={43} durationInFrames={20}>
-          <Audio src={staticFile('sfx_pop.mp3')} volume={0.6} />
-        </Sequence>
+        {!isMashang && (
+          <Sequence from={43} durationInFrames={20}>
+            <Audio src={staticFile('sfx_pop.mp3')} volume={0.6} />
+          </Sequence>
+        )}
 
         {/* SFX: WHOOSH ON SCENE TRANSITIONS */}
         <Sequence from={screen1EndFrame} durationInFrames={25}>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <g stroke="#0F172A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Speed Lines -->
+    <path d="M 50 320 L 180 320" stroke-width="10" opacity="0.6"/>
+    <path d="M 80 480 L 220 480" stroke-width="10" opacity="0.6"/>
+    <path d="M 40 620 L 160 620" stroke-width="10" opacity="0.6"/>
+    
+    <!-- Horse Gallop -->
+    <!-- Tail -->
+    <path d="M 220 480 C 140 420, 120 560, 160 600" stroke-width="16"/>
+    <path d="M 210 500 C 150 470, 140 580, 180 620" stroke-width="12"/>
+    
+    <!-- Body -->
+    <path d="M 240 520 C 280 440, 460 440, 540 480 C 620 420, 680 300, 700 240 C 730 250, 750 300, 720 360 C 680 460, 600 560, 540 580 C 460 640, 320 640, 240 520 Z" fill="#FFFFFF"/>
+    
+    <!-- Horse Head & Ears -->
+    <path d="M 700 240 L 690 190 L 720 220 Z" fill="#FFFFFF"/>
+    <path d="M 715 225 L 730 180 L 745 220 Z" fill="#FFFFFF"/>
+    <path d="M 700 240 C 740 220, 770 260, 760 300 C 750 330, 710 340, 680 320" fill="#FFFFFF"/>
+    
+    <!-- Horse Eye & Nostril -->
+    <circle cx="730" cy="260" r="6" fill="#0F172A"/>
+    <circle cx="755" cy="295" r="5" fill="#0F172A"/>
+    
+    <!-- Flowing Mane -->
+    <path d="M 640 340 C 590 300, 580 360, 540 380" stroke-width="12"/>
+    <path d="M 600 400 C 560 370, 540 420, 500 440" stroke-width="12"/>
+    
+    <!-- Legs (Galloping) -->
+    <path d="M 520 580 C 580 660, 640 720, 700 740"/>
+    <path d="M 500 600 C 540 660, 580 720, 620 750"/>
+    <path d="M 280 580 C 220 650, 180 710, 140 730"/>
+    <path d="M 320 600 C 280 660, 240 720, 200 740"/>
+    
+    <!-- Hooves -->
+    <rect x="690" y="730" width="25" height="20" rx="4" fill="#0F172A"/>
+    <rect x="610" y="740" width="25" height="20" rx="4" fill="#0F172A"/>
+    <rect x="130" y="720" width="25" height="20" rx="4" fill="#0F172A"/>
+    <rect x="190" y="730" width="25" height="20" rx="4" fill="#0F172A"/>
+    
+    <!-- Cute Samurai Cat Riding -->
+    <!-- Cat Body -->
+    <ellipse cx="380" cy="360" rx="90" ry="80" fill="#FFFFFF"/>
+    <!-- Cat Head -->
+    <ellipse cx="380" cy="240" rx="85" ry="75" fill="#FFFFFF"/>
+    <!-- Cat Ears -->
+    <path d="M 320 190 L 310 120 L 360 170 Z" fill="#FFFFFF"/>
+    <path d="M 440 190 L 450 120 L 400 170 Z" fill="#FFFFFF"/>
+    <!-- Headband -->
+    <path d="M 295 220 Q 380 240 465 220" stroke="#FF6F59" stroke-width="14"/>
+    <path d="M 295 220 L 238 200" stroke="#FF6F59" stroke-width="12"/>
+    <path d="M 295 220 L 248 240" stroke="#FF6F59" stroke-width="12"/>
+    <!-- Happy Face -->
+    <path d="M 340 245 Q 355 230 370 245" stroke-width="8"/>
+    <path d="M 390 245 Q 405 230 420 245" stroke-width="8"/>
+    <polygon points="375,255 385,255 380,262" fill="#0F172A"/>
+    <path d="M 370 265 Q 380 275 390 265" stroke-width="6"/>
+    <!-- Whiskers -->
+    <path d="M 320 250 L 280 245"/>
+    <path d="M 320 260 L 280 265"/>
+    <path d="M 440 250 L 480 245"/>
+    <path d="M 440 260 L 480 265"/>
+    <!-- Holding Reins -->
+    <ellipse cx="440" cy="360" rx="20" ry="18" fill="#FFFFFF"/>
+    <path d="M 455 360 L 730 310" stroke="#0F172A" stroke-width="8"/>
+  </g>
+</svg>

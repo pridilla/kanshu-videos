@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <g stroke="#0F172A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Clouds Below -->
+    <path d="M 120 700 Q 180 640 250 700 Q 320 640 400 700 Q 480 640 560 700 Q 640 640 720 700" stroke-width="12" opacity="0.7"/>
+    
+    <!-- Royal Horse -->
+    <!-- Tail -->
+    <path d="M 230 490 C 150 430, 130 570, 170 610" stroke-width="16"/>
+    <!-- Body -->
+    <path d="M 250 530 C 290 450, 470 450, 550 490 C 630 430, 690 310, 710 250 C 740 260, 760 310, 730 370 C 690 470, 610 570, 550 590 C 470 650, 330 650, 250 530 Z" fill="#FFFFFF"/>
+    <!-- Head -->
+    <path d="M 710 250 L 700 200 L 730 230 Z" fill="#FFFFFF"/>
+    <circle cx="740" cy="270" r="6" fill="#0F172A"/>
+    <!-- Golden Saddle -->
+    <path d="M 330 470 Q 420 500 510 470" stroke="#FF6F59" stroke-width="18"/>
+
+    <!-- Imperial Courier Cat with Official Hat & Royal Scroll -->
+    <ellipse cx="420" cy="360" rx="90" ry="80" fill="#FFFFFF"/>
+    <ellipse cx="420" cy="240" rx="85" ry="75" fill="#FFFFFF"/>
+    <!-- Ears -->
+    <path d="M 360 190 L 350 120 L 400 170 Z" fill="#FFFFFF"/>
+    <path d="M 480 190 L 490 120 L 440 170 Z" fill="#FFFFFF"/>
+    <!-- Imperial Official Hat -->
+    <ellipse cx="420" cy="170" rx="70" ry="20" fill="#0F172A"/>
+    <path d="M 380 170 L 390 120 L 450 120 L 460 170 Z" fill="#0F172A"/>
+    <line x1="330" y1="170" x2="510" y2="170" stroke="#FF6F59" stroke-width="8"/>
+    <!-- Happy Confident Face -->
+    <path d="M 380 245 Q 395 230 410 245" stroke-width="8"/>
+    <path d="M 430 245 Q 445 230 460 245" stroke-width="8"/>
+    <polygon points="415,255 425,255 420,262" fill="#0F172A"/>
+    <path d="M 410 265 Q 420 275 430 265" stroke-width="6"/>
+
+    <!-- Imperial Golden Scroll in Hand -->
+    <rect x="490" y="310" width="110" height="45" rx="8" fill="#FFFFFF" stroke="#FF6F59" stroke-width="12"/>
+    <line x1="505" y1="295" x2="505" y2="370" stroke="#FF6F59" stroke-width="14"/>
+    <line x1="585" y1="295" x2="585" y2="370" stroke="#FF6F59" stroke-width="14"/>
+    <line x1="530" y1="332" x2="560" y2="332" stroke="#0F172A" stroke-width="8"/>
+  </g>
+</svg>

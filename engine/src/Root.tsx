@@ -17,6 +17,7 @@ import xihuanConfig from '../../content/10_etymology_xihuan/config.json';
 import dongxiConfig from '../../content/11_etymology_dongxi/config.json';
 import chicuConfig from '../../content/11_etymology_chicu/config.json';
 import daraoConfig from '../../content/12_etymology_darao/config.json';
+import mashangConfig from '../../content/13_etymology_mashang/config.json';
 
 // ────────────────────────────────────────────────────────────
 // FONT LOADER GUARD
@@ -115,9 +116,24 @@ export const Root: React.FC = () => {
       const dongxiTotalFrames = dongxiConfig.lessonDurationInFrames + (dongxiConfig.outroDurationInFrames || 0);
       const chicuTotalFrames = chicuConfig.lessonDurationInFrames + (chicuConfig.outroDurationInFrames || 0);
       const daraoTotalFrames = daraoConfig.lessonDurationInFrames + (daraoConfig.outroDurationInFrames || 0);
+  const mashangTotalFrames = mashangConfig.lessonDurationInFrames;
 
   return (
     <>
+      {/* Etymology Video Template Composition (Video #13: 马上) */}
+      <Composition
+        id="EtymologyMashang"
+        component={() => (
+          <FontLoader>
+            <EtymologyTemplate {...(mashangConfig as EtymologyConfig)} />
+          </FontLoader>
+        )}
+        durationInFrames={mashangTotalFrames}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
       {/* Etymology Video Template Composition (Video #12: 打扰) */}
       <Composition
         id="EtymologyDarao"
