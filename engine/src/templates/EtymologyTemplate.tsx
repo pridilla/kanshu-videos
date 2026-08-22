@@ -515,22 +515,10 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot2R = isKaishi || isXihuan ? 180 : 120;
 
   if (isMashang) {
-    if (isScreen2TopBang) {
-      // Mane of 马 (top part)
-      spot2X = 540;
-      spot2Y = 90;
-      spot2R = 75;
-    } else if (isScreen2BottomJin) {
-      // 4 Hooves of 马 (bottom part)
-      spot2X = 540;
-      spot2Y = 245;
-      spot2R = 70;
-    } else if (isScreen2WholeBang) {
-      // Whole 马
-      spot2X = 540;
-      spot2Y = 160;
-      spot2R = 150;
-    }
+    // 马 is an intact pictograph of a horse (focus on whole character)
+    spot2X = 540;
+    spot2Y = 160;
+    spot2R = 150;
   } else if (isDarao) {
     if (isScreen2TopBang) {
       // 扌 (left)
@@ -638,22 +626,10 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
   let spot3R = isKaishi || isXihuan || isDongxi ? 180 : 230;
 
   if (isMashang) {
-    if (isScreen3LeftQie) {
-      // Baseline stroke of 上 (bottom horizontal)
-      spot3X = 540;
-      spot3Y = 265;
-      spot3R = 60;
-    } else if (isScreen3RightLi) {
-      // Upward rising stroke of 上 (vertical stem)
-      spot3X = 540;
-      spot3Y = 115;
-      spot3R = 85;
-    } else {
-      // Whole 上
-      spot3X = 540;
-      spot3Y = 160;
-      spot3R = 145;
-    }
+    // 上 is an intact ideograph (focus on whole character)
+    spot3X = 540;
+    spot3Y = 160;
+    spot3R = 145;
   } else if (isDarao) {
     if (isScreen3LeftQie) {
       // 扌 (left)
@@ -1506,47 +1482,19 @@ export const EtymologyTemplate: React.FC<EtymologyConfig> = ({
 
           {/* SCENE 2 CARDS */}
           {isMashang ? (
-            <>
-              <OrganicCenterTag
-                emoji="✨"
-                radical="马"
-                pinyin="mǎ"
-                translation="Flowing Mane of a Wild Horse"
-                catImages={[
-                  'cats/mashang/cat_mane_f1.svg',
-                  'cats/mashang/cat_mane_f2.svg',
-                ]}
-                frame={frame}
-                enterFrame={anim.screen2.startFrame}
-                exitFrame={anim.screen2.bottomJin.startFrame}
-              />
-              <OrganicCenterTag
-                emoji="🐎"
-                radical="马"
-                pinyin="mǎ"
-                translation="Four Galloping Hooves"
-                catImages={[
-                  'cats/mashang/cat_hooves_f1.svg',
-                  'cats/mashang/cat_hooves_f2.svg',
-                ]}
-                frame={frame}
-                enterFrame={anim.screen2.bottomJin.startFrame}
-                exitFrame={anim.screen2.wholeBang.startFrame}
-              />
-              <OrganicCenterTag
-                emoji="🏇"
-                radical="马"
-                pinyin="mǎ"
-                translation="Wild Galloping Horse"
-                catImages={[
-                  'cats/mashang/cat_horse_f1.svg',
-                  'cats/mashang/cat_horse_f2.svg',
-                ]}
-                frame={frame}
-                enterFrame={anim.screen2.wholeBang.startFrame}
-                exitFrame={anim.screen2.endFrame}
-              />
-            </>
+            <OrganicCenterTag
+              emoji="🐎"
+              radical="马"
+              pinyin="mǎ"
+              translation="Pictograph of a Wild Horse (Mane & Hooves)"
+              catImages={[
+                'cats/mashang/cat_horse_f1.svg',
+                'cats/mashang/cat_horse_f2.svg',
+              ]}
+              frame={frame}
+              enterFrame={anim.screen2.startFrame}
+              exitFrame={anim.screen2.endFrame}
+            />
           ) : isDarao ? (
             <>
               <OrganicCenterTag
